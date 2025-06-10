@@ -1,4 +1,3 @@
-
 const startBtn = document.getElementById("startBtn");
 const gameArea = document.getElementById("gameArea");
 const gameSetup = document.getElementById("gameSetup");
@@ -29,7 +28,7 @@ function drawCard() {
 }
 
 function displayCard(cardNumber) {
-  const fileName = cardNumber < 10 ? `card_${cardNumber}.png` : `card_10.PNG`;
+  const fileName = `card_${cardNumber}.png`; // <- Estensione minuscola
   currentCardImg.src = `cards/${fileName}`;
 }
 
