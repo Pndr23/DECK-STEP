@@ -1,3 +1,4 @@
+
 const startBtn = document.getElementById("startBtn");
 const gameArea = document.getElementById("gameArea");
 const gameSetup = document.getElementById("gameSetup");
@@ -24,11 +25,11 @@ function startGame() {
 }
 
 function drawCard() {
-  return Math.floor(Math.random() * 10) + 1;
+  return Math.floor(Math.random() * 13) + 1;
 }
 
 function displayCard(cardNumber) {
-  const fileName = `card_${cardNumber}.PNG`; // usa maiuscola se le immagini sono così 
+  const fileName = `card_${cardNumber}.png`;
   currentCardImg.src = `cards/${fileName}`;
 }
 
@@ -55,7 +56,7 @@ function generateChallenge() {
     addButton("Dentro");
     addButton("Fuori");
   } else if (selectedChallenge === "Numero Esatto") {
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 13; i++) {
       addButton(i.toString());
     }
   }
