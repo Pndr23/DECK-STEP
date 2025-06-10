@@ -29,7 +29,7 @@ function drawCard() {
 }
 
 function displayCard(cardNumber) {
-  const fileName = cardNumber < 10 ? `card_${cardNumber}.PNG` : `card_10.PNG`;
+  const fileName = cardNumber < 10 ? `card_${cardNumber}.png` : `card_10.PNG`;
   currentCardImg.src = `cards/${fileName}`;
 }
 
