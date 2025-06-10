@@ -28,7 +28,7 @@ function drawCard() {
 }
 
 function displayCard(cardNumber) {
-  const fileName = `card_${cardNumber}.png`; // <- Estensione minuscola
+  const fileName = `card_${cardNumber}.PNG`; // usa maiuscola se le immagini sono così 
   currentCardImg.src = `cards/${fileName}`;
 }
 
