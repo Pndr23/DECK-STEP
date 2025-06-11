@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Carta Passo - Step 4</title>
+  <title>Carta Passo</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -27,6 +26,19 @@
       </select>
 
       <button id="startBtn">Inizia la partita</button>
+      <button id="rulesBtn">Regole del gioco</button>
+    </div>
+
+    <div class="rules-section hidden" id="rulesSection">
+      <h2>Regolamento Ufficiale – Carta Passo</h2>
+      <p><strong>1. Descrizione Generale:</strong> Carta Passo è un gioco di carte a tappe in cui...</p>
+      <p><strong>2. Il Mazzo:</strong> Mazzo da 40 carte numerate da 1 a 10, ogni numero è presente 4 volte...</p>
+      <p><strong>3. Modalità di Gioco:</strong> Si sceglie puntata e rischio (Easy, Medium, Hard)...</p>
+      <p><strong>4. Tipologie di Sfide:</strong> Maggiore o Minore, Pari o Dispari, Dentro o Fuori, Numero esatto...</p>
+      <p><strong>5. Struttura a Tappe:</strong> 10 tappe con moltiplicatori da x1.2 a x100 (Jackpot)...</p>
+      <p><strong>6. Carta Jolly:</strong> Dopo 3 tappe corrette si ottiene una jolly che può annullare un errore...</p>
+      <p><strong>7. Fine della partita:</strong> Quando si sbaglia o si arriva alla fine o si incassa...</p>
+      <button onclick="toggleRules()">Chiudi</button>
     </div>
 
     <div id="gameArea" class="hidden">

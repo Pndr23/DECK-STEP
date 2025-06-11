@@ -18,6 +18,13 @@ startBtn.addEventListener("click", () => {
   startGame();
 });
 
+document.getElementById("rulesBtn").addEventListener("click", toggleRules);
+
+function toggleRules() {
+  const rules = document.getElementById("rulesSection");
+  rules.classList.toggle("hidden");
+}
+
 function startGame() {
   currentCard = drawCard();
   displayCard(currentCard);
@@ -29,7 +36,7 @@ function drawCard() {
 }
 
 function displayCard(cardNumber) {
-  const fileName = `card_${cardNumber}.png`;
+  const fileName = cardNumber < 10 ? `card_${cardNumber}.png` : `card_10.png`;
   currentCardImg.src = `cards/${fileName}`;
 }
 
@@ -65,33 +72,6 @@ function generateChallenge() {
 function addButton(text) {
   const btn = document.createElement("button");
   btn.textContent = text;
-  btn.onclick = () => checkAnswer(text);
+  btn.onclick = () => alert(`Hai scelto: ${text}`);
   challengeButtons.appendChild(btn);
-}
-
-function checkAnswer(choice) {
-  const nextCard = drawCard();
-  displayCard(nextCard);
-
-  let correct = false;
-  const type = challengeText.textContent.split(": ")[1].split(" ")[0];
-
-  if (type === "Maggiore") {
-    correct = nextCard > currentCard && choice === "Maggiore";
-    correct ||= nextCard < currentCard && choice === "Minore";
-  } else if (type === "Pari") {
-    correct = nextCard % 2 === 0 && choice === "Pari";
-    correct ||= nextCard % 2 !== 0 && choice === "Dispari";
-  } else if (type === "Dentro") {
-    const a = parseInt(challengeButtons.dataset.rangeA);
-    const b = parseInt(challengeButtons.dataset.rangeB);
-    correct = nextCard > a && nextCard < b && choice === "Dentro";
-    correct ||= (nextCard <= a || nextCard >= b) && choice === "Fuori";
-  } else if (type === "Numero") {
-    correct = nextCard.toString() === choice;
-  }
-
-  alert(correct ? "Risposta corretta!" : "Risposta sbagliata!");
-  currentCard = nextCard;
-  generateChallenge();
 }
