@@ -1,29 +1,43 @@
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Carta Passo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carta Passo - Step 4</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1 id="gameTitle">Carta Passo</h1>
-
-    <div class="language-selector">
-      <label for="language" id="langLabel">Lingua:</label>
-      <select id="language">
-        <option value="it">Italiano</option>
-        <option value="en">English</option>
+    <h1>Carta Passo</h1>
+    <div id="gameSetup" class="setup">
+      <label for="bet">Puntata:</label>
+      <select id="bet">
+        <option value="0.5">€0.50</option>
+        <option value="1">€1</option>
+        <option value="2">€2</option>
+        <option value="5">€5</option>
       </select>
-    </div>
 
-    <div id="rulesSection" class="rules">
-      <!-- Regolamento inserito via JS -->
-    </div>
+      <label for="risk">Modalità rischio:</label>
+      <select id="risk">
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+      </select>
 
-    <div class="start-area">
       <button id="startBtn">Inizia la partita</button>
+    </div>
+
+    <div id="gameArea" class="hidden">
+      <div id="cardDisplay">
+        <p>Carta attuale:</p>
+        <img id="currentCardImg" src="" alt="Carta" />
+      </div>
+      <div id="challengeArea">
+        <p id="challengeText">Sfida in corso...</p>
+        <div id="challengeButtons"></div>
+      </div>
     </div>
   </div>
 
