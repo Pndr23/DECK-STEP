@@ -1,25 +1,37 @@
+
 const startBtn = document.getElementById("startBtn");
 const gameArea = document.getElementById("gameArea");
 const gameSetup = document.getElementById("gameSetup");
 const challengeText = document.getElementById("challengeText");
 const challengeButtons = document.getElementById("challengeButtons");
 const currentCardImg = document.getElementById("currentCardImg");
-const restartBtn = document.getElementById("restartBtn");
+const stepDisplay = document.getElementById("stepDisplay");
+const pointsDisplay = document.getElementById("pointsDisplay");
+const errorsDisplay = document.getElementById("errorsDisplay");
 
 let currentCard = null;
+let step = 0;
+let points = 0;
+let errors = 0;
+let bet = 1;
+let risk = "easy";
+
+const multipliers = [1, 1.2, 1.5, 2, 3, 5, 8, 12, 20, 40, 100];
 
 startBtn.addEventListener("click", () => {
-  const bet = document.getElementById("bet").value;
-  const risk = document.getElementById("risk").value;
+  bet = parseFloat(document.getElementById("bet").value);
+  risk = document.getElementById("risk").value;
+
+  step = 0;
+  points = 0;
+  errors = 0;
+
+  updateStatus();
 
   gameSetup.classList.add("hidden");
   gameArea.classList.remove("hidden");
 
   startGame();
-});
-
-restartBtn.addEventListener("click", () => {
-  resetGame();
 });
 
 function startGame() {
@@ -28,22 +40,12 @@ function startGame() {
   generateChallenge();
 }
 
-function resetGame() {
-  currentCard = null;
-  currentCardImg.src = "";
-  challengeButtons.innerHTML = "";
-  challengeText.textContent = "Sfida in corso...";
-  gameSetup.classList.remove("hidden");
-  gameArea.classList.add("hidden");
-}
-
 function drawCard() {
   return Math.floor(Math.random() * 10) + 1;
 }
 
 function displayCard(cardNumber) {
-  const fileName = cardNumber < 10 ? `card_${cardNumber}.png` : `card_10.png`;
-  currentCardImg.src = `cards/${fileName}`;
+  currentCardImg.src = `cards/card_${cardNumber}.png`;
 }
 
 function generateChallenge() {
@@ -78,6 +80,35 @@ function generateChallenge() {
 function addButton(text) {
   const btn = document.createElement("button");
   btn.textContent = text;
-  btn.onclick = () => alert(`Hai scelto: ${text}`);
+  btn.onclick = () => handleChoice(text);
   challengeButtons.appendChild(btn);
+}
+
+function handleChoice(choice) {
+  const newCard = drawCard();
+  const correct = Math.random() < 0.5; // Simulazione
+  displayCard(newCard);
+
+  if (correct) {
+    step++;
+    points = bet * multipliers[step];
+  } else {
+    errors++;
+    if (risk === "easy") step = Math.max(0, step - 2);
+    else if (risk === "medium") step = 0;
+    else if (risk === "hard") {
+      step = 0;
+      points = 0;
+    }
+  }
+
+  updateStatus();
+  currentCard = newCard;
+  generateChallenge();
+}
+
+function updateStatus() {
+  stepDisplay.textContent = `Tappa: ${step}`;
+  pointsDisplay.textContent = `Punti: €${points.toFixed(2)}`;
+  errorsDisplay.textContent = `Errori: ${errors}`;
 }
