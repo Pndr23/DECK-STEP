@@ -1,18 +1,12 @@
-
 const startBtn = document.getElementById("startBtn");
 const gameArea = document.getElementById("gameArea");
 const gameSetup = document.getElementById("gameSetup");
 const challengeText = document.getElementById("challengeText");
 const challengeButtons = document.getElementById("challengeButtons");
 const currentCardImg = document.getElementById("currentCardImg");
+const restartBtn = document.getElementById("restartBtn");
 
 let currentCard = null;
-let currentStep = 1;
-let errorCount = 0;
-
-const stepCounter = document.getElementById("stepCounter");
-const errorCounter = document.getElementById("errorCounter");
-
 
 startBtn.addEventListener("click", () => {
   const bet = document.getElementById("bet").value;
@@ -24,17 +18,23 @@ startBtn.addEventListener("click", () => {
   startGame();
 });
 
-document.getElementById("rulesBtn").addEventListener("click", toggleRules);
-
-function toggleRules() {
-  const rules = document.getElementById("rulesSection");
-  rules.classList.toggle("hidden");
-}
+restartBtn.addEventListener("click", () => {
+  resetGame();
+});
 
 function startGame() {
   currentCard = drawCard();
   displayCard(currentCard);
   generateChallenge();
+}
+
+function resetGame() {
+  currentCard = null;
+  currentCardImg.src = "";
+  challengeButtons.innerHTML = "";
+  challengeText.textContent = "Sfida in corso...";
+  gameSetup.classList.remove("hidden");
+  gameArea.classList.add("hidden");
 }
 
 function drawCard() {
@@ -78,22 +78,6 @@ function generateChallenge() {
 function addButton(text) {
   const btn = document.createElement("button");
   btn.textContent = text;
-  
-  btn.onclick = () => {
-    const result = Math.random() < 0.7; // Placeholder: 70% di successo
-    if (result) {
-      currentStep++;
-      stepCounter.textContent = "Tappa: " + currentStep;
-      alert("Corretto!");
-    } else {
-      errorCount++;
-      errorCounter.textContent = "Errori: " + errorCount;
-      alert("Errore!");
-    }
-    currentCard = drawCard();
-    displayCard(currentCard);
-    generateChallenge();
-  };
-
+  btn.onclick = () => alert(`Hai scelto: ${text}`);
   challengeButtons.appendChild(btn);
 }
