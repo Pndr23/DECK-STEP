@@ -7,6 +7,12 @@ const challengeButtons = document.getElementById("challengeButtons");
 const currentCardImg = document.getElementById("currentCardImg");
 
 let currentCard = null;
+let currentStep = 1;
+let errorCount = 0;
+
+const stepCounter = document.getElementById("stepCounter");
+const errorCounter = document.getElementById("errorCounter");
+
 
 startBtn.addEventListener("click", () => {
   const bet = document.getElementById("bet").value;
@@ -72,6 +78,22 @@ function generateChallenge() {
 function addButton(text) {
   const btn = document.createElement("button");
   btn.textContent = text;
-  btn.onclick = () => alert(`Hai scelto: ${text}`);
+  
+  btn.onclick = () => {
+    const result = Math.random() < 0.7; // Placeholder: 70% di successo
+    if (result) {
+      currentStep++;
+      stepCounter.textContent = "Tappa: " + currentStep;
+      alert("Corretto!");
+    } else {
+      errorCount++;
+      errorCounter.textContent = "Errori: " + errorCount;
+      alert("Errore!");
+    }
+    currentCard = drawCard();
+    displayCard(currentCard);
+    generateChallenge();
+  };
+
   challengeButtons.appendChild(btn);
 }
