@@ -1,11 +1,17 @@
+
 const startBtn = document.getElementById("startBtn");
 const gameArea = document.getElementById("gameArea");
 const gameSetup = document.getElementById("gameSetup");
 const challengeText = document.getElementById("challengeText");
 const challengeButtons = document.getElementById("challengeButtons");
 const currentCardImg = document.getElementById("currentCardImg");
+const scoreEl = document.getElementById("score");
+const errorsEl = document.getElementById("errors");
 
 let currentCard = null;
+let score = 0;
+let errors = 0;
+let streak = 0;
 
 startBtn.addEventListener("click", () => {
   const bet = document.getElementById("bet").value;
@@ -13,9 +19,20 @@ startBtn.addEventListener("click", () => {
 
   gameSetup.classList.add("hidden");
   gameArea.classList.remove("hidden");
+  document.getElementById("statusBar").classList.remove("hidden");
+
+  score = 0;
+  errors = 0;
+  streak = 0;
+  updateStatus();
 
   startGame();
 });
+
+function updateStatus() {
+  scoreEl.textContent = score;
+  errorsEl.textContent = errors;
+}
 
 function startGame() {
   currentCard = drawCard();
@@ -24,7 +41,7 @@ function startGame() {
 }
 
 function drawCard() {
-  return Math.floor(Math.random() * 13) + 1;
+  return Math.floor(Math.random() * 10) + 1;
 }
 
 function displayCard(cardNumber) {
@@ -41,29 +58,47 @@ function generateChallenge() {
   challengeButtons.innerHTML = "";
 
   if (selectedChallenge === "Maggiore o Minore") {
-    addButton("Maggiore");
-    addButton("Minore");
+    addChallengeButton("Maggiore");
+    addChallengeButton("Minore");
   } else if (selectedChallenge === "Pari o Dispari") {
-    addButton("Pari");
-    addButton("Dispari");
+    addChallengeButton("Pari");
+    addChallengeButton("Dispari");
   } else if (selectedChallenge === "Dentro o Fuori") {
     const a = Math.floor(Math.random() * 6) + 2;
     const b = a + 2;
     challengeText.textContent += ` (${a}-${b})`;
     challengeButtons.dataset.rangeA = a;
     challengeButtons.dataset.rangeB = b;
-    addButton("Dentro");
-    addButton("Fuori");
+    addChallengeButton("Dentro");
+    addChallengeButton("Fuori");
   } else if (selectedChallenge === "Numero Esatto") {
-    for (let i = 1; i <= 13; i++) {
-      addButton(i.toString());
+    for (let i = 1; i <= 10; i++) {
+      addChallengeButton(i.toString());
     }
   }
 }
 
-function addButton(text) {
+function addChallengeButton(text) {
   const btn = document.createElement("button");
   btn.textContent = text;
-  btn.onclick = () => alert(`Hai scelto: ${text}`);
+  btn.onclick = () => {
+    alert(`Hai scelto: ${text}`);
+    handleAnswer(true); // test: ogni scelta è corretta
+  };
   challengeButtons.appendChild(btn);
+}
+
+function handleAnswer(correct) {
+  if (correct) {
+    score++;
+    streak++;
+    if (streak === 3) {
+      alert("Hai ottenuto un Jolly!");
+      streak = 0;
+    }
+  } else {
+    errors++;
+    streak = 0;
+  }
+  updateStatus();
 }
