@@ -5,35 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Carta Passo</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    /* Forzare visibilità tendina lingua */
-    #language {
-      display: inline-block !important;
-      margin-bottom: 10px;
-      border: 2px solid red;
-      background: #fff;
-      color: black;
-      z-index: 9999;
-    }
-    label[for="language"] {
-      display: inline-block !important;
-      color: red;
-      font-weight: bold;
-    }
-  </style>
 </head>
 <body>
   <div id="start-screen">
     <h1 data-i18n="title">Carta Passo</h1>
     <div id="setup">
-      <!-- Lingua -->
+      <!-- Tendina Lingua -->
       <label for="language" data-i18n="language-label">Lingua:</label>
       <select id="language" onchange="changeLanguage()">
         <option value="it">Italiano</option>
         <option value="en">English</option>
       </select>
 
-      <!-- Selezione difficoltà e puntata -->
+      <!-- Selezione difficoltà -->
       <label data-i18n="difficulty-label">Difficoltà:</label>
       <select id="difficulty">
         <option value="easy" data-i18n="easy">Facile</option>
@@ -41,9 +25,11 @@
         <option value="hard" data-i18n="hard">Difficile</option>
       </select>
 
+      <!-- Puntata -->
       <label data-i18n="bet-label">Puntata:</label>
       <input type="number" id="bet" min="1" value="10" />
 
+      <!-- Regolamento -->
       <div id="regolamento">
         <h2 data-i18n="rules-title">Regolamento</h2>
         <p data-i18n="rules-text">Scegli la tua difficoltà e la puntata. Indovina correttamente le carte per avanzare nelle tappe e vincere!</p>
@@ -54,26 +40,18 @@
   </div>
 
   <div id="game-screen" style="display:none;">
-    <button id="toggle-regolamento" onclick="toggleRegolamento()">❔</button>
-    <div id="regolamento-popup">
-      <h3 data-i18n="rules-title">Regolamento</h3>
-      <p data-i18n="rules-text">Scegli la tua difficoltà e la puntata. Indovina correttamente le carte per avanzare nelle tappe e vincere!</p>
-      <button onclick="toggleRegolamento()" data-i18n="close-button">Chiudi</button>
+    <h2 data-i18n="stage-label">Tappa:</h2>
+    <div id="challenge-options">
+      <button data-i18n="greater">Maggiore</button>
+      <button data-i18n="less">Minore</button>
+      <button data-i18n="equal">Uguale</button>
+      <button data-i18n="odd">Dispari</button>
+      <button data-i18n="even">Pari</button>
+      <button data-i18n="inside">Dentro</button>
+      <button data-i18n="outside">Fuori</button>
     </div>
-
-    <div id="tappe">
-      <h2><span data-i18n="current-stage">Tappa attuale</span>: <span id="tappa-num">1</span></h2>
-      <div id="percorso-tappe"></div>
-    </div>
-
-    <div id="game-area">
-      <img id="current-card" src="" alt="Carta" />
-      <div id="choices">
-        <button onclick="makeGuess('higher')" data-i18n="higher">Maggiore</button>
-        <button onclick="makeGuess('lower')" data-i18n="lower">Minore</button>
-      </div>
-      <button id="jolly-button" onclick="useJolly()" style="display:none;" data-i18n="use-jolly">Usa Jolly</button>
-    </div>
+    <button data-i18n="use-jolly">Usa Jolly</button>
+    <div id="message" data-i18n="message-placeholder"></div>
   </div>
 
   <script src="script.js"></script>
@@ -90,11 +68,21 @@
         "rules-title": "Regolamento",
         "rules-text": "Scegli la tua difficoltà e la puntata. Indovina correttamente le carte per avanzare nelle tappe e vincere!",
         "start-button": "Inizia",
-        "close-button": "Chiudi",
-        "current-stage": "Tappa attuale",
-        "higher": "Maggiore",
-        "lower": "Minore",
-        "use-jolly": "Usa Jolly"
+        "stage-label": "Tappa:",
+        "greater": "Maggiore",
+        "less": "Minore",
+        "equal": "Uguale",
+        "odd": "Dispari",
+        "even": "Pari",
+        "inside": "Dentro",
+        "outside": "Fuori",
+        "use-jolly": "Usa Jolly",
+        "message-placeholder": "",
+        "win-message": "Hai vinto! Complimenti!",
+        "lose-message": "Hai perso. Riprova!",
+        "error-message": "Scelta non valida. Ritenta!",
+        "stage-progress": "Sei alla tappa",
+        "jolly-used": "Hai usato il Jolly!"
       },
       en: {
         "title": "Card Step",
@@ -107,22 +95,30 @@
         "rules-title": "Rules",
         "rules-text": "Choose your difficulty and bet. Guess the cards correctly to advance through the stages and win!",
         "start-button": "Start",
-        "close-button": "Close",
-        "current-stage": "Current Stage",
-        "higher": "Higher",
-        "lower": "Lower",
-        "use-jolly": "Use Joker"
+        "stage-label": "Stage:",
+        "greater": "Higher",
+        "less": "Lower",
+        "equal": "Equal",
+        "odd": "Odd",
+        "even": "Even",
+        "inside": "Inside",
+        "outside": "Outside",
+        "use-jolly": "Use Joker",
+        "message-placeholder": "",
+        "win-message": "You won! Congratulations!",
+        "lose-message": "You lost. Try again!",
+        "error-message": "Invalid choice. Try again!",
+        "stage-progress": "You are on stage",
+        "jolly-used": "You used the Joker!"
       }
     };
 
-    let currentLanguage = "it";
-
     function changeLanguage() {
-      currentLanguage = document.getElementById("language").value;
+      const lang = document.getElementById("language").value;
       document.querySelectorAll("[data-i18n]").forEach(el => {
         const key = el.getAttribute("data-i18n");
-        if (translations[currentLanguage][key]) {
-          el.innerText = translations[currentLanguage][key];
+        if (translations[lang][key]) {
+          el.innerText = translations[lang][key];
         }
       });
     }
