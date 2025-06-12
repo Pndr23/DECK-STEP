@@ -1,18 +1,31 @@
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Carta Passo - Step 8</title>
+  <title>Carta Passo</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Carta Passo</h1>
-
+    <h1 id="title">Carta Passo</h1>
+    <div id="languageSelector">
+      <label for="language">🌐 Lingua:</label>
+      <select id="language">
+        <option value="it">Italiano</option>
+        <option value="en">English</option>
+      </select>
+    </div>
+    <div id="rules" class="rules">
+      <h2 id="rulesTitle">Regole del Gioco</h2>
+      <p id="rulesText">
+        Benvenuto in Carta Passo! Il tuo obiettivo è superare 10 tappe indovinando
+        le caratteristiche della prossima carta. Dopo ogni sfida puoi ritirarti o continuare.
+        Se sbagli, subisci la penalità in base alla modalità scelta.
+      </p>
+    </div>
     <div id="gameSetup" class="setup">
-      <label for="bet">Puntata:</label>
+      <label for="bet" id="betLabel">Puntata:</label>
       <select id="bet">
         <option value="0.5">€0.50</option>
         <option value="1">€1</option>
@@ -20,7 +33,7 @@
         <option value="5">€5</option>
       </select>
 
-      <label for="risk">Modalità rischio:</label>
+      <label for="risk" id="riskLabel">Modalità rischio:</label>
       <select id="risk">
         <option value="easy">Easy</option>
         <option value="medium">Medium</option>
@@ -31,17 +44,10 @@
     </div>
 
     <div id="gameArea" class="hidden">
-      <div id="statusPanel">
-        <p id="stepDisplay">Tappa: 0</p>
-        <p id="pointsDisplay">Punti: 0</p>
-        <p id="errorsDisplay">Errori: 0</p>
-      </div>
-
       <div id="cardDisplay">
-        <p>Carta attuale:</p>
+        <p id="currentCardLabel">Carta attuale:</p>
         <img id="currentCardImg" src="" alt="Carta" />
       </div>
-
       <div id="challengeArea">
         <p id="challengeText">Sfida in corso...</p>
         <div id="challengeButtons"></div>

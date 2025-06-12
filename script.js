@@ -5,32 +5,62 @@ const gameSetup = document.getElementById("gameSetup");
 const challengeText = document.getElementById("challengeText");
 const challengeButtons = document.getElementById("challengeButtons");
 const currentCardImg = document.getElementById("currentCardImg");
-const stepDisplay = document.getElementById("stepDisplay");
-const pointsDisplay = document.getElementById("pointsDisplay");
-const errorsDisplay = document.getElementById("errorsDisplay");
+const languageSelect = document.getElementById("language");
 
 let currentCard = null;
-let step = 0;
-let points = 0;
-let errors = 0;
-let bet = 1;
-let risk = "easy";
+let language = "it";
 
-const multipliers = [1, 1.2, 1.5, 2, 3, 5, 8, 12, 20, 40, 100];
+const translations = {
+  it: {
+    title: "Carta Passo",
+    rulesTitle: "Regole del Gioco",
+    rulesText: "Benvenuto in Carta Passo! Il tuo obiettivo è superare 10 tappe indovinando le caratteristiche della prossima carta. Dopo ogni sfida puoi ritirarti o continuare. Se sbagli, subisci la penalità in base alla modalità scelta.",
+    betLabel: "Puntata:",
+    riskLabel: "Modalità rischio:",
+    currentCardLabel: "Carta attuale:",
+    challengePrefix: "Sfida: ",
+    startBtn: "Inizia la partita"
+  },
+  en: {
+    title: "Card Pass",
+    rulesTitle: "Game Rules",
+    rulesText: "Welcome to Card Pass! Your goal is to complete 10 stages by guessing features of the next card. After each challenge you can withdraw or continue. If you fail, the penalty depends on the chosen mode.",
+    betLabel: "Bet:",
+    riskLabel: "Risk mode:",
+    currentCardLabel: "Current card:",
+    challengePrefix: "Challenge: ",
+    startBtn: "Start Game"
+  }
+};
+
+function applyTranslations(lang) {
+  const t = translations[lang];
+  document.getElementById("title").textContent = t.title;
+  document.getElementById("rulesTitle").textContent = t.rulesTitle;
+  document.getElementById("rulesText").textContent = t.rulesText;
+  document.getElementById("betLabel").textContent = t.betLabel;
+  document.getElementById("riskLabel").textContent = t.riskLabel;
+  document.getElementById("currentCardLabel").textContent = t.currentCardLabel;
+  document.getElementById("challengeText").textContent = t.challengePrefix;
+  document.getElementById("startBtn").textContent = t.startBtn;
+}
+
+languageSelect.addEventListener("change", (e) => {
+  language = e.target.value;
+  applyTranslations(language);
+});
+
+// Rileva la lingua del browser e imposta quella iniziale
+const browserLang = navigator.language.slice(0, 2);
+if (translations[browserLang]) {
+  language = browserLang;
+  languageSelect.value = browserLang;
+  applyTranslations(language);
+}
 
 startBtn.addEventListener("click", () => {
-  bet = parseFloat(document.getElementById("bet").value);
-  risk = document.getElementById("risk").value;
-
-  step = 0;
-  points = 0;
-  errors = 0;
-
-  updateStatus();
-
   gameSetup.classList.add("hidden");
   gameArea.classList.remove("hidden");
-
   startGame();
 });
 
@@ -41,19 +71,18 @@ function startGame() {
 }
 
 function drawCard() {
-  return Math.floor(Math.random() * 10) + 1;
+  return Math.floor(Math.random() * 13) + 1;
 }
 
 function displayCard(cardNumber) {
-  currentCardImg.src = `cards/card_${cardNumber}.png`;
+  const fileName = `card_${cardNumber}.png`;
+  currentCardImg.src = `cards/${fileName}`;
 }
 
 function generateChallenge() {
   const challenges = ["Maggiore o Minore", "Pari o Dispari", "Dentro o Fuori", "Numero Esatto"];
-  const randomIndex = Math.floor(Math.random() * challenges.length);
-  const selectedChallenge = challenges[randomIndex];
-
-  challengeText.textContent = `Sfida: ${selectedChallenge}`;
+  const selectedChallenge = challenges[Math.floor(Math.random() * challenges.length)];
+  challengeText.textContent = translations[language].challengePrefix + selectedChallenge;
   challengeButtons.innerHTML = "";
 
   if (selectedChallenge === "Maggiore o Minore") {
@@ -66,12 +95,10 @@ function generateChallenge() {
     const a = Math.floor(Math.random() * 6) + 2;
     const b = a + 2;
     challengeText.textContent += ` (${a}-${b})`;
-    challengeButtons.dataset.rangeA = a;
-    challengeButtons.dataset.rangeB = b;
     addButton("Dentro");
     addButton("Fuori");
   } else if (selectedChallenge === "Numero Esatto") {
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 13; i++) {
       addButton(i.toString());
     }
   }
@@ -80,35 +107,6 @@ function generateChallenge() {
 function addButton(text) {
   const btn = document.createElement("button");
   btn.textContent = text;
-  btn.onclick = () => handleChoice(text);
+  btn.onclick = () => alert(`Hai scelto: ${text}`);
   challengeButtons.appendChild(btn);
-}
-
-function handleChoice(choice) {
-  const newCard = drawCard();
-  const correct = Math.random() < 0.5; // Simulazione
-  displayCard(newCard);
-
-  if (correct) {
-    step++;
-    points = bet * multipliers[step];
-  } else {
-    errors++;
-    if (risk === "easy") step = Math.max(0, step - 2);
-    else if (risk === "medium") step = 0;
-    else if (risk === "hard") {
-      step = 0;
-      points = 0;
-    }
-  }
-
-  updateStatus();
-  currentCard = newCard;
-  generateChallenge();
-}
-
-function updateStatus() {
-  stepDisplay.textContent = `Tappa: ${step}`;
-  pointsDisplay.textContent = `Punti: €${points.toFixed(2)}`;
-  errorsDisplay.textContent = `Errori: ${errors}`;
 }
