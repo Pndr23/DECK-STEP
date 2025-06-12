@@ -10,7 +10,7 @@ const correctCountSpan = document.getElementById("correctCount");
 const errorCountSpan = document.getElementById("errorCount");
 const jollyCountSpan = document.getElementById("jollyCount");
 const restartBtn = document.getElementById("restartBtn");
-const rulesToggle = document.getElementById("rulesToggle");
+const rulesToggle = document.getElementById("rulesLabel");
 const rulesPanel = document.getElementById("rulesPanel");
 
 let currentCard = null;
@@ -117,7 +117,16 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("startButton").textContent = "🎮 Start";
     document.getElementById("restartBtn").textContent = "🔁 Restart";
     document.getElementById("rulesToggle").textContent = "📜 Rules";
-    document.getElementById("rulesPanel").innerHTML = "<p>Guess correctly to advance. After 3 right answers, you get a Jolly!</p><ul><li>Higher/Lower</li><li>Even/Odd</li><li>Inside/Outside</li><li>Exact number</li></ul>";
+    document.getElementById("rulesPanel").innerHTML =  `<p>Welcome to <strong>Card Step</strong>! Your goal is to complete a series of random challenges by correctly guessing the result of the next card.</p>
+  <ul>
+    <li>You can choose the <strong>starting bet</strong> between €0.10, €0.20, €0.50, €1, €2 and €5.</li>
+    <li>You can also select the <strong>difficulty</strong>: Easy, Medium or Hard (more challenges, fewer jokers).</li>
+    <li>Each turn a card is drawn and you're given a challenge (e.g. higher/lower, even/odd, etc.).</li>
+    <li>Each correct answer lets you advance to the next <strong>stage</strong>.</li>
+    <li>After 3 correct answers in a row, you receive a <strong>joker</strong> that can be used to skip or cancel an error.</li>
+    <li>3 mistakes end the game. You can restart with the 🔁 button.</li>
+    <li>The game is automatically translated to Italian or English based on your browser language.</li>
+      </ul> `;
     document.getElementById("currentCardLabel").textContent = "Current card:";
   }
 });
