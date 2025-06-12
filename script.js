@@ -1,59 +1,3 @@
-
-let currentLanguage = "it";
-const translations = {
-  it: {
-    "title": "Carta Passo",
-    "language-label": "Lingua:",
-    "difficulty-label": "Difficoltà:",
-    "easy": "Facile",
-    "medium": "Media",
-    "hard": "Difficile",
-    "bet-label": "Puntata:",
-    "rules-title": "Regolamento",
-    "rules-text": "Scegli la tua difficoltà e la puntata. Indovina correttamente le carte per avanzare nelle tappe e vincere!",
-    "start-button": "Inizia",
-    "win-message": "Hai vinto!",
-    "lose-message": "Hai perso!",
-    "joker-used": "Hai usato un Jolly!",
-    "error-message": "Risposta sbagliata!",
-    "next-step": "Prossima tappa",
-    "restart": "Ricomincia"
-  },
-  en: {
-    "title": "Card Step",
-    "language-label": "Language:",
-    "difficulty-label": "Difficulty:",
-    "easy": "Easy",
-    "medium": "Medium",
-    "hard": "Hard",
-    "bet-label": "Bet:",
-    "rules-title": "Rules",
-    "rules-text": "Choose your difficulty and bet. Guess the cards correctly to advance through the stages and win!",
-    "start-button": "Start",
-    "win-message": "You won!",
-    "lose-message": "You lost!",
-    "joker-used": "You used a Joker!",
-    "error-message": "Wrong answer!",
-    "next-step": "Next step",
-    "restart": "Restart"
-  }
-};
-
-function changeLanguage() {
-  currentLanguage = document.getElementById("language").value;
-  document.querySelectorAll("[data-i18n]").forEach(el => {
-    const key = el.getAttribute("data-i18n");
-    if (translations[currentLanguage][key]) {
-      el.innerText = translations[currentLanguage][key];
-    }
-  });
-}
-
-function t(key) {
-  return translations[currentLanguage][key] || key;
-}
-
-
 let tappe = 0;
 
 const startBtn = document.getElementById("startBtn");
@@ -155,7 +99,7 @@ function addButton(text, checkFn) {
     }
     updateScore();
     if (errorCount >= 3) {
-      challengeText.textContent = t("lose-message");
+      challengeText.textContent = "Hai perso!";
       challengeButtons.innerHTML = "";
       restartBtn.classList.remove("hidden");
     } else {
@@ -176,34 +120,3 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("currentCardLabel").textContent = "Current card:";
   }
 });
-
-
-
-// Testi tradotti per messaggi dinamici
-const dynamicTexts = {
-  it: {
-    "win-message": t("win-message"),
-    "lose-message": t("lose-message"),
-    "joker-used": t("joker-used"),
-    "error-message": t("error-message"),
-    "next-step": t("next-step"),
-    "restart": t("restart")
-  },
-  en: {
-    "win-message": "You won!",
-    "lose-message": "You lost!",
-    "joker-used": "You used a Joker!",
-    "error-message": "Wrong answer!",
-    "next-step": "Next stage",
-    "restart": "Restart"
-  }
-};
-
-// Funzione per ottenere testo dinamico tradotto
-function t(key) {
-  const lang = document.getElementById("language").value;
-  return dynamicTexts[lang][key] || key;
-}
-
-// Esempio di uso nei messaggi dinamici:
-// alert(t("win-message")); oppure document.getElementById("result").innerText = t("lose-message");
