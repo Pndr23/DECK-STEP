@@ -1,15 +1,15 @@
+
 const startBtn = document.getElementById("startBtn");
 const gameArea = document.getElementById("gameArea");
 const gameSetup = document.getElementById("gameSetup");
 const challengeText = document.getElementById("challengeText");
 const challengeButtons = document.getElementById("challengeButtons");
 const currentCardImg = document.getElementById("currentCardImg");
-const jollyArea = document.getElementById("jollyArea");
-const useJollyBtn = document.getElementById("useJollyBtn");
+const multiplierDisplay = document.getElementById("multiplierDisplay");
 
 let currentCard = null;
-let correctStreak = 0;
-let hasJolly = false;
+let multiplier = 1;
+let consecutiveWins = 0;
 
 startBtn.addEventListener("click", () => {
   gameSetup.classList.add("hidden");
@@ -17,19 +17,7 @@ startBtn.addEventListener("click", () => {
   startGame();
 });
 
-useJollyBtn.addEventListener("click", () => {
-  if (hasJolly) {
-    alert("Hai usato il Jolly! Sfida saltata.");
-    hasJolly = false;
-    jollyArea.classList.add("hidden");
-    nextRound();
-  }
-});
-
 function startGame() {
-  correctStreak = 0;
-  hasJolly = false;
-  jollyArea.classList.add("hidden");
   currentCard = drawCard();
   displayCard(currentCard);
   generateChallenge();
@@ -47,7 +35,6 @@ function displayCard(cardNumber) {
 function generateChallenge() {
   const challenges = ["Maggiore o Minore", "Pari o Dispari", "Dentro o Fuori", "Numero Esatto"];
   const selectedChallenge = challenges[Math.floor(Math.random() * challenges.length)];
-
   challengeText.textContent = `Sfida: ${selectedChallenge}`;
   challengeButtons.innerHTML = "";
 
@@ -61,9 +48,11 @@ function generateChallenge() {
     const a = Math.floor(Math.random() * 6) + 2;
     const b = a + 2;
     challengeText.textContent += ` (${a}-${b})`;
+    challengeButtons.dataset.rangeA = a;
+    challengeButtons.dataset.rangeB = b;
     addButton("Dentro");
     addButton("Fuori");
-  } else {
+  } else if (selectedChallenge === "Numero Esatto") {
     for (let i = 1; i <= 10; i++) {
       addButton(i.toString());
     }
@@ -73,23 +62,19 @@ function generateChallenge() {
 function addButton(text) {
   const btn = document.createElement("button");
   btn.textContent = text;
-  btn.onclick = () => handleChoice(text);
+  btn.onclick = () => {
+    const correct = Math.random() < 0.7; // Simulazione successo 70%
+    if (correct) {
+      consecutiveWins++;
+      multiplier = consecutiveWins;
+      alert("Corretto!");
+    } else {
+      consecutiveWins = 0;
+      multiplier = 1;
+      alert("Errore!");
+    }
+    multiplierDisplay.textContent = multiplier + "x";
+    startGame();
+  };
   challengeButtons.appendChild(btn);
-}
-
-function handleChoice(choice) {
-  // Per ora accettiamo qualsiasi scelta come corretta per testare
-  correctStreak++;
-  if (correctStreak >= 3 && !hasJolly) {
-    hasJolly = true;
-    jollyArea.classList.remove("hidden");
-    alert("Hai guadagnato un Jolly!");
-  }
-  nextRound();
-}
-
-function nextRound() {
-  currentCard = drawCard();
-  displayCard(currentCard);
-  generateChallenge();
 }
