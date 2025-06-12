@@ -45,6 +45,19 @@ function updateScore() {
 }
 
 function startGame() {
+
+  // Genera barra tappe
+  const tappeContainer = document.createElement("div");
+  tappeContainer.id = "tappe-container";
+  for (let i = 1; i <= 10; i++) {
+    const tappa = document.createElement("div");
+    tappa.className = "tappa" + (i === 1 ? " active" : "");
+    tappa.innerText = i + "x";
+    tappeContainer.appendChild(tappa);
+  }
+  const gameScreen = document.getElementById("game-screen");
+  gameScreen.insertBefore(tappeContainer, gameScreen.firstChild);
+
   currentCard = drawCard();
   displayCard(currentCard);
   generateChallenge();
