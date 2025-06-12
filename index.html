@@ -2,81 +2,61 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Carta Passo</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <select id="languageSelect" onchange="changeLanguage()" style="position:absolute; top:10px; right:10px; z-index:1000;">
-    <option value="it">🇮🇹 Italiano</option>
-    <option value="en">🇬🇧 English</option>
-  </select>
-
   <div class="container">
     <h1>Carta Passo</h1>
 
-    <div id="rulesLabel">📜 Regole</div>
-    <div id="rulesPanel" class="hidden">
-      <p>Benvenuto in <strong>Carta Passo</strong>! Il tuo obiettivo è superare una serie di sfide casuali indovinando correttamente il risultato della carta successiva.</p>
-      <ul>
-        <li>Puoi scegliere la <strong>puntata iniziale</strong> tra €0.10, €0.20, €0.50, €1, €2 e €5.</li>
-        <li>Puoi anche scegliere la <strong>difficoltà</strong>: Easy, Medium o Hard (più sfide, meno jolly).</li>
-        <li>Ogni turno una carta viene pescata e ti viene proposta una sfida (es. maggiore/minore, pari/dispari, ecc.).</li>
-        <li>Ogni risposta corretta ti fa avanzare di una <strong>tappa</strong>.</li>
-        <li>Dopo 3 risposte corrette consecutive, ricevi un <strong>jolly</strong> che può essere usato per saltare o annullare un errore.</li>
-        <li>3 errori terminano la partita. Puoi ricominciare con il pulsante 🔁.</li>
-        <li>Il gioco è tradotto automaticamente in italiano o inglese secondo la lingua del browser.</li>
-      </ul>
+    <!-- Sezione iniziale -->
+    <div id="gameSetup">
+      <p>Scegli la tua modalità e inizia il gioco!</p>
+      <!-- (Eventuali opzioni di difficoltà o puntata qui) -->
+      <button id="startButton">🎮 Inizia</button>
     </div>
 
-    <div id="gameSetup" class="setup">
-      <label for="bet">Puntata:</label>
-      <select id="bet">
-        <option value="0.1">€0.10</option>
-        <option value="0.2">€0.20</option>
-        <option value="0.5">€0.50</option>
-        <option value="1">€1</option>
-        <option value="2">€2</option>
-        <option value="5">€5</option>
-      </select>
-
-      <label for="risk">Modalità rischio:</label>
-      <select id="risk">
-        <option value="easy">Facile</option>
-        <option value="medium">Media</option>
-        <option value="hard">Difficile</option>
-      </select>
-
-      <button id="startButton">🎮 Inizia la partita</button>
-
-      <div style="margin-top: 10px;">
-        <span id="pointsLabel">🏆 Punti:</span> <span id="scoreValue">0</span>
-      </div>
-    </div>
-
+    <!-- Area di gioco -->
     <div id="gameArea" class="hidden">
-      <p id="progressCounter">Tappa: 0</p>
-
       <div id="scorePanel">
-        <span id="correctLabel">✅ Corrette:</span> <span id="correctCount">0</span> |
-        <span id="errorLabel">❌ Errori:</span> <span id="errorCount">0</span> |
-        <span id="jollyLabel">🃏 Jolly:</span> <span id="jollyCount">0</span>
+        ✅ Corrette: <span id="correctCount">0</span> |
+        ❌ Errori: <span id="errorCount">0</span> |
+        🃏 Jolly: <span id="jollyCount">0</span>
       </div>
 
-      <!-- Barra percorso a tappe -->
+      <!-- Barra di avanzamento tappe -->
       <div id="progressPath" class="progress-path"></div>
 
-      <div id="cardDisplay">
+      <!-- Carta attuale -->
+      <div>
         <p id="currentCardLabel">Carta attuale:</p>
-        <img id="currentCardImg" src="" alt="Carta" />
+        <img id="currentCardImg" src="cards/back.png" alt="Carta" />
       </div>
 
-      <div id="challengeArea">
-        <p id="challengeText">Sfida in corso...</p>
-        <div id="challengeButtons"></div>
-      </div>
+      <!-- Sfida corrente -->
+      <p id="challengeText">Sfida:</p>
+      <div id="challengeButtons"></div>
 
+      <!-- Pulsante per ricominciare -->
       <button id="restartBtn" class="hidden">🔁 Ricomincia</button>
+    </div>
+
+    <!-- Regole del gioco -->
+    <div>
+      <p id="rulesLabel" style="cursor: pointer;">📜 Regole</p>
+      <div id="rulesPanel" class="hidden">
+        <p>Benvenuto in <strong>Carta Passo</strong>! Il tuo obiettivo è superare una serie di sfide casuali indovinando la prossima carta.</p>
+        <ul>
+          <li>Scegli la <strong>puntata iniziale</strong> tra €0.10, €0.20, €0.50, €1, €2 e €5.</li>
+          <li>Puoi anche scegliere la <strong>difficoltà</strong>: Facile, Media o Difficile (più sfide, meno jolly).</li>
+          <li>Ogni turno viene estratta una carta e ti viene assegnata una sfida (es. maggiore/minore, pari/dispari...).</li>
+          <li>Ogni risposta corretta ti fa avanzare di una <strong>tappa</strong>.</li>
+          <li>Dopo 3 risposte corrette consecutive, ottieni un <strong>jolly</strong> che può salvarti da un errore.</li>
+          <li>Con 3 errori perdi. Puoi ricominciare con il pulsante 🔁.</li>
+          <li>Il gioco si traduce automaticamente in italiano o inglese in base alla lingua del browser.</li>
+        </ul>
+      </div>
     </div>
   </div>
 
