@@ -1,8 +1,9 @@
-let tappe = 0;
+let currentCard = null;
 let correctCount = 0;
 let errorCount = 0;
 let jollyCount = 0;
-let tappeConsecutive = 0; // Nuovo contatore per i jolly
+let tappa = 0;
+let consecutiveCorrect = 0;
 
 const startButton = document.getElementById("startButton");
 const gameArea = document.getElementById("gameArea");
@@ -16,7 +17,10 @@ const jollyCountSpan = document.getElementById("jollyCount");
 const restartBtn = document.getElementById("restartBtn");
 const rulesToggle = document.getElementById("rulesLabel");
 const rulesPanel = document.getElementById("rulesPanel");
+const scoreValue = document.getElementById("scoreValue");
+const progressCounter = document.getElementById("progressCounter");
 const progressPath = document.getElementById("progressPath");
+const useJollyBtn = document.getElementById("useJollyBtn");
 
 rulesToggle.addEventListener("click", () => {
   rulesPanel.classList.toggle("hidden");
@@ -26,13 +30,7 @@ startButton.addEventListener("click", () => {
   gameSetup.classList.add("hidden");
   gameArea.classList.remove("hidden");
   restartBtn.classList.add("hidden");
-  correctCount = 0;
-  errorCount = 0;
-  jollyCount = 0;
-  tappe = 0;
-  tappeConsecutive = 0;
-  updateScore();
-  updateProgressPath();
+  resetGame();
   startGame();
 });
 
@@ -41,11 +39,31 @@ restartBtn.addEventListener("click", () => {
   gameArea.classList.add("hidden");
 });
 
+useJollyBtn.addEventListener("click", () => {
+  if (jollyCount > 0 && errorCount > 0) {
+    jollyCount--;
+    errorCount--;
+    updateScore();
+  }
+});
+
+function resetGame() {
+  correctCount = 0;
+  errorCount = 0;
+  jollyCount = 0;
+  tappa = 0;
+  consecutiveCorrect = 0;
+  updateScore();
+  updateProgressPath();
+}
+
 function updateScore() {
-  document.getElementById("scoreValue").innerText = correctCount;
   correctCountSpan.textContent = correctCount;
   errorCountSpan.textContent = errorCount;
   jollyCountSpan.textContent = jollyCount;
+  scoreValue.textContent = correctCount;
+  progressCounter.textContent = `Tappa: ${tappa}`;
+  useJollyBtn.classList.toggle("hidden", jollyCount === 0);
 }
 
 function startGame() {
@@ -91,23 +109,22 @@ function addButton(text, checkFn) {
   const btn = document.createElement("button");
   btn.textContent = text;
   btn.onclick = () => {
-    const guessedCorrectly = checkFn(Number(text));
-    
-    if (guessedCorrectly) {
+    const correct = checkFn(Number(text));
+    if (correct) {
       correctCount++;
-      tappe++;
-      tappeConsecutive++;
-      if (tappeConsecutive === 3) {
+      tappa++;
+      consecutiveCorrect++;
+      if (consecutiveCorrect === 3) {
         jollyCount++;
-        tappeConsecutive = 0;
+        consecutiveCorrect = 0;
       }
     } else {
       if (jollyCount > 0) {
         jollyCount--;
       } else {
         errorCount++;
+        consecutiveCorrect = 0;
       }
-      tappeConsecutive = 0;
     }
 
     updateScore();
@@ -126,37 +143,11 @@ function addButton(text, checkFn) {
 
 function updateProgressPath() {
   progressPath.innerHTML = "";
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 0; i < 10; i++) {
     const step = document.createElement("div");
     step.classList.add("progress-step");
-    if (i < tappe + 1) {
-      step.classList.add("active");
-    } else if (i === tappe + 1) {
-      step.classList.add("current");
-    } else {
-      step.classList.add("future");
-    }
+    if (i < tappa) step.classList.add("active");
+    if (i === tappa) step.classList.add("current");
     progressPath.appendChild(step);
   }
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  if (navigator.language.startsWith("en")) {
-    document.querySelector("html").lang = "en";
-    document.querySelector("h1").textContent = "Card Step";
-    document.getElementById("startButton").textContent = "🎮 Start";
-    document.getElementById("restartBtn").textContent = "🔁 Restart";
-    document.getElementById("rulesLabel").textContent = "📜 Rules";
-    document.getElementById("rulesPanel").innerHTML =  `<p>Welcome to <strong>Card Step</strong>! Your goal is to complete a series of random challenges by correctly guessing the result of the next card.</p>
-  <ul>
-    <li>You can choose the <strong>starting bet</strong> between €0.10, €0.20, €0.50, €1, €2 and €5.</li>
-    <li>You can also select the <strong>difficulty</strong>: Easy, Medium or Hard (more challenges, fewer jokers).</li>
-    <li>Each turn a card is drawn and you're given a challenge (e.g. higher/lower, even/odd, etc.).</li>
-    <li>Each correct answer lets you advance to the next <strong>stage</strong>.</li>
-    <li>After 3 correct answers in a row, you receive a <strong>joker</strong> that can be used to skip or cancel an error.</li>
-    <li>3 mistakes end the game. You can restart with the 🔁 button.</li>
-    <li>The game is automatically translated to Italian or English based on your browser language.</li>
-      </ul> `;
-    document.getElementById("currentCardLabel").textContent = "Current card:";
-  }
-});
