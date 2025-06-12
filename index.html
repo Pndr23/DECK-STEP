@@ -8,34 +8,33 @@
 </head>
 <body>
   <div class="container">
-    <h1 id="gameTitle">Carta Passo</h1>
-    <div id="rulesSection" class="rules"></div>
-    <div id="languageSwitch">
-      <label for="languageSelect" id="languageLabel">Lingua:</label>
-      <select id="languageSelect">
-        <option value="it">Italiano</option>
-        <option value="en">English</option>
-      </select>
-    </div>
+    <h1>Carta Passo</h1>
     <div id="gameSetup" class="setup">
-      <label for="bet" id="betLabel">Puntata:</label>
+      <label for="bet">Puntata:</label>
       <select id="bet">
         <option value="0.5">€0.50</option>
         <option value="1">€1</option>
         <option value="2">€2</option>
         <option value="5">€5</option>
       </select>
-      <label for="risk" id="riskLabel">Modalità rischio:</label>
+
+      <label for="risk">Modalità rischio:</label>
       <select id="risk">
         <option value="easy">Easy</option>
         <option value="medium">Medium</option>
         <option value="hard">Hard</option>
       </select>
-      <button id="startBtn">Inizia</button>
+
+      <button id="startBtn">Inizia la partita</button>
     </div>
+
     <div id="gameArea" class="hidden">
+      <div id="status">
+        <p id="stepCount">Tappa: 1</p>
+        <p id="resultMessage"></p>
+      </div>
       <div id="cardDisplay">
-        <p id="currentCardLabel">Carta attuale:</p>
+        <p>Carta attuale:</p>
         <img id="currentCardImg" src="" alt="Carta" />
       </div>
       <div id="challengeArea">
@@ -44,6 +43,7 @@
       </div>
     </div>
   </div>
+
   <script src="lang.js"></script>
   <script src="script.js"></script>
 </body>

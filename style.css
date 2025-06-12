@@ -1,30 +1,22 @@
 body {
-  background: linear-gradient(to bottom right, #1e3c72, #2a5298);
-  font-family: Arial, sans-serif;
+  font-family: sans-serif;
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
   color: white;
   text-align: center;
-  margin: 0;
-  padding: 0;
-}
-.container {
   padding: 20px;
 }
-.setup, .rules, #languageSwitch {
-  margin-bottom: 20px;
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
 }
 .hidden {
   display: none;
 }
-button {
-  margin: 5px;
-  padding: 10px 20px;
-  font-size: 1em;
-  cursor: pointer;
-  border-radius: 10px;
-  border: none;
-  background-color: #fff;
-  color: #2a5298;
-}
-button:hover {
-  background-color: #ddd;
+#cardDisplay img {
+  width: 100px;
 }
