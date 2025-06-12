@@ -48,7 +48,7 @@
       </select>
 
       <button id="startButton">🎮 Inizia la partita</button>
-  
+
       <div style="margin-top: 10px;">
         <span id="pointsLabel">🏆 Punti:</span> <span id="scoreValue">0</span>
       </div>
@@ -56,24 +56,30 @@
 
     <div id="gameArea" class="hidden">
       <p id="progressCounter">Tappa: 0</p>
-      <div id="progressPath" class="progress-path"></div>
+
       <div id="scorePanel">
         <span id="correctLabel">✅ Corrette:</span> <span id="correctCount">0</span> |
         <span id="errorLabel">❌ Errori:</span> <span id="errorCount">0</span> |
         <span id="jollyLabel">🃏 Jolly:</span> <span id="jollyCount">0</span>
       </div>
+
+      <!-- Barra percorso a tappe -->
+      <div id="progressPath" class="progress-path"></div>
+
       <div id="cardDisplay">
         <p id="currentCardLabel">Carta attuale:</p>
         <img id="currentCardImg" src="" alt="Carta" />
       </div>
+
       <div id="challengeArea">
         <p id="challengeText">Sfida in corso...</p>
         <div id="challengeButtons"></div>
       </div>
+
       <button id="restartBtn" class="hidden">🔁 Ricomincia</button>
     </div>
   </div>
 
-  <script src="script.js" defer></script>
+  <script src="script.js"></script>
 </body>
 </html>
