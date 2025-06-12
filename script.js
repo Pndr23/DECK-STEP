@@ -1,39 +1,27 @@
+
 const startBtn = document.getElementById("startBtn");
 const gameArea = document.getElementById("gameArea");
 const gameSetup = document.getElementById("gameSetup");
 const challengeText = document.getElementById("challengeText");
 const challengeButtons = document.getElementById("challengeButtons");
 const currentCardImg = document.getElementById("currentCardImg");
-
-const stepSpan = document.getElementById("step");
-const multiplierSpan = document.getElementById("multiplier");
-const potentialWinSpan = document.getElementById("potentialWin");
-const cashOutBtn = document.getElementById("cashOutBtn");
+const jollyArea = document.getElementById("jollyArea");
+const useJollyBtn = document.getElementById("useJollyBtn");
 
 let currentCard = null;
-let step = 1;
-let betAmount = 1;
-let multipliers = [1.2, 1.5, 2, 3, 5, 8, 12, 20, 40, 100];
+let jollyAvailable = false;
+let correctStreak = 0;
 
 startBtn.addEventListener("click", () => {
-  betAmount = parseFloat(document.getElementById("bet").value);
-  const risk = document.getElementById("risk").value;
-
   gameSetup.classList.add("hidden");
   gameArea.classList.remove("hidden");
-
   startGame();
 });
 
-cashOutBtn.addEventListener("click", () => {
-  const win = (betAmount * multipliers[step - 1]).toFixed(2);
-  alert(`Hai incassato: €${win}`);
-  location.reload();
-});
-
 function startGame() {
-  step = 1;
-  updateStepDisplay();
+  correctStreak = 0;
+  jollyAvailable = false;
+  updateJollyDisplay();
   currentCard = drawCard();
   displayCard(currentCard);
   generateChallenge();
@@ -44,15 +32,13 @@ function drawCard() {
 }
 
 function displayCard(cardNumber) {
-  const fileName = cardNumber <= 10 ? `card_${cardNumber}.png` : `card_10.png`;
+  const fileName = `card_${cardNumber}.png`;
   currentCardImg.src = `cards/${fileName}`;
 }
 
 function generateChallenge() {
   const challenges = ["Maggiore o Minore", "Pari o Dispari", "Dentro o Fuori", "Numero Esatto"];
-  const randomIndex = Math.floor(Math.random() * challenges.length);
-  const selectedChallenge = challenges[randomIndex];
-
+  const selectedChallenge = challenges[Math.floor(Math.random() * challenges.length)];
   challengeText.textContent = `Sfida: ${selectedChallenge}`;
   challengeButtons.innerHTML = "";
 
@@ -80,23 +66,58 @@ function generateChallenge() {
 function addButton(text) {
   const btn = document.createElement("button");
   btn.textContent = text;
-  btn.onclick = () => {
-    alert(`Hai scelto: ${text}`);
-    step++;
-    if (step > 10) {
-      alert("🎉 Hai raggiunto la tappa 10! Jackpot vinto!");
-    } else {
-      updateStepDisplay();
-      currentCard = drawCard();
-      displayCard(currentCard);
-      generateChallenge();
-    }
-  };
+  btn.onclick = () => handleAnswer(text);
   challengeButtons.appendChild(btn);
 }
 
-function updateStepDisplay() {
-  stepSpan.textContent = step;
-  multiplierSpan.textContent = multipliers[step - 1];
-  potentialWinSpan.textContent = (betAmount * multipliers[step - 1]).toFixed(2);
+function handleAnswer(choice) {
+  const nextCard = drawCard();
+  let isCorrect = false;
+
+  const challenge = challengeText.textContent;
+
+  if (challenge.includes("Maggiore o Minore")) {
+    isCorrect = (choice === "Maggiore" && nextCard > currentCard) || (choice === "Minore" && nextCard < currentCard);
+  } else if (challenge.includes("Pari o Dispari")) {
+    isCorrect = (choice === "Pari" && nextCard % 2 === 0) || (choice === "Dispari" && nextCard % 2 !== 0);
+  } else if (challenge.includes("Dentro o Fuori")) {
+    const a = parseInt(challengeButtons.dataset.rangeA);
+    const b = parseInt(challengeButtons.dataset.rangeB);
+    isCorrect = (choice === "Dentro" && nextCard > a && nextCard < b) || (choice === "Fuori" && (nextCard < a || nextCard > b));
+  } else if (challenge.includes("Numero Esatto")) {
+    isCorrect = parseInt(choice) === nextCard;
+  }
+
+  if (isCorrect) {
+    correctStreak++;
+    if (correctStreak === 3) {
+      jollyAvailable = true;
+      updateJollyDisplay();
+    }
+    currentCard = nextCard;
+    displayCard(currentCard);
+    generateChallenge();
+  } else if (jollyAvailable) {
+    alert("Errore annullato grazie al Jolly!");
+    jollyAvailable = false;
+    updateJollyDisplay();
+    generateChallenge();
+  } else {
+    alert("Hai sbagliato! Fine gioco.");
+    location.reload();
+  }
+}
+
+useJollyBtn.addEventListener("click", () => {
+  if (jollyAvailable) {
+    alert("Hai saltato la sfida grazie al Jolly!");
+    jollyAvailable = false;
+    correctStreak = 0;
+    updateJollyDisplay();
+    generateChallenge();
+  }
+});
+
+function updateJollyDisplay() {
+  jollyArea.classList.toggle("hidden", !jollyAvailable);
 }
