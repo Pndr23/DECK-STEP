@@ -120,9 +120,3 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("currentCardLabel").textContent = "Current card:";
   }
 });
-
-
-function setLanguage(lang) {
-  // Funzione placeholder: aggiungeremo le traduzioni più avanti
-  console.log("Lingua selezionata:", lang);
-}
