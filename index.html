@@ -5,76 +5,127 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Carta Passo</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Forzare visibilità tendina lingua */
+    #language {
+      display: inline-block !important;
+      margin-bottom: 10px;
+      border: 2px solid red;
+      background: #fff;
+      color: black;
+      z-index: 9999;
+    }
+    label[for="language"] {
+      display: inline-block !important;
+      color: red;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Carta Passo</h1>
-    <div id="rulesToggle">📜 Regole</div>
-    <div id="rulesPanel" class="hidden">
-      <p>Indovina correttamente la sfida per avanzare. Dopo 3 risposte corrette, puoi usare un Jolly!</p>
-      <ul>
-        <li>Maggiore/Minore</li>
-        <li>Pari/Dispari</li>
-        <li>Dentro/Fuori</li>
-        <li>Numero esatto</li>
-      </ul>
-    </div>
-    
-<div id="rulesPanel">
-  <details open>
-    <summary><strong>📖 Regole del gioco</strong></summary>
-    <p>Benvenuto in <strong>Carta Passo</strong>! Il tuo obiettivo è superare una serie di sfide casuali indovinando correttamente il risultato della carta successiva.</p>
-    <ul>
-      <li>Puoi scegliere la <strong>puntata iniziale</strong> tra €0.10, €0.20, €0.50, €1, €2 e €5.</li>
-      <li>Puoi anche scegliere la <strong>difficoltà</strong>: Easy, Medium o Hard (più sfide, meno jolly).</li>
-      <li>Ogni turno una carta viene pescata e ti viene proposta una sfida (es. maggiore/minore, pari/dispari, ecc.).</li>
-      <li>Ogni risposta corretta ti fa avanzare di una <strong>tappa</strong>.</li>
-      <li>Dopo 3 risposte corrette consecutive, ricevi un <strong>jolly</strong> che può essere usato per saltare o annullare un errore.</li>
-      <li>3 errori terminano la partita. Puoi ricominciare con il pulsante 🔁.</li>
-      <li>Il gioco è tradotto automaticamente in italiano o inglese secondo la lingua del browser.</li>
-    </ul>
-  </details>
-</div>
-
-<div id="gameSetup" class="setup">
-      <label for="bet">Puntata:</label>
-      <select id="bet">
-        <option value="0.1">€0.10</option>
-<option value="0.2">€0.20</option>
-<option value="0.5">€0.50</option>
-        <option value="1">€1</option>
-        <option value="2">€2</option>
-        <option value="5">€5</option>
+  <div id="start-screen">
+    <h1 data-i18n="title">Carta Passo</h1>
+    <div id="setup">
+      <!-- Lingua -->
+      <label for="language" data-i18n="language-label">Lingua:</label>
+      <select id="language" onchange="changeLanguage()">
+        <option value="it">Italiano</option>
+        <option value="en">English</option>
       </select>
 
-      <label for="risk">Modalità rischio:</label>
-      <select id="risk">
-        <option value="easy">Facile</option>
-        <option value="medium">Media</option>
-        <option value="hard">Difficile</option>
+      <!-- Selezione difficoltà e puntata -->
+      <label data-i18n="difficulty-label">Difficoltà:</label>
+      <select id="difficulty">
+        <option value="easy" data-i18n="easy">Facile</option>
+        <option value="medium" data-i18n="medium">Media</option>
+        <option value="hard" data-i18n="hard">Difficile</option>
       </select>
 
-      <button id="startBtn">🎮 Inizia la partita</button>
-    </div>
+      <label data-i18n="bet-label">Puntata:</label>
+      <input type="number" id="bet" min="1" value="10" />
 
-    <div id="gameArea" class="hidden">
-<p id="progressCounter">Tappa: 0</p>
-      <div id="scorePanel">
-        ✅ Corrette: <span id="correctCount">0</span> |
-        ❌ Errori: <span id="errorCount">0</span> |
-        🃏 Jolly: <span id="jollyCount">0</span>
+      <div id="regolamento">
+        <h2 data-i18n="rules-title">Regolamento</h2>
+        <p data-i18n="rules-text">Scegli la tua difficoltà e la puntata. Indovina correttamente le carte per avanzare nelle tappe e vincere!</p>
       </div>
-      <div id="cardDisplay">
-        <p id="currentCardLabel">Carta attuale:</p>
-        <img id="currentCardImg" src="" alt="Carta" />
-      </div>
-      <div id="challengeArea">
-        <p id="challengeText">Sfida in corso...</p>
-        <div id="challengeButtons"></div>
-      </div>
-      <button id="restartBtn" class="hidden">🔁 Ricomincia</button>
+
+      <button onclick="startGame()" data-i18n="start-button">Inizia</button>
     </div>
   </div>
+
+  <div id="game-screen" style="display:none;">
+    <button id="toggle-regolamento" onclick="toggleRegolamento()">❔</button>
+    <div id="regolamento-popup">
+      <h3 data-i18n="rules-title">Regolamento</h3>
+      <p data-i18n="rules-text">Scegli la tua difficoltà e la puntata. Indovina correttamente le carte per avanzare nelle tappe e vincere!</p>
+      <button onclick="toggleRegolamento()" data-i18n="close-button">Chiudi</button>
+    </div>
+
+    <div id="tappe">
+      <h2><span data-i18n="current-stage">Tappa attuale</span>: <span id="tappa-num">1</span></h2>
+      <div id="percorso-tappe"></div>
+    </div>
+
+    <div id="game-area">
+      <img id="current-card" src="" alt="Carta" />
+      <div id="choices">
+        <button onclick="makeGuess('higher')" data-i18n="higher">Maggiore</button>
+        <button onclick="makeGuess('lower')" data-i18n="lower">Minore</button>
+      </div>
+      <button id="jolly-button" onclick="useJolly()" style="display:none;" data-i18n="use-jolly">Usa Jolly</button>
+    </div>
+  </div>
+
   <script src="script.js"></script>
+  <script>
+    const translations = {
+      it: {
+        "title": "Carta Passo",
+        "language-label": "Lingua:",
+        "difficulty-label": "Difficoltà:",
+        "easy": "Facile",
+        "medium": "Media",
+        "hard": "Difficile",
+        "bet-label": "Puntata:",
+        "rules-title": "Regolamento",
+        "rules-text": "Scegli la tua difficoltà e la puntata. Indovina correttamente le carte per avanzare nelle tappe e vincere!",
+        "start-button": "Inizia",
+        "close-button": "Chiudi",
+        "current-stage": "Tappa attuale",
+        "higher": "Maggiore",
+        "lower": "Minore",
+        "use-jolly": "Usa Jolly"
+      },
+      en: {
+        "title": "Card Step",
+        "language-label": "Language:",
+        "difficulty-label": "Difficulty:",
+        "easy": "Easy",
+        "medium": "Medium",
+        "hard": "Hard",
+        "bet-label": "Bet:",
+        "rules-title": "Rules",
+        "rules-text": "Choose your difficulty and bet. Guess the cards correctly to advance through the stages and win!",
+        "start-button": "Start",
+        "close-button": "Close",
+        "current-stage": "Current Stage",
+        "higher": "Higher",
+        "lower": "Lower",
+        "use-jolly": "Use Joker"
+      }
+    };
+
+    let currentLanguage = "it";
+
+    function changeLanguage() {
+      currentLanguage = document.getElementById("language").value;
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (translations[currentLanguage][key]) {
+          el.innerText = translations[currentLanguage][key];
+        }
+      });
+    }
+  </script>
 </body>
 </html>
