@@ -19,10 +19,29 @@
         <li>Numero esatto</li>
       </ul>
     </div>
-    <div id="gameSetup" class="setup">
+    
+<div id="rulesPanel">
+  <details open>
+    <summary><strong>📖 Regole del gioco</strong></summary>
+    <p>Benvenuto in <strong>Carta Passo</strong>! Il tuo obiettivo è superare una serie di sfide casuali indovinando correttamente il risultato della carta successiva.</p>
+    <ul>
+      <li>Puoi scegliere la <strong>puntata iniziale</strong> tra €0.10, €0.20, €0.50, €1, €2 e €5.</li>
+      <li>Puoi anche scegliere la <strong>difficoltà</strong>: Easy, Medium o Hard (più sfide, meno jolly).</li>
+      <li>Ogni turno una carta viene pescata e ti viene proposta una sfida (es. maggiore/minore, pari/dispari, ecc.).</li>
+      <li>Ogni risposta corretta ti fa avanzare di una <strong>tappa</strong>.</li>
+      <li>Dopo 3 risposte corrette consecutive, ricevi un <strong>jolly</strong> che può essere usato per saltare o annullare un errore.</li>
+      <li>3 errori terminano la partita. Puoi ricominciare con il pulsante 🔁.</li>
+      <li>Il gioco è tradotto automaticamente in italiano o inglese secondo la lingua del browser.</li>
+    </ul>
+  </details>
+</div>
+
+<div id="gameSetup" class="setup">
       <label for="bet">Puntata:</label>
       <select id="bet">
-        <option value="0.5">€0.50</option>
+        <option value="0.1">€0.10</option>
+<option value="0.2">€0.20</option>
+<option value="0.5">€0.50</option>
         <option value="1">€1</option>
         <option value="2">€2</option>
         <option value="5">€5</option>
@@ -39,6 +58,7 @@
     </div>
 
     <div id="gameArea" class="hidden">
+<p id="progressCounter">Tappa: 0</p>
       <div id="scorePanel">
         ✅ Corrette: <span id="correctCount">0</span> |
         ❌ Errori: <span id="errorCount">0</span> |

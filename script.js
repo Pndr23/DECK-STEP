@@ -1,3 +1,4 @@
+let tappe = 0;
 
 const startBtn = document.getElementById("startBtn");
 const gameArea = document.getElementById("gameArea");
