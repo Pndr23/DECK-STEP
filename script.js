@@ -1,6 +1,6 @@
 let tappe = 0;
 
-const startBtn = document.getElementById("startBtn");
+const startButton = document.getElementById("startButton");
 const gameArea = document.getElementById("gameArea");
 const gameSetup = document.getElementById("gameSetup");
 const challengeText = document.getElementById("challengeText");
@@ -22,7 +22,7 @@ rulesToggle.addEventListener("click", () => {
   rulesPanel.classList.toggle("hidden");
 });
 
-startBtn.addEventListener("click", () => {
+startButton.addEventListener("click", () => {
   gameSetup.classList.add("hidden");
   gameArea.classList.remove("hidden");
   restartBtn.classList.add("hidden");
@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (navigator.language.startsWith("en")) {
     document.querySelector("html").lang = "en";
     document.querySelector("h1").textContent = "Card Step";
-    document.getElementById("startBtn").textContent = "🎮 Start";
+    document.getElementById("startButton").textContent = "🎮 Start";
     document.getElementById("restartBtn").textContent = "🔁 Restart";
     document.getElementById("rulesToggle").textContent = "📜 Rules";
     document.getElementById("rulesPanel").innerHTML = "<p>Guess correctly to advance. After 3 right answers, you get a Jolly!</p><ul><li>Higher/Lower</li><li>Even/Odd</li><li>Inside/Outside</li><li>Exact number</li></ul>";
