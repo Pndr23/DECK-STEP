@@ -135,3 +135,18 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("currentCardLabel").textContent = "Current card:";
   }
 });
+
+
+function updateTappa(step) {
+  document.querySelectorAll(".tappa").forEach(t => t.classList.remove("active"));
+  const current = document.querySelector(`.tappa[data-step="${step}"]`);
+  if (current) current.classList.add("active");
+}
+
+// Esempio: chiamare updateTappa(tappe + 1) dopo una risposta corretta
+function onCorrectAnswer() {
+  correctCount++;
+  tappe++;
+  updateTappa(tappe + 1);
+  // resto della logica
+}
