@@ -13,22 +13,15 @@
   </select>
 
   <div class="container">
-    <h1>Carta Passo</h1>
+    <h1 id="gameTitle">Carta Passo</h1>
 
-    <div id="rulesLabel">📜 Regole</div>
+    <div id="rulesLabel" class="rules-toggle">📜 Regole</div>
     <div id="rulesPanel" class="hidden">
-      <p>Benvenuto in <strong>Carta Passo</strong>! Il tuo obiettivo è superare una serie di sfide casuali indovinando correttamente il risultato della carta successiva.</p>
-      <ul>
-        <li>Puoi scegliere la <strong>puntata iniziale</strong>.</li>
-        <li>Ogni risposta corretta ti fa avanzare di una <strong>tappa</strong>.</li>
-        <li>Dopo 3 risposte corrette consecutive, ricevi un <strong>jolly</strong>.</li>
-        <li>I jolly sono <strong>cumulabili</strong> e puoi usarli manualmente con il pulsante dedicato.</li>
-        <li>3 errori terminano la partita.</li>
-      </ul>
+      <!-- Contenuto dinamico -->
     </div>
 
     <div id="gameSetup" class="setup">
-      <label for="bet">Puntata:</label>
+      <label for="bet" id="betLabel">Puntata:</label>
       <select id="bet">
         <option value="0.1">€0.10</option>
         <option value="0.2">€0.20</option>
@@ -38,7 +31,7 @@
         <option value="5">€5</option>
       </select>
 
-      <label for="risk">Modalità rischio:</label>
+      <label for="risk" id="riskLabel">Modalità rischio:</label>
       <select id="risk">
         <option value="easy">Facile</option>
         <option value="medium">Media</option>
@@ -53,6 +46,7 @@
 
     <div id="gameArea" class="hidden">
       <p id="progressCounter">Tappa: 0</p>
+      <div id="progressPath" class="progress-path"></div>
 
       <div id="scorePanel">
         <span id="correctLabel">✅ Corrette:</span> <span id="correctCount">0</span> |
@@ -61,8 +55,6 @@
       </div>
 
       <button id="useJollyBtn" class="hidden">🃏 Usa Jolly</button>
-
-      <div id="progressPath" class="progress-path"></div>
 
       <div id="cardDisplay">
         <p id="currentCardLabel">Carta attuale:</p>
