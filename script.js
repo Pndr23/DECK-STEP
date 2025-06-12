@@ -201,3 +201,9 @@ function setLanguage(lang) {
   setText("rule-6", t.rule6);
   setText("rule-7", t.rule7);
 }
+
+window.addEventListener("load", () => {
+  const defaultLang = navigator.language.startsWith("en") ? "en" : "it";
+  document.getElementById("lang").value = defaultLang;
+  setLanguage(defaultLang);
+});
