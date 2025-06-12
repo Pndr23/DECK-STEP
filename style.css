@@ -1,44 +1,22 @@
-
 body {
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  background-color: #1b1f3a;
   color: white;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
-
 .container {
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  text-align: center;
 }
-
 .hidden {
   display: none;
 }
-
-select, button {
-  margin: 0.5rem 0;
-  padding: 0.5rem;
-  font-size: 1rem;
-}
-
 button {
-  background-color: #00c853;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #00e676;
-}
-
-img {
-  width: 100px;
-  height: auto;
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
 }

@@ -8,24 +8,11 @@
 </head>
 <body>
   <div class="container">
-    <h1 id="title">Carta Passo</h1>
-    <div id="languageSelector">
-      <label for="language">🌐 Lingua:</label>
-      <select id="language">
-        <option value="it">Italiano</option>
-        <option value="en">English</option>
-      </select>
-    </div>
-    <div id="rules" class="rules">
-      <h2 id="rulesTitle">Regole del Gioco</h2>
-      <p id="rulesText">
-        Benvenuto in Carta Passo! Il tuo obiettivo è superare 10 tappe indovinando
-        le caratteristiche della prossima carta. Dopo ogni sfida puoi ritirarti o continuare.
-        Se sbagli, subisci la penalità in base alla modalità scelta.
-      </p>
-    </div>
+    <h1>Carta Passo</h1>
+    <div id="rules"></div>
+
     <div id="gameSetup" class="setup">
-      <label for="bet" id="betLabel">Puntata:</label>
+      <label for="bet" data-translate="bet">Puntata:</label>
       <select id="bet">
         <option value="0.5">€0.50</option>
         <option value="1">€1</option>
@@ -33,19 +20,19 @@
         <option value="5">€5</option>
       </select>
 
-      <label for="risk" id="riskLabel">Modalità rischio:</label>
+      <label for="risk" data-translate="riskMode">Modalità rischio:</label>
       <select id="risk">
         <option value="easy">Easy</option>
         <option value="medium">Medium</option>
         <option value="hard">Hard</option>
       </select>
 
-      <button id="startBtn">Inizia la partita</button>
+      <button id="startBtn" data-translate="start">Inizia la partita</button>
     </div>
 
     <div id="gameArea" class="hidden">
       <div id="cardDisplay">
-        <p id="currentCardLabel">Carta attuale:</p>
+        <p data-translate="currentCard">Carta attuale:</p>
         <img id="currentCardImg" src="" alt="Carta" />
       </div>
       <div id="challengeArea">
@@ -55,6 +42,7 @@
     </div>
   </div>
 
+  <script src="lang.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
