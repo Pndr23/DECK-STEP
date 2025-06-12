@@ -99,7 +99,7 @@ function addButton(text, checkFn) {
     }
     updateScore();
     if (errorCount >= 3) {
-      challengeText.textContent = "Hai perso!";
+      challengeText.textContent = t("lose-message");
       challengeButtons.innerHTML = "";
       restartBtn.classList.remove("hidden");
     } else {
@@ -126,12 +126,12 @@ document.addEventListener("DOMContentLoaded", () => {
 // Testi tradotti per messaggi dinamici
 const dynamicTexts = {
   it: {
-    "win-message": "Hai vinto!",
-    "lose-message": "Hai perso!",
-    "joker-used": "Hai usato un Jolly!",
-    "error-message": "Risposta sbagliata!",
-    "next-step": "Prossima tappa",
-    "restart": "Ricomincia"
+    "win-message": t("win-message"),
+    "lose-message": t("lose-message"),
+    "joker-used": t("joker-used"),
+    "error-message": t("error-message"),
+    "next-step": t("next-step"),
+    "restart": t("restart")
   },
   en: {
     "win-message": "You won!",
