@@ -76,46 +76,5 @@
     </div>
   </div>
   <script src="script.js"></script>
-
-<script>
-const translations = {
-  it: {
-    rulesToggle: "📜 Regole",
-    rulesTitle: "📖 Regole del gioco",
-    intro: "Benvenuto in <strong>Carta Passo</strong>! Il tuo obiettivo è superare una serie di sfide casuali indovinando correttamente il risultato della carta successiva.",
-    betOption: "Puoi scegliere la <strong>puntata iniziale</strong> tra €0.10, €0.20, €0.50, €1, €2 e €5.",
-    difficultyOption: "Puoi anche scegliere la <strong>difficoltà</strong>: Easy, Medium o Hard (più sfide, meno jolly).",
-    cardChallenge: "Ogni turno una carta viene pescata e ti viene proposta una sfida (es. maggiore/minore, pari/dispari, ecc.).",
-    progression: "Ogni risposta corretta ti fa avanzare di una <strong>tappa</strong>.",
-    jollyInfo: "Dopo 3 risposte corrette consecutive, ricevi un <strong>jolly</strong> che può essere usato per saltare o annullare un errore.",
-    gameOver: "3 errori terminano la partita."
-  },
-  en: {
-    rulesToggle: "📜 Rules",
-    rulesTitle: "📖 Game Rules",
-    intro: "Welcome to <strong>Card Step</strong>! Your goal is to overcome a series of random challenges by correctly guessing the outcome of the next card.",
-    betOption: "You can choose the <strong>starting bet</strong> between €0.10, €0.20, €0.50, €1, €2, and €5.",
-    difficultyOption: "You can also choose the <strong>difficulty</strong>: Easy, Medium, or Hard (more challenges, fewer wildcards).",
-    cardChallenge: "Each turn a card is drawn and you're given a challenge (e.g., higher/lower, even/odd, etc.).",
-    progression: "Each correct answer moves you forward one <strong>step</strong>.",
-    jollyInfo: "After 3 correct answers in a row, you earn a <strong>wildcard</strong> that can be used to skip or undo a mistake.",
-    gameOver: "3 mistakes end the game."
-  }
-};
-
-function changeLanguage(lang = document.getElementById('language')?.value || 'it') {
-  document.getElementById("rulesToggle").innerText = translations[lang].rulesToggle;
-  document.getElementById("rulesTitle").innerHTML = translations[lang].rulesTitle;
-  document.getElementById("intro").innerHTML = translations[lang].intro;
-  document.getElementById("betOption").innerHTML = translations[lang].betOption;
-  document.getElementById("difficultyOption").innerHTML = translations[lang].difficultyOption;
-  document.getElementById("cardChallenge").innerHTML = translations[lang].cardChallenge;
-  document.getElementById("progression").innerHTML = translations[lang].progression;
-  document.getElementById("jollyInfo").innerHTML = translations[lang].jollyInfo;
-  document.getElementById("gameOver").innerHTML = translations[lang].gameOver;
-}
-document.addEventListener("DOMContentLoaded", () => changeLanguage());
-</script>
-
 </body>
 </html>
