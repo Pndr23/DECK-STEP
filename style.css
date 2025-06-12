@@ -56,3 +56,28 @@ img {
   margin: 1rem 0;
   font-size: 1.1rem;
 }
+
+
+#toggle-regolamento {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+#regolamento-popup {
+  display: none;
+  position: fixed;
+  top: 50px;
+  right: 10px;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 15px;
+  max-width: 300px;
+  z-index: 1000;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
