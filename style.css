@@ -85,17 +85,28 @@ img {
 #tappe-container {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
-  gap: 8px;
+  align-items: center;
+  gap: 12px;
+  margin: 20px auto;
+  padding: 10px;
+  max-width: 90%;
 }
+
 .tappa {
-  padding: 8px 12px;
-  border-radius: 12px;
-  background-color: #ccc;
-  font-weight: bold;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ccc;
   color: #000;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.3s, transform 0.3s;
 }
+
 .tappa.active {
-  background-color: gold;
-  border: 2px solid #000;
+  background: gold;
+  transform: scale(1.3);
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
 }

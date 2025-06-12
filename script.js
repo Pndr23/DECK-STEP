@@ -46,17 +46,19 @@ function updateScore() {
 
 function startGame() {
 
-  // Genera barra tappe
-  const tappeContainer = document.createElement("div");
-  tappeContainer.id = "tappe-container";
-  for (let i = 1; i <= 10; i++) {
-    const tappa = document.createElement("div");
-    tappa.className = "tappa" + (i === 1 ? " active" : "");
-    tappa.innerText = i + "x";
-    tappeContainer.appendChild(tappa);
+  // Crea la barra delle tappe
+  const existing = document.getElementById("tappe-container");
+  if (!existing) {
+    const tappeContainer = document.createElement("div");
+    tappeContainer.id = "tappe-container";
+    for (let i = 1; i <= 10; i++) {
+      const tappa = document.createElement("div");
+      tappa.className = "tappa" + (i === 1 ? " active" : "");
+      tappa.innerText = i + "x";
+      tappeContainer.appendChild(tappa);
+    }
+    document.getElementById("game-screen").prepend(tappeContainer);
   }
-  const gameScreen = document.getElementById("game-screen");
-  gameScreen.insertBefore(tappeContainer, gameScreen.firstChild);
 
   currentCard = drawCard();
   displayCard(currentCard);
