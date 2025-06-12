@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector("h1").textContent = "Card Step";
     document.getElementById("startButton").textContent = "🎮 Start";
     document.getElementById("restartBtn").textContent = "🔁 Restart";
-    document.getElementById("rulesToggle").textContent = "📜 Rules";
+    document.getElementById("rulesLabel").textContent = "📜 Rules";
     document.getElementById("rulesPanel").innerHTML =  `<p>Welcome to <strong>Card Step</strong>! Your goal is to complete a series of random challenges by correctly guessing the result of the next card.</p>
   <ul>
     <li>You can choose the <strong>starting bet</strong> between €0.10, €0.20, €0.50, €1, €2 and €5.</li>
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <li>After 3 correct answers in a row, you receive a <strong>joker</strong> that can be used to skip or cancel an error.</li>
     <li>3 mistakes end the game. You can restart with the 🔁 button.</li>
     <li>The game is automatically translated to Italian or English based on your browser language.</li>
-      </ul> `;
+      </ul>`;
     document.getElementById("currentCardLabel").textContent = "Current card:";
   }
 });
