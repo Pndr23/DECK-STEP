@@ -1,16 +1,15 @@
-
 const startBtn = document.getElementById("startBtn");
 const gameArea = document.getElementById("gameArea");
 const gameSetup = document.getElementById("gameSetup");
 const challengeText = document.getElementById("challengeText");
 const challengeButtons = document.getElementById("challengeButtons");
 const currentCardImg = document.getElementById("currentCardImg");
-const jollyArea = document.getElementById("jollyArea");
 const useJollyBtn = document.getElementById("useJollyBtn");
+const jollyArea = document.getElementById("jollyArea");
 
 let currentCard = null;
-let jollyAvailable = false;
 let correctStreak = 0;
+let jollyAvailable = false;
 
 startBtn.addEventListener("click", () => {
   gameSetup.classList.add("hidden");
@@ -19,12 +18,12 @@ startBtn.addEventListener("click", () => {
 });
 
 function startGame() {
-  correctStreak = 0;
-  jollyAvailable = false;
-  updateJollyDisplay();
   currentCard = drawCard();
   displayCard(currentCard);
   generateChallenge();
+  correctStreak = 0;
+  jollyAvailable = false;
+  updateJollyDisplay();
 }
 
 function drawCard() {
@@ -38,86 +37,93 @@ function displayCard(cardNumber) {
 
 function generateChallenge() {
   const challenges = ["Maggiore o Minore", "Pari o Dispari", "Dentro o Fuori", "Numero Esatto"];
-  const selectedChallenge = challenges[Math.floor(Math.random() * challenges.length)];
+  const randomIndex = Math.floor(Math.random() * challenges.length);
+  const selectedChallenge = challenges[randomIndex];
+
   challengeText.textContent = `Sfida: ${selectedChallenge}`;
   challengeButtons.innerHTML = "";
 
   if (selectedChallenge === "Maggiore o Minore") {
-    addButton("Maggiore");
-    addButton("Minore");
+    addButton("Maggiore", checkAnswer);
+    addButton("Minore", checkAnswer);
   } else if (selectedChallenge === "Pari o Dispari") {
-    addButton("Pari");
-    addButton("Dispari");
+    addButton("Pari", checkAnswer);
+    addButton("Dispari", checkAnswer);
   } else if (selectedChallenge === "Dentro o Fuori") {
     const a = Math.floor(Math.random() * 6) + 2;
     const b = a + 2;
     challengeText.textContent += ` (${a}-${b})`;
     challengeButtons.dataset.rangeA = a;
     challengeButtons.dataset.rangeB = b;
-    addButton("Dentro");
-    addButton("Fuori");
+    addButton("Dentro", checkAnswer);
+    addButton("Fuori", checkAnswer);
   } else if (selectedChallenge === "Numero Esatto") {
     for (let i = 1; i <= 10; i++) {
-      addButton(i.toString());
+      addButton(i.toString(), checkAnswer);
     }
   }
 }
 
-function addButton(text) {
+function addButton(text, handler) {
   const btn = document.createElement("button");
   btn.textContent = text;
-  btn.onclick = () => handleAnswer(text);
+  btn.onclick = () => handler(text);
   challengeButtons.appendChild(btn);
 }
 
-function handleAnswer(choice) {
-  const nextCard = drawCard();
-  let isCorrect = false;
+function checkAnswer(choice) {
+  const newCard = drawCard();
+  const prevCard = currentCard;
+  currentCard = newCard;
+  displayCard(currentCard);
 
-  const challenge = challengeText.textContent;
+  let correct = false;
 
-  if (challenge.includes("Maggiore o Minore")) {
-    isCorrect = (choice === "Maggiore" && nextCard > currentCard) || (choice === "Minore" && nextCard < currentCard);
-  } else if (challenge.includes("Pari o Dispari")) {
-    isCorrect = (choice === "Pari" && nextCard % 2 === 0) || (choice === "Dispari" && nextCard % 2 !== 0);
-  } else if (challenge.includes("Dentro o Fuori")) {
-    const a = parseInt(challengeButtons.dataset.rangeA);
-    const b = parseInt(challengeButtons.dataset.rangeB);
-    isCorrect = (choice === "Dentro" && nextCard > a && nextCard < b) || (choice === "Fuori" && (nextCard < a || nextCard > b));
-  } else if (challenge.includes("Numero Esatto")) {
-    isCorrect = parseInt(choice) === nextCard;
+  const a = parseInt(challengeButtons.dataset.rangeA);
+  const b = parseInt(challengeButtons.dataset.rangeB);
+
+  if (choice === "Maggiore") correct = newCard > prevCard;
+  else if (choice === "Minore") correct = newCard < prevCard;
+  else if (choice === "Pari") correct = newCard % 2 === 0;
+  else if (choice === "Dispari") correct = newCard % 2 !== 0;
+  else if (choice === "Dentro") correct = newCard >= a && newCard <= b;
+  else if (choice === "Fuori") correct = newCard < a || newCard > b;
+  else correct = parseInt(choice) === newCard;
+
+  if (correct) {
+    correctStreak++;
+    if (correctStreak === 3 && !jollyAvailable) {
+      jollyAvailable = true;
+      alert("Hai guadagnato un Jolly! 🃏");
+    }
+  } else {
+    if (jollyAvailable) {
+      const use = confirm("Hai sbagliato. Vuoi usare il Jolly per annullare l'errore?");
+      if (use) {
+        jollyAvailable = false;
+        updateJollyDisplay();
+        return; // Errore annullato
+      }
+    }
+    correctStreak = 0;
+    alert("Hai sbagliato!");
   }
 
-  if (isCorrect) {
-    correctStreak++;
-    if (correctStreak === 3) {
-      jollyAvailable = true;
-      updateJollyDisplay();
-    }
-    currentCard = nextCard;
-    displayCard(currentCard);
-    generateChallenge();
-  } else if (jollyAvailable) {
-    alert("Errore annullato grazie al Jolly!");
-    jollyAvailable = false;
-    updateJollyDisplay();
-    generateChallenge();
+  updateJollyDisplay();
+  generateChallenge();
+}
+
+function updateJollyDisplay() {
+  if (jollyAvailable) {
+    jollyArea.classList.remove("hidden");
   } else {
-    alert("Hai sbagliato! Fine gioco.");
-    location.reload();
+    jollyArea.classList.add("hidden");
   }
 }
 
 useJollyBtn.addEventListener("click", () => {
-  if (jollyAvailable) {
-    alert("Hai saltato la sfida grazie al Jolly!");
-    jollyAvailable = false;
-    correctStreak = 0;
-    updateJollyDisplay();
-    generateChallenge();
-  }
+  alert("Hai usato il Jolly per saltare questa sfida!");
+  jollyAvailable = false;
+  updateJollyDisplay();
+  generateChallenge();
 });
-
-function updateJollyDisplay() {
-  jollyArea.classList.toggle("hidden", !jollyAvailable);
-}
