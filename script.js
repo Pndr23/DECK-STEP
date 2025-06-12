@@ -120,3 +120,34 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("currentCardLabel").textContent = "Current card:";
   }
 });
+
+
+
+// Testi tradotti per messaggi dinamici
+const dynamicTexts = {
+  it: {
+    "win-message": "Hai vinto!",
+    "lose-message": "Hai perso!",
+    "joker-used": "Hai usato un Jolly!",
+    "error-message": "Risposta sbagliata!",
+    "next-step": "Prossima tappa",
+    "restart": "Ricomincia"
+  },
+  en: {
+    "win-message": "You won!",
+    "lose-message": "You lost!",
+    "joker-used": "You used a Joker!",
+    "error-message": "Wrong answer!",
+    "next-step": "Next stage",
+    "restart": "Restart"
+  }
+};
+
+// Funzione per ottenere testo dinamico tradotto
+function t(key) {
+  const lang = document.getElementById("language").value;
+  return dynamicTexts[lang][key] || key;
+}
+
+// Esempio di uso nei messaggi dinamici:
+// alert(t("win-message")); oppure document.getElementById("result").innerText = t("lose-message");
