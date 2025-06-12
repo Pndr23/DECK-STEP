@@ -9,7 +9,6 @@
 <body>
   <div class="container">
     <h1>Carta Passo</h1>
-
     <div id="gameSetup" class="setup">
       <label for="bet">Puntata:</label>
       <select id="bet">
@@ -34,15 +33,17 @@
         <p>Carta attuale:</p>
         <img id="currentCardImg" src="" alt="Carta" />
       </div>
-
       <div id="challengeArea">
         <p id="challengeText">Sfida in corso...</p>
         <div id="challengeButtons"></div>
       </div>
+    </div>
 
-      <div id="jollyArea" class="hidden">
-        <button id="useJollyBtn">🃏 Usa Jolly</button>
-      </div>
+    <div id="gameSummary" class="hidden">
+      <h2>Riepilogo Partita</h2>
+      <p id="summaryScore"></p>
+      <p id="summaryStats"></p>
+      <button id="restartBtn">Ricomincia</button>
     </div>
   </div>
 
