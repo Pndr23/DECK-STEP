@@ -1,127 +1,107 @@
 <!DOCTYPE html>
+
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Carta Passo</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Carta Passo</title>
+<link href="style.css" rel="stylesheet"/>
 </head>
 <body>
-  <div id="start-screen">
-    <h1 data-i18n="title">Carta Passo</h1>
-    <div id="setup">
-      <!-- Tendina Lingua -->
-      <label for="language" data-i18n="language-label">Lingua:</label>
-      <select id="language" onchange="changeLanguage()">
-        <option value="it">Italiano</option>
-        <option value="en">English</option>
-      </select>
+<div class="container">
+<label data-i18n="language-label" for="language">Lingua:</label><select id="language" onchange="changeLanguage()"><option value="it">Italiano</option><option value="en">English</option></select><h1>Carta Passo</h1>
+<div id="rulesToggle">📜 Regole</div>
+<div class="hidden" id="rulesPanel">
+<p>Indovina correttamente la sfida per avanzare. Dopo 3 risposte corrette, puoi usare un Jolly!</p>
+<ul>
+<li>Maggiore/Minore</li>
+<li>Pari/Dispari</li>
+<li>Dentro/Fuori</li>
+<li>Numero esatto</li>
+</ul>
+</div>
+<div id="rulesPanel">
+<details open="">
+<summary><strong>📖 Regole del gioco</strong></summary>
+<p>Benvenuto in <strong>Carta Passo</strong>! Il tuo obiettivo è superare una serie di sfide casuali indovinando correttamente il risultato della carta successiva.</p>
+<ul>
+<li>Puoi scegliere la <strong>puntata iniziale</strong> tra €0.10, €0.20, €0.50, €1, €2 e €5.</li>
+<li>Puoi anche scegliere la <strong>difficoltà</strong>: Easy, Medium o Hard (più sfide, meno jolly).</li>
+<li>Ogni turno una carta viene pescata e ti viene proposta una sfida (es. maggiore/minore, pari/dispari, ecc.).</li>
+<li>Ogni risposta corretta ti fa avanzare di una <strong>tappa</strong>.</li>
+<li>Dopo 3 risposte corrette consecutive, ricevi un <strong>jolly</strong> che può essere usato per saltare o annullare un errore.</li>
+<li>3 errori terminano la partita. Puoi ricominciare con il pulsante 🔁.</li>
+<li>Il gioco è tradotto automaticamente in italiano o inglese secondo la lingua del browser.</li>
+</ul>
+</details>
+</div>
+<div class="setup" id="gameSetup">
+<label for="bet">Puntata:</label>
+<select id="bet">
+<option value="0.1">€0.10</option>
+<option value="0.2">€0.20</option>
+<option value="0.5">€0.50</option>
+<option value="1">€1</option>
+<option value="2">€2</option>
+<option value="5">€5</option>
+</select>
+<label for="risk">Modalità rischio:</label>
+<select id="risk">
+<option value="easy">Facile</option>
+<option value="medium">Media</option>
+<option value="hard">Difficile</option>
+</select>
+<button id="startBtn">🎮 Inizia la partita</button>
+</div>
+<div class="hidden" id="gameArea">
+<p id="progressCounter">Tappa: 0</p>
+<div id="scorePanel">
+        ✅ Corrette: <span id="correctCount">0</span> |
+        ❌ Errori: <span id="errorCount">0</span> |
+        🃏 Jolly: <span id="jollyCount">0</span>
+</div>
+<div id="cardDisplay">
+<p id="currentCardLabel">Carta attuale:</p>
+<img alt="Carta" id="currentCardImg" src=""/>
+</div>
+<div id="challengeArea">
+<p id="challengeText">Sfida in corso...</p>
+<div id="challengeButtons"></div>
+</div>
+<button class="hidden" id="restartBtn">🔁 Ricomincia</button>
+</div>
+</div>
+<script src="script.js"></script>
 
-      <!-- Selezione difficoltà -->
-      <label data-i18n="difficulty-label">Difficoltà:</label>
-      <select id="difficulty">
-        <option value="easy" data-i18n="easy">Facile</option>
-        <option value="medium" data-i18n="medium">Media</option>
-        <option value="hard" data-i18n="hard">Difficile</option>
-      </select>
+<script>
+const translations = {
+  it: {
+    "language-label": "Lingua:",
+    "rules-text": "Indovina correttamente la sfida per avanzare. Dopo 3 risposte corrette, puoi usare un Jolly!",
+    "rules-title": "Regole",
+    "start-button": "Inizia",
+    "difficulty": "Difficoltà:",
+    "bet": "Puntata:"
+  },
+  en: {
+    "language-label": "Language:",
+    "rules-text": "Guess the challenge correctly to advance. After 3 correct answers, you can use a Joker!",
+    "rules-title": "Rules",
+    "start-button": "Start",
+    "difficulty": "Difficulty:",
+    "bet": "Bet:"
+  }
+};
 
-      <!-- Puntata -->
-      <label data-i18n="bet-label">Puntata:</label>
-      <input type="number" id="bet" min="1" value="10" />
-
-      <!-- Regolamento -->
-      <div id="regolamento">
-        <h2 data-i18n="rules-title">Regolamento</h2>
-        <p data-i18n="rules-text">Scegli la tua difficoltà e la puntata. Indovina correttamente le carte per avanzare nelle tappe e vincere!</p>
-      </div>
-
-      <button onclick="startGame()" data-i18n="start-button">Inizia</button>
-    </div>
-  </div>
-
-  <div id="game-screen" style="display:none;">
-    <h2 data-i18n="stage-label">Tappa:</h2>
-    <div id="challenge-options">
-      <button data-i18n="greater">Maggiore</button>
-      <button data-i18n="less">Minore</button>
-      <button data-i18n="equal">Uguale</button>
-      <button data-i18n="odd">Dispari</button>
-      <button data-i18n="even">Pari</button>
-      <button data-i18n="inside">Dentro</button>
-      <button data-i18n="outside">Fuori</button>
-    </div>
-    <button data-i18n="use-jolly">Usa Jolly</button>
-    <div id="message" data-i18n="message-placeholder"></div>
-  </div>
-
-  <script src="script.js"></script>
-  <script>
-    const translations = {
-      it: {
-        "title": "Carta Passo",
-        "language-label": "Lingua:",
-        "difficulty-label": "Difficoltà:",
-        "easy": "Facile",
-        "medium": "Media",
-        "hard": "Difficile",
-        "bet-label": "Puntata:",
-        "rules-title": "Regolamento",
-        "rules-text": "Scegli la tua difficoltà e la puntata. Indovina correttamente le carte per avanzare nelle tappe e vincere!",
-        "start-button": "Inizia",
-        "stage-label": "Tappa:",
-        "greater": "Maggiore",
-        "less": "Minore",
-        "equal": "Uguale",
-        "odd": "Dispari",
-        "even": "Pari",
-        "inside": "Dentro",
-        "outside": "Fuori",
-        "use-jolly": "Usa Jolly",
-        "message-placeholder": "",
-        "win-message": "Hai vinto! Complimenti!",
-        "lose-message": "Hai perso. Riprova!",
-        "error-message": "Scelta non valida. Ritenta!",
-        "stage-progress": "Sei alla tappa",
-        "jolly-used": "Hai usato il Jolly!"
-      },
-      en: {
-        "title": "Card Step",
-        "language-label": "Language:",
-        "difficulty-label": "Difficulty:",
-        "easy": "Easy",
-        "medium": "Medium",
-        "hard": "Hard",
-        "bet-label": "Bet:",
-        "rules-title": "Rules",
-        "rules-text": "Choose your difficulty and bet. Guess the cards correctly to advance through the stages and win!",
-        "start-button": "Start",
-        "stage-label": "Stage:",
-        "greater": "Higher",
-        "less": "Lower",
-        "equal": "Equal",
-        "odd": "Odd",
-        "even": "Even",
-        "inside": "Inside",
-        "outside": "Outside",
-        "use-jolly": "Use Joker",
-        "message-placeholder": "",
-        "win-message": "You won! Congratulations!",
-        "lose-message": "You lost. Try again!",
-        "error-message": "Invalid choice. Try again!",
-        "stage-progress": "You are on stage",
-        "jolly-used": "You used the Joker!"
-      }
-    };
-
-    function changeLanguage() {
-      const lang = document.getElementById("language").value;
-      document.querySelectorAll("[data-i18n]").forEach(el => {
-        const key = el.getAttribute("data-i18n");
-        if (translations[lang][key]) {
-          el.innerText = translations[lang][key];
-        }
-      });
+function changeLanguage() {
+  const lang = document.getElementById("language").value;
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.getAttribute("data-i18n");
+    if (translations[lang][key]) {
+      el.innerText = translations[lang][key];
     }
-  </script>
+  });
+}
+</script>
 </body>
 </html>
