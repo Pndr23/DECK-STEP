@@ -1,22 +1,30 @@
 body {
+  background: linear-gradient(to bottom right, #1e3c72, #2a5298);
   font-family: Arial, sans-serif;
-  background-color: #1b1f3a;
   color: white;
+  text-align: center;
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
 }
 .container {
-  text-align: center;
+  padding: 20px;
+}
+.setup, .rules, #languageSwitch {
+  margin-bottom: 20px;
 }
 .hidden {
   display: none;
 }
 button {
-  padding: 10px 20px;
   margin: 5px;
-  font-size: 16px;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 10px;
+  border: none;
+  background-color: #fff;
+  color: #2a5298;
+}
+button:hover {
+  background-color: #ddd;
 }

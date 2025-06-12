@@ -4,19 +4,32 @@ const gameSetup = document.getElementById("gameSetup");
 const challengeText = document.getElementById("challengeText");
 const challengeButtons = document.getElementById("challengeButtons");
 const currentCardImg = document.getElementById("currentCardImg");
+const rulesSection = document.getElementById("rulesSection");
 
-let currentCard = null;
+document.getElementById("languageSelect").addEventListener("change", updateLanguage);
+
+let currentLang = navigator.language.startsWith("en") ? "en" : "it";
+document.getElementById("languageSelect").value = currentLang;
+
+function updateLanguage() {
+  currentLang = document.getElementById("languageSelect").value;
+  const text = translations[currentLang];
+  document.getElementById("gameTitle").textContent = text.title;
+  document.getElementById("betLabel").textContent = text.bet;
+  document.getElementById("riskLabel").textContent = text.risk;
+  document.getElementById("startBtn").textContent = text.start;
+  document.getElementById("currentCardLabel").textContent = text.currentCard;
+  document.getElementById("languageLabel").textContent = text.language;
+  rulesSection.innerHTML = `<h2>${text.rulesTitle}</h2><p>${text.rulesText}</p>`;
+}
 
 startBtn.addEventListener("click", () => {
-  const bet = document.getElementById("bet").value;
-  const risk = document.getElementById("risk").value;
-
   gameSetup.classList.add("hidden");
   gameArea.classList.remove("hidden");
-
   startGame();
 });
 
+let currentCard = null;
 function startGame() {
   currentCard = drawCard();
   displayCard(currentCard);
@@ -34,10 +47,8 @@ function displayCard(cardNumber) {
 
 function generateChallenge() {
   const challenges = ["Maggiore o Minore", "Pari o Dispari", "Dentro o Fuori", "Numero Esatto"];
-  const randomIndex = Math.floor(Math.random() * challenges.length);
-  const selectedChallenge = challenges[randomIndex];
-
-  challengeText.textContent = `Sfida: ${selectedChallenge}`;
+  const selectedChallenge = challenges[Math.floor(Math.random() * challenges.length)];
+  challengeText.textContent = translations[currentLang].challenge + ": " + selectedChallenge;
   challengeButtons.innerHTML = "";
 
   if (selectedChallenge === "Maggiore o Minore") {
@@ -47,11 +58,6 @@ function generateChallenge() {
     addButton("Pari");
     addButton("Dispari");
   } else if (selectedChallenge === "Dentro o Fuori") {
-    const a = Math.floor(Math.random() * 6) + 2;
-    const b = a + 2;
-    challengeText.textContent += ` (${a}-${b})`;
-    challengeButtons.dataset.rangeA = a;
-    challengeButtons.dataset.rangeB = b;
     addButton("Dentro");
     addButton("Fuori");
   } else if (selectedChallenge === "Numero Esatto") {
@@ -61,9 +67,11 @@ function generateChallenge() {
   }
 }
 
-function addButton(text) {
+function addButton(label) {
   const btn = document.createElement("button");
-  btn.textContent = text;
-  btn.onclick = () => alert(`Hai scelto: ${text}`);
+  btn.textContent = label;
+  btn.onclick = () => alert(`Hai scelto: ${label}`);
   challengeButtons.appendChild(btn);
 }
+
+updateLanguage();
