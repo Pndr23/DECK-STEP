@@ -1,5 +1,8 @@
 let tappe = 0;
-const maxTappe = 10; // numero massimo di tappe visualizzate
+let correctCount = 0;
+let errorCount = 0;
+let jollyCount = 0;
+let tappeConsecutive = 0; // Nuovo contatore per i jolly
 
 const startButton = document.getElementById("startButton");
 const gameArea = document.getElementById("gameArea");
@@ -14,12 +17,6 @@ const restartBtn = document.getElementById("restartBtn");
 const rulesToggle = document.getElementById("rulesLabel");
 const rulesPanel = document.getElementById("rulesPanel");
 const progressPath = document.getElementById("progressPath");
-const progressCounter = document.getElementById("progressCounter");
-
-let currentCard = null;
-let correctCount = 0;
-let errorCount = 0;
-let jollyCount = 0;
 
 rulesToggle.addEventListener("click", () => {
   rulesPanel.classList.toggle("hidden");
@@ -33,6 +30,7 @@ startButton.addEventListener("click", () => {
   errorCount = 0;
   jollyCount = 0;
   tappe = 0;
+  tappeConsecutive = 0;
   updateScore();
   updateProgressPath();
   startGame();
@@ -48,23 +46,6 @@ function updateScore() {
   correctCountSpan.textContent = correctCount;
   errorCountSpan.textContent = errorCount;
   jollyCountSpan.textContent = jollyCount;
-  progressCounter.textContent = `Tappa: ${tappe}`;
-}
-
-function updateProgressPath() {
-  progressPath.innerHTML = "";
-  for (let i = 0; i < maxTappe; i++) {
-    const step = document.createElement("div");
-    step.classList.add("progress-step");
-    if (i < tappe) {
-      step.classList.add("active");
-    } else if (i === tappe) {
-      step.classList.add("current");
-    } else {
-      step.classList.add("future");
-    }
-    progressPath.appendChild(step);
-  }
 }
 
 function startGame() {
@@ -110,18 +91,25 @@ function addButton(text, checkFn) {
   const btn = document.createElement("button");
   btn.textContent = text;
   btn.onclick = () => {
-    const correct = checkFn(Number(text));
-    if (correct) {
+    const guessedCorrectly = checkFn(Number(text));
+    
+    if (guessedCorrectly) {
       correctCount++;
       tappe++;
-      if (correctCount % 3 === 0) jollyCount++;
+      tappeConsecutive++;
+      if (tappeConsecutive === 3) {
+        jollyCount++;
+        tappeConsecutive = 0;
+      }
     } else {
       if (jollyCount > 0) {
         jollyCount--;
       } else {
         errorCount++;
       }
+      tappeConsecutive = 0;
     }
+
     updateScore();
     updateProgressPath();
 
@@ -136,6 +124,22 @@ function addButton(text, checkFn) {
   challengeButtons.appendChild(btn);
 }
 
+function updateProgressPath() {
+  progressPath.innerHTML = "";
+  for (let i = 1; i <= 10; i++) {
+    const step = document.createElement("div");
+    step.classList.add("progress-step");
+    if (i < tappe + 1) {
+      step.classList.add("active");
+    } else if (i === tappe + 1) {
+      step.classList.add("current");
+    } else {
+      step.classList.add("future");
+    }
+    progressPath.appendChild(step);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   if (navigator.language.startsWith("en")) {
     document.querySelector("html").lang = "en";
@@ -143,22 +147,16 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("startButton").textContent = "🎮 Start";
     document.getElementById("restartBtn").textContent = "🔁 Restart";
     document.getElementById("rulesLabel").textContent = "📜 Rules";
-    document.getElementById("rulesPanel").innerHTML = `
-      <p>Welcome to <strong>Card Step</strong>! Your goal is to complete a series of random challenges by correctly guessing the result of the next card.</p>
-      <ul>
-        <li>You can choose the <strong>starting bet</strong> between €0.10, €0.20, €0.50, €1, €2 and €5.</li>
-        <li>You can also select the <strong>difficulty</strong>: Easy, Medium or Hard (more challenges, fewer jokers).</li>
-        <li>Each turn a card is drawn and you're given a challenge (e.g. higher/lower, even/odd, etc.).</li>
-        <li>Each correct answer lets you advance to the next <strong>stage</strong>.</li>
-        <li>After 3 correct answers in a row, you receive a <strong>joker</strong> that can be used to skip or cancel an error.</li>
-        <li>3 mistakes end the game. You can restart with the 🔁 button.</li>
-        <li>The game is automatically translated to Italian or English based on your browser language.</li>
-      </ul>`;
+    document.getElementById("rulesPanel").innerHTML =  `<p>Welcome to <strong>Card Step</strong>! Your goal is to complete a series of random challenges by correctly guessing the result of the next card.</p>
+  <ul>
+    <li>You can choose the <strong>starting bet</strong> between €0.10, €0.20, €0.50, €1, €2 and €5.</li>
+    <li>You can also select the <strong>difficulty</strong>: Easy, Medium or Hard (more challenges, fewer jokers).</li>
+    <li>Each turn a card is drawn and you're given a challenge (e.g. higher/lower, even/odd, etc.).</li>
+    <li>Each correct answer lets you advance to the next <strong>stage</strong>.</li>
+    <li>After 3 correct answers in a row, you receive a <strong>joker</strong> that can be used to skip or cancel an error.</li>
+    <li>3 mistakes end the game. You can restart with the 🔁 button.</li>
+    <li>The game is automatically translated to Italian or English based on your browser language.</li>
+      </ul> `;
     document.getElementById("currentCardLabel").textContent = "Current card:";
-    document.getElementById("correctLabel").textContent = "✅ Correct:";
-    document.getElementById("errorLabel").textContent = "❌ Errors:";
-    document.getElementById("jollyLabel").textContent = "🃏 Jokers:";
-    document.getElementById("pointsLabel").textContent = "🏆 Score:";
-    document.getElementById("progressCounter").textContent = "Stage:";
   }
 });
