@@ -45,21 +45,6 @@ function updateScore() {
 }
 
 function startGame() {
-
-  // Crea la barra delle tappe
-  const existing = document.getElementById("tappe-container");
-  if (!existing) {
-    const tappeContainer = document.createElement("div");
-    tappeContainer.id = "tappe-container";
-    for (let i = 1; i <= 10; i++) {
-      const tappa = document.createElement("div");
-      tappa.className = "tappa" + (i === 1 ? " active" : "");
-      tappa.innerText = i + "x";
-      tappeContainer.appendChild(tappa);
-    }
-    document.getElementById("game-screen").prepend(tappeContainer);
-  }
-
   currentCard = drawCard();
   displayCard(currentCard);
   generateChallenge();
@@ -135,18 +120,3 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("currentCardLabel").textContent = "Current card:";
   }
 });
-
-
-function updateTappa(step) {
-  document.querySelectorAll(".tappa").forEach(t => t.classList.remove("active"));
-  const current = document.querySelector(`.tappa[data-step="${step}"]`);
-  if (current) current.classList.add("active");
-}
-
-// Esempio: chiamare updateTappa(tappe + 1) dopo una risposta corretta
-function onCorrectAnswer() {
-  correctCount++;
-  tappe++;
-  updateTappa(tappe + 1);
-  // resto della logica
-}
