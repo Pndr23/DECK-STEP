@@ -7,9 +7,13 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <select id="languageSelect" onchange="changeLanguage()" style="position:absolute; top:10px; right:10px; z-index:1000;">
+    <option value="it">🇮🇹 Italiano</option>
+    <option value="en">🇬🇧 English</option>
+  </select>
   <div class="container">
     <h1>Carta Passo</h1>
-    <div id="rulesToggle">📜 Regole</div>
+    <div id="rulesLabel">📜 Regole</div>
     <div id="rulesPanel" class="hidden">
       <p>Indovina correttamente la sfida per avanzare. Dopo 3 risposte corrette, puoi usare un Jolly!</p>
       <ul>
@@ -54,14 +58,14 @@
         <option value="hard">Difficile</option>
       </select>
 
-      <button id="startBtn">🎮 Inizia la partita</button>
+      <button id="startButton">🎮 Inizia la partita</button>
     </div>
 
     <div id="gameArea" class="hidden">
 <p id="progressCounter">Tappa: 0</p>
       <div id="scorePanel">
         ✅ Corrette: <span id="correctCount">0</span> |
-        ❌ Errori: <span id="errorCount">0</span> |
+        ❌ Errori: <span id="errorLabel">❌ Eroori:</span> <span id="errorCount">0</span>span> |
         🃏 Jolly: <span id="jollyCount">0</span>
       </div>
       <div id="cardDisplay">
