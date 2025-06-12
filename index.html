@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -10,6 +9,16 @@
 <body>
   <div class="container">
     <h1>Carta Passo</h1>
+    <div id="rulesToggle">📜 Regole</div>
+    <div id="rulesPanel" class="hidden">
+      <p>Indovina correttamente la sfida per avanzare. Dopo 3 risposte corrette, puoi usare un Jolly!</p>
+      <ul>
+        <li>Maggiore/Minore</li>
+        <li>Pari/Dispari</li>
+        <li>Dentro/Fuori</li>
+        <li>Numero esatto</li>
+      </ul>
+    </div>
     <div id="gameSetup" class="setup">
       <label for="bet">Puntata:</label>
       <select id="bet">
@@ -21,29 +30,31 @@
 
       <label for="risk">Modalità rischio:</label>
       <select id="risk">
-        <option value="easy">Easy</option>
-        <option value="medium">Medium</option>
-        <option value="hard">Hard</option>
+        <option value="easy">Facile</option>
+        <option value="medium">Media</option>
+        <option value="hard">Difficile</option>
       </select>
 
-      <button id="startBtn">Inizia la partita</button>
+      <button id="startBtn">🎮 Inizia la partita</button>
     </div>
 
     <div id="gameArea" class="hidden">
+      <div id="scorePanel">
+        ✅ Corrette: <span id="correctCount">0</span> |
+        ❌ Errori: <span id="errorCount">0</span> |
+        🃏 Jolly: <span id="jollyCount">0</span>
+      </div>
       <div id="cardDisplay">
-        <p>Carta attuale:</p>
+        <p id="currentCardLabel">Carta attuale:</p>
         <img id="currentCardImg" src="" alt="Carta" />
       </div>
       <div id="challengeArea">
         <p id="challengeText">Sfida in corso...</p>
         <div id="challengeButtons"></div>
       </div>
-      <div id="statusArea">
-        <p>Moltiplicatore: <span id="multiplierDisplay">1x</span></p>
-      </div>
+      <button id="restartBtn" class="hidden">🔁 Ricomincia</button>
     </div>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>
