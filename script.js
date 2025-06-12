@@ -39,7 +39,7 @@ restartBtn.addEventListener("click", () => {
 });
 
 function updateScore() {
-  document.getElementById("scoreValue").innerText = score;
+  document.getElementById("scoreValue").innerText = correctCount;
   correctCountSpan.textContent = correctCount;
   errorCountSpan.textContent = errorCount;
   jollyCountSpan.textContent = jollyCount;
