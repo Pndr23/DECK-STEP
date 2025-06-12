@@ -1,59 +1,51 @@
-
 const startBtn = document.getElementById("startBtn");
 const gameArea = document.getElementById("gameArea");
 const gameSetup = document.getElementById("gameSetup");
 const challengeText = document.getElementById("challengeText");
 const challengeButtons = document.getElementById("challengeButtons");
 const currentCardImg = document.getElementById("currentCardImg");
-const resultMessage = document.getElementById("resultMessage");
-const stepCount = document.getElementById("stepCount");
 
-let deck = [];
+const stepSpan = document.getElementById("step");
+const multiplierSpan = document.getElementById("multiplier");
+const potentialWinSpan = document.getElementById("potentialWin");
+const cashOutBtn = document.getElementById("cashOutBtn");
+
 let currentCard = null;
 let step = 1;
-let riskMode = "easy";
+let betAmount = 1;
+let multipliers = [1.2, 1.5, 2, 3, 5, 8, 12, 20, 40, 100];
 
 startBtn.addEventListener("click", () => {
-  const bet = document.getElementById("bet").value;
-  riskMode = document.getElementById("risk").value;
+  betAmount = parseFloat(document.getElementById("bet").value);
+  const risk = document.getElementById("risk").value;
+
   gameSetup.classList.add("hidden");
   gameArea.classList.remove("hidden");
 
-  initializeDeck();
-  drawNewCard();
+  startGame();
 });
 
-function initializeDeck() {
-  deck = [];
-  for (let i = 1; i <= 10; i++) {
-    for (let j = 0; j < 4; j++) {
-      deck.push(i);
-    }
-  }
-  shuffle(deck);
-}
+cashOutBtn.addEventListener("click", () => {
+  const win = (betAmount * multipliers[step - 1]).toFixed(2);
+  alert(`Hai incassato: €${win}`);
+  location.reload();
+});
 
-function shuffle(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-}
-
-function drawNewCard() {
-  if (deck.length === 0) {
-    alert("Mazzo esaurito!");
-    return;
-  }
-  currentCard = deck.pop();
+function startGame() {
+  step = 1;
+  updateStepDisplay();
+  currentCard = drawCard();
   displayCard(currentCard);
   generateChallenge();
-  stepCount.textContent = "Tappa: " + step;
-  resultMessage.textContent = "";
+}
+
+function drawCard() {
+  return Math.floor(Math.random() * 10) + 1;
 }
 
 function displayCard(cardNumber) {
-  currentCardImg.src = `cards/card_${cardNumber}.png`;
+  const fileName = cardNumber <= 10 ? `card_${cardNumber}.png` : `card_10.png`;
+  currentCardImg.src = `cards/${fileName}`;
 }
 
 function generateChallenge() {
@@ -65,46 +57,46 @@ function generateChallenge() {
   challengeButtons.innerHTML = "";
 
   if (selectedChallenge === "Maggiore o Minore") {
-    addChallengeButton("Maggiore", (next) => next > currentCard);
-    addChallengeButton("Minore", (next) => next < currentCard);
+    addButton("Maggiore");
+    addButton("Minore");
   } else if (selectedChallenge === "Pari o Dispari") {
-    addChallengeButton("Pari", (next) => next % 2 === 0);
-    addChallengeButton("Dispari", (next) => next % 2 !== 0);
+    addButton("Pari");
+    addButton("Dispari");
   } else if (selectedChallenge === "Dentro o Fuori") {
     const a = Math.floor(Math.random() * 6) + 2;
     const b = a + 2;
     challengeText.textContent += ` (${a}-${b})`;
-    addChallengeButton("Dentro", (next) => next >= a && next <= b);
-    addChallengeButton("Fuori", (next) => next < a || next > b);
+    challengeButtons.dataset.rangeA = a;
+    challengeButtons.dataset.rangeB = b;
+    addButton("Dentro");
+    addButton("Fuori");
   } else if (selectedChallenge === "Numero Esatto") {
     for (let i = 1; i <= 10; i++) {
-      addChallengeButton(i.toString(), (next) => next === i);
+      addButton(i.toString());
     }
   }
 }
 
-function addChallengeButton(label, isCorrectFunc) {
+function addButton(text) {
   const btn = document.createElement("button");
-  btn.textContent = label;
+  btn.textContent = text;
   btn.onclick = () => {
-    const nextCard = deck.pop();
-    const correct = isCorrectFunc(nextCard);
-    displayCard(nextCard);
-
-    if (correct) {
-      resultMessage.textContent = "Hai indovinato!";
-      step++;
+    alert(`Hai scelto: ${text}`);
+    step++;
+    if (step > 10) {
+      alert("🎉 Hai raggiunto la tappa 10! Jackpot vinto!");
     } else {
-      resultMessage.textContent = "Errore!";
-      if (riskMode === "easy") step = Math.max(1, step - 2);
-      else if (riskMode === "medium") step = 1;
-      else if (riskMode === "hard") {
-        alert("Hai perso tutto!");
-        location.reload();
-        return;
-      }
+      updateStepDisplay();
+      currentCard = drawCard();
+      displayCard(currentCard);
+      generateChallenge();
     }
-    setTimeout(drawNewCard, 1500);
   };
   challengeButtons.appendChild(btn);
+}
+
+function updateStepDisplay() {
+  stepSpan.textContent = step;
+  multiplierSpan.textContent = multipliers[step - 1];
+  potentialWinSpan.textContent = (betAmount * multipliers[step - 1]).toFixed(2);
 }
