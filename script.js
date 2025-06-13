@@ -252,4 +252,30 @@ function translate(key) {
       higher: "Higher",
       lower: "Lower",
       even: "Even",
-     
+      odd: "Odd",
+      in: "In",
+      out: "Out",
+      correct: "Correct",
+      error: "Errors",
+      jolly: "Jokers",
+      useJolly: "Use Joker",
+      stage: "Stage",
+      points: "Points:",
+      bet: "Bet:",
+      risk: "Risk mode:",
+      lost: "You lost!",
+      rulesText: `<p>Welcome to <strong>Card Step</strong>! Your goal is to overcome a series of random challenges by guessing the result of the next card correctly.</p>
+        <ul>
+          <li>You can choose the <strong>initial bet</strong> among $0.10, $0.20, $0.50, $1, $2, and $5.</li>
+          <li>You can also select <strong>difficulty</strong>: Easy, Medium, or Hard (more challenges, fewer jokers).</li>
+          <li>Each turn, a card is drawn and you are given a challenge.</li>
+          <li>Each correct answer advances you one <strong>stage</strong>.</li>
+          <li>After 3 consecutive correct answers, you earn a <strong>joker</strong>.</li>
+          <li>3 errors end the game. You can restart with the 🔁 button.</li>
+        </ul>`
+    }
+  };
+  return t[currentLanguage][key] || key;
+}
+
+updateLanguage();
