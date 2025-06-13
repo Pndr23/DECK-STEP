@@ -131,4 +131,11 @@ img {
   font-size: 1rem;
   text-shadow: 0 0 6px red;
 }
+.multiplier-label {
+  font-size: 0.9rem;
+  margin-top: 12px;
+  color: gold;
+  font-weight: bold;
+  text-align: center;
+}
 
