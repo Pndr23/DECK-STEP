@@ -129,7 +129,7 @@ function addButton(text, checkFn) {
   const btn = document.createElement("button");
   btn.textContent = text;
   btn.onclick = () => {
-     const result = checkFn(nextCard, Number(text));
+     const result = checkFn(nextCard);
      if (result) {
       correctCount++;
       tappe++;
