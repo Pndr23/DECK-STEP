@@ -107,20 +107,20 @@ function generateChallenge() {
   challengeButtons.innerHTML = "";
 
   if (label === translate("higher") + " o " + translate("lower")) {
-    addButton(translate("higher"), guess => guess > currentCard);
-    addButton(translate("lower"), guess => guess < currentCard);
+    addButton(translate("higher"), (card) => card > currentCard);
+    addButton(translate("lower"),  (card) => card < currentCard);
   } else if (label === translate("even") + " o " + translate("odd")) {
-    addButton(translate("even"), () => currentCard % 2 === 0);
-    addButton(translate("odd"), () => currentCard % 2 !== 0);
+    addButton(translate("even"), (card) => card % 2 === 0);
+    addButton(translate("odd"),  (card) => card % 2 !== 0);
   } else if (label === translate("in") + " o " + translate("out")) {
     const a = Math.floor(Math.random() * 6) + 2;
     const b = a + 2;
     challengeText.textContent += ` (${a}-${b})`;
-    addButton(translate("in"), () => currentCard >= a && currentCard <= b);
-    addButton(translate("out"), () => currentCard < a || currentCard > b);
+    addButton(translate("in"), (card) => card >= a && card <= b);
+    addButton(translate("out"), (card) => card < a || card > b);
   } else {
     for (let i = 1; i <= 13; i++) {
-      addButton(i, () => i == currentCard);
+      addButton(i, (card) => i == card);
     }
   }
 }
@@ -129,7 +129,7 @@ function addButton(text, checkFn) {
   const btn = document.createElement("button");
   btn.textContent = text;
   btn.onclick = () => {
-     const result = checkFn(nextCard);
+     const result = checkFn(nextCard, Number(text));
      if (result) {
       correctCount++;
       tappe++;
