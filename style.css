@@ -125,17 +125,30 @@ img {
   font-weight: bold;
   margin-top: -8px;
 }
-
 .jackpot {
+  margin-bottom: 8px;
   color: #ffdf00;
-  font-size: 1rem;
-  text-shadow: 0 0 6px red;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-shadow: 0 0 8px red, 0 0 4px gold;
+  text-align: center;
 }
+
 .multiplier-label {
   font-size: 0.9rem;
   margin-top: 20px;
   color: gold;
   font-weight: bold;
   text-align: center;
+}
+.jackpot-label {
+  font-size: 0.75rem;
+  color: red;
+  font-weight: bold;
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
 }
 
