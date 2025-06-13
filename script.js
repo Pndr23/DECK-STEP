@@ -1,5 +1,6 @@
 let tappe = 0;
 let currentCard = null;
+let nextCard = null;    // nuova variabile per la carta da indovinare
 let correctCount = 0;
 let errorCount = 0;
 let jollyCount = 0;
@@ -78,6 +79,7 @@ function updateJollyButton() {
 
 function startGame() {
   currentCard = drawCard();
+  nextCard = drawCard();
   displayCard(currentCard);
   generateChallenge();
 }
@@ -107,17 +109,17 @@ function generateChallenge() {
     addButton(translate("higher"), guess => guess > currentCard);
     addButton(translate("lower"), guess => guess < currentCard);
   } else if (label === translate("even") + " o " + translate("odd")) {
-    addButton(translate("even"), () => currentCard % 2 === 0);
-    addButton(translate("odd"), () => currentCard % 2 !== 0);
+    addButton(translate("even"), () => nextCard % 2 === 0);
+    addButton(translate("odd"), () => nextCard % 2 !== 0);
   } else if (label === translate("in") + " o " + translate("out")) {
     const a = Math.floor(Math.random() * 6) + 2;
     const b = a + 2;
     challengeText.textContent += ` (${a}-${b})`;
-    addButton(translate("in"), () => currentCard >= a && currentCard <= b);
-    addButton(translate("out"), () => currentCard < a || currentCard > b);
-  } else {
+    addButton(translate("in"), () => nextCard >= a && nextCard <= b);
+    addButton(translate("out"), () => nextCard < a || nextCard > b);
+  } else { // Numero Esatto
     for (let i = 1; i <= 13; i++) {
-      addButton(i, () => i == currentCard);
+      addButton(i, () => i == nextCard);
     }
   }
 }
@@ -140,16 +142,21 @@ function addButton(text, checkFn) {
     updateScore();
     updateProgress();
     updateJollyButton();
+
     if (errorCount >= 3) {
       challengeText.textContent = translate("lost");
       challengeButtons.innerHTML = "";
       restartBtn.classList.remove("hidden");
     } else {
-      startGame();
+      currentCard = nextCard;    // aggiorna la carta attuale a quella appena indovinata
+      nextCard = drawCard();     // pesca la nuova carta da indovinare
+      displayCard(currentCard);
+      generateChallenge();
     }
   };
   challengeButtons.appendChild(btn);
 }
+
 function updateProgress() {
   progressCounter.textContent = `${translate("stage")}: ${tappe}`;
   progressPath.innerHTML = "";
@@ -182,6 +189,7 @@ function updateProgress() {
     progressPath.appendChild(wrapper);
   }
 }
+
 function updateLanguage() {
   document.querySelector("html").lang = currentLanguage;
   document.getElementById("gameTitle").textContent = translate("title");
@@ -244,34 +252,4 @@ function translate(key) {
       higher: "Higher",
       lower: "Lower",
       even: "Even",
-      odd: "Odd",
-      in: "In",
-      out: "Out",
-      correct: "Correct",
-      error: "Errors",
-      jolly: "Joker",
-      useJolly: "Use Joker",
-      stage: "Stage",
-      points: "Points:",
-      bet: "Bet:",
-      risk: "Risk mode:",
-      lost: "You lost!",
-      rulesText: `<p>Welcome to <strong>Card Step</strong>! Your goal is to complete a series of random challenges by correctly guessing the next card.</p>
-        <ul>
-          <li>You can choose your <strong>starting bet</strong> from €0.10 to €5.</li>
-          <li>Select a <strong>difficulty</strong>: Easy, Medium, or Hard (more challenges, fewer jokers).</li>
-          <li>Each turn draws a card and gives you a challenge.</li>
-          <li>Correct answers advance you a <strong>stage</strong>.</li>
-          <li>After 3 correct answers in a row, you earn a <strong>joker</strong>.</li>
-          <li>3 mistakes end the game. Use 🔁 to restart.</li>
-        </ul>`
-    }
-  };
-  return t[currentLanguage][key];
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
-  languageSelect.value = currentLanguage;
-  updateLanguage();
-});
+     
