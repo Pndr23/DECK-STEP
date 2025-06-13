@@ -15,6 +15,8 @@ body {
   padding: 2rem;
   border-radius: 16px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  width: 90%;
+  max-width: 600px;
 }
 
 select, button {
@@ -57,6 +59,7 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 40px;
 }
 
 .progress-circle {
@@ -83,6 +86,7 @@ img {
 .multiplier-label {
   font-size: 0.75rem;
   margin-top: 4px;
+  color: #fff;
 }
 
 #rulesToggle {
@@ -103,6 +107,7 @@ img {
   font-size: 24px;
   background: none;
   border: none;
+  color: white;
   cursor: pointer;
   z-index: 1001;
 }
@@ -119,5 +124,15 @@ img {
   max-width: 300px;
   z-index: 1000;
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  border-radius: 10px;
+}
+
+#cardArea p {
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+}
+
+#choices {
+  margin-top: 1rem;
 }
 
