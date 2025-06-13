@@ -154,10 +154,10 @@ function updateProgress() {
   progressCounter.textContent = `${translate("stage")}: ${tappe}`;
   progressPath.innerHTML = "";
 
-  const multipliers = [1.2, 1.5, 2, 3, 20, 5, 8, 12, 40, 100];
+  const multipliers = [1, 1.2, 1.5, 2, 2.5, 3, 4, 5, 7, 10];
 
   for (let i = 0; i < 10; i++) {
-       const wrapper = document.createElement("div");
+    const wrapper = document.createElement("div");
     wrapper.style.display = "flex";
     wrapper.style.flexDirection = "column";
     wrapper.style.alignItems = "center";
@@ -175,13 +175,12 @@ function updateProgress() {
 
     const label = document.createElement("div");
     label.classList.add("multiplier-label");
-    label.textContent = "x" + multipliers[i].toFixed(2);
+    label.textContent = "x" + multipliers[i];
 
     wrapper.appendChild(step);
     wrapper.appendChild(label);
     progressPath.appendChild(wrapper);
   }
-  
 }
 
 function updateLanguage() {
