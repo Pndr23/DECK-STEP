@@ -1,6 +1,7 @@
 
 let tappe = 0;
 let currentCard = null;
+let nextCard = null;
 let correctCount = 0;
 let errorCount = 0;
 let jollyCount = 0;
@@ -79,6 +80,7 @@ function updateJollyButton() {
 
 function startGame() {
   currentCard = drawCard();
+  nextCard = drawCard();
   displayCard(currentCard);
   generateChallenge();
 }
@@ -127,7 +129,8 @@ function addButton(text, checkFn) {
   const btn = document.createElement("button");
   btn.textContent = text;
   btn.onclick = () => {
-    if (checkFn(Number(text))) {
+     const result = checkFn(nextCard, Number(text));
+     if (result) {
       correctCount++;
       tappe++;
       if (correctCount % 3 === 0) jollyCount++;
@@ -138,6 +141,11 @@ function addButton(text, checkFn) {
         errorCount++;
       }
     }
+    // Qui devi aggiornare le carte per la prossima sfida:
+currentCard = nextCard;      // la carta successiva diventa la corrente
+nextCard = drawCard();       // pesca una nuova carta successiva
+displayCard(currentCard);    // mostra la nuova carta corrente
+    
     updateScore();
     updateProgress();
     updateJollyButton();
