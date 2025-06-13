@@ -8,11 +8,16 @@
 </head>
 <body>
   <div class="container">
-    <h1 id="gameTitle">Carta Passo</h1>
+    <h1 id="title">Carta Passo</h1>
 
-    <div id="gameSetup">
-      <label for="puntataSelect">💰 Puntata:</label>
-      <select id="puntataSelect">
+    <select id="languageSelect">
+      <option value="it">Italiano</option>
+      <option value="en">English</option>
+    </select>
+
+    <div>
+      <label for="betAmount" id="betLabel">Scegli la puntata:</label>
+      <select id="betAmount">
         <option value="0.10">€0.10</option>
         <option value="0.20">€0.20</option>
         <option value="0.50">€0.50</option>
@@ -20,43 +25,36 @@
         <option value="2">€2</option>
         <option value="5">€5</option>
       </select>
-      <br />
-      <button id="startButton">🎮 Inizia</button>
     </div>
+
+    <div>
+      <label for="riskLevel" id="riskLabel">Modalità rischio:</label>
+      <select id="riskLevel">
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+    </div>
+
+    <button id="startBtn">Inizia</button>
 
     <div id="gameArea" class="hidden">
-      <div id="scorePanel">
-        ✅ <span id="correctCount">0</span> |
-        ❌ <span id="errorCount">0</span> |
-        🃏 <span id="jollyCount">0</span>
+      <div id="scorePanel"></div>
+      <div id="cardArea">
+        <img id="currentCard" src="" alt="" />
+        <p id="challengeText"></p>
       </div>
-
-      <div id="progressContainer">
-        <div class="progress-path" id="progressPath"></div>
-        <div class="multiplier-labels" id="multiplierLabels"></div>
-      </div>
-
-      <div id="currentCardLabel">Carta attuale:</div>
-      <img id="currentCardImg" src="" alt="Carta" />
-
-      <div id="challengeText"></div>
-      <div id="challengeButtons"></div>
-
-      <button id="useJollyBtn" class="hidden">🃏 Usa Jolly</button>
-      <br />
-      <button id="restartBtn" class="hidden">🔁 Ricomincia</button>
+      <div id="choices"></div>
+      <button id="useJollyBtn" class="hidden">Usa Jolly</button>
+      <button id="cashOutBtn">Incassa</button>
     </div>
 
-    <div id="rulesLabel">📜 Regole</div>
-    <div id="rulesPanel" class="hidden">
-      <p>Benvenuto in <strong>Carta Passo</strong>! Scopo del gioco: superare una serie di sfide casuali indovinando la prossima carta.</p>
-      <ul>
-        <li>Scegli la <strong>puntata iniziale</strong>: €0.10, €0.20, €0.50, €1, €2 o €5.</li>
-        <li>Ogni turno ricevi una sfida (es: maggiore/minore, pari/dispari, ecc.).</li>
-        <li>3 risposte corrette consecutive = 1 <strong>jolly</strong>.</li>
-        <li>3 errori = Game Over.</li>
-        <li>Traduzione automatica in IT/EN in base al browser.</li>
-      </ul>
+    <div class="progress-path" id="progressPath"></div>
+
+    <button id="toggle-regolamento">📜</button>
+    <div id="regolamento-popup">
+      <h3>Regolamento</h3>
+      <p id="rulesText">Regole qui...</p>
     </div>
   </div>
 
