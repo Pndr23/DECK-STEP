@@ -10,11 +10,13 @@
   <div class="container">
     <h1 id="title">Carta Passo</h1>
 
+    <!-- Selettore lingua -->
     <select id="languageSelect">
       <option value="it">Italiano</option>
       <option value="en">English</option>
     </select>
 
+    <!-- Selettore puntata -->
     <div>
       <label for="betAmount" id="betLabel">Scegli la puntata:</label>
       <select id="betAmount">
@@ -27,6 +29,7 @@
       </select>
     </div>
 
+    <!-- Selettore difficoltà -->
     <div>
       <label for="riskLevel" id="riskLabel">Modalità rischio:</label>
       <select id="riskLevel">
@@ -36,8 +39,10 @@
       </select>
     </div>
 
+    <!-- Bottone start -->
     <button id="startBtn">Inizia</button>
 
+    <!-- Area gioco -->
     <div id="gameArea" class="hidden">
       <div id="scorePanel"></div>
       <div id="cardArea">
@@ -49,8 +54,10 @@
       <button id="cashOutBtn">Incassa</button>
     </div>
 
+    <!-- Percorso tappe con moltiplicatori -->
     <div class="progress-path" id="progressPath"></div>
 
+    <!-- Regolamento -->
     <button id="toggle-regolamento">📜</button>
     <div id="regolamento-popup">
       <h3>Regolamento</h3>
