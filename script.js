@@ -237,7 +237,7 @@ function translate(key) {
       bet: "Puntata:",
       risk: "Modalità rischio:",
       lost: "Hai perso!",
-      rulesText: `<p>Benvenuto in <strong>Carta Passo</strong>! Il tuo obiettivo è superare una serie di sfide casuali indovinando correttamente il risultato della carta successiva.</p>
+      rulesText: `<p>Benvenuto in <strong>Deck Step</strong>! Il tuo obiettivo è superare una serie di sfide casuali indovinando correttamente il risultato della carta successiva.</p>
         <ul>
           <li>Puoi scegliere la <strong>puntata iniziale</strong> tra €0.10, €0.20, €0.50, €1, €2 e €5.</li>
           <li>Puoi anche scegliere la <strong>difficoltà</strong>: Facile, Media o Difficile (più sfide, meno jolly).</li>
@@ -269,7 +269,7 @@ function translate(key) {
       bet: "Bet:",
       risk: "Risk mode:",
       lost: "You lost!",
-      rulesText: `<p>Welcome to <strong>Dect Step</strong>! Your goal is to complete a series of random challenges by correctly guessing the next card.</p>
+      rulesText: `<p>Welcome to <strong>Deck Step</strong>! Your goal is to complete a series of random challenges by correctly guessing the next card.</p>
         <ul>
           <li>You can choose your <strong>starting bet</strong> from €0.10 to €5.</li>
           <li>Select a <strong>difficulty</strong>: Easy, Medium, or Hard (more challenges, fewer jokers).</li>
