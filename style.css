@@ -126,12 +126,9 @@ img {
   margin-top: -8px;
 }
 .jackpot {
-  margin-bottom: 8px;
-  color: #ffdf00;
-  font-size: 1.1rem;
-  font-weight: bold;
-  text-shadow: 0 0 8px red, 0 0 4px gold;
-  text-align: center;
+ color: #ffdf00;
+  font-size: 1rem;
+  text-shadow: 0 0 6px red;
 }
 
 .multiplier-label {
