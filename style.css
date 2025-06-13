@@ -44,7 +44,6 @@ img {
   height: auto;
   margin-top: 1rem;
 }
-
 .progress-path {
   display: flex;
   gap: 8px;
@@ -52,14 +51,7 @@ img {
   justify-content: center;
   flex-wrap: wrap;
 }
-
 .progress-step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.progress-circle {
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -68,22 +60,18 @@ img {
   transition: background-color 0.3s;
 }
 
-.progress-circle.active {
+.progress-step.active {
   background-color: limegreen;
 }
 
-.progress-circle.future {
+.progress-step.future {
   background-color: #ddd;
 }
 
-.progress-circle.current {
+.progress-step.current {
   background-color: gold;
 }
 
-.multiplier-label {
-  font-size: 0.75rem;
-  margin-top: 4px;
-}
 
 #rulesToggle {
   cursor: pointer;
@@ -95,6 +83,7 @@ img {
   margin: 1rem 0;
   font-size: 1.1rem;
 }
+
 
 #toggle-regolamento {
   position: fixed;
@@ -113,11 +102,20 @@ img {
   top: 50px;
   right: 10px;
   background: #fff;
-  color: #000;
   border: 1px solid #ccc;
   padding: 15px;
   max-width: 300px;
   z-index: 1000;
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
+#useJollyBtn {
+  margin: 10px 0;
+  padding: 8px 12px;
+  background: orange;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
 
