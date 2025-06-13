@@ -79,9 +79,11 @@ function updateJollyButton() {
 }
 
 function startGame() {
-  currentCard = drawCard();
+  if (currentCard === null) {
+    currentCard = drawCard();
+    displayCard(currentCard);
+  }
   nextCard = drawCard();
-  displayCard(currentCard);
   generateChallenge();
 }
 
@@ -107,8 +109,8 @@ function generateChallenge() {
   challengeButtons.innerHTML = "";
 
   if (label === translate("higher") + " o " + translate("lower")) {
-    addButton(translate("higher"), (nest) => next > currentCard);
-    addButton(translate("lower"),  (next) => next < currentCard);
+    addButton(translate("higher"), (next) => next > currentCard);
+    addButton(translate("lower"), (next) => next < currentCard);
   } else if (label === translate("even") + " o " + translate("odd")) {
     addButton(translate("even"), (next) => next % 2 === 0);
     addButton(translate("odd"),  (next) => next % 2 !== 0);
@@ -120,7 +122,7 @@ function generateChallenge() {
     addButton(translate("out"), (next) => next < a || next > b);
   } else {
     for (let i = 1; i <= 13; i++) {
-      addButton(i, (next, val) => i == next);
+      addButton(i, (next) => i == next);
     }
   }
 }
@@ -129,8 +131,8 @@ function addButton(text, checkFn) {
   const btn = document.createElement("button");
   btn.textContent = text;
   btn.onclick = () => {
-     const result = checkFn(nextCard);
-     if (result) {
+    const result = checkFn(nextCard);
+    if (result) {
       correctCount++;
       tappe++;
       if (correctCount % 3 === 0) jollyCount++;
@@ -141,25 +143,25 @@ function addButton(text, checkFn) {
         errorCount++;
       }
     }
-    // Qui devi aggiornare le carte per la prossima sfida:
-currentCard = nextCard;      // la carta successiva diventa la corrente
-nextCard = drawCard();       // pesca una nuova carta successiva
-displayCard(currentCard);    // mostra la nuova carta corrente
-    
+    currentCard = nextCard;
+    displayCard(currentCard);
+    nextCard = drawCard();
+
     updateScore();
     updateProgress();
     updateJollyButton();
-    
+
     if (errorCount >= 3) {
       challengeText.textContent = translate("lost");
       challengeButtons.innerHTML = "";
       restartBtn.classList.remove("hidden");
     } else {
-      startGame();
+      generateChallenge();
     }
   };
   challengeButtons.appendChild(btn);
 }
+
 function updateProgress() {
   progressCounter.textContent = `${translate("stage")}: ${tappe}`;
   progressPath.innerHTML = "";
@@ -192,6 +194,7 @@ function updateProgress() {
     progressPath.appendChild(wrapper);
   }
 }
+
 function updateLanguage() {
   document.querySelector("html").lang = currentLanguage;
   document.getElementById("gameTitle").textContent = translate("title");
@@ -285,4 +288,3 @@ document.addEventListener("DOMContentLoaded", () => {
   languageSelect.value = currentLanguage;
   updateLanguage();
 });
-
