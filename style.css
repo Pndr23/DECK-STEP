@@ -141,14 +141,4 @@ img {
   font-weight: bold;
   text-align: center;
 }
-.jackpot-label {
-  font-size: 0.75rem;
-  color: red;
-  font-weight: bold;
-  position: absolute;
-  top: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-}
 
