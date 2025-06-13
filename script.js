@@ -107,20 +107,20 @@ function generateChallenge() {
   challengeButtons.innerHTML = "";
 
   if (label === translate("higher") + " o " + translate("lower")) {
-    addButton(translate("higher"), (card) => card > currentCard);
-    addButton(translate("lower"),  (card) => card < currentCard);
+    addButton(translate("higher"), (nest, _) => next > currentCard);
+    addButton(translate("lower"),  (next, _) => next < currentCard);
   } else if (label === translate("even") + " o " + translate("odd")) {
-    addButton(translate("even"), (card) => card % 2 === 0);
-    addButton(translate("odd"),  (card) => card % 2 !== 0);
+    addButton(translate("even"), (next, _) => next % 2 === 0);
+    addButton(translate("odd"),  (next, _) => next % 2 !== 0);
   } else if (label === translate("in") + " o " + translate("out")) {
     const a = Math.floor(Math.random() * 6) + 2;
     const b = a + 2;
     challengeText.textContent += ` (${a}-${b})`;
-    addButton(translate("in"), (card) => card >= a && card <= b);
-    addButton(translate("out"), (card) => card < a || card > b);
+    addButton(translate("in"), (next, _) => next >= a && next <= b);
+    addButton(translate("out"), (next, _) => next < a || next > b);
   } else {
     for (let i = 1; i <= 13; i++) {
-      addButton(i, (card) => i == card);
+      addButton(i, (next, val) => i == next);
     }
   }
 }
