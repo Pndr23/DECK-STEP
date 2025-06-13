@@ -181,8 +181,16 @@ function updateProgress() {
     wrapper.appendChild(label);
     progressPath.appendChild(wrapper);
   }
+  
 }
-
+  // Mostra il JACKPOT sopra la 10ª tappa
+  const jackpotLabel = document.getElementById("jackpotLabel");
+  if (tappe >= 10) {
+    jackpotLabel.classList.remove("hidden");
+  } else {
+    jackpotLabel.classList.add("hidden");
+  }
+}
 
 function updateLanguage() {
   document.querySelector("html").lang = currentLanguage;
