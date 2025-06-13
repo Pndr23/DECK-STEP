@@ -122,7 +122,7 @@ function generateChallenge() {
     addButton(translate("out"), (next) => next < a || next > b);
   } else {
     for (let i = 1; i <= 13; i++) {
-      addButton(i, (next) => i == next);
+      addButton(i, (next) => next === i);
     }
   }
 }
