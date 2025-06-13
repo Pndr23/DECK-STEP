@@ -1,217 +1,134 @@
+let tappe = 0;
+
+const startButton = document.getElementById("startButton");
+const gameArea = document.getElementById("gameArea");
+const gameSetup = document.getElementById("gameSetup");
+const challengeText = document.getElementById("challengeText");
+const challengeButtons = document.getElementById("challengeButtons");
+const currentCardImg = document.getElementById("currentCardImg");
+const correctCountSpan = document.getElementById("correctCount");
+const errorCountSpan = document.getElementById("errorCount");
+const jollyCountSpan = document.getElementById("jollyCount");
+const restartBtn = document.getElementById("restartBtn");
+const rulesToggle = document.getElementById("rulesLabel");
+const rulesPanel = document.getElementById("rulesPanel");
+
 let currentCard = null;
-let deck = [];
-let step = 0;
-let score = 0;
-let bet = 1;
+let correctCount = 0;
+let errorCount = 0;
 let jollyCount = 0;
-let correctStreak = 0;
-let language = 'it';
-let riskMode = 'easy';
 
-const multipliers = [1.2, 1.5, 2, 3, 20, 5, 8, 12, 40, 100];
-const challenges = ['higher', 'lower', 'even', 'odd', 'inside', 'outside', 'exact'];
+rulesToggle.addEventListener("click", () => {
+  rulesPanel.classList.toggle("hidden");
+});
 
-const translations = {
-  it: {
-    start: "Inizia",
-    cashOut: "Incassa",
-    useJolly: "Usa Jolly",
-    score: "Punteggio",
-    betLabel: "Scegli la puntata:",
-    riskLabel: "Modalità rischio:",
-    rules: "Indovina se la prossima carta sarà maggiore, minore, pari, dispari, dentro, fuori o esattamente uguale!",
-    title: "Carta Passo",
-    selectChallenge: "Scegli una sfida:",
-    options: {
-      higher: "Maggiore",
-      lower: "Minore",
-      even: "Pari",
-      odd: "Dispari",
-      inside: "Dentro",
-      outside: "Fuori",
-      exact: "Numero esatto"
-    }
-  },
-  en: {
-    start: "Start",
-    cashOut: "Cash Out",
-    useJolly: "Use Joker",
-    score: "Score",
-    betLabel: "Choose your bet:",
-    riskLabel: "Risk mode:",
-    rules: "Guess if the next card will be higher, lower, even, odd, inside, outside or exactly the same!",
-    title: "Step Card",
-    selectChallenge: "Select a challenge:",
-    options: {
-      higher: "Higher",
-      lower: "Lower",
-      even: "Even",
-      odd: "Odd",
-      inside: "Inside",
-      outside: "Outside",
-      exact: "Exact number"
-    }
-  }
-};
+startButton.addEventListener("click", () => {
+  gameSetup.classList.add("hidden");
+  gameArea.classList.remove("hidden");
+  restartBtn.classList.add("hidden");
+  correctCount = 0;
+  errorCount = 0;
+  jollyCount = 0;
+  updateScore();
+  startGame();
+});
 
-function updateLanguageTexts() {
-  document.getElementById("startBtn").textContent = translations[language].start;
-  document.getElementById("cashOutBtn").textContent = translations[language].cashOut;
-  document.getElementById("useJollyBtn").textContent = translations[language].useJolly;
-  document.getElementById("betLabel").textContent = translations[language].betLabel;
-  document.getElementById("riskLabel").textContent = translations[language].riskLabel;
-  document.getElementById("rulesText").textContent = translations[language].rules;
-  document.getElementById("title").textContent = translations[language].title;
-}
+restartBtn.addEventListener("click", () => {
+  gameSetup.classList.remove("hidden");
+  gameArea.classList.add("hidden");
+});
 
-function shuffleDeck() {
-  deck = [];
-  for (let i = 1; i <= 10; i++) {
-    for (let j = 0; j < 4; j++) deck.push(i);
-  }
-  for (let i = deck.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [deck[i], deck[j]] = [deck[j], deck[i]];
-  }
-}
-
-function drawCard() {
-  return deck.pop();
-}
-
-function updateProgressPath() {
-  const path = document.getElementById("progressPath");
-  path.innerHTML = "";
-  for (let i = 0; i < 10; i++) {
-    const stepWrapper = document.createElement("div");
-    stepWrapper.classList.add("progress-step");
-
-    const circle = document.createElement("div");
-    circle.classList.add("progress-circle");
-    if (i < step) circle.classList.add("active");
-    else if (i === step) circle.classList.add("current");
-    else circle.classList.add("future");
-
-    const label = document.createElement("div");
-    label.className = "multiplier-label";
-    label.textContent = `x${multipliers[i]}`;
-
-    stepWrapper.appendChild(circle);
-    stepWrapper.appendChild(label);
-    path.appendChild(stepWrapper);
-  }
-}
-
-function updateScorePanel() {
-  const panel = document.getElementById("scorePanel");
-  panel.textContent = `${translations[language].score}: €${(bet * (multipliers[step - 1] || 1)).toFixed(2)}`;
+function updateScore() {
+  document.getElementById("scoreValue").innerText = correctCount;
+  correctCountSpan.textContent = correctCount;
+  errorCountSpan.textContent = errorCount;
+  jollyCountSpan.textContent = jollyCount;
 }
 
 function startGame() {
-  bet = parseFloat(document.getElementById("betAmount").value);
-  riskMode = document.getElementById("riskLevel").value;
-  step = 0;
-  score = 0;
-  jollyCount = 0;
-  correctStreak = 0;
-  shuffleDeck();
-  document.getElementById("gameArea").classList.remove("hidden");
-  document.getElementById("startBtn").disabled = true;
-  nextTurn();
-}
-
-function nextTurn() {
-  if (deck.length === 0 || step >= 10) return;
   currentCard = drawCard();
-  document.getElementById("currentCard").src = `cards/${currentCard}.png`;
-  document.getElementById("challengeText").textContent = `${translations[language].selectChallenge}`;
-  updateProgressPath();
-  updateScorePanel();
-  showChoices();
+  displayCard(currentCard);
+  generateChallenge();
 }
 
-function showChoices() {
-  const container = document.getElementById("choices");
-  container.innerHTML = "";
-  challenges.forEach((type) => {
-    const btn = document.createElement("button");
-    btn.textContent = translations[language].options[type];
-    btn.onclick = () => handleChoice(type);
-    container.appendChild(btn);
-  });
+function drawCard() {
+  return Math.floor(Math.random() * 13) + 1;
 }
 
-function handleChoice(type) {
-  const next = drawCard();
-  const old = currentCard;
-  currentCard = next;
-  document.getElementById("currentCard").src = `cards/${next}.png`;
-
-  let correct = false;
-  switch (type) {
-    case 'higher': correct = next > old; break;
-    case 'lower': correct = next < old; break;
-    case 'even': correct = next % 2 === 0; break;
-    case 'odd': correct = next % 2 !== 0; break;
-    case 'inside': correct = next > Math.min(old, drawCard()) && next < Math.max(old, drawCard()); break;
-    case 'outside': correct = next < Math.min(old, drawCard()) || next > Math.max(old, drawCard()); break;
-    case 'exact': correct = next === old; break;
-  }
-
-  if (correct) handleCorrectAnswer();
-  else handleWrongAnswer();
+function displayCard(cardNumber) {
+  currentCardImg.src = `cards/card_${cardNumber}.png`;
 }
 
-function handleCorrectAnswer() {
-  step++;
-  correctStreak++;
-  if (correctStreak % 3 === 0) jollyCount++;
-  document.getElementById("useJollyBtn").classList.toggle("hidden", jollyCount === 0);
-  nextTurn();
-}
+function generateChallenge() {
+  const challenges = ["Maggiore o Minore", "Pari o Dispari", "Dentro o Fuori", "Numero Esatto"];
+  const selected = challenges[Math.floor(Math.random() * challenges.length)];
+  challengeText.textContent = `Sfida: ${selected}`;
+  challengeButtons.innerHTML = "";
 
-function handleWrongAnswer() {
-  if (jollyCount > 0) {
-    jollyCount--;
-    document.getElementById("useJollyBtn").classList.toggle("hidden", jollyCount === 0);
-    return;
-  }
-  if (riskMode === "easy") step = Math.max(0, step - 2);
-  else if (riskMode === "medium") step = 0;
-  else step = -1;
-  updateProgressPath();
-  updateScorePanel();
-}
-
-function useJolly() {
-  if (jollyCount > 0) {
-    jollyCount--;
-    document.getElementById("useJollyBtn").classList.toggle("hidden", jollyCount === 0);
-    handleCorrectAnswer();
+  if (selected === "Maggiore o Minore") {
+    addButton("Maggiore", guess => guess > currentCard);
+    addButton("Minore", guess => guess < currentCard);
+  } else if (selected === "Pari o Dispari") {
+    addButton("Pari", () => currentCard % 2 === 0);
+    addButton("Dispari", () => currentCard % 2 !== 0);
+  } else if (selected === "Dentro o Fuori") {
+    const a = Math.floor(Math.random() * 6) + 2;
+    const b = a + 2;
+    challengeText.textContent += ` (${a}-${b})`;
+    addButton("Dentro", () => currentCard >= a && currentCard <= b);
+    addButton("Fuori", () => currentCard < a || currentCard > b);
+  } else if (selected === "Numero Esatto") {
+    for (let i = 1; i <= 13; i++) {
+      addButton(i, () => i == currentCard);
+    }
   }
 }
 
-function cashOut() {
-  alert(`Hai incassato €${(bet * (multipliers[step - 1] || 1)).toFixed(2)}`);
-  location.reload();
+function addButton(text, checkFn) {
+  const btn = document.createElement("button");
+  btn.textContent = text;
+  btn.onclick = () => {
+    if (checkFn(Number(text))) {
+      correctCount++;
+      if (correctCount % 3 === 0) jollyCount++;
+    } else {
+      if (jollyCount > 0) {
+        jollyCount--;
+      } else {
+        errorCount++;
+      }
+    }
+    updateScore();
+    if (errorCount >= 3) {
+      challengeText.textContent = "Hai perso!";
+      challengeButtons.innerHTML = "";
+      restartBtn.classList.remove("hidden");
+    } else {
+      startGame();
+    }
+  };
+  challengeButtons.appendChild(btn);
 }
-
-// === Eventi ===
-document.getElementById("startBtn").addEventListener("click", startGame);
-document.getElementById("useJollyBtn").addEventListener("click", useJolly);
-document.getElementById("cashOutBtn").addEventListener("click", cashOut);
-document.getElementById("toggle-regolamento").addEventListener("click", () => {
-  const popup = document.getElementById("regolamento-popup");
-  popup.style.display = popup.style.display === "none" ? "block" : "none";
-});
-document.getElementById("languageSelect").addEventListener("change", (e) => {
-  language = e.target.value;
-  updateLanguageTexts();
-  updateScorePanel();
-  updateProgressPath();
-});
 
 document.addEventListener("DOMContentLoaded", () => {
-  updateLanguageTexts();
-  updateProgressPath();
+  if (navigator.language.startsWith("en")) {
+    document.querySelector("html").lang = "en";
+    document.querySelector("h1").textContent = "Card Step";
+    document.getElementById("startButton").textContent = "🎮 Start";
+    document.getElementById("restartBtn").textContent = "🔁 Restart";
+    document.getElementById("rulesLabel").textContent = "📜 Rules";
+    document.getElementById("rulesPanel").innerHTML =  `<p>Welcome to <strong>Card Step</strong>! Your goal is to complete a series of random challenges by correctly guessing the result of the next card.</p>
+  <ul>
+    <li>You can choose the <strong>starting bet</strong> between €0.10, €0.20, €0.50, €1, €2 and €5.</li>
+    <li>You can also select the <strong>difficulty</strong>: Easy, Medium or Hard (more challenges, fewer jokers).</li>
+    <li>Each turn a card is drawn and you're given a challenge (e.g. higher/lower, even/odd, etc.).</li>
+    <li>Each correct answer lets you advance to the next <strong>stage</strong>.</li>
+    <li>After 3 correct answers in a row, you receive a <strong>joker</strong> that can be used to skip or cancel an error.</li>
+    <li>3 mistakes end the game. You can restart with the 🔁 button.</li>
+    <li>The game is automatically translated to Italian or English based on your browser language.</li>
+      </ul>`;
+    document.getElementById("currentCardLabel").textContent = "Current card:";
+  }
 });
+
+
