@@ -216,7 +216,7 @@ function updateLanguage() {
 function translate(key) {
   const t = {
     it: {
-      title: "Carta Passo",
+      title: "Deck Step",
       start: "🎮 Inizia la partita",
       restart: "🔁 Ricomincia",
       rules: "📜 Regole",
@@ -248,7 +248,7 @@ function translate(key) {
         </ul>`
     },
     en: {
-      title: "Card Step",
+      title: "Deck Step",
       start: "🎮 Start Game",
       restart: "🔁 Restart",
       rules: "📜 Rules",
