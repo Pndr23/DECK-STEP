@@ -154,7 +154,7 @@ function updateProgress() {
   progressCounter.textContent = `${translate("stage")}: ${tappe}`;
   progressPath.innerHTML = "";
 
-  const multipliers = [1, 1.2, 1.5, 2, 2.5, 3, 4, 5, 7, 10];
+  const multipliers = [1.2, 1.5, 2, 3, 20, 5, 8, 12, 40, 100];
 
   for (let i = 0; i < 10; i++) {
     const wrapper = document.createElement("div");
@@ -175,14 +175,13 @@ function updateProgress() {
 
     const label = document.createElement("div");
     label.classList.add("multiplier-label");
-    label.textContent = "x" + multipliers[i];
+    label.textContent = "x" + multipliers[i].toFixed(2);
 
     wrapper.appendChild(step);
     wrapper.appendChild(label);
     progressPath.appendChild(wrapper);
   }
 }
-
 function updateLanguage() {
   document.querySelector("html").lang = currentLanguage;
   document.getElementById("gameTitle").textContent = translate("title");
