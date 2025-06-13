@@ -1,342 +1,106 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Carta Passo</title>
-<style>
-  /* Stili base */
-  body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background: #f0f0f0;
-  }
-  #gameArea, #restartBtn {
-    display: none;
-  }
-  button {
-    padding: 10px 15px;
-    margin: 5px;
-    cursor: pointer;
-  }
-  .hidden {
-    display: none !important;
-  }
-  /* Progress bar */
-  .progress-step {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    margin-bottom: 5px;
-    background: lightgray;
-  }
-  .active {
-    background: green;
-  }
-  .current {
-    background: orange;
-  }
-  .future {
-    background: lightgray;
-  }
-  .multiplier-label {
-    font-size: 12px;
-  }
-  #rulesPanel.hidden {
-    display: none;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carta Passo</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <select id="languageSelect" onchange="changeLanguage()" style="position:absolute; top:10px; right:10px; z-index:1000;">
+    <option value="it">🇮🇹 Italiano</option>
+    <option value="en">🇬🇧 English</option>
+  </select>
 
-<h1 id="gameTitle">Carta Passo</h1>
+  <div class="container">
+    <h1 id="gameTitle">Carta Passo</h1>
 
-<div id="gameSetup">
-  <button id="startButton">🎮 Inizia la partita</button>
-  <p id="rulesLabel">📜 Regole</p>
-  <div id="rulesPanel" class="hidden">
-    <!-- Qui inserisci testo regole -->
+    <div id="rulesLabel" class="rules-toggle">📜 Regole</div>
+    <div id="rulesPanel" class="hidden">
+      <!-- Contenuto dinamico -->
+    </div>
+
+    <div id="gameSetup" class="setup">
+      <label for="bet" id="betLabel">Puntata:</label>
+      <select id="bet">
+        <option value="0.1">€0.10</option>
+        <option value="0.2">€0.20</option>
+        <option value="0.5">€0.50</option>
+        <option value="1">€1</option>
+        <option value="2">€2</option>
+        <option value="5">€5</option>
+      </select>
+
+      <label for="risk" id="riskLabel">Modalità rischio:</label>
+      <select id="risk">
+        <option value="easy">Facile</option>
+        <option value="medium">Media</option>
+        <option value="hard">Difficile</option>
+      </select>
+
+      <button id="startButton">🎮 Inizia la partita</button>
+      <div style="margin-top: 10px;">
+        <span id="pointsLabel">🏆 Punti:</span> <span id="scoreValue">0</span>
+      </div>
+    </div>
+
+    <div id="gameArea" class="hidden">
+      <p id="progressCounter">Tappa: 0</p>
+      <div id="progressPath" class="progress-path">
+      <div class="progress-step"></div>
+  <div class="multiplier-label">x1.2</div>
+
+  <div class="progress-step"></div>
+  <div class="multiplier-label">x1.5</div>
+
+  <div class="progress-step"></div>
+  <div class="multiplier-label">x2</div>
+
+  <div class="progress-step"></div>
+  <div class="multiplier-label">x3</div>
+
+  <div class="progress-step"></div>
+  <div class="multiplier-label">x20</div>
+
+  <div class="progress-step"></div>
+  <div class="multiplier-label">x5</div>
+
+  <div class="progress-step"></div>
+  <div class="multiplier-label">x8</div>
+
+  <div class="progress-step"></div>
+  <div class="multiplier-label">x12</div>
+
+  <div class="progress-step"></div>
+  <div class="multiplier-label">x40</div>
+
+  <div class="progress-step"></div>
+  <div class="multiplier-label jackpot">x100</div>
+</div>
+
+      <div id="scorePanel">
+        <span id="correctLabel">✅ Corrette:</span> <span id="correctCount">0</span> |
+        <span id="errorLabel">❌ Errori:</span> <span id="errorCount">0</span> |
+        <span id="jollyLabel">🃏 Jolly:</span> <span id="jollyCount">0</span>
+      </div>
+
+      <button id="useJollyBtn" class="hidden">🃏 Usa Jolly</button>
+
+      <div id="cardDisplay">
+        <p id="currentCardLabel">Carta attuale:</p>
+        <img id="currentCardImg" src="" alt="Carta" />
+      </div>
+
+      <div id="challengeArea">
+        <p id="challengeText">Sfida in corso...</p>
+        <div id="challengeButtons"></div>
+      </div>
+
+      <button id="restartBtn" class="hidden">🔁 Ricomincia</button>
+    </div>
   </div>
-</div>
 
-<div id="gameArea">
-  <p id="challengeText"></p>
-  <div id="challengeButtons"></div>
-  <img id="currentCardImg" src="" alt="Carta attuale" width="100" />
-  <p>
-    ✅ <span id="correctCount">0</span> - ❌ <span id="errorCount">0</span> - 🃏 <span id="jollyCount">0</span>
-  </p>
-  <div id="progressCounter"></div>
-  <div id="progressPath" style="display:flex; gap:10px;"></div>
-  <button id="useJollyBtn" class="hidden">🃏 Usa Jolly</button>
-</div>
-
-<button id="restartBtn">🔁 Ricomincia</button>
-
-<select id="languageSelect">
-  <option value="it">Italiano</option>
-  <option value="en">English</option>
-</select>
-
-<script>
-let tappe = 0;
-let currentCard = null;
-let correctCount = 0;
-let errorCount = 0;
-let jollyCount = 0;
-let usedJolly = false;
-let currentLanguage = "it";
-
-const startButton = document.getElementById("startButton");
-const gameArea = document.getElementById("gameArea");
-const gameSetup = document.getElementById("gameSetup");
-const challengeText = document.getElementById("challengeText");
-const challengeButtons = document.getElementById("challengeButtons");
-const currentCardImg = document.getElementById("currentCardImg");
-const correctCountSpan = document.getElementById("correctCount");
-const errorCountSpan = document.getElementById("errorCount");
-const jollyCountSpan = document.getElementById("jollyCount");
-const restartBtn = document.getElementById("restartBtn");
-const rulesToggle = document.getElementById("rulesLabel");
-const rulesPanel = document.getElementById("rulesPanel");
-const progressCounter = document.getElementById("progressCounter");
-const progressPath = document.getElementById("progressPath");
-const useJollyBtn = document.getElementById("useJollyBtn");
-const languageSelect = document.getElementById("languageSelect");
-
-rulesToggle.addEventListener("click", () => {
-  rulesPanel.classList.toggle("hidden");
-});
-
-startButton.addEventListener("click", () => {
-  gameSetup.classList.add("hidden");
-  gameArea.style.display = "block";
-  restartBtn.style.display = "none";
-  resetGame();
-  startGame();
-});
-
-restartBtn.addEventListener("click", () => {
-  gameSetup.classList.remove("hidden");
-  gameArea.style.display = "none";
-  restartBtn.style.display = "none";
-});
-
-useJollyBtn.addEventListener("click", () => {
-  if (jollyCount > 0 && errorCount > 0) {
-    jollyCount--;
-    errorCount--;
-    updateScore();
-    updateJollyButton();
-  }
-});
-
-languageSelect.addEventListener("change", () => {
-  currentLanguage = languageSelect.value;
-  updateLanguage();
-});
-
-function resetGame() {
-  correctCount = 0;
-  errorCount = 0;
-  jollyCount = 0;
-  tappe = 0;
-  usedJolly = false;
-  updateScore();
-  updateProgress();
-  updateJollyButton();
-}
-
-function updateScore() {
-  correctCountSpan.textContent = correctCount;
-  errorCountSpan.textContent = errorCount;
-  jollyCountSpan.textContent = jollyCount;
-}
-
-function updateJollyButton() {
-  useJollyBtn.classList.toggle("hidden", jollyCount === 0 || errorCount === 0);
-}
-
-function startGame() {
-  currentCard = drawCard();
-  displayCard(currentCard);
-  generateChallenge();
-}
-
-function drawCard() {
-  return Math.floor(Math.random() * 13) + 1;
-}
-
-function displayCard(cardNumber) {
-  currentCardImg.src = `cards/card_${cardNumber}.png`;
-}
-
-function generateChallenge() {
-  const challenges = [
-    { it: "Maggiore o Minore", en: "Higher or Lower" },
-    { it: "Pari o Dispari", en: "Even or Odd" },
-    { it: "Dentro o Fuori", en: "In or Out" },
-    { it: "Numero Esatto", en: "Exact Number" }
-  ];
-  const selected = challenges[Math.floor(Math.random() * challenges.length)];
-  const label = selected[currentLanguage];
-
-  challengeText.textContent = `${translate("challenge")}: ${label}`;
-  challengeButtons.innerHTML = "";
-
-  if (label === translate("higher") + " o " + translate("lower")) {
-    addButton(translate("higher"), guess => guess > currentCard);
-    addButton(translate("lower"), guess => guess < currentCard);
-  } else if (label === translate("even") + " o " + translate("odd")) {
-    addButton(translate("even"), () => currentCard % 2 === 0);
-    addButton(translate("odd"), () => currentCard % 2 !== 0);
-  } else if (label === translate("in") + " o " + translate("out")) {
-    const a = Math.floor(Math.random() * 6) + 2;
-    const b = a + 2;
-    challengeText.textContent += ` (${a}-${b})`;
-    addButton(translate("in"), () => currentCard >= a && currentCard <= b);
-    addButton(translate("out"), () => currentCard < a || currentCard > b);
-  } else {
-    for (let i = 1; i <= 13; i++) {
-      addButton(i, () => i == currentCard);
-    }
-  }
-}
-
-function addButton(text, checkFn) {
-  const btn = document.createElement("button");
-  btn.textContent = text;
-  btn.onclick = () => {
-    if (checkFn(Number(text))) {
-      correctCount++;
-      tappe++;
-      if (correctCount % 3 === 0) jollyCount++;
-    } else {
-      if (jollyCount > 0 && errorCount < 3) {
-        jollyCount--;
-      } else {
-        errorCount++;
-      }
-    }
-    updateScore();
-    updateProgress();
-    updateJollyButton();
-    if (errorCount >= 3) {
-      challengeText.textContent = translate("lost");
-      challengeButtons.innerHTML = "";
-      restartBtn.style.display = "inline-block";
-      gameArea.style.display = "none";
-    } else {
-      startGame();
-    }
-  };
-  challengeButtons.appendChild(btn);
-}
-
-function updateProgress() {
-  progressCounter.textContent = `${translate("stage")}: ${tappe}`;
-  progressPath.innerHTML = "";
-
-  const multipliers = [1.2, 1.5, 2, 3, 20, 5, 8, 12, 40, 100];
-
-  for (let i = 0; i < 10; i++) {
-    const wrapper = document.createElement("div");
-    wrapper.style.display = "flex";
-    wrapper.style.flexDirection = "column";
-    wrapper.style.alignItems = "center";
-
-    const step = document.createElement("div");
-    step.classList.add("progress-step");
-
-    if (i < tappe) {
-      step.classList.add("active");
-    } else if (i === tappe) {
-      step.classList.add("current");
-    } else {
-      step.classList.add("future");
-    }
-
-    const label = document.createElement("div");
-    label.classList.add("multiplier-label");
-    label.textContent = "x" + multipliers[i].toFixed(2);
-
-    wrapper.appendChild(step);
-    wrapper.appendChild(label);
-    progressPath.appendChild(wrapper);
-  }
-}
-
-function updateLanguage() {
-  document.querySelector("html").lang = currentLanguage;
-  document.getElementById("gameTitle").textContent = translate("title");
-  startButton.textContent = translate("start");
-  restartBtn.textContent = translate("restart");
-  rulesToggle.textContent = translate("rules");
-  document.getElementById("currentCardLabel")?.textContent = translate("currentCard");
-  document.getElementById("betLabel")?.textContent = translate("bet");
-  document.getElementById("riskLabel")?.textContent = translate("risk");
-  document.getElementById("pointsLabel")?.textContent = translate("points");
-  document.getElementById("correctLabel")?.textContent = "✅ " + translate("correct");
-  document.getElementById("errorLabel")?.textContent = "❌ " + translate("error");
-  document.getElementById("jollyLabel")?.textContent = "🃏 " + translate("jolly");
-  useJollyBtn.textContent = "🃏 " + translate("useJolly");
-  updateProgress();
-  rulesPanel.innerHTML = translate("rulesText");
-}
-
-function translate(key) {
-  const t = {
-    it: {
-      title: "Carta Passo",
-      start: "🎮 Inizia la partita",
-      restart: "🔁 Ricomincia",
-      rules: "📜 Regole",
-      currentCard: "Carta attuale:",
-      challenge: "Sfida",
-      higher: "Maggiore",
-      lower: "Minore",
-      even: "Pari",
-      odd: "Dispari",
-      in: "Dentro",
-      out: "Fuori",
-      correct: "Corrette",
-      error: "Errori",
-      jolly: "Jolly",
-      useJolly: "Usa Jolly",
-      lost: "Hai perso! Riprova.",
-      stage: "Tappa",
-      rulesText: "Qui inserisci le regole del gioco..."
-    },
-    en: {
-      title: "Card Step",
-      start: "🎮 Start Game",
-      restart: "🔁 Restart",
-      rules: "📜 Rules",
-      currentCard: "Current Card:",
-      challenge: "Challenge",
-      higher: "Higher",
-      lower: "Lower",
-      even: "Even",
-      odd: "Odd",
-      in: "In",
-      out: "Out",
-      correct: "Correct",
-      error: "Error",
-      jolly: "Joker",
-      useJolly: "Use Joker",
-      lost: "You lost! Try again.",
-      stage: "Stage",
-      rulesText: "Insert game rules here..."
-    }
-  };
-  return t[currentLanguage][key] || key;
-}
-
-// All’avvio aggiorna lingua
-updateLanguage();
-
-</script>
-
+  <script src="script.js"></script>
 </body>
 </html>
 
