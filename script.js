@@ -150,23 +150,39 @@ function addButton(text, checkFn) {
   };
   challengeButtons.appendChild(btn);
 }
-
 function updateProgress() {
   progressCounter.textContent = `${translate("stage")}: ${tappe}`;
   progressPath.innerHTML = "";
-  for (let i = 1; i <= 10; i++) {
+
+  const multipliers = [1.2, 1.5, 2, 3, 20, 5, 8, 12, 40, 100];
+
+  for (let i = 0; i < 10; i++) {
+    const wrapper = document.createElement("div");
+    wrapper.style.display = "flex";
+    wrapper.style.flexDirection = "column";
+    wrapper.style.alignItems = "center";
+
     const step = document.createElement("div");
     step.classList.add("progress-step");
-    if (i <= tappe) {
+
+    if (i < tappe) {
       step.classList.add("active");
-    } else if (i === tappe + 1) {
+    } else if (i === tappe) {
       step.classList.add("current");
     } else {
       step.classList.add("future");
     }
-    progressPath.appendChild(step);
+
+    const label = document.createElement("div");
+    label.classList.add("multiplier-label");
+    label.textContent = "x" + multipliers[i];
+
+    wrapper.appendChild(step);
+    wrapper.appendChild(label);
+    progressPath.appendChild(wrapper);
   }
 }
+
 
 function updateLanguage() {
   document.querySelector("html").lang = currentLanguage;
