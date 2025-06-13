@@ -9,6 +9,7 @@ let language = 'it';
 let riskMode = 'easy';
 
 const multipliers = [1.2, 1.5, 2, 3, 20, 5, 8, 12, 40, 100];
+const challenges = ['higher', 'lower', 'even', 'odd', 'inside', 'outside', 'exact'];
 
 const translations = {
   it: {
@@ -18,8 +19,18 @@ const translations = {
     score: "Punteggio",
     betLabel: "Scegli la puntata:",
     riskLabel: "Modalità rischio:",
-    rules: "Regole qui...",
-    title: "Carta Passo"
+    rules: "Indovina se la prossima carta sarà maggiore, minore, pari, dispari, dentro, fuori o esattamente uguale!",
+    title: "Carta Passo",
+    selectChallenge: "Scegli una sfida:",
+    options: {
+      higher: "Maggiore",
+      lower: "Minore",
+      even: "Pari",
+      odd: "Dispari",
+      inside: "Dentro",
+      outside: "Fuori",
+      exact: "Numero esatto"
+    }
   },
   en: {
     start: "Start",
@@ -28,12 +39,21 @@ const translations = {
     score: "Score",
     betLabel: "Choose your bet:",
     riskLabel: "Risk mode:",
-    rules: "Rules here...",
-    title: "Step Card"
+    rules: "Guess if the next card will be higher, lower, even, odd, inside, outside or exactly the same!",
+    title: "Step Card",
+    selectChallenge: "Select a challenge:",
+    options: {
+      higher: "Higher",
+      lower: "Lower",
+      even: "Even",
+      odd: "Odd",
+      inside: "Inside",
+      outside: "Outside",
+      exact: "Exact number"
+    }
   }
 };
 
-// === Funzioni ===
 function updateLanguageTexts() {
   document.getElementById("startBtn").textContent = translations[language].start;
   document.getElementById("cashOutBtn").textContent = translations[language].cashOut;
@@ -104,9 +124,42 @@ function nextTurn() {
   if (deck.length === 0 || step >= 10) return;
   currentCard = drawCard();
   document.getElementById("currentCard").src = `cards/${currentCard}.png`;
-  document.getElementById("challengeText").textContent = `Carta: ${currentCard}`;
+  document.getElementById("challengeText").textContent = `${translations[language].selectChallenge}`;
   updateProgressPath();
   updateScorePanel();
+  showChoices();
+}
+
+function showChoices() {
+  const container = document.getElementById("choices");
+  container.innerHTML = "";
+  challenges.forEach((type) => {
+    const btn = document.createElement("button");
+    btn.textContent = translations[language].options[type];
+    btn.onclick = () => handleChoice(type);
+    container.appendChild(btn);
+  });
+}
+
+function handleChoice(type) {
+  const next = drawCard();
+  const old = currentCard;
+  currentCard = next;
+  document.getElementById("currentCard").src = `cards/${next}.png`;
+
+  let correct = false;
+  switch (type) {
+    case 'higher': correct = next > old; break;
+    case 'lower': correct = next < old; break;
+    case 'even': correct = next % 2 === 0; break;
+    case 'odd': correct = next % 2 !== 0; break;
+    case 'inside': correct = next > Math.min(old, drawCard()) && next < Math.max(old, drawCard()); break;
+    case 'outside': correct = next < Math.min(old, drawCard()) || next > Math.max(old, drawCard()); break;
+    case 'exact': correct = next === old; break;
+  }
+
+  if (correct) handleCorrectAnswer();
+  else handleWrongAnswer();
 }
 
 function handleCorrectAnswer() {
@@ -121,7 +174,7 @@ function handleWrongAnswer() {
   if (jollyCount > 0) {
     jollyCount--;
     document.getElementById("useJollyBtn").classList.toggle("hidden", jollyCount === 0);
-    return; // errore annullato dal jolly
+    return;
   }
   if (riskMode === "easy") step = Math.max(0, step - 2);
   else if (riskMode === "medium") step = 0;
@@ -158,7 +211,6 @@ document.getElementById("languageSelect").addEventListener("change", (e) => {
   updateProgressPath();
 });
 
-// === Init ===
 document.addEventListener("DOMContentLoaded", () => {
   updateLanguageTexts();
   updateProgressPath();
