@@ -269,7 +269,7 @@ function translate(key) {
       bet: "Bet:",
       risk: "Risk mode:",
       lost: "You lost!",
-      rulesText: `<p>Welcome to <strong>Card Step</strong>! Your goal is to complete a series of random challenges by correctly guessing the next card.</p>
+      rulesText: `<p>Welcome to <strong>Dect Step</strong>! Your goal is to complete a series of random challenges by correctly guessing the next card.</p>
         <ul>
           <li>You can choose your <strong>starting bet</strong> from €0.10 to €5.</li>
           <li>Select a <strong>difficulty</strong>: Easy, Medium, or Hard (more challenges, fewer jokers).</li>
