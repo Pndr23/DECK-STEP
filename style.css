@@ -117,5 +117,18 @@ img {
   font-size: 1rem;
   cursor: pointer;
 }
+.multiplier-label {
+  font-size: 0.8rem;
+  text-align: center;
+  width: 40px;
+  color: gold;
+  font-weight: bold;
+  margin-top: -8px;
+}
 
+.jackpot {
+  color: #ffdf00;
+  font-size: 1rem;
+  text-shadow: 0 0 6px red;
+}
 
