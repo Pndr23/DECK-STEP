@@ -194,7 +194,7 @@ function updateProgress() {
     progressPath.appendChild(wrapper);
   }
     // --- QUI: aggiungo la scritta JACKPOT sopra la decima tappa ---
-onst steps = progressPath.querySelectorAll(".progress-step");
+const steps = progressPath.querySelectorAll(".progress-step");
 if (steps.length >= 10) {
   const tenthStep = steps[9];
   
