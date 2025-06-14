@@ -209,10 +209,10 @@ if (steps.length >= 10) {
   jackpotLabel.style.fontWeight = "bold";
   jackpotLabel.style.color = "#FFD700";  // colore oro
   jackpotLabel.style.textAlign = "center";
-  jackpotLabel.style.fontSize = "20px"; 
+  jackpotLabel.style.fontSize = "18px"; 
   // Posiziona il testo sopra senza spostare elementi
   jackpotLabel.style.position = "absolute";
-  jackpotLabel.style.top = "-22px"; // alza sopra la tappa, aggiusta se serve
+  jackpotLabel.style.top = "-20px"; // alza sopra la tappa, aggiusta se serve
   jackpotLabel.style.left = "50%";
   jackpotLabel.style.transform = "translateX(-50%)";
   jackpotLabel.style.whiteSpace = "nowrap";
