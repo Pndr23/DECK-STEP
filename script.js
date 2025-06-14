@@ -296,7 +296,7 @@ function translate(key) {
           <li>Ogni risposta corretta ti fa avanzare di una <strong>tappa</strong>.</li>
           <li>Dopo 3 risposte corrette consecutive, ricevi un <strong>jolly</strong>.</li>
           <li>3 errori terminano la partita. Puoi ricominciare con il pulsante 🔁.</li>
-        </ul>`
+        </ul>`,
       withdrawn: "Hai ritirato! Hai totalizzato {points} punti.",
     },
     en: {
