@@ -1,12 +1,16 @@
 body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to right, #0f2e53, #1c3a64);
+ margin: 0;
+  min-height: 100vh;
+  background: 
+    radial-gradient(circle at top center, 
+      #FFD700 0%,     /* giallo sole */
+      #FFA500 30%,    /* arancione */
+      #1E90FF 70%,    /* azzurro intermedio */
+      #0000FF 100%);  /* blu fondo */
+  background-repeat: no-repeat;
+  background-size: cover;
   color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  font-family: sans-serif;
 }
 
 .container {
