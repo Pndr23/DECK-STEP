@@ -8,6 +8,7 @@ let jollyCount = 0;
 let usedJolly = false;
 let currentLanguage = "it";
 
+const withdrawBtn = document.getElementById("withdrawBtn");
 const startButton = document.getElementById("startButton");
 const gameArea = document.getElementById("gameArea");
 const gameSetup = document.getElementById("gameSetup");
@@ -33,6 +34,7 @@ startButton.addEventListener("click", () => {
   gameSetup.classList.add("hidden");
   gameArea.classList.remove("hidden");
   restartBtn.classList.add("hidden");
+  withdrawBtn.classList.remove("hidden");
   resetGame();
   startGame();
 });
@@ -54,6 +56,14 @@ useJollyBtn.addEventListener("click", () => {
 languageSelect.addEventListener("change", () => {
   currentLanguage = languageSelect.value;
   updateLanguage();
+});
+withdrawBtn.addEventListener("click", () => {
+  challengeButtons.innerHTML = "";
+  challengeText.textContent = (currentLanguage === 'it' 
+    ? "Hai ritirato! Hai totalizzato " + correctCount + " punti."
+    : "You withdrew! You earned " + correctCount + " points.");
+  withdrawBtn.classList.add("hidden");
+  restartBtn.classList.remove("hidden");
 });
 
 function resetGame() {
@@ -169,6 +179,7 @@ function addButton(text, checkFn) {
       challengeText.textContent = translate("lost");
       challengeButtons.innerHTML = "";
       restartBtn.classList.remove("hidden");
+      withdrawBtn.classList.add("hidden");
     } else {
       generateChallenge();
     }
