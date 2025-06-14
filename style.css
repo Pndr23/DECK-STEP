@@ -13,6 +13,7 @@ body {
   text-align: center;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid #fdb813;
+  color: #fdb813;
   padding: 2rem;
   border-radius: 16px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -35,15 +36,27 @@ button {
 button:hover {
   background-color: #45a049;
 }
-.button-Minore {
+.button-maggiore {
+  background-color: #2eb82e; /* verde acceso */
+  color: white;
+  }
+.button-dentro {
+  background-color: #2eb82e; /* verde acceso */
+  color: white;
+  }
+.button-pari{
+  background-color: #2eb82e; /* verde acceso */
+  color: white;
+  }
+.button-minore {
   background-color: #e63946; 
   color: white;
   }
-.button-Fuori {
+.button-fuori {
   background-color: #e63946; 
   color: white;
    }
-  .button-Dispari{
+  .button-dispari{
   background-color: #e63946; 
   color: white;
      }
@@ -69,6 +82,7 @@ img {
   border-radius: 50%;
   background-color: #a3c9f7;
   border: 2px solid #0f2e53;
+  color: #0f2e53; 
   transition: background-color 0.3s;
    padding-bottom: 10px;
 }
@@ -84,6 +98,7 @@ img {
 .progress-step.current {
  background-color: #ff6f00;
   border: 2px solid #ffb300;
+  color: white;
 }
 
 
@@ -117,7 +132,7 @@ img {
   right: 10px;
   background: #f6f0e6; 
   color:  #0f2e53;
-  border: 1px solid #ccc;
+  border: 1px solid #ffb300;
   padding: 15px;
   max-width: 300px;
   z-index: 1000;
