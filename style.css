@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  background: linear-gradient(to right, #0f2e53, #1c3a64);
   color: white;
   display: flex;
   justify-content: center;
@@ -11,7 +11,8 @@ body {
 
 .container {
   text-align: center;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #fdb813;
   padding: 2rem;
   border-radius: 16px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -34,7 +35,18 @@ button {
 button:hover {
   background-color: #45a049;
 }
-
+.button-Minore {
+  background-color: #e63946; 
+  color: white;
+  }
+.button-Fuori {
+  background-color: #e63946; 
+  color: white;
+   }
+  .button-Dispari{
+  background-color: #e63946; 
+  color: white;
+     }
 .hidden {
   display: none;
 }
@@ -55,22 +67,23 @@ img {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: lightgray;
-  border: 2px solid #444;
+  background-color: #a3c9f7;
+  border: 2px solid #0f2e53;
   transition: background-color 0.3s;
    padding-bottom: 10px;
 }
 
 .progress-step.active {
-  background-color: limegreen;
+ background-color: #2eb82e;
 }
 
 .progress-step.future {
-  background-color: #ddd;
+   background-color: #f6f0e6;
 }
 
 .progress-step.current {
-  background-color: gold;
+ background-color: #ff6f00;
+  border: 2px solid #ffb300;
 }
 
 
@@ -102,7 +115,8 @@ img {
   position: fixed;
   top: 50px;
   right: 10px;
-  background: #fff;
+  background: #f6f0e6; 
+  color:  #0f2e53;
   border: 1px solid #ccc;
   padding: 15px;
   max-width: 300px;
@@ -112,7 +126,8 @@ img {
 #useJollyBtn {
   margin: 10px 0;
   padding: 8px 12px;
-  background: orange;
+  background: #f7931d;
+  color: white; 
   border: none;
   border-radius: 6px;
   font-size: 1rem;
@@ -121,7 +136,7 @@ img {
 .multiplier-label {
   font-size: 0.9rem;
   margin-top: 20px;  /* spazio maggiore */
-  color: gold;
+  color: #fdb813;
   font-weight: bold;
   text-align: center;
 }
