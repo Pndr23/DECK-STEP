@@ -172,4 +172,11 @@ img {
   border: 2px solid white;
   font-weight: bold;
 }
-
+#gameTitle {
+  font-size: 3rem;       
+  text-transform: uppercase; /* tutto maiuscolo */
+  font-weight: bold;
+  color: white;           
+  text-align: center;
+  margin-bottom: 20px;
+}
