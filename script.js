@@ -130,6 +130,19 @@ function generateChallenge() {
 function addButton(text, checkFn) {
   const btn = document.createElement("button");
   btn.textContent = text;
+ 
+  btn.style.color = "white";
+
+  const lower = translate("lower");
+  const odd = translate("odd");
+  const out = translate("out");
+
+  if (text === lower || text === odd || text === out) {
+    btn.classList.add("red-button");
+  } else {
+    btn.classList.add("green-button"); 
+  }
+
   btn.onclick = () => {
     const result = checkFn(nextCard);
     if (result) {
@@ -143,6 +156,7 @@ function addButton(text, checkFn) {
         errorCount++;
       }
     }
+
     currentCard = nextCard;
     displayCard(currentCard);
     nextCard = drawCard();
@@ -159,6 +173,7 @@ function addButton(text, checkFn) {
       generateChallenge();
     }
   };
+
   challengeButtons.appendChild(btn);
 }
 
