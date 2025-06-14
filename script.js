@@ -262,6 +262,7 @@ function updateLanguage() {
   useJollyBtn.textContent = "🃏 " + translate("useJolly");
   updateProgress();
   rulesPanel.innerHTML = translate("rulesText");
+  document.getElementById("withdrawLabel").textContent = translate("withdraw");
 }
 
 function translate(key) {
@@ -298,6 +299,7 @@ function translate(key) {
           <li>3 errori terminano la partita. Puoi ricominciare con il pulsante 🔁.</li>
         </ul>`,
       withdrawn: "Hai ritirato! Hai totalizzato {points} punti.",
+      withdraw: "RITIRA", 
     },
     en: {
       withdrawn: "You withdrew! You earned {points} points.",
@@ -322,6 +324,7 @@ function translate(key) {
       bet: "Bet:",
       risk: "Risk mode:",
       lost: "You lost!",
+      withdraw: "WITHDRAW",
       rulesText: `<p>Welcome to <strong>Deck Step</strong>! Your goal is to complete a series of random challenges by correctly guessing the next card.</p>
         <ul>
           <li>You can choose your <strong>starting bet</strong> from €0.10 to €5.</li>
