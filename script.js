@@ -193,6 +193,19 @@ function updateProgress() {
     wrapper.appendChild(label);
     progressPath.appendChild(wrapper);
   }
+    // --- QUI: aggiungo la scritta JACKPOT sopra la decima tappa ---
+  const steps = progressPath.querySelectorAll(".progress-step");
+  if (steps.length >= 10) {
+    const tenthStep = steps[9];
+    const jackpotLabel = document.createElement("div");
+    jackpotLabel.textContent = "🎉 JACKPOT 🎉";
+    jackpotLabel.style.fontWeight = "bold";
+    jackpotLabel.style.color = "#FFD700";  // colore oro
+    jackpotLabel.style.textAlign = "center";
+    jackpotLabel.style.marginBottom = "4px";
+
+    tenthStep.parentNode.insertBefore(jackpotLabel, tenthStep);
+  }
 }
 
 function updateLanguage() {
