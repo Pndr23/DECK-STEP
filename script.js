@@ -194,18 +194,31 @@ function updateProgress() {
     progressPath.appendChild(wrapper);
   }
     // --- QUI: aggiungo la scritta JACKPOT sopra la decima tappa ---
-  const steps = progressPath.querySelectorAll(".progress-step");
-  if (steps.length >= 10) {
-    const tenthStep = steps[9];
-    const jackpotLabel = document.createElement("div");
-    jackpotLabel.textContent = "🎉 JACKPOT 🎉";
-    jackpotLabel.style.fontWeight = "bold";
-    jackpotLabel.style.color = "#FFD700";  // colore oro
-    jackpotLabel.style.textAlign = "center";
-    jackpotLabel.style.marginBottom = "4px";
+onst steps = progressPath.querySelectorAll(".progress-step");
+if (steps.length >= 10) {
+  const tenthStep = steps[9];
+  
+  // Prendo il wrapper (genitore) della decima tappa
+  const tenthWrapper = tenthStep.parentNode;
+  
+  // Imposto il wrapper come relativo per contenere l'assoluto
+  tenthWrapper.style.position = "relative";
 
-    tenthStep.parentNode.insertBefore(jackpotLabel, tenthStep);
-  }
+  const jackpotLabel = document.createElement("div");
+  jackpotLabel.textContent = "🎉 JACKPOT 🎉";
+  jackpotLabel.style.fontWeight = "bold";
+  jackpotLabel.style.color = "#FFD700";  // colore oro
+  jackpotLabel.style.textAlign = "center";
+
+  // Posiziona il testo sopra senza spostare elementi
+  jackpotLabel.style.position = "absolute";
+  jackpotLabel.style.top = "-24px"; // alza sopra la tappa, aggiusta se serve
+  jackpotLabel.style.left = "50%";
+  jackpotLabel.style.transform = "translateX(-50%)";
+  jackpotLabel.style.whiteSpace = "nowrap";
+
+  tenthWrapper.appendChild(jackpotLabel);
+}
 }
 
 function updateLanguage() {
