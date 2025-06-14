@@ -131,3 +131,25 @@ img {
   font-size: 1rem;
   text-shadow: 0 0 6px red;
 }
+.jackpot-step {
+  position: relative;
+}
+
+.jackpot-text {
+  position: absolute;
+  top: -30px; /* sposta la scritta sopra */
+  left: 50%;
+  transform: translateX(-50%);
+  color: gold;
+  font-weight: bold;
+  font-size: 1.2em;
+  text-shadow: 1px 1px 2px black;
+  animation: pulse 1s infinite;
+}
+
+/* Animazione opzionale per far lampeggiare */
+@keyframes pulse {
+  0% { transform: translateX(-50%) scale(1); opacity: 1; }
+  50% { transform: translateX(-50%) scale(1.1); opacity: 0.8; }
+  100% { transform: translateX(-50%) scale(1); opacity: 1; }
+}
