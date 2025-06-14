@@ -1,15 +1,11 @@
 body {
-  margin: 0;
+margin: 0;
   min-height: 100vh;
-  background: 
-    linear-gradient(to bottom, 
-      repeating-conic-gradient(from 0deg at 50% 20%, #FFD700 0deg, #FFA500 10deg, #FFD700 20deg), 
-      #1E90FF 50%);
-  background-repeat: no-repeat;
-  background-size: cover;
-  color: white;
-  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to bottom, #ffcc33 0%, #ff9900 50%, #0066cc 50%, #004080 100%);
 }
+
 
 .container {
   text-align: center;
