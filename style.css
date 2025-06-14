@@ -161,3 +161,17 @@ img {
   font-size: 1rem;
   text-shadow: 0 0 6px red;
 }
+.green-button {
+  background-color: green;
+  color: white !important;
+  border: 2px solid white;
+  font-weight: bold;
+}
+
+.red-button {
+  background-color: red;
+  color: white !important;
+  border: 2px solid white;
+  font-weight: bold;
+}
+
