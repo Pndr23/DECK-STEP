@@ -57,15 +57,14 @@ languageSelect.addEventListener("change", () => {
   currentLanguage = languageSelect.value;
   updateLanguage();
 });
+
 withdrawBtn.addEventListener("click", () => {
   challengeButtons.innerHTML = "";
-  challengeText.textContent = (currentLanguage === 'it' 
-    ? "Hai ritirato! Hai totalizzato " + correctCount + " punti."
-    : "You withdrew! You earned " + correctCount + " points.");
+  const message = translate("withdrawn").replace("{points}", correctCount);
+  challengeText.textContent = message;
   withdrawBtn.classList.add("hidden");
   restartBtn.classList.remove("hidden");
 });
-
 function resetGame() {
   correctCount = 0;
   errorCount = 0;
@@ -298,8 +297,10 @@ function translate(key) {
           <li>Dopo 3 risposte corrette consecutive, ricevi un <strong>jolly</strong>.</li>
           <li>3 errori terminano la partita. Puoi ricominciare con il pulsante 🔁.</li>
         </ul>`
+      withdrawn: "Hai ritirato! Hai totalizzato {points} punti.",
     },
     en: {
+      withdrawn: "You withdrew! You earned {points} points.",
       title: "Deck Step",
       start: "🎮 Start Game",
       restart: "🔁 Restart",
