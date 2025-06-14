@@ -134,17 +134,14 @@ img {
 .jackpot-step {
   position: relative;
 }
-
 .jackpot-text {
-  position: absolute;
-  top: -30px; /* sposta la scritta sopra */
-  left: 50%;
-  transform: translateX(-50%);
-  color: gold;
+position: relative;
+  text-align: center;
   font-weight: bold;
-  font-size: 1.2em;
+  font-size: 14px;
+  color: gold;
   text-shadow: 1px 1px 2px black;
-  animation: pulse 1s infinite;
+  margin-bottom: -10px;
 }
 
 /* Animazione opzionale per far lampeggiare */
