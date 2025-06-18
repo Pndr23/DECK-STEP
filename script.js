@@ -6,6 +6,7 @@ let correctCount = 0;
 let errorCount = 0;
 let jollyCount = 0;
 let usedJolly = false;
+let puntata = 1; 
 let currentLanguage = "it";
 
 const withdrawBtn = document.getElementById("withdrawBtn");
@@ -35,6 +36,8 @@ startButton.addEventListener("click", () => {
   gameArea.classList.remove("hidden");
   restartBtn.classList.add("hidden");
   withdrawBtn.classList.remove("hidden");
+  const puntataInput = document.getElementById("puntataSelect");
+puntata = parseFloat(puntataInput.value) || 1;
   resetGame();
   startGame();
 });
@@ -243,6 +246,7 @@ if (steps.length >= 10) {
   jackpotLabel.style.whiteSpace = "nowrap";
 
   tenthWrapper.appendChild(jackpotLabel);
+  updateEarnings();
 }
 }
 
@@ -343,4 +347,9 @@ document.addEventListener("DOMContentLoaded", () => {
   currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
   languageSelect.value = currentLanguage;
   updateLanguage();
+  }
+  function updateEarnings() {
+  const multipliers = [1.2, 1.5, 2, 3, 20, 5, 8, 12, 40, 100];
+  const earnings = tappe > 0 ? (puntata * multipliers[tappe - 1]).toFixed(2) : "0.00";
+  document.getElementById("earningsValue").textContent = `€${earnings}`;
 });
