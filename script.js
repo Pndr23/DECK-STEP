@@ -347,9 +347,9 @@ document.addEventListener("DOMContentLoaded", () => {
   currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
   languageSelect.value = currentLanguage;
   updateLanguage();
-  }
+  });
   function updateEarnings() {
   const multipliers = [1.2, 1.5, 2, 3, 20, 5, 8, 12, 40, 100];
   const earnings = tappe > 0 ? (puntata * multipliers[tappe - 1]).toFixed(2) : "0.00";
   document.getElementById("earningsValue").textContent = `€${earnings}`;
-});
+  }
