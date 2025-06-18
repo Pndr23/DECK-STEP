@@ -180,7 +180,8 @@ function addButton(text, checkFn) {
     updateScore();
     updateProgress();
     updateJollyButton();
-
+    aggiornaGuadagno(correctCount);
+    
     if (errorCount >= 3) {
       challengeText.textContent = translate("lost");
       challengeButtons.innerHTML = "";
@@ -251,6 +252,15 @@ if (steps.length >= 10) {
 
   tenthWrapper.appendChild(jackpotLabel);
 }
+  function aggiornaGuadagno(corretti) {
+  const label = document.getElementById("gainLabel");
+  let guadagno = puntataIniziale;
+
+  for (let i = 0; i < corretti; i++) {
+    guadagno *= moltiplicatori[i] || 1; // fallback a 1 se oltre i limiti
+  }
+
+  label.textContent = "+€" + guadagno.toFixed(2);
 }
 
 function updateLanguage() {
