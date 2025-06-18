@@ -202,3 +202,14 @@ img {
   background-color: red;
   color: white;
 }
+.gain-label {
+  display: inline-block;
+  background-color: rgba(0, 0, 0, 0.7); /* fondo semitrasparente */
+  color: #FFD700; /* colore oro */
+  font-size: 0.9rem;
+  margin-left: 10px; /* accanto, non sopra né sotto */
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: bold;
+  vertical-align: middle;
+}
