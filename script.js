@@ -84,6 +84,7 @@ function updateScore() {
   correctCountSpan.textContent = correctCount;
   errorCountSpan.textContent = errorCount;
   jollyCountSpan.textContent = jollyCount;
+aggiornaContatori();
 }
 
 function updateJollyButton() {
@@ -246,9 +247,34 @@ if (steps.length >= 10) {
   jackpotLabel.style.whiteSpace = "nowrap";
 
   tenthWrapper.appendChild(jackpotLabel);
-  updateEarnings();
 }
+   aggiornaContatori();
 }
+
+function aggiornaContatori() {
+  const multipliers = [1.2, 1.5, 2, 3, 20, 5, 8, 12, 40, 100];
+  const stageMultiplier = tappe > 0 ? multipliers[Math.min(tappe - 1, multipliers.length - 1)] : 1;
+
+  // Guadagno ipotetico per correzioni ed errori
+  const earningsCorrect = (puntata * stageMultiplier * correctCount).toFixed(2);
+  const earningsError = (puntata * stageMultiplier * errorCount).toFixed(2);
+
+  // Aggiorna contatori numerici
+  correctCountSpan.textContent = correctCount;
+  errorCountSpan.textContent = errorCount;
+
+  // Aggiorna vignette guadagno vicino ai contatori
+  const earningsCorrectSpan = document.getElementById("earningsCorrect");
+  const earningsErrorSpan = document.getElementById("earningsError");
+
+  if (earningsCorrectSpan) {
+    earningsCorrectSpan.textContent = `€${earningsCorrect}`;
+  }
+  if (earningsErrorSpan) {
+    earningsErrorSpan.textContent = `€${earningsError}`;
+  }
+}
+
 
 function updateLanguage() {
   document.querySelector("html").lang = currentLanguage;
