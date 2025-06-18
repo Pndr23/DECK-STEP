@@ -6,6 +6,8 @@ let errorCount = 0;
 let jollyCount = 0;
 let usedJolly = false;
 let currentLanguage = "it";
+let puntataIniziale = 0; // valore di default, verrà aggiornato quando selezioni una puntata
+let moltiplicatori = [1.2, 1.5, 2, 3, 20, 5, 8, 12, 40, 100];
 
 const withdrawBtn = document.getElementById("withdrawBtn");
 const startButton = document.getElementById("startButton");
@@ -24,6 +26,12 @@ const progressCounter = document.getElementById("progressCounter");
 const progressPath = document.getElementById("progressPath");
 const useJollyBtn = document.getElementById("useJollyBtn");
 const languageSelect = document.getElementById("languageSelect");
+const selectBet = document.getElementById("selectBet");
+
+selectBet.addEventListener("change", () => {
+  puntataIniziale = parseFloat(selectBet.value);
+});
+
 
 rulesToggle.addEventListener("click", () => {
   rulesPanel.classList.toggle("hidden");
