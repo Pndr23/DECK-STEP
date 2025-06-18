@@ -1,4 +1,3 @@
-
 let tappe = 0;
 let currentCard = null;
 let nextCard = null;
@@ -6,7 +5,6 @@ let correctCount = 0;
 let errorCount = 0;
 let jollyCount = 0;
 let usedJolly = false;
-let puntata = 1; 
 let currentLanguage = "it";
 
 const withdrawBtn = document.getElementById("withdrawBtn");
@@ -36,8 +34,6 @@ startButton.addEventListener("click", () => {
   gameArea.classList.remove("hidden");
   restartBtn.classList.add("hidden");
   withdrawBtn.classList.remove("hidden");
-  const puntataInput = document.getElementById("puntataSelect");
-puntata = parseFloat(puntataInput.value) || 1;
   resetGame();
   startGame();
 });
@@ -84,7 +80,6 @@ function updateScore() {
   correctCountSpan.textContent = correctCount;
   errorCountSpan.textContent = errorCount;
   jollyCountSpan.textContent = jollyCount;
-aggiornaContatori();
 }
 
 function updateJollyButton() {
@@ -248,33 +243,7 @@ if (steps.length >= 10) {
 
   tenthWrapper.appendChild(jackpotLabel);
 }
-   aggiornaContatori();
 }
-
-function aggiornaContatori() {
-  const multipliers = [1.2, 1.5, 2, 3, 20, 5, 8, 12, 40, 100];
-  const stageMultiplier = tappe > 0 ? multipliers[Math.min(tappe - 1, multipliers.length - 1)] : 1;
-
-  // Guadagno ipotetico per correzioni ed errori
-  const earningsCorrect = (puntata * stageMultiplier * correctCount).toFixed(2);
-  const earningsError = (puntata * stageMultiplier * errorCount).toFixed(2);
-
-  // Aggiorna contatori numerici
-  correctCountSpan.textContent = correctCount;
-  errorCountSpan.textContent = errorCount;
-
-  // Aggiorna vignette guadagno vicino ai contatori
-  const earningsCorrectSpan = document.getElementById("earningsCorrect");
-  const earningsErrorSpan = document.getElementById("earningsError");
-
-  if (earningsCorrectSpan) {
-    earningsCorrectSpan.textContent = `€${earningsCorrect}`;
-  }
-  if (earningsErrorSpan) {
-    earningsErrorSpan.textContent = `€${earningsError}`;
-  }
-}
-
 
 function updateLanguage() {
   document.querySelector("html").lang = currentLanguage;
@@ -373,9 +342,4 @@ document.addEventListener("DOMContentLoaded", () => {
   currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
   languageSelect.value = currentLanguage;
   updateLanguage();
-  });
-  function updateEarnings() {
-  const multipliers = [1.2, 1.5, 2, 3, 20, 5, 8, 12, 40, 100];
-  const earnings = tappe > 0 ? (puntata * multipliers[tappe - 1]).toFixed(2) : "0.00";
-  document.getElementById("earningsValue").textContent = `€${earnings}`;
-  }
+});
