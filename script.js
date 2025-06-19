@@ -91,9 +91,15 @@ function updateScore() {
 }
 
 function updateJollyButton() {
-  useJollyBtn.classList.toggle("hidden", jollyCount === 0 || errorCount === 0);
-}
-
+   if (jollyCount > 0 && errorCount > 0) {
+    useJollyBtn.disabled = false;
+    useJollyBtn.classList.remove("hidden");
+    useJollyBtn.innerHTML = `🃏 Usa Jolly <span class="badge">${jollyCount}</span>`;
+  } else {
+    useJollyBtn.disabled = true;
+    useJollyBtn.innerHTML = `🃏 Usa Jolly <span class="badge">0</span>`;
+  }
+  }
 function startGame() {
   if (currentCard === null) {
     currentCard = drawCard();
