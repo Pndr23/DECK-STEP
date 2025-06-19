@@ -30,7 +30,6 @@ const selectBet = document.getElementById("bet");
 
 selectBet.addEventListener("change", () => {
 puntataIniziale = parseFloat(selectBet.value);
-  aggiornaGuadagno(correctCount);
 });
 
 
@@ -92,39 +91,16 @@ function updateScore() {
 }
 
 function updateJollyButton() {
-   if (jollyCount > 0 && tappe >= 3 && errorCount > 0) {
-    useJollyBtn.disabled = false;
-    useJollyBtn.classList.remove("hidden");
-    useJollyBtn.innerHTML = `🃏 Usa Jolly <span class="badge">${jollyCount}</span>`;
-  } else {
-    useJollyBtn.disabled = true;
-    useJollyBtn.classList.add("hidden"); 
-    useJollyBtn.innerHTML = `🃏 Usa Jolly <span class="badge">0</span>`;
-  }
-  }
-function startGame() {
-  
-  currentCard = drawCard();
-  displayCard(currentCard);
-  nextCard = drawCard();
-  
-  errorCount = 0;
-  correctCount = 0;
-  tappe = 0;
-  jollyCount = 0;
-  
-  updateScore();       // Aggiorna punteggio e visualizzazioni varie
-  updateProgress();
-  updateJollyButton();
-  
- restartBtn.classList.add("hidden");
- withdrawBtn.classList.remove("hidden");
-  
-  challengeText.textContent = ""; // Pulisce eventuali messaggi precedenti
-  challengeButtons.innerHTML = "";
+  useJollyBtn.classList.toggle("hidden", jollyCount === 0 || errorCount === 0);
+}
 
+function startGame() {
+  if (currentCard === null) {
+    currentCard = drawCard();
+    displayCard(currentCard);
+  }
+  nextCard = drawCard();
   generateChallenge();
-  aggiornaGuadagno(0);
 }
 
 function drawCard() {
@@ -164,16 +140,18 @@ function generateChallenge() {
     for (let i = 1; i <= 13; i++) {
       addButton(i, (next) => next === i);
     }
-  }  
+  }
 }
+
 function addButton(text, checkFn) {
   const btn = document.createElement("button");
   btn.textContent = text;
+ 
   btn.style.color = "white";
-  
-const lower = translate("lower");
-const odd = translate("odd");
-const out = translate("out");
+
+  const lower = translate("lower");
+  const odd = translate("odd");
+  const out = translate("out");
 
   if (text === lower || text === odd || text === out) {
     btn.classList.add("red-button");
@@ -182,16 +160,18 @@ const out = translate("out");
   }
 
   btn.onclick = () => {
-    const isCorrect = checkFn(nextCard);
-    if (isCorrect) {
+    const result = checkFn(nextCard);
+    if (result) {
       correctCount++;
       tappe++;
-      if (correctCount % 3 === 0)  {
-    jollyCount++;
-     } 
+      if (correctCount % 3 === 0) jollyCount++;
     } else {
+      if (jollyCount > 0 && errorCount < 3) {
+        jollyCount--;
+      } else {
         errorCount++;
       }
+    }
 
     currentCard = nextCard;
     displayCard(currentCard);
@@ -207,7 +187,6 @@ const out = translate("out");
       challengeButtons.innerHTML = "";
       restartBtn.classList.remove("hidden");
       withdrawBtn.classList.add("hidden");
-      useJollyBtn.classList.add("hidden");
     } else {
       generateChallenge();
     }
@@ -220,7 +199,9 @@ function updateProgress() {
   progressCounter.textContent = `${translate("stage")}: ${tappe}`;
   progressPath.innerHTML = "";
 
-  for (let i = 0; i < moltiplicatori.length; i++) {
+  const multipliers = [1.2, 1.5, 2, 3, 20, 5, 8, 12, 40, 100];
+
+  for (let i = 0; i < 10; i++) {
     const wrapper = document.createElement("div");
     wrapper.style.display = "flex";
     wrapper.style.flexDirection = "column";
