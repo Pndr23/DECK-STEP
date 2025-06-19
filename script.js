@@ -148,7 +148,6 @@ function generateChallenge() {
       addButton(i, (next) => next === i);
     }
   }
-}
 
 function addButton(text, checkFn) {
   const btn = document.createElement("button");
