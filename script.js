@@ -102,11 +102,23 @@ function updateJollyButton() {
   }
   }
 function startGame() {
-  if (currentCard === null) {
-    currentCard = drawCard();
-    displayCard(currentCard);
-  }
+  
+  currentCard = drawCard();
+  displayCard(currentCard);
   nextCard = drawCard();
+  
+  errorCount = 0;
+  correctCount = 0;
+  tappe = 0;
+  jollyCount = 0;
+  
+  updateScore();       // Aggiorna punteggio e visualizzazioni varie
+  updateProgress();
+  updateJollyButton();
+  
+ restartBtn.classList.add("hidden");
+  withdrawBtn.classList.remove("hidden");
+
   generateChallenge();
 }
 
@@ -170,7 +182,8 @@ function addButton(text, checkFn) {
     if (result) {
       correctCount++;
       tappe++;
-      if (correctCount % 3 === 0) jollyCount++;
+      if (correctCount % 3 === 0) }
+    jollyCount++;
     } else {
         errorCount++;
       }
@@ -189,6 +202,7 @@ function addButton(text, checkFn) {
       challengeButtons.innerHTML = "";
       restartBtn.classList.remove("hidden");
       withdrawBtn.classList.add("hidden");
+      jollyBtn.classList.add("hidden");
     } else {
       generateChallenge();
     }
