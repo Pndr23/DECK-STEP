@@ -91,7 +91,7 @@ function updateScore() {
 }
 
 function updateJollyButton() {
-   if (jollyCount > 0 && tappe >= 3 && errorCount > 3) {
+   if (jollyCount > 0 && tappe >= 3 && errorCount > 0) {
     useJollyBtn.disabled = false;
     useJollyBtn.classList.remove("hidden");
     useJollyBtn.innerHTML = `🃏 Usa Jolly <span class="badge">${jollyCount}</span>`;
@@ -175,7 +175,6 @@ function addButton(text, checkFn) {
     } else {
         errorCount++;
       }
-    }
 
     currentCard = nextCard;
     displayCard(currentCard);
