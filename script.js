@@ -185,7 +185,7 @@ function addButton(text, checkFn) {
     if (result) {
       correctCount++;
       tappe++;
-      if (correctCount % 3 === 0) }
+      if (correctCount % 3 === 0)  {
     jollyCount++;
      } 
     } else {
