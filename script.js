@@ -147,8 +147,8 @@ function generateChallenge() {
     for (let i = 1; i <= 13; i++) {
       addButton(i, (next) => next === i);
     }
-  }
-
+  }  
+}
 function addButton(text, checkFn) {
   const btn = document.createElement("button");
   btn.textContent = text;
@@ -174,7 +174,7 @@ function addButton(text, checkFn) {
     } else {
         errorCount++;
       }
-}
+
     currentCard = nextCard;
     displayCard(currentCard);
     nextCard = drawCard();
