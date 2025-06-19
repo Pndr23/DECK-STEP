@@ -117,7 +117,10 @@ function startGame() {
   updateJollyButton();
   
  restartBtn.classList.add("hidden");
-  withdrawBtn.classList.remove("hidden");
+ withdrawBtn.classList.remove("hidden");
+  
+  challengeText.textContent = ""; // Pulisce eventuali messaggi precedenti
+  challengeButtons.innerHTML = "";
 
   generateChallenge();
 }
