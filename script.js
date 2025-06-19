@@ -174,7 +174,7 @@ function addButton(text, checkFn) {
     } else {
         errorCount++;
       }
-
+}
     currentCard = nextCard;
     displayCard(currentCard);
     nextCard = drawCard();
