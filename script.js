@@ -170,10 +170,10 @@ function addButton(text, checkFn) {
   const btn = document.createElement("button");
   btn.textContent = text;
   btn.style.color = "white";
-
-  const lower = translate("lower");
-  const odd = translate("odd");
-  const out = translate("out");
+  
+const lower = translate("lower");
+const odd = translate("odd");
+const out = translate("out");
 
   if (text === lower || text === odd || text === out) {
     btn.classList.add("red-button");
@@ -182,8 +182,8 @@ function addButton(text, checkFn) {
   }
 
   btn.onclick = () => {
-    const result = checkFn(nextCard);
-    if (result) {
+    const isCorrect = checkFn(nextCard);
+    if (isCorrect) {
       correctCount++;
       tappe++;
       if (correctCount % 3 === 0)  {
