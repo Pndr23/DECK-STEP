@@ -91,12 +91,13 @@ function updateScore() {
 }
 
 function updateJollyButton() {
-   if (jollyCount > 0 && errorCount > 0) {
+   if (jollyCount > 0 && tappe >= 3 && errorCount > 3) {
     useJollyBtn.disabled = false;
     useJollyBtn.classList.remove("hidden");
     useJollyBtn.innerHTML = `🃏 Usa Jolly <span class="badge">${jollyCount}</span>`;
   } else {
     useJollyBtn.disabled = true;
+    useJollyBtn.classList.add("hidden"); 
     useJollyBtn.innerHTML = `🃏 Usa Jolly <span class="badge">0</span>`;
   }
   }
@@ -172,9 +173,6 @@ function addButton(text, checkFn) {
       tappe++;
       if (correctCount % 3 === 0) jollyCount++;
     } else {
-      if (jollyCount > 0 && errorCount < 3) {
-        jollyCount--;
-      } else {
         errorCount++;
       }
     }
