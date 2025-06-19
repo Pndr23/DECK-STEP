@@ -187,6 +187,7 @@ function addButton(text, checkFn) {
       tappe++;
       if (correctCount % 3 === 0) }
     jollyCount++;
+     } 
     } else {
         errorCount++;
       }
@@ -205,7 +206,7 @@ function addButton(text, checkFn) {
       challengeButtons.innerHTML = "";
       restartBtn.classList.remove("hidden");
       withdrawBtn.classList.add("hidden");
-      jollyBtn.classList.add("hidden");
+      useJollyBtn.classList.add("hidden");
     } else {
       generateChallenge();
     }
