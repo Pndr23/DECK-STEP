@@ -30,6 +30,7 @@ const selectBet = document.getElementById("bet");
 
 selectBet.addEventListener("change", () => {
 puntataIniziale = parseFloat(selectBet.value);
+  aggiornaGuadagno(correctCount);
 });
 
 
@@ -123,6 +124,7 @@ function startGame() {
   challengeButtons.innerHTML = "";
 
   generateChallenge();
+  aggiornaGuadagno(0);
 }
 
 function drawCard() {
@@ -167,7 +169,6 @@ function generateChallenge() {
 function addButton(text, checkFn) {
   const btn = document.createElement("button");
   btn.textContent = text;
- 
   btn.style.color = "white";
 
   const lower = translate("lower");
@@ -219,9 +220,7 @@ function updateProgress() {
   progressCounter.textContent = `${translate("stage")}: ${tappe}`;
   progressPath.innerHTML = "";
 
-  const multipliers = [1.2, 1.5, 2, 3, 20, 5, 8, 12, 40, 100];
-
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < moltiplicatori.length; i++) {
     const wrapper = document.createElement("div");
     wrapper.style.display = "flex";
     wrapper.style.flexDirection = "column";
