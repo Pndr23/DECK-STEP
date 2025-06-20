@@ -1,7 +1,7 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(to right, red, yellow);
+  background: linear-gradient(to right, red, green);
  background-repeat: no-repeat;
   background-size: cover;
   color: #ffffff;
