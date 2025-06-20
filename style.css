@@ -1,22 +1,22 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(to right, red, green);
+  background: linear-gradient(to bottom, #ffffff, #e0f7fa); 
  background-repeat: no-repeat;
   background-size: cover;
-  color: #ffffff;
+  color: #333;
   font-family: sans-serif;
 }
 
 
 .container {
   text-align: center;
-  background: rgba(255, 255, 255, 0.05);
+  background: #ffffff;
   border: none;
-  color: white;
-  padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  color: #333;
+  padding: 1.5rem;
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 select, button {
@@ -28,10 +28,13 @@ select, button {
 }
 
 button {
-  background-color: linear-gradient(to right, #1a6eff, #63b3ed);
+  background: linear-gradient(to right, #64b5f6, #4fc3f7);
   color: white;
-   box-shadow: 0 0 10px rgba(74, 163, 255, 0.4);
-  transition: transform 0.2s ease;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 button:hover {
@@ -78,18 +81,14 @@ img {
   flex-wrap: wrap;
 }
 .progress-step {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: #a3c9f7;
-  border: 2px solid #0f2e53;
-  color: #0f2e53; 
-  transition: background-color 0.3s, transform 0.2s;
-   padding-bottom: 10px;
+  width: 24px;
+  height: 24px;
+  background-color: #e3f2fd;
+  border: 2px solid #64b5f6;
 }
 
 .progress-step.active {
- background-color: #2eb82e;
+ background-color:  #4caf50;
 }
 
 .progress-step.future {
@@ -97,11 +96,8 @@ img {
 }
 
 .progress-step.current {
- background-color: #ff6f00;
-  border: 2px solid #ffb300;
-  color: white;
-  transform: scale(1.2);
-  animation: pulse 1s infinite alternate; 
+ background-color: #ffca28;
+  border: 2px solid #fdd835;
 }
 @keyframes pulse {
   from { box-shadow: 0 0 5px gold; }
@@ -155,7 +151,8 @@ img {
   100% { box-shadow: 0 0 5px #f7931d; } 
 }
 .multiplier-label {
-color: #ffffff;
+ color: #1565c0;
+  font-weight: bold;
 }
 
 .jackpot {
@@ -182,33 +179,25 @@ color: #ffffff;
   font-weight: bold;
 }
 #gameTitle {
-  font-size: 3rem;  
-  font-family: 'Press Start 2P', cursive; /* stile retro-gaming */
-  text-shadow: 2px 2px 5px #000;
-  text-transform: uppercase; /* tutto maiuscolo */
-  font-weight: bold;
-  color: white;           
-  text-align: center;
-  margin-bottom: 20px;
+font-size: 2.5rem;
+  font-family: 'Rubik', sans-serif;
+  color: #1976d2;
+  text-shadow: none;
 }
 #withdrawBtn {
-  padding: 10px 20px;
-  font-size: 1rem;
-  font-weight: bold;
+  background-color: #ff5252;
+  border: none;
   color: white;
-  background-color: #222; /* nero */
-  border: 2px solid gold;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+  font-weight: bold;
 }
 #withdrawBtn:hover {
-  background-color: red;
-  color: white;
+  background-color: #e53935;
 }
 .gain-label {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #00ffcc;
+ background-color: transparent;
+  color: #43a047;
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 @media (max-width: 768px) {
   #gameTitle {
