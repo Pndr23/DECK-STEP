@@ -41,27 +41,27 @@ button:hover {
    transform: scale(1.03);
 }
 .button-maggiore {
-  background-color: #2eb82e; /* verde acceso */
+  background-color: #32cd32; /* verde acceso */
   color: white;
   }
 .button-dentro {
-  background-color: #2eb82e; /* verde acceso */
+  background-color: #32cd32; /* verde acceso */
   color: white;
   }
 .button-pari{
-  background-color: #2eb82e; /* verde acceso */
+  background-color: #32cd32; /* verde acceso */
   color: white;
   }
 .button-minore {
-  background-color: #e63946; 
+  background-color: #ff0000; 
   color: white;
   }
 .button-fuori {
-  background-color: #e63946; 
+  background-color: #ff0000; 
   color: white;
    }
   .button-dispari{
-  background-color: #e63946; 
+  background-color: #ff0000; 
   color: white;
      }
 .hidden {
@@ -200,7 +200,7 @@ font-size: 2.5rem;
   text-shadow: none;
 }
 #withdrawBtn {
-  background-color: #ff5252;
+  background-color: #32cd32;
   border: none;
   color: white;
   font-weight: bold;
