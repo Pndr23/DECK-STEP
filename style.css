@@ -1,23 +1,18 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: 
-    radial-gradient(circle at top center, 
-     #fff700 0%,    /*giallo limone brillante*/
-    #ff9900 25%,   /*arancione acceso*/
-    #1ca9c9 60%,    /*turchese chiaro */
-    #1400c6 100%);  /*blu eettrico*/
-  background-repeat: no-repeat;
+  background: radial-gradient(circle at center, #0d1b2a, #000);
+ background-repeat: no-repeat;
   background-size: cover;
-  color: white;
+  color: #ffffff;
   font-family: sans-serif;
 }
 
 
 .container {
   text-align: center;
-  background: rgba(0, 0, 0, 0.4);
-  border: 2px solid gold;
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
   color: white;
   padding: 2rem;
   border-radius: 16px;
@@ -33,13 +28,14 @@ select, button {
 }
 
 button {
-  background-color: #4CAF50;
+  background-color: linear-gradient(to right, #1a6eff, #63b3ed);
   color: white;
-  cursor: pointer;
+   box-shadow: 0 0 10px rgba(74, 163, 255, 0.4);
+  transition: transform 0.2s ease;
 }
 
 button:hover {
-  background-color: #45a049;
+   transform: scale(1.03);
 }
 .button-maggiore {
   background-color: #2eb82e; /* verde acceso */
@@ -119,8 +115,9 @@ img {
 }
 
 #scorePanel {
-  margin: 1rem 0;
-  font-size: 1.1rem;
+   background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 10px;
 }
 
 
@@ -136,17 +133,9 @@ img {
 }
 
 #regolamento-popup {
-  display: none;
-  position: fixed;
-  top: 50px;
-  right: 10px;
-  background: #f6f0e6; 
-  color:  #0f2e53;
-  border: 1px solid #ffb300;
-  padding: 15px;
-  max-width: 300px;
-  z-index: 1000;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  border: 1px solid #4aa3ff;
 }
 #useJollyBtn {
   margin: 10px 0;
@@ -166,11 +155,7 @@ img {
   100% { box-shadow: 0 0 5px #f7931d; } 
 }
 .multiplier-label {
-  font-size: 0.9rem;
-  margin-top: 20px;  /* spazio maggiore */
-  color: black;
-  font-weight: bold;
-  text-align: center;
+color: #ffffff;
 }
 
 .jackpot {
@@ -222,15 +207,8 @@ img {
   color: white;
 }
 .gain-label {
-  display: inline-block;
-  background-color: rgba(0, 0, 0, 0.7); /* fondo semitrasparente */
-  color: #FFD700; /* colore oro */
-  font-size: 0.9rem;
-  margin-left: 10px; /* accanto, non sopra né sotto */
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-weight: bold;
-  vertical-align: middle;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #00ffcc;
 }
 @media (max-width: 768px) {
   #gameTitle {
