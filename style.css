@@ -41,11 +41,11 @@ button:hover {
    transform: scale(1.03);
 }
 .button-maggiore {
-  background-color: #32cd32; /* verde acceso */
+  background-color: green; /* verde acceso */
   color: white;
   }
 .button-dentro {
-  background-color: #32cd32; /* verde acceso */
+  background-color: green; /* verde acceso */
   color: white;
   }
 .button-pari{
