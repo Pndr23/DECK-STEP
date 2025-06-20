@@ -3,7 +3,7 @@ body {
   min-height: 100vh;
   background: url('sfondo.jpg.jpg') no-repeat center center fixed;
   background-size: cover;
-  color:  url('sfondo.jpg.jpg') ;
+  color: white;
   font-family: sans-serif;
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
 }
@@ -11,7 +11,7 @@ body {
 
 .container {
   text-align: center;
-  background: #ffffff;
+  background: url('sfondo.jpg.jpg') no-repeat center center fixed;
   border: none;
   color: #333;
   padding: 1.5rem;
