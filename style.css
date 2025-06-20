@@ -81,10 +81,12 @@ img {
   flex-wrap: wrap;
 }
 .progress-step {
-  width: 24px;
-  height: 24px;
-  background-color: #e3f2fd;
-  border: 2px solid #64b5f6;
+  width: 24px;                    /* larghezza fissa */
+  height: 24px;                   /* stessa altezza */
+  border-radius: 50%;            /* trasforma in cerchio */
+  background-color: #a3c9f7;
+  border: 2px solid #0f2e53;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .progress-step.active {
@@ -98,12 +100,25 @@ img {
 .progress-step.current {
  background-color: #ffca28;
   border: 2px solid #fdd835;
+  color: white;
+  transform: scale(1.2);
+  animation: pulse 1s infinite alternate;
 }
 @keyframes pulse {
   from { box-shadow: 0 0 5px gold; }
   to { box-shadow: 0 0 20px #ff6f00; }
 }
 
+.progress-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -12px;
+  width: 24px;
+  height: 2px;
+  background: #0f2e53;
+  transform: translateY(-50%);
+}
 #rulesToggle {
   cursor: pointer;
   margin-bottom: 1rem;
