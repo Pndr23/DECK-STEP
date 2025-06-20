@@ -3,10 +3,10 @@ body {
   min-height: 100vh;
   background: 
     radial-gradient(circle at top center, 
-      #FFD700 0%,     /* giallo sole */
-      #FFA500 30%,    /* arancione */
-      #1E90FF 70%,    /* azzurro intermedio */
-      #0000FF 100%);  /* blu fondo */
+     #fff700 0%,    /*giallo limone brillante*/
+    #ff9900 25%,   /*arancione acceso*/
+    #1ca9c9 60%,    /*turchese chiaro */
+    #1400c6 100%);  /*blu eettrico*/
   background-repeat: no-repeat;
   background-size: cover;
   color: white;
@@ -16,8 +16,8 @@ body {
 
 .container {
   text-align: center;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid #fdb813;
+  background: rgba(0, 0, 0, 0.4);
+  border: 2px solid gold;
   color: white;
   padding: 2rem;
   border-radius: 16px;
@@ -88,7 +88,7 @@ img {
   background-color: #a3c9f7;
   border: 2px solid #0f2e53;
   color: #0f2e53; 
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
    padding-bottom: 10px;
 }
 
@@ -104,8 +104,13 @@ img {
  background-color: #ff6f00;
   border: 2px solid #ffb300;
   color: white;
+  transform: scale(1.2);
+  animation: pulse 1s infinite alternate; 
 }
-
+@keyframes pulse {
+  from { box-shadow: 0 0 5px gold; }
+  to { box-shadow: 0 0 20px #ff6f00; }
+}
 
 #rulesToggle {
   cursor: pointer;
@@ -152,6 +157,13 @@ img {
   border-radius: 6px;
   font-size: 1rem;
   cursor: pointer;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% { box-shadow: 0 0 5px #f7931d; }
+  50% { box-shadow: 0 0 20px #ffcc00; }
+  100% { box-shadow: 0 0 5px #f7931d; } 
 }
 .multiplier-label {
   font-size: 0.9rem;
@@ -162,9 +174,14 @@ img {
 }
 
 .jackpot {
+ animation: glow 1.5s ease-in-out infinite alternate;
   color: #ffdf00;
   font-size: 1rem;
   text-shadow: 0 0 6px red;
+}
+@keyframes glow {
+  from { text-shadow: 0 0 5px red, 0 0 10px #FFD700; }
+  to { text-shadow: 0 0 20px #ff0000, 0 0 30px #FFD700; }
 }
 .green-button {
   background-color: green;
@@ -180,7 +197,9 @@ img {
   font-weight: bold;
 }
 #gameTitle {
-  font-size: 3rem;       
+  font-size: 3rem;  
+  font-family: 'Press Start 2P', cursive; /* stile retro-gaming */
+  text-shadow: 2px 2px 5px #000;
   text-transform: uppercase; /* tutto maiuscolo */
   font-weight: bold;
   color: white;           
@@ -212,4 +231,29 @@ img {
   border-radius: 6px;
   font-weight: bold;
   vertical-align: middle;
+}
+@media (max-width: 768px) {
+  #gameTitle {
+    font-size: 2.5rem;
+  }
+
+  .container {
+    padding: 1.5rem;
+  }
+
+  select, button {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .progress-step {
+    width: 16px;
+    height: 16px;
+  }
+
+  #regolamento-popup {
+    max-width: 90%;
+    right: 5px;
+    top: 60px;
+  }
 }
