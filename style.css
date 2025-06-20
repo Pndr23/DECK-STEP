@@ -1,11 +1,11 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(to bottom, #ffffff, #e0f7fa); 
- background-repeat: no-repeat;
+  background: url('sfondo.jpg') no-repeat center center fixed;
   background-size: cover;
-  color: #333;
+  color: white;
   font-family: sans-serif;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
 }
 
 
