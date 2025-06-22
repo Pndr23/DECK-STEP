@@ -40,27 +40,27 @@ button:hover {
    transform: scale(1.03);
 }
 .button-maggiore {
-  background-color: green; /* verde acceso */
+  background-color: green !important;
   color: white;
   }
 .button-dentro {
-  background-color: green; /* verde acceso */
+  background-color: green !important; 
   color: white;
   }
 .button-pari{
-  background-color: #32cd32; /* verde acceso */
+  background-color: green !important;
   color: white;
   }
 .button-minore {
-  background-color: #ff0000; 
+  background-color: red !important; 
   color: white;
   }
 .button-fuori {
-  background-color: #ff0000; 
+  background-color: red !important ; 
   color: white;
    }
   .button-dispari{
-  background-color: #ff0000; 
+  background-color: red !important; 
   color: white;
      }
 .hidden {
