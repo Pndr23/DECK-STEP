@@ -39,9 +39,11 @@ button:not(.button-maggiore):not(.button-minore):not(.button-pari):not(.button-d
 button:hover {
    transform: scale(1.03);
 }
-.button-maggiore {
+.green-button {
   background-color: green !important;
   color: white !important;
+  border: none !important;
+}
   }
 .button-dentro {
   background-color: green !important; 
@@ -51,9 +53,10 @@ button:hover {
   background-color: green !important;
   color: white !important;
   }
-.button-minore {
-  background-color: red !important; 
+.red-button {
+  background-color: red !important;
   color: white !important;
+  border: none !important;
   }
 .button-fuori {
   background-color: red !important ; 
