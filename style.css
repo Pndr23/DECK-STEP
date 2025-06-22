@@ -41,27 +41,27 @@ button:hover {
 }
 .button-maggiore {
   background-color: green !important;
-  color: white;
+  color: white !important;
   }
 .button-dentro {
   background-color: green !important; 
-  color: white;
+  color: white !important;
   }
 .button-pari{
   background-color: green !important;
-  color: white;
+  color: white !important;
   }
 .button-minore {
   background-color: red !important; 
-  color: white;
+  color: white !important;
   }
 .button-fuori {
   background-color: red !important ; 
-  color: white;
+  color: white !important;
    }
   .button-dispari{
   background-color: red !important; 
-  color: white;
+  color: white !important;
      }
 .hidden {
   display: none;
