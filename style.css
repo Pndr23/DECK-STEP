@@ -27,8 +27,8 @@ select, button {
   border: none;
 }
 
-button {
-  background: linear-gradient(to right, #64b5f6, #4fc3f7);
+button:not(.button-maggiore):not(.button-minore):not(.button-pari):not(.button-dispari):not(.button-fuori):not(.button-dentro) {
+ background: linear-gradient(to right, #64b5f6, #4fc3f7);
   color: white;
   border: none;
   border-radius: 12px;
@@ -36,7 +36,6 @@ button {
   font-weight: bold;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
-
 button:hover {
    transform: scale(1.03);
 }
