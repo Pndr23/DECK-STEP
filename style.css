@@ -40,31 +40,47 @@ button:hover {
    transform: scale(1.03);
 }
 .green-button {
+   background-color: green !important;
+  color: white !important;
+  border: 2px solid white;
+  font-weight: bold;
+}
+.button-dentro {
   background-color: green !important;
   color: white !important;
-  border: none !important;
+  font-weight: bold;
+  }
+.button-maggiore {
+  background-color: gold !important;
+  color: black !important;
+  font-weight: bold;
 }
-  }
-.button-dentro {
-  background-color: green !important; 
+
+.button-minore {
+  background-color: dodgerblue !important;
   color: white !important;
-  }
+  font-weight: bold;
+}
 .button-pari{
   background-color: green !important;
   color: white !important;
+  font-weight: bold;
   }
 .red-button {
   background-color: red !important;
   color: white !important;
-  border: none !important;
+  border: 2px solid white;
+  font-weight: bold;
   }
 .button-fuori {
-  background-color: red !important ; 
+  background-color: red !important;
   color: white !important;
+  font-weight: bold;
    }
   .button-dispari{
-  background-color: red !important; 
+ background-color: red !important;
   color: white !important;
+  font-weight: bold;
      }
 .hidden {
   display: none;
@@ -83,6 +99,7 @@ img {
   flex-wrap: wrap;
 }
 .progress-step {
+  position: relative;
   width: 24px;                    /* larghezza fissa */
   height: 24px;                   /* stessa altezza */
   border-radius: 50%;            /* trasforma in cerchio */
@@ -181,19 +198,6 @@ img {
 @keyframes glow {
   from { text-shadow: 0 0 5px red, 0 0 10px #FFD700; }
   to { text-shadow: 0 0 20px #ff0000, 0 0 30px #FFD700; }
-}
-.green-button {
-  background-color: green;
-  color: white !important;
-  border: 2px solid white;
-  font-weight: bold;
-}
-
-.red-button {
-  background-color: red;
-  color: white !important;
-  border: 2px solid white;
-  font-weight: bold;
 }
 #gameTitle {
 font-size: 2.5rem;
