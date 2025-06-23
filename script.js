@@ -81,6 +81,7 @@ function resetGame() {
   updateScore();
   updateProgress();
   updateJollyButton();
+  aggiornaGuadagno(0);
 }
 
 function updateScore() {
@@ -253,16 +254,26 @@ if (steps.length >= 10) {
   tenthWrapper.appendChild(jackpotLabel);
 }
 }
-    function aggiornaGuadagno(corretti) {
+  function aggiornaGuadagno(corretti) {
   const label = document.getElementById("gainLabel");
-  let guadagno = puntataIniziale;
+  const recordLabel = document.getElementById("recordLabel");
 
+  let guadagno = puntataIniziale;
   for (let i = 0; i < corretti; i++) {
-    guadagno *= moltiplicatori[i] || 1; // fallback a 1 se oltre i limiti
+    guadagno *= moltiplicatori[i] || 1;
   }
 
   label.textContent = "+€" + guadagno.toFixed(2);
-}
+
+  // Gestione record con localStorage
+  const oldRecord = parseFloat(localStorage.getItem("deckstep_record") || "0");
+
+  if (guadagno > oldRecord) {
+    localStorage.setItem("deckstep_record", guadagno.toFixed(2));
+    recordLabel.textContent = "🎯 Record: €" + guadagno.toFixed(2);
+  } else {
+    recordLabel.textContent = "🎯 Record: €" + oldRecord.toFixed(2);
+  }
 
 function updateLanguage() {
   document.querySelector("html").lang = currentLanguage;
