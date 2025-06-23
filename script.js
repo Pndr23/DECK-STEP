@@ -253,7 +253,7 @@ if (steps.length >= 10) {
 
   tenthWrapper.appendChild(jackpotLabel);
 }
-}
+  
   function aggiornaGuadagno(corretti) {
   const label = document.getElementById("gainLabel");
   const recordLabel = document.getElementById("recordLabel");
