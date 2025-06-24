@@ -274,7 +274,8 @@ if (steps.length >= 10) {
   } else {
     recordLabel.textContent = "🎯 Record: €" + oldRecord.toFixed(2);
   }
-
+  }
+  
 function updateLanguage() {
   document.querySelector("html").lang = currentLanguage;
   document.getElementById("gameTitle").textContent = translate("title");
