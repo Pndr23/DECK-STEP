@@ -92,7 +92,7 @@ function updateScore() {
 }
 
 function updateJollyButton() {
-useJollyBtn.classList.toggle("hidden", jollyCount === 0 || errorCount === 0);
+useJollyBtn.classList.toggle("hidden", jollyCount === 0);
 }
 
 function startGame() {
