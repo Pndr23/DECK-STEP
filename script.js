@@ -162,6 +162,7 @@ function addButton(text, checkFn) {
 
   btn.onclick = () => {
     const result = checkFn(nextCard);
+    console.log("Risposta:", text, "Corretta:", currentCard.correctAnswer, "Esito:", result);
     if (result) {
       correctCount++;
       tappe++;
