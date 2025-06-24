@@ -92,9 +92,7 @@ function updateScore() {
 }
 
 function updateJollyButton() {
- console.log("Jolly:", jollyCount, "Errors:", errorCount);
-  // ho forzato il bottone visibile per debug
-  useJollyBtn.classList.remove("hidden");
+useJollyBtn.classList.toggle("hidden", jollyCount === 0 || errorCount === 0);
 }
 
 function startGame() {
