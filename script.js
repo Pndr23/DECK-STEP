@@ -111,7 +111,13 @@ function drawCard() {
 function displayCard(cardNumber) {
   currentCardImg.src = `cards/card_${cardNumber}.png`;
 }
-
+function cardValue(card) {
+  if (card === 'A') return 1;
+  if (card === 'J') return 11;
+  if (card === 'Q') return 12;
+  if (card === 'K') return 13;
+  return Number(card); // carte numeriche 2-10
+}
 function generateChallenge() {
   const challenges = [
     { it: "Maggiore o Minore", en: "Higher or Lower" },
@@ -126,8 +132,8 @@ function generateChallenge() {
   challengeButtons.innerHTML = "";
 
   if (label === translate("higher") + " o " + translate("lower")) {
-    addButton(translate("higher"), (next) => next > currentCard);
-    addButton(translate("lower"), (next) => next < currentCard);
+  addButton(translate("higher"), (next, current) => next > current);
+  addButton(translate("lower"), (next, current) => next < current);
   } else if (label === translate("even") + " o " + translate("odd")) {
     addButton(translate("even"), (next) => next % 2 === 0);
     addButton(translate("odd"),  (next) => next % 2 !== 0);
@@ -161,8 +167,14 @@ function addButton(text, checkFn) {
   }
 
   btn.onclick = () => {
-    const result = checkFn(nextCard);
-  console.log(`Risposta selezionata: ${text}, corretta: ${result}`);
+   const currentVal = cardValue(currentCard);
+   const nextVal = cardValue(nextCard);
+    
+  const result = checkFn.length === 2 ? checkFn(nextVal, currentVal) : checkFn(nextVal);
+    
+   console.log(`CurrentCard: ${currentCard} (${currentVal}), NextCard: ${nextCard} (${nextVal})`);
+   console.log(`Risposta selezionata: ${text}, corretta: ${result}`);
+    
     if (result) {
       correctCount++;
       tappe++;
