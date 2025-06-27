@@ -51,14 +51,16 @@ restartBtn.addEventListener("click", () => {
   gameArea.classList.add("hidden");
 });
 
-useJollyBtn.addEventListener("click", () => {
-  if (jollyCount > 0 && errorCount > 0) {
+useJollyBtn.onclick = () => {
+  if (jollyCount > 0) {
     jollyCount--;
+  if (errorCount > 0) {
     errorCount--;
+    }
     updateScore();
     updateJollyButton();
   }
-});
+};
 
 languageSelect.addEventListener("change", () => {
   currentLanguage = languageSelect.value;
@@ -179,11 +181,11 @@ function addButton(text, checkFn) {
       correctCount++;
       tappe++;
       if (correctCount % 3 === 0) jollyCount++;
-    } else {
-      if (jollyCount > 0 && errorCount < 3) {
-        jollyCount--;
       } else {
         errorCount++;
+      if (errorCount >= 3 && jollyCount > 0) {
+    jollyCount--;
+    errorCount--;
       }
     }
 
