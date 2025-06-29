@@ -111,11 +111,10 @@ function drawCard() {
 }
 
 function displayCard(cardNumber) {
-  currentCardImg.src = cards/card_${cardNumber}.png;
+  currentCardImg.src = `cards/card_${cardNumber}.png`;
 }
 function cardValue(card) {
-  if (card === 'A') return 1;
-  return Number(card); // carte numeriche 2-10
+  return Number(card);
 }
 function generateChallenge() {
   const challenges = [
@@ -127,7 +126,7 @@ function generateChallenge() {
   const selected = challenges[Math.floor(Math.random() * challenges.length)];
   const label = selected[currentLanguage];
 
-  challengeText.textContent = ${translate("challenge")}: ${label};
+challengeText.textContent = `${translate("challenge")}: ${label}`;
   challengeButtons.innerHTML = "";
 
   if (label === translate("higher") + " o " + translate("lower")) {
@@ -171,9 +170,9 @@ function addButton(text, checkFn) {
     
   const result = checkFn.length === 2 ? checkFn(nextVal, currentVal) : checkFn(nextVal);
     
-   console.log(CurrentCard: ${currentCard} (${currentVal}), NextCard: ${nextCard} (${nextVal}));
-   console.log(Risposta selezionata: ${text}, corretta: ${result});
-    
+console.log(`CurrentCard: ${currentCard} (${currentVal}), NextCard: ${nextCard} (${nextVal})`);
+console.log(`Risposta selezionata: ${text}, corretta: ${result}`);
+   
     if (result) {
       correctCount++;
       tappe++;
@@ -331,15 +330,17 @@ function translate(key) {
       bet: "Puntata:",
       risk: "Modalità rischio:",
       lost: "Hai perso!",
-      rulesText: <p>Benvenuto in <strong>Deck Step</strong>! Il tuo obiettivo è superare una serie di sfide casuali indovinando correttamente il risultato della carta successiva.</p>
-        <ul>
-          <li>Puoi scegliere la <strong>puntata iniziale</strong> tra €0.10, €0.20, €0.50, €1, €2 e €5.</li>
-          <li>Puoi anche scegliere la <strong>difficoltà</strong>: Facile, Media o Difficile (più sfide, meno jolly).</li>
-          <li>Ogni turno una carta viene pescata e ti viene proposta una sfida.</li>
-          <li>Ogni risposta corretta ti fa avanzare di una <strong>tappa</strong>.</li>
-          <li>Dopo 3 risposte corrette consecutive, ricevi un <strong>jolly</strong>.</li>
-          <li>3 errori terminano la partita. Puoi ricominciare con il pulsante 🔁.</li>
-        </ul>,
+      rulesText: `
+  <p>Benvenuto in <strong>Deck Step</strong>! Il tuo obiettivo è superare una serie di sfide casuali indovinando correttamente il risultato della carta successiva.</p>
+  <ul>
+    <li>Puoi scegliere la <strong>puntata iniziale</strong> tra €0.10, €0.20, €0.50, €1, €2 e €5.</li>
+    <li>Puoi anche scegliere la <strong>difficoltà</strong>: Facile, Media o Difficile (più sfide, meno jolly).</li>
+    <li>Ogni turno una carta viene pescata e ti viene proposta una sfida.</li>
+    <li>Ogni risposta corretta ti fa avanzare di una <strong>tappa</strong>.</li>
+    <li>Dopo 3 risposte corrette consecutive, ricevi un <strong>jolly</strong>.</li>
+    <li>3 errori terminano la partita. Puoi ricominciare con il pulsante 🔁.</li>
+  </ul>
+`
       withdrawn: "Hai ritirato! Hai totalizzato {points} punti.",
       withdraw: "RITIRA", 
     },
