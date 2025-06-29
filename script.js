@@ -107,7 +107,7 @@ function startGame() {
 }
 
 function drawCard() {
-  return Math.floor(Math.random() * 52) + 1;
+  return Math.floor(Math.random() * 40) + 1;
 }
 
 function displayCard(cardNumber) {
@@ -115,9 +115,6 @@ function displayCard(cardNumber) {
 }
 function cardValue(card) {
   if (card === 'A') return 1;
-  if (card === 'J') return 11;
-  if (card === 'Q') return 12;
-  if (card === 'K') return 13;
   return Number(card); // carte numeriche 2-10
 }
 function generateChallenge() {
