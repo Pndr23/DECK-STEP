@@ -1,254 +1,388 @@
-document.addEventListener('DOMContentLoaded', () => {
-  let currentCard = null;
-  let previousCard = null;
-  let score = 0;
-  let errors = 0;
-  let jokers = 3;
-  let record = 0;
-  let selectedChallenge = '';
-  let selectedBet = 1;
-  let selectedDifficulty = 'normal';
-  let currentStep = 0;
-  let lang = 'it';
-  let winStreak = 0;
-  const cardSuits = ['C', 'D', 'H', 'S'];
-  const cardValues = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-  const messages = {
-    it: {
-      correct: 'Corretto!',
-      wrong: 'Sbagliato!',
-      gameOver: 'Hai perso!',
-      noJokers: 'Nessun jolly rimasto!',
-      youWin: 'Hai vinto!',
-      jackpot: 'JACKPOT!',
-      useJolly: 'Usa Jolly',
-      rules: 'Regole del gioco:\nScegli una sfida e indovina la carta successiva.\nPuoi usare un jolly per salvarti dagli errori.\nSupera le tappe per aumentare il moltiplicatore!',
-    },
-    en: {
-      correct: 'Correct!',
-      wrong: 'Wrong!',
-      gameOver: 'Game Over!',
-      noJokers: 'No jokers left!',
-      youWin: 'You win!',
-      jackpot: 'JACKPOT!',
-      useJolly: 'Use Joker',
-      rules: 'Game Rules:\nChoose a challenge and guess the next card.\nYou can use a joker to avoid mistakes.\nPass checkpoints to increase multiplier!',
+let tappe = 0;
+let currentCard = null;
+let nextCard = null;
+let correctCount = 0;
+let errorCount = 0;
+let jollyCount = 0;
+let usedJolly = false;
+let currentLanguage = "it";
+let puntataIniziale = parseFloat(document.getElementById("bet").value);// valore di default, verrà aggiornato quando selezioni una puntata
+let moltiplicatori = [1.2, 1.5, 2, 3, 20, 5, 8, 12, 40, 100];
+
+const withdrawBtn = document.getElementById("withdrawBtn");
+const startButton = document.getElementById("startButton");
+const gameArea = document.getElementById("gameArea");
+const gameSetup = document.getElementById("gameSetup");
+const challengeText = document.getElementById("challengeText");
+const challengeButtons = document.getElementById("challengeButtons");
+const currentCardImg = document.getElementById("currentCardImg");
+const correctCountSpan = document.getElementById("correctCount");
+const errorCountSpan = document.getElementById("errorCount");
+const jollyCountSpan = document.getElementById("jollyCount");
+const restartBtn = document.getElementById("restartBtn");
+const rulesToggle = document.getElementById("rulesLabel");
+const rulesPanel = document.getElementById("rulesPanel");
+const progressCounter = document.getElementById("progressCounter");
+const progressPath = document.getElementById("progressPath");
+const useJollyBtn = document.getElementById("useJollyBtn");
+const languageSelect = document.getElementById("languageSelect");
+const selectBet = document.getElementById("bet");
+
+selectBet.addEventListener("change", () => {
+puntataIniziale = parseFloat(selectBet.value);
+});
+
+
+rulesToggle.addEventListener("click", () => {
+  rulesPanel.classList.toggle("hidden");
+});
+
+startButton.addEventListener("click", () => {
+  gameSetup.classList.add("hidden");
+  gameArea.classList.remove("hidden");
+  restartBtn.classList.add("hidden");
+  withdrawBtn.classList.remove("hidden");
+  resetGame();
+  startGame();
+});
+
+restartBtn.addEventListener("click", () => {
+  gameSetup.classList.remove("hidden");
+  gameArea.classList.add("hidden");
+});
+
+useJollyBtn.onclick = () => {
+  if (jollyCount > 0) {
+    jollyCount--;
+  if (errorCount > 0) {
+    errorCount--;
+    }
+    updateScore();
+    updateJollyButton();
+  }
+};
+
+languageSelect.addEventListener("change", () => {
+  currentLanguage = languageSelect.value;
+  updateLanguage();
+});
+
+withdrawBtn.addEventListener("click", () => {
+  challengeButtons.innerHTML = "";
+  const message = translate("withdrawn").replace("{points}", correctCount);
+  challengeText.textContent = message;
+  withdrawBtn.classList.add("hidden");
+  restartBtn.classList.remove("hidden");
+});
+function resetGame() {
+  correctCount = 0;
+  errorCount = 0;
+  jollyCount = 0;
+  tappe = 0;
+  usedJolly = false;
+  updateScore();
+  updateProgress();
+  updateJollyButton();
+  aggiornaGuadagno(0);
+}
+
+function updateScore() {
+  document.getElementById("scoreValue").innerText = correctCount;
+  correctCountSpan.textContent = correctCount;
+  errorCountSpan.textContent = errorCount;
+  jollyCountSpan.textContent = jollyCount;
+}
+
+function updateJollyButton() {
+useJollyBtn.classList.toggle("hidden", jollyCount === 0);
+}
+
+function startGame() {
+  if (currentCard === null) {
+    currentCard = drawCard();
+    displayCard(currentCard);
+  }
+  nextCard = drawCard();
+  generateChallenge();
+}
+
+function drawCard() {
+  return Math.floor(Math.random() * 40) + 1;
+}
+
+function displayCard(cardNumber) {
+  currentCardImg.src = cards/card_${cardNumber}.png;
+}
+function cardValue(card) {
+  if (card === 'A') return 1;
+  return Number(card); // carte numeriche 2-10
+}
+function generateChallenge() {
+  const challenges = [
+    { it: "Maggiore o Minore", en: "Higher or Lower" },
+    { it: "Pari o Dispari", en: "Even or Odd" },
+    { it: "Dentro o Fuori", en: "In or Out" },
+    { it: "Numero Esatto", en: "Exact Number" }
+  ];
+  const selected = challenges[Math.floor(Math.random() * challenges.length)];
+  const label = selected[currentLanguage];
+
+  challengeText.textContent = ${translate("challenge")}: ${label};
+  challengeButtons.innerHTML = "";
+
+  if (label === translate("higher") + " o " + translate("lower")) {
+  addButton(translate("higher"), (next, current) => next > current);
+  addButton(translate("lower"), (next, current) => next < current);
+  } else if (label === translate("even") + " o " + translate("odd")) {
+    addButton(translate("even"), (next) => next % 2 === 0);
+    addButton(translate("odd"),  (next) => next % 2 !== 0);
+  } else if (label === translate("in") + " o " + translate("out")) {
+    const a = Math.floor(Math.random() * 11) + 1;
+    const b = a + 2;
+    challengeText.textContent +=  (${a}-${b});
+    addButton(translate("in"), (next) => next >= a && next <= b);
+    addButton(translate("out"), (next) => next < a || next > b);
+  } else {
+    for (let i = 1; i <= 13; i++) {
+      addButton(i, (next) => next === i);
+    }
+  }
+}
+
+function addButton(text, checkFn) {
+  const btn = document.createElement("button");
+  btn.textContent = text;
+ 
+  btn.style.color = "white";
+
+  const lower = translate("lower");
+  const odd = translate("odd");
+  const out = translate("out");
+
+  if (text === lower || text === odd || text === out) {
+    btn.classList.add("red-button");
+  } else {
+    btn.classList.add("green-button"); 
+  }
+
+  btn.onclick = () => {
+   const currentVal = cardValue(currentCard);
+   const nextVal = cardValue(nextCard);
+    
+  const result = checkFn.length === 2 ? checkFn(nextVal, currentVal) : checkFn(nextVal);
+    
+   console.log(CurrentCard: ${currentCard} (${currentVal}), NextCard: ${nextCard} (${nextVal}));
+   console.log(Risposta selezionata: ${text}, corretta: ${result});
+    
+    if (result) {
+      correctCount++;
+      tappe++;
+      if (correctCount % 3 === 0) jollyCount++;
+      } else {
+        errorCount++;
+      if (errorCount >= 3 && jollyCount > 0) {
+    jollyCount--;
+    errorCount--;
+      }
+    }
+
+    currentCard = nextCard;
+    displayCard(currentCard);
+    nextCard = drawCard();
+
+    updateScore();
+    updateProgress();
+    updateJollyButton();
+    aggiornaGuadagno(correctCount);
+    
+    if (errorCount >= 3) {
+      challengeText.textContent = translate("lost");
+      challengeButtons.innerHTML = "";
+      restartBtn.classList.remove("hidden");
+      withdrawBtn.classList.add("hidden");
+    } else {
+      generateChallenge();
     }
   };
 
-  const cardElement = document.getElementById('card');
-  const resultElement = document.getElementById('result');
-  const scoreElement = document.getElementById('score');
-  const errorsElement = document.getElementById('errors');
-  const recordElement = document.getElementById('record');
-  const jokersElement = document.getElementById('jokers');
-  const challengeButtons = document.querySelectorAll('.challenge-button');
-  const useJokerButton = document.getElementById('useJoker');
-  const restartButton = document.getElementById('restart');
-  const betSelect = document.getElementById('bet');
-  const difficultySelect = document.getElementById('difficulty');
-  const rulesButton = document.getElementById('showRules');
-  const rulesModal = document.getElementById('rulesModal');
-  const closeRules = document.getElementById('closeRules');
-  const languageSelect = document.getElementById('language');
-  const steps = document.querySelectorAll('.progress-step');
-  const gainLabel = document.getElementById('gainLabel');
-  const jackpotLabel = document.getElementById('jackpotLabel');
-  const jackpotSound = document.getElementById('jackpotSound');
+  challengeButtons.appendChild(btn);
+}
 
-  function shuffleCard() {
-    const suit = cardSuits[Math.floor(Math.random() * cardSuits.length)];
-    const value = cardValues[Math.floor(Math.random() * cardValues.length)];
-    return { suit, value };
-  }
+function updateProgress() {
+  progressCounter.textContent = ${translate("stage")}: ${tappe};
+  progressPath.innerHTML = "";
 
-  function getCardImage(card) {
-    return `cards/${card.value}${card.suit}.png`;
-  }
+  const multipliers = [1.2, 1.5, 2, 3, 20, 5, 8, 12, 40, 100];
 
-  function getCardNumericValue(card) {
-    if (card.value === 'A') return 14;
-    if (card.value === 'K') return 13;
-    if (card.value === 'Q') return 12;
-    if (card.value === 'J') return 11;
-    return parseInt(card.value);
-  }
+  for (let i = 0; i < 10; i++) {
+    const wrapper = document.createElement("div");
+    wrapper.style.display = "flex";
+    wrapper.style.flexDirection = "column";
+    wrapper.style.alignItems = "center";
 
-  function updateCardDisplay(card) {
-    cardElement.src = getCardImage(card);
-  }
+    const step = document.createElement("div");
+    step.classList.add("progress-step");
 
-  function getMultiplier(step) {
-    const multipliers = [1, 1.5, 2, 3, 5, 10];
-    return multipliers[step] || 1;
-  }
-
-  function updateGainLabel() {
-    const multiplier = getMultiplier(currentStep);
-    const gain = (score * selectedBet * multiplier).toFixed(2);
-    gainLabel.textContent = `+€${gain}`;
-  }
-
-  function showJackpotAnimation() {
-    jackpotLabel.classList.remove('hidden', 'shrink');
-    jackpotLabel.classList.add('jackpot-animation');
-    jackpotSound.play();
-    setTimeout(() => {
-      jackpotLabel.classList.add('shrink');
-    }, 3000);
-  }
-
-  function checkChallenge(card1, card2, challenge) {
-    const val1 = getCardNumericValue(card1);
-    const val2 = getCardNumericValue(card2);
-    switch (challenge) {
-      case 'higher': return val2 > val1;
-      case 'lower': return val2 < val1;
-      case 'equal': return val2 === val1;
-      case 'odd': return val2 % 2 === 1;
-      case 'even': return val2 % 2 === 0;
-      case 'inside':
-        const min = Math.min(val1, getCardNumericValue(previousCard));
-        const max = Math.max(val1, getCardNumericValue(previousCard));
-        return val2 > min && val2 < max;
-      case 'outside':
-        const minOut = Math.min(val1, getCardNumericValue(previousCard));
-        const maxOut = Math.max(val1, getCardNumericValue(previousCard));
-        return val2 < minOut || val2 > maxOut;
-      default: return false;
-    }
-  }
-
-  function updateProgress() {
-    steps.forEach((step, index) => {
-      step.classList.toggle('active', index <= currentStep);
-    });
-  }
-
-  function handleCorrect() {
-    score++;
-    winStreak++;
-    if (winStreak % 3 === 0 && currentStep < steps.length - 1) {
-      currentStep++;
-      updateProgress();
-    }
-    updateGainLabel();
-    resultElement.textContent = messages[lang].correct;
-    if (currentStep === steps.length - 1) showJackpotAnimation();
-    updateDisplay();
-  }
-
-  function handleWrong() {
-    resultElement.textContent = messages[lang].wrong;
-    if (jokers > 0) {
-      jokers--;
-      updateDisplay();
+    if (i < tappe) {
+      step.classList.add("active");
+    } else if (i === tappe) {
+      step.classList.add("current");
     } else {
-      endGame();
+      step.classList.add("future");
     }
+
+    const label = document.createElement("div");
+    label.classList.add("multiplier-label");
+    label.textContent = "x" + multipliers[i].toFixed(2);
+
+    wrapper.appendChild(step);
+    wrapper.appendChild(label);
+    progressPath.appendChild(wrapper);
+  }
+    // --- QUI: aggiungo la scritta JACKPOT sopra la decima tappa ---
+const steps = progressPath.querySelectorAll(".progress-step");
+if (steps.length >= 10) {
+  const tenthStep = steps[9];
+  
+  // Prendo il wrapper (genitore) della decima tappa
+  const tenthWrapper = tenthStep.parentNode;
+  
+  // Imposto il wrapper come relativo per contenere l'assoluto
+  tenthWrapper.style.position = "relative";
+
+  const jackpotLabel = document.createElement("div");
+  jackpotLabel.textContent = "🎉 JACKPOT 🎉";
+  jackpotLabel.style.fontWeight = "bold";
+  jackpotLabel.style.color = "#FFD700";  // colore oro
+  jackpotLabel.style.textAlign = "center";
+  jackpotLabel.style.fontSize = "18px"; 
+  // Posiziona il testo sopra senza spostare elementi
+  jackpotLabel.style.position = "absolute";
+  jackpotLabel.style.top = "-20px"; // alza sopra la tappa, aggiusta se serve
+  jackpotLabel.style.left = "50%";
+  jackpotLabel.style.transform = "translateX(-50%)";
+  jackpotLabel.style.whiteSpace = "nowrap";
+
+  tenthWrapper.appendChild(jackpotLabel);
+}
+  }
+  function aggiornaGuadagno(corretti) {
+  const label = document.getElementById("gainLabel");
+  const recordLabel = document.getElementById("recordLabel");
+
+  let guadagno = puntataIniziale;
+  for (let i = 0; i < corretti; i++) {
+    guadagno *= moltiplicatori[i] || 1;
   }
 
-  function endGame() {
-    resultElement.textContent = messages[lang].gameOver;
-    if (score > record) {
-      record = score;
-      recordElement.textContent = record;
+  label.textContent = "+€" + guadagno.toFixed(2);
+
+  // Gestione record con localStorage
+  const oldRecord = parseFloat(localStorage.getItem("deckstep_record") || "0");
+
+  if (guadagno > oldRecord) {
+    localStorage.setItem("deckstep_record", guadagno.toFixed(2));
+    recordLabel.textContent = "🎯 Record: €" + guadagno.toFixed(2);
+  } else {
+    recordLabel.textContent = "🎯 Record: €" + oldRecord.toFixed(2);
+  }
+  }
+  
+function updateLanguage() {
+  document.querySelector("html").lang = currentLanguage;
+  document.getElementById("gameTitle").textContent = translate("title");
+  document.getElementById("startButton").textContent = translate("start");
+  document.getElementById("restartBtn").textContent = translate("restart");
+  document.getElementById("rulesLabel").textContent = translate("rules");
+  document.getElementById("currentCardLabel").textContent = translate("currentCard");
+  document.getElementById("betLabel").textContent = translate("bet");
+  document.getElementById("riskLabel").textContent = translate("risk");
+  document.getElementById("pointsLabel").textContent = translate("points");
+  document.getElementById("correctLabel").textContent = "✅ " + translate("correct");
+  document.getElementById("errorLabel").textContent = "❌ " + translate("error");
+  document.getElementById("jollyLabel").textContent = "🃏 " + translate("jolly");
+  useJollyBtn.textContent = "🃏 " + translate("useJolly");
+  updateProgress();
+  rulesPanel.innerHTML = translate("rulesText");
+  document.getElementById("withdrawLabel").textContent = translate("withdraw");
+}
+
+function translate(key) {
+  const t = {
+    it: {
+      title: "Deck Step",
+      start: "🎮 Inizia la partita",
+      restart: "🔁 Ricomincia",
+      rules: "📜 Regole",
+      currentCard: "Carta attuale:",
+      challenge: "Sfida",
+      higher: "Maggiore",
+      lower: "Minore",
+      even: "Pari",
+      odd: "Dispari",
+      in: "Dentro",
+      out: "Fuori",
+      correct: "Corrette",
+      error: "Errori",
+      jolly: "Jolly",
+      useJolly: "Usa Jolly",
+      stage: "Tappa",
+      points: "Punti:",
+      bet: "Puntata:",
+      risk: "Modalità rischio:",
+      lost: "Hai perso!",
+      rulesText: <p>Benvenuto in <strong>Deck Step</strong>! Il tuo obiettivo è superare una serie di sfide casuali indovinando correttamente il risultato della carta successiva.</p>
+        <ul>
+          <li>Puoi scegliere la <strong>puntata iniziale</strong> tra €0.10, €0.20, €0.50, €1, €2 e €5.</li>
+          <li>Puoi anche scegliere la <strong>difficoltà</strong>: Facile, Media o Difficile (più sfide, meno jolly).</li>
+          <li>Ogni turno una carta viene pescata e ti viene proposta una sfida.</li>
+          <li>Ogni risposta corretta ti fa avanzare di una <strong>tappa</strong>.</li>
+          <li>Dopo 3 risposte corrette consecutive, ricevi un <strong>jolly</strong>.</li>
+          <li>3 errori terminano la partita. Puoi ricominciare con il pulsante 🔁.</li>
+        </ul>,
+      withdrawn: "Hai ritirato! Hai totalizzato {points} punti.",
+      withdraw: "RITIRA", 
+    },
+    en: {
+      withdrawn: "You withdrew! You earned {points} points.",
+      title: "Deck Step",
+      start: "🎮 Start Game",
+      restart: "🔁 Restart",
+      rules: "📜 Rules",
+      currentCard: "Current card:",
+      challenge: "Challenge",
+      higher: "Higher",
+      lower: "Lower",
+      even: "Even",
+      odd: "Odd",
+      in: "In",
+      out: "Out",
+      correct: "Correct",
+      error: "Errors",
+      jolly: "Joker",
+      useJolly: "Use Joker",
+      stage: "Stage",
+      points: "Points:",
+      bet: "Bet:",
+      risk: "Risk mode:",
+      lost: "You lost!",
+      withdraw: "WITHDRAW",
+      rulesText: <p>Welcome to <strong>Deck Step</strong>! Your goal is to complete a series of random challenges by correctly guessing the next card.</p>
+        <ul>
+          <li>You can choose your <strong>starting bet</strong> from €0.10 to €5.</li>
+          <li>Select a <strong>difficulty</strong>: Easy, Medium, or Hard (more challenges, fewer jokers).</li>
+          <li>Each turn draws a card and gives you a challenge.</li>
+          <li>Correct answers advance you a <strong>stage</strong>.</li>
+          <li>After 3 correct answers in a row, you earn a <strong>joker</strong>.</li>
+          <li>3 mistakes end the game. Use 🔁 to restart.</li>
+        </ul>
     }
-    disableChallenges();
-  }
+  };
+  return t[currentLanguage][key];
+}
 
-  function updateDisplay() {
-    scoreElement.textContent = score;
-    errorsElement.textContent = errors;
-    jokersElement.textContent = jokers;
-    updateProgress();
-    updateGainLabel();
-  }
-
-  function disableChallenges() {
-    challengeButtons.forEach(btn => btn.disabled = true);
-  }
-
-  function enableChallenges() {
-    challengeButtons.forEach(btn => btn.disabled = false);
-  }
-
-  function newRound() {
-    previousCard = currentCard;
-    currentCard = shuffleCard();
-    updateCardDisplay(currentCard);
-  }
-
-  challengeButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      selectedChallenge = button.dataset.challenge;
-      previousCard = currentCard;
-      currentCard = shuffleCard();
-      updateCardDisplay(currentCard);
-      const correct = checkChallenge(previousCard, currentCard, selectedChallenge);
-      if (correct) handleCorrect();
-      else handleWrong();
-    });
-  });
-
-  useJokerButton.addEventListener('click', () => {
-    if (jokers > 0) {
-      jokers--;
-      score++;
-      winStreak++;
-      if (winStreak % 3 === 0 && currentStep < steps.length - 1) {
-        currentStep++;
-        updateProgress();
-      }
-      updateDisplay();
-    } else {
-      resultElement.textContent = messages[lang].noJokers;
-    }
-  });
-
-  restartButton.addEventListener('click', () => {
-    score = 0;
-    errors = 0;
-    jokers = 3;
-    currentStep = 0;
-    winStreak = 0;
-    currentCard = shuffleCard();
-    updateCardDisplay(currentCard);
-    updateDisplay();
-    enableChallenges();
-    resultElement.textContent = '';
-    jackpotLabel.classList.add('hidden');
-  });
-
-  betSelect.addEventListener('change', () => {
-    selectedBet = parseFloat(betSelect.value);
-    updateGainLabel();
-  });
-
-  difficultySelect.addEventListener('change', () => {
-    selectedDifficulty = difficultySelect.value;
-  });
-
-  rulesButton.addEventListener('click', () => {
-    rulesModal.style.display = 'block';
-  });
-
-  closeRules.addEventListener('click', () => {
-    rulesModal.style.display = 'none';
-  });
-
-  languageSelect.addEventListener('change', () => {
-    lang = languageSelect.value;
-    useJokerButton.textContent = messages[lang].useJolly;
-    rulesButton.textContent = messages[lang].rules.split('\n')[0];
-    updateGainLabel();
-  });
-
-  // Inizializzazione iniziale
-  selectedBet = parseFloat(betSelect.value);
-  currentCard = shuffleCard();
-  updateCardDisplay(currentCard);
-  updateDisplay();
-  useJokerButton.textContent = messages[lang].useJolly;
-  rulesButton.textContent = messages[lang].rules.split('\n')[0];
+document.addEventListener("DOMContentLoaded", () => {
+  currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
+  languageSelect.value = currentLanguage;
+  updateLanguage();
 });
