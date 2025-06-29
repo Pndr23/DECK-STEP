@@ -243,7 +243,7 @@ function updateProgress() {
     progressPath.appendChild(wrapper);
      }
     aggiornaGuadagno(tappe);
-    
+     }
   }
   
   function aggiornaGuadagno(corretti) {
