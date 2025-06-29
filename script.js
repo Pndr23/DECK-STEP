@@ -241,34 +241,56 @@ function updateProgress() {
     wrapper.appendChild(step);
     wrapper.appendChild(label);
     progressPath.appendChild(wrapper);
-  }
-    // --- QUI: aggiungo la scritta JACKPOT sopra la decima tappa ---
-const steps = progressPath.querySelectorAll(".progress-step");
-if (steps.length >= 10) {
-  const tenthStep = steps[9];
-  
-  // Prendo il wrapper (genitore) della decima tappa
-  const tenthWrapper = tenthStep.parentNode;
-  
-  // Imposto il wrapper come relativo per contenere l'assoluto
-  tenthWrapper.style.position = "relative";
 
+  }
+  function showJackpotAnimation() {
+  const progressPath = document.getElementById('progressPath');
+  const progressSteps = progressPath.querySelectorAll('.progress-step');
+  const lastStep = progressSteps[progressSteps.length - 1];
+  const lastWrapper = lastStep.parentNode;
+
+  // Rimuovo eventuali scritte jackpot già presenti
+  const existingJackpot = document.getElementById('jackpotLabel');
+  if (existingJackpot) existingJackpot.remove();
+
+  // Creo la scritta JACKPOT sopra l'ultima tappa
   const jackpotLabel = document.createElement("div");
+  jackpotLabel.id = 'jackpotLabel';
   jackpotLabel.textContent = "🎉 JACKPOT 🎉";
   jackpotLabel.style.fontWeight = "bold";
-  jackpotLabel.style.color = "#FFD700";  // colore oro
+  jackpotLabel.style.color = "#FFD700";
   jackpotLabel.style.textAlign = "center";
-  jackpotLabel.style.fontSize = "18px"; 
-  // Posiziona il testo sopra senza spostare elementi
+  jackpotLabel.style.fontSize = "18px";
   jackpotLabel.style.position = "absolute";
-  jackpotLabel.style.top = "-20px"; // alza sopra la tappa, aggiusta se serve
+  jackpotLabel.style.top = "-25px";
   jackpotLabel.style.left = "50%";
   jackpotLabel.style.transform = "translateX(-50%)";
   jackpotLabel.style.whiteSpace = "nowrap";
+  jackpotLabel.style.zIndex = "10";
 
-  tenthWrapper.appendChild(jackpotLabel);
+  lastWrapper.style.position = "relative"; // serve per il posizionamento assoluto
+  lastWrapper.appendChild(jackpotLabel);
+
+  // Suona l'effetto
+  jackpotSound.play();
+
+  // Se vuoi fare l’animazione con ridimensionamento o spostamento:
+  jackpotLabel.classList.remove('hidden', 'shrink');
+
+  setTimeout(() => {
+    const rect = lastStep.getBoundingClientRect();
+    jackpotLabel.style.position = 'absolute';
+    jackpotLabel.style.top = `-25px`;
+    jackpotLabel.style.left = '50%';
+    jackpotLabel.style.transform = 'translateX(-50%) scale(1.5)';
+    jackpotLabel.style.transition = 'transform 1s ease';
+
+    setTimeout(() => {
+      // Puoi decidere se nasconderla o lasciarla visibile
+      // jackpotLabel.remove();
+    }, 3000);
+  }, 2000);
 }
-  }
   function aggiornaGuadagno(corretti) {
   const label = document.getElementById("gainLabel");
   const recordLabel = document.getElementById("recordLabel");
