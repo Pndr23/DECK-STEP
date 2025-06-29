@@ -243,54 +243,7 @@ function updateProgress() {
     progressPath.appendChild(wrapper);
 
   }
-  function showJackpotAnimation() {
-  const progressPath = document.getElementById('progressPath');
-  const progressSteps = progressPath.querySelectorAll('.progress-step');
-  const lastStep = progressSteps[progressSteps.length - 1];
-  const lastWrapper = lastStep.parentNode;
-
-  // Rimuovo eventuali scritte jackpot già presenti
-  const existingJackpot = document.getElementById('jackpotLabel');
-  if (existingJackpot) existingJackpot.remove();
-
-  // Creo la scritta JACKPOT sopra l'ultima tappa
-  const jackpotLabel = document.createElement("div");
-  jackpotLabel.id = 'jackpotLabel';
-  jackpotLabel.textContent = "🎉 JACKPOT 🎉";
-  jackpotLabel.style.fontWeight = "bold";
-  jackpotLabel.style.color = "#FFD700";
-  jackpotLabel.style.textAlign = "center";
-  jackpotLabel.style.fontSize = "18px";
-  jackpotLabel.style.position = "absolute";
-  jackpotLabel.style.top = "-25px";
-  jackpotLabel.style.left = "50%";
-  jackpotLabel.style.transform = "translateX(-50%)";
-  jackpotLabel.style.whiteSpace = "nowrap";
-  jackpotLabel.style.zIndex = "10";
-
-  lastWrapper.style.position = "relative"; // serve per il posizionamento assoluto
-  lastWrapper.appendChild(jackpotLabel);
-
-  // Suona l'effetto
-  jackpotSound.play();
-
-  // Se vuoi fare l’animazione con ridimensionamento o spostamento:
-  jackpotLabel.classList.remove('hidden', 'shrink');
-
-  setTimeout(() => {
-    const rect = lastStep.getBoundingClientRect();
-    jackpotLabel.style.position = 'absolute';
-    jackpotLabel.style.top = `-25px`;
-    jackpotLabel.style.left = '50%';
-    jackpotLabel.style.transform = 'translateX(-50%) scale(1.5)';
-    jackpotLabel.style.transition = 'transform 1s ease';
-
-    setTimeout(() => {
-      // Puoi decidere se nasconderla o lasciarla visibile
-      // jackpotLabel.remove();
-    }, 3000);
-  }, 2000);
-}
+  
   function aggiornaGuadagno(corretti) {
   const label = document.getElementById("gainLabel");
   const recordLabel = document.getElementById("recordLabel");
@@ -443,7 +396,9 @@ function translate(key) {
 
 document.addEventListener("DOMContentLoaded", () => {
   currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
-  languageSelect.value = currentLanguage;
+  languageSelect.value = currentLanguage;  // Imposta il selettore lingua sulla lingua attuale
   updateLanguage();
-  
+  updateScore();
+  updateProgress();
+  updateJollyButton();
 });
