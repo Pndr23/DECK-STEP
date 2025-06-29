@@ -1,4 +1,4 @@
-let tappe = 0;
+ let tappe = 0;
 let currentCard = null;
 let nextCard = null;
 let correctCount = 0;
@@ -54,11 +54,11 @@ restartBtn.addEventListener("click", () => {
 useJollyBtn.onclick = () => {
   if (jollyCount > 0) {
     jollyCount--;
-  if (errorCount > 0) {
-    errorCount--;
+    if (errorCount > 0) {
+      errorCount--;
     }
-    updateScore();
     updateJollyButton();
+    updateScore();
   }
 };
 
@@ -137,7 +137,7 @@ function generateChallenge() {
     addButton(translate("even"), (next) => next % 2 === 0);
     addButton(translate("odd"),  (next) => next % 2 !== 0);
   } else if (label === translate("in") + " o " + translate("out")) {
-    const a = Math.floor(Math.random() * 11) + 1;
+    const a = Math.floor(Math.random() * 10) + 1;
     const b = a + 2;
     challengeText.textContent +=  (${a}-${b});
     addButton(translate("in"), (next) => next >= a && next <= b);
@@ -180,9 +180,9 @@ function addButton(text, checkFn) {
       if (correctCount % 3 === 0) jollyCount++;
       } else {
         errorCount++;
-      if (errorCount >= 3 && jollyCount > 0) {
+   if (errorCount >= 3 && jollyCount > 0) {
     jollyCount--;
-    errorCount--;
+    errorCount--;  
       }
     }
 
@@ -385,4 +385,4 @@ document.addEventListener("DOMContentLoaded", () => {
   currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
   languageSelect.value = currentLanguage;
   updateLanguage();
-});
+   });
