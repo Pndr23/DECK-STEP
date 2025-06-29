@@ -107,7 +107,7 @@ function startGame() {
 }
 
 function drawCard() {
-  return Math.floor(Math.random() * 13) + 1;
+  return Math.floor(Math.random() * 52) + 1;
 }
 
 function displayCard(cardNumber) {
