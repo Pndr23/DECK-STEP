@@ -293,33 +293,6 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-function showJackpotAnimation() {
-  const jackpotLabel = document.getElementById('jackpotLabel');
-  const progressPath = document.getElementById('progressPath');
-  const progressSteps = progressPath.querySelectorAll('.progress-step');
-  const lastStep = progressSteps[progressSteps.length - 1];
-
-  // Mostra la scritta JACKPOT al centro e ingrandita
-  jackpotLabel.classList.remove('hidden', 'shrink');
-  // Suona l'effetto
-  jackpotSound.play();
-
-  // Dopo 2 secondi fai rimpicciolire e posizionare sopra l'ultima tappa
-  setTimeout(() => {
-    const rect = lastStep.getBoundingClientRect()
-    jackpotLabel.style.position = 'absolute';
-    jackpotLabel.style.top = `${rect.top}px`;
-    jackpotLabel.style.left = `${rect.left}px`;
-    jackpotLabel.classList.add('shrink');
-
-    setTimeout(() => {
-      // Puoi lasciare la scritta visibile o nasconderla
-      // jackpotLabel.classList.add('hidden');
-    }, 3000);
-
-  }, 2000);
-}
-
 function translate(key) {
   const t = {
     it: {
@@ -393,7 +366,32 @@ function translate(key) {
   };
   return t[currentLanguage][key];
 }
+function showJackpotAnimation() {
+  const jackpotLabel = document.getElementById('jackpotLabel');
+  const progressPath = document.getElementById('progressPath');
+  const progressSteps = progressPath.querySelectorAll('.progress-step');
+  const lastStep = progressSteps[progressSteps.length - 1];
 
+  // Mostra la scritta JACKPOT al centro e ingrandita
+  jackpotLabel.classList.remove('hidden', 'shrink');
+  // Suona l'effetto
+  jackpotSound.play();
+
+  // Dopo 2 secondi fai rimpicciolire e posizionare sopra l'ultima tappa
+  setTimeout(() => {
+    const rect = lastStep.getBoundingClientRect()
+    jackpotLabel.style.position = 'absolute';
+    jackpotLabel.style.top = `${rect.top}px`;
+    jackpotLabel.style.left = `${rect.left}px`;
+    jackpotLabel.classList.add('shrink');
+
+    setTimeout(() => {
+      // Puoi lasciare la scritta visibile o nasconderla
+      // jackpotLabel.classList.add('hidden');
+    }, 3000);
+
+  }, 2000);
+}
 document.addEventListener("DOMContentLoaded", () => {
   currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
   languageSelect.value = currentLanguage;  // Imposta il selettore lingua sulla lingua attuale
