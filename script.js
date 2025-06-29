@@ -111,7 +111,7 @@ function drawCard() {
 }
 
 function displayCard(cardNumber) {
-  currentCardImg.src = `cards/card_${cardNumber}.png`;
+currentCardImg.src = `cards/card_${cardNumber}.png`;
 }
 function cardValue(card) {
   return Number(card);
@@ -125,7 +125,6 @@ function generateChallenge() {
   ];
   const selected = challenges[Math.floor(Math.random() * challenges.length)];
   const label = selected[currentLanguage];
-
 challengeText.textContent = `${translate("challenge")}: ${label}`;
   challengeButtons.innerHTML = "";
 
@@ -355,8 +354,8 @@ function translate(key) {
       higher: "Higher",
       lower: "Lower",
       even: "Even",
-      odd: "Odd",
-      in: "In",
+     odd: "Odd",
+     in: "In",
       out: "Out",
       correct: "Correct",
       error: "Errors",
@@ -376,7 +375,7 @@ function translate(key) {
           <li>Correct answers advance you a <strong>stage</strong>.</li>
           <li>After 3 correct answers in a row, you earn a <strong>joker</strong>.</li>
           <li>3 mistakes end the game. Use 🔁 to restart.</li>
-        </ul>
+        </ul>`,
     }
   };
   return t[currentLanguage][key];
