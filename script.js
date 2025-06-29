@@ -241,7 +241,9 @@ function updateProgress() {
     wrapper.appendChild(step);
     wrapper.appendChild(label);
     progressPath.appendChild(wrapper);
-
+     }
+    aggiornaGuadagno(tappe);
+    
   }
   
   function aggiornaGuadagno(corretti) {
@@ -265,7 +267,6 @@ function updateProgress() {
     recordLabel.textContent = "🎯 Record: €" + oldRecord.toFixed(2);
   }
   }
-  
 function updateLanguage() {
   document.querySelector("html").lang = currentLanguage;
   document.getElementById("gameTitle").textContent = translate("title");
