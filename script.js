@@ -311,6 +311,12 @@ function updateLanguage() {
 }
 
 const jackpotSound = new Audio('jackpot-sound.mp3');
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'j') {
+    jackpotSound.play();
+    console.log('Jackpot sound test!');
+  }
+});
 
 function showJackpotAnimation() {
   const jackpotLabel = document.getElementById('jackpotLabel');
