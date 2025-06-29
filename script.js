@@ -178,6 +178,9 @@ function addButton(text, checkFn) {
       correctCount++;
       tappe++;
       if (correctCount % 3 === 0) jollyCount++;
+        if (tappe === 10) {  // arrivi all'ultima tappa (10)
+      showJackpotAnimation(); // chiama la tua animazione jackpot
+    }
       } else {
         errorCount++;
       if (errorCount >= 3 && jollyCount > 0) {
@@ -307,6 +310,35 @@ function updateLanguage() {
   document.getElementById("withdrawLabel").textContent = translate("withdraw");
 }
 
+const jackpotSound = new Audio('jackpot-sound.mp3');
+
+function showJackpotAnimation() {
+  const jackpotLabel = document.getElementById('jackpotLabel');
+  const progressPath = document.getElementById('progressPath');
+  const progressSteps = progressPath.querySelectorAll('.progress-step');
+  const lastStep = progressSteps[progressSteps.length - 1];
+
+  // Mostra la scritta JACKPOT al centro e ingrandita
+  jackpotLabel.classList.remove('hidden', 'shrink');
+  // Suona l'effetto
+  jackpotSound.play();
+
+  // Dopo 2 secondi fai rimpicciolire e posizionare sopra l'ultima tappa
+  setTimeout(() => {
+    const rect = lastStep.getBoundingClientRect()
+    jackpotLabel.style.position = 'absolute';
+    jackpotLabel.style.top = `${rect.top}px`;
+    jackpotLabel.style.left = `${rect.left}px`;
+    jackpotLabel.classList.add('shrink');
+
+    setTimeout(() => {
+      // Puoi lasciare la scritta visibile o nasconderla
+      // jackpotLabel.classList.add('hidden');
+    }, 3000);
+
+  }, 2000);
+}
+
 function translate(key) {
   const t = {
     it: {
@@ -385,4 +417,5 @@ document.addEventListener("DOMContentLoaded", () => {
   currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
   languageSelect.value = currentLanguage;
   updateLanguage();
+  
 });
