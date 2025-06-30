@@ -72,23 +72,61 @@ img {
   margin-top: 1rem;
 }
 .progress-path {
-  display: flex;
-  gap: 8px;
-  margin: 10px 0;
+   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 0; 
 }
 .progress-step {
-  width: 20px;
-  height: 20px;
+  position: relative;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  }
+  .progress-step::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: calc(-50% + 10px); /* parte sinistra verso il passo precedente */
+  width: calc(100% - 20px); /* copre lo spazio tra i passi */
+  height: 4px;
+  background: #a3c9f7; /* linea di default */
+  z-index: -1;
+    }
+.progress-step:first-child::before {
+  content: none; /* nessuna linea per il primo cerchio */
+}
+.progress-step .circle {
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background-color: #a3c9f7;
+  background: #a3c9f7; /* default */
   border: 2px solid #0f2e53;
-  color: #0f2e53; 
-  transition: background-color 0.3s;
-   padding-bottom: 10px;
+  transition: background 0.3s, border 0.3s;
 }
 
+/* Stato attivo */
+.progress-step.current .circle {
+  background: #ff6f00;
+  border-color: #ffb300;
+}
+
+/* Stato completato */
+.progress-step.active .circle {
+  background: #2eb82e;
+  border-color: #0f2e53;
+}
+
+/* Passi futuri */
+.progress-step.future .circle {
+  background: #f6f0e6;
+}
+
+/* Cambia colore delle linee tra passi completati */
+.progress-step.active + .progress-step::before {
+  background: #2eb82e;
+}
 .progress-step.active {
  background-color: #2eb82e;
 }
