@@ -1,22 +1,27 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(to bottom, #ffffff, #e0f7fa); 
- background-repeat: no-repeat;
+  background: 
+    radial-gradient(circle at top center, 
+      #FFD700 0%,     /* giallo sole */
+      #FFA500 30%,    /* arancione */
+      #1E90FF 70%,    /* azzurro intermedio */
+      #0000FF 100%);  /* blu fondo */
+  background-repeat: no-repeat;
   background-size: cover;
-  color: #333;
+  color: white;
   font-family: sans-serif;
 }
 
 
 .container {
   text-align: center;
-  background: #ffffff;
-  border: none;
-  color: #333;
-  padding: 1.5rem;
-  border-radius: 20px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #fdb813;
+  color: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 select, button {
@@ -28,17 +33,13 @@ select, button {
 }
 
 button {
-  background: linear-gradient(to right, #64b5f6, #4fc3f7);
+  background-color: #4CAF50;
   color: white;
-  border: none;
-  border-radius: 12px;
-  padding: 10px 20px;
-  font-weight: bold;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  cursor: pointer;
 }
 
 button:hover {
-   transform: scale(1.03);
+  background-color: #45a049;
 }
 .button-maggiore {
   background-color: #2eb82e; /* verde acceso */
@@ -81,16 +82,18 @@ img {
   flex-wrap: wrap;
 }
 .progress-step {
-  width: 24px;                    /* larghezza fissa */
-  height: 24px;                   /* stessa altezza */
-  border-radius: 50%;            /* trasforma in cerchio */
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
   background-color: #a3c9f7;
   border: 2px solid #0f2e53;
-  transition: background-color 0.3s, transform 0.2s;
+  color: #0f2e53; 
+  transition: background-color 0.3s;
+   padding-bottom: 10px;
 }
 
 .progress-step.active {
- background-color:  #4caf50;
+ background-color: #2eb82e;
 }
 
 .progress-step.future {
@@ -98,27 +101,12 @@ img {
 }
 
 .progress-step.current {
- background-color: #ffca28;
-  border: 2px solid #fdd835;
+ background-color: #ff6f00;
+  border: 2px solid #ffb300;
   color: white;
-  transform: scale(1.2);
-  animation: pulse 1s infinite alternate;
-}
-@keyframes pulse {
-  from { box-shadow: 0 0 5px gold; }
-  to { box-shadow: 0 0 20px #ff6f00; }
 }
 
-.progress-step:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: -12px;
-  width: 24px;
-  height: 2px;
-  background: #0f2e53;
-  transform: translateY(-50%);
-}
+
 #rulesToggle {
   cursor: pointer;
   margin-bottom: 1rem;
@@ -126,9 +114,8 @@ img {
 }
 
 #scorePanel {
-   background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
-  padding: 10px;
+  margin: 1rem 0;
+  font-size: 1.1rem;
 }
 
 
@@ -144,9 +131,17 @@ img {
 }
 
 #regolamento-popup {
-  background: rgba(0, 0, 0, 0.85);
-  color: white;
-  border: 1px solid #4aa3ff;
+  display: none;
+  position: fixed;
+  top: 50px;
+  right: 10px;
+  background: #f6f0e6; 
+  color:  #0f2e53;
+  border: 1px solid #ffb300;
+  padding: 15px;
+  max-width: 300px;
+  z-index: 1000;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
 #useJollyBtn {
   margin: 10px 0;
@@ -157,28 +152,19 @@ img {
   border-radius: 6px;
   font-size: 1rem;
   cursor: pointer;
-  animation: blink 1s infinite;
-}
-
-@keyframes blink {
-  0% { box-shadow: 0 0 5px #f7931d; }
-  50% { box-shadow: 0 0 20px #ffcc00; }
-  100% { box-shadow: 0 0 5px #f7931d; } 
 }
 .multiplier-label {
- color: #1565c0;
+  font-size: 0.9rem;
+  margin-top: 20px;  /* spazio maggiore */
+  color: black;
   font-weight: bold;
+  text-align: center;
 }
 
 .jackpot {
- animation: glow 1.5s ease-in-out infinite alternate;
   color: #ffdf00;
   font-size: 1rem;
   text-shadow: 0 0 6px red;
-}
-@keyframes glow {
-  from { text-shadow: 0 0 5px red, 0 0 10px #FFD700; }
-  to { text-shadow: 0 0 20px #ff0000, 0 0 30px #FFD700; }
 }
 .green-button {
   background-color: green;
@@ -194,48 +180,36 @@ img {
   font-weight: bold;
 }
 #gameTitle {
-font-size: 2.5rem;
-  font-family: 'Rubik', sans-serif;
-  color: #1976d2;
-  text-shadow: none;
+  font-size: 3rem;       
+  text-transform: uppercase; /* tutto maiuscolo */
+  font-weight: bold;
+  color: white;           
+  text-align: center;
+  margin-bottom: 20px;
 }
 #withdrawBtn {
-  background-color: #ff5252;
-  border: none;
-  color: white;
+  padding: 10px 20px;
+  font-size: 1rem;
   font-weight: bold;
+  color: white;
+  background-color: #222; /* nero */
+  border: 2px solid gold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 #withdrawBtn:hover {
-  background-color: #e53935;
+  background-color: red;
+  color: white;
 }
 .gain-label {
- background-color: transparent;
-  color: #43a047;
+  display: inline-block;
+  background-color: rgba(0, 0, 0, 0.7); /* fondo semitrasparente */
+  color: #FFD700; /* colore oro */
+  font-size: 0.9rem;
+  margin-left: 10px; /* accanto, non sopra né sotto */
+  padding: 4px 8px;
+  border-radius: 6px;
   font-weight: bold;
-  font-size: 1.2rem;
-}
-@media (max-width: 768px) {
-  #gameTitle {
-    font-size: 2.5rem;
-  }
-
-  .container {
-    padding: 1.5rem;
-  }
-
-  select, button {
-    font-size: 0.9rem;
-    padding: 8px;
-  }
-
-  .progress-step {
-    width: 16px;
-    height: 16px;
-  }
-
-  #regolamento-popup {
-    max-width: 90%;
-    right: 5px;
-    top: 60px;
-  }
+  vertical-align: middle;
 }
