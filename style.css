@@ -2,11 +2,7 @@ body {
   margin: 0;
   min-height: 100vh;
   background: 
-    radial-gradient(circle at top center, 
-      #FFD700 0%,     /* giallo sole */
-      #FFA500 30%,    /* arancione */
-      #1E90FF 70%,    /* azzurro intermedio */
-      #0000FF 100%);  /* blu fondo */
+    url(sfondo.jpg.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   color: white;
@@ -16,7 +12,7 @@ body {
 
 .container {
   text-align: center;
-  background: rgba(255, 255, 255, 0.05);
+  background: (sfonfo.jpg.jpg);
   border: 1px solid #fdb813;
   color: white;
   padding: 2rem;
