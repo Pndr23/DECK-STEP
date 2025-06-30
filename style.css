@@ -1,4 +1,4 @@
-body {
+  body {
   margin: 0;
   min-height: 100vh;
   background: url(sfondo.jpg.jpg);
@@ -72,11 +72,11 @@ img {
   margin-top: 1rem;
 }
 .progress-path {
-  display: flex;
+ display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: flex-start;
-  gap: 8px;
+  align-items: center;
+  gap: 10px;
   margin: 20px 0;
   max-width: 95%;
 }
@@ -86,7 +86,7 @@ img {
   align-items: center;
   position: relative;
   flex: 0 0 auto;
-  margin: 0 4px;
+  margin: 0 6px;
   }
   .progress-step::before {
  content: "";
@@ -102,31 +102,41 @@ img {
   display: none; /* nessuna linea per il primo cerchio */
 }
 .circle {
-  width: 24px;
-  height: 24px;
+ width: 48px;
+  height: 48px;
   border-radius: 50%;
-  background: #a3c9f7;
+  background: linear-gradient(145deg, #fdd835, #ffeb3b);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
   border: 2px solid #0f2e53;
-  transition: background 0.3s, border 0.3s;
-  z-index: 1;
+  color: black;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: all 0.3s ease;
 }
 
 /* Stato attivo */
 .progress-step.current .circle {
-  background: #ff6f00;
-  border-color: #ffb300;
+  background: linear-gradient(145deg, #ff6f00, #ffa726);
+  box-shadow: 0 0 10px 3px #ffa726;
+  border: 3px solid #ffffff;
 }
 
 /* Stato completato */
 .progress-step.active .circle {
-  background: #2eb82e;
-  border-color: #0f2e53;
+  background: linear-gradient(145deg, #66bb6a, #43a047);
+  color: white;
+  box-shadow: 0 0 6px #66bb6a;
 }
 
 /* Passi futuri */
 .progress-step.future .circle {
-  background: #f6f0e6;
-  border-color: #ccc;
+   background: #ccc;
+  border-color: #999;
+  color: #333;
+  box-shadow: none;
 }
 
 /* Cambia colore delle linee tra passi completati */
@@ -253,4 +263,10 @@ img {
   border-radius: 6px;
   font-weight: bold;
   vertical-align: middle;
+}
+.circle.jackpot {
+  background: linear-gradient(145deg, gold, orange);
+  color: black;
+  box-shadow: 0 0 12px 4px gold;
+  font-weight: bold;
 }
