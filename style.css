@@ -1,17 +1,17 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: url('sfondo.jpg.jpg') no-repeat center center fixed;
+  background: linear-gradient(to bottom, #ffffff, #e0f7fa); 
+ background-repeat: no-repeat;
   background-size: cover;
-  color: white;
+  color: #333;
   font-family: sans-serif;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
 }
 
 
 .container {
   text-align: center;
-  background: url('sfondo.jpg.jpg') no-repeat center center fixed;
+  background: #ffffff;
   border: none;
   color: #333;
   padding: 1.5rem;
@@ -27,8 +27,8 @@ select, button {
   border: none;
 }
 
-button:not(.button-maggiore):not(.button-minore):not(.button-pari):not(.button-dispari):not(.button-fuori):not(.button-dentro):not(.green-button):not(.red-button) {
- background: linear-gradient(to right, #64b5f6, #4fc3f7);
+button {
+  background: linear-gradient(to right, #64b5f6, #4fc3f7);
   color: white;
   border: none;
   border-radius: 12px;
@@ -36,51 +36,33 @@ button:not(.button-maggiore):not(.button-minore):not(.button-pari):not(.button-d
   font-weight: bold;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
+
 button:hover {
    transform: scale(1.03);
 }
-.green-button {
-   background-color: green !important;
-  color: white !important;
-  border: 2px solid white;
-  font-weight: bold;
-}
-.button-dentro {
-  background-color: green !important;
-  color: white !important;
-  font-weight: bold;
-  }
 .button-maggiore {
-  background-color: gold !important;
-  color: black !important;
-  font-weight: bold;
-}
-
-.button-minore {
-  background-color: dodgerblue !important;
-  color: white !important;
-  font-weight: bold;
-}
-.button-pari{
-  background-color: green !important;
-  color: white !important;
-  font-weight: bold;
+  background-color: #2eb82e; /* verde acceso */
+  color: white;
   }
-.red-button {
-  background-color: red !important;
-  color: white !important;
-  border: 2px solid white;
-  font-weight: bold;
+.button-dentro {
+  background-color: #2eb82e; /* verde acceso */
+  color: white;
+  }
+.button-pari{
+  background-color: #2eb82e; /* verde acceso */
+  color: white;
+  }
+.button-minore {
+  background-color: #e63946; 
+  color: white;
   }
 .button-fuori {
-  background-color: red !important;
-  color: white !important;
-  font-weight: bold;
+  background-color: #e63946; 
+  color: white;
    }
   .button-dispari{
- background-color: red !important;
-  color: white !important;
-  font-weight: bold;
+  background-color: #e63946; 
+  color: white;
      }
 .hidden {
   display: none;
@@ -99,7 +81,6 @@ img {
   flex-wrap: wrap;
 }
 .progress-step {
-  position: relative;
   width: 24px;                    /* larghezza fissa */
   height: 24px;                   /* stessa altezza */
   border-radius: 50%;            /* trasforma in cerchio */
@@ -199,6 +180,19 @@ img {
   from { text-shadow: 0 0 5px red, 0 0 10px #FFD700; }
   to { text-shadow: 0 0 20px #ff0000, 0 0 30px #FFD700; }
 }
+.green-button {
+  background-color: green;
+  color: white !important;
+  border: 2px solid white;
+  font-weight: bold;
+}
+
+.red-button {
+  background-color: red;
+  color: white !important;
+  border: 2px solid white;
+  font-weight: bold;
+}
 #gameTitle {
 font-size: 2.5rem;
   font-family: 'Rubik', sans-serif;
@@ -206,7 +200,7 @@ font-size: 2.5rem;
   text-shadow: none;
 }
 #withdrawBtn {
-  background-color: #32cd32;
+  background-color: #ff5252;
   border: none;
   color: white;
   font-weight: bold;

@@ -1,4 +1,4 @@
- let tappe = 0;
+let tappe = 0;
 let currentCard = null;
 let nextCard = null;
 let correctCount = 0;
@@ -51,16 +51,14 @@ restartBtn.addEventListener("click", () => {
   gameArea.classList.add("hidden");
 });
 
-useJollyBtn.onclick = () => {
-  if (jollyCount > 0) {
+useJollyBtn.addEventListener("click", () => {
+  if (jollyCount > 0 && errorCount > 0) {
     jollyCount--;
-    if (errorCount > 0) {
-      errorCount--;
-    }
-    updateJollyButton();
+    errorCount--;
     updateScore();
+    updateJollyButton();
   }
-};
+});
 
 languageSelect.addEventListener("change", () => {
   currentLanguage = languageSelect.value;
@@ -83,7 +81,6 @@ function resetGame() {
   updateScore();
   updateProgress();
   updateJollyButton();
-  aggiornaGuadagno(0);
 }
 
 function updateScore() {
@@ -94,7 +91,7 @@ function updateScore() {
 }
 
 function updateJollyButton() {
-useJollyBtn.classList.toggle("hidden", jollyCount === 0);
+  useJollyBtn.classList.toggle("hidden", jollyCount === 0 || errorCount === 0);
 }
 
 function startGame() {
@@ -107,15 +104,13 @@ function startGame() {
 }
 
 function drawCard() {
-  return Math.floor(Math.random() * 40) + 1;
+  return Math.floor(Math.random() * 13) + 1;
 }
 
 function displayCard(cardNumber) {
-currentCardImg.src = `cards/card_${cardNumber}.png`;
+  currentCardImg.src = `cards/card_${cardNumber}.png`;
 }
-function cardValue(card) {
-  return Number(card);
-}
+
 function generateChallenge() {
   const challenges = [
     { it: "Maggiore o Minore", en: "Higher or Lower" },
@@ -125,19 +120,20 @@ function generateChallenge() {
   ];
   const selected = challenges[Math.floor(Math.random() * challenges.length)];
   const label = selected[currentLanguage];
-challengeText.textContent = `${translate("challenge")}: ${label}`;
+
+  challengeText.textContent = `${translate("challenge")}: ${label}`;
   challengeButtons.innerHTML = "";
 
   if (label === translate("higher") + " o " + translate("lower")) {
-  addButton(translate("higher"), (next, current) => next > current);
-  addButton(translate("lower"), (next, current) => next < current);
+    addButton(translate("higher"), (next) => next > currentCard);
+    addButton(translate("lower"), (next) => next < currentCard);
   } else if (label === translate("even") + " o " + translate("odd")) {
     addButton(translate("even"), (next) => next % 2 === 0);
     addButton(translate("odd"),  (next) => next % 2 !== 0);
   } else if (label === translate("in") + " o " + translate("out")) {
-    const a = Math.floor(Math.random() * 10) + 1;
+    const a = Math.floor(Math.random() * 6) + 2;
     const b = a + 2;
-    challengeText.textContent +=  (${a}-${b});
+    challengeText.textContent += ` (${a}-${b})`;
     addButton(translate("in"), (next) => next >= a && next <= b);
     addButton(translate("out"), (next) => next < a || next > b);
   } else {
@@ -164,23 +160,16 @@ function addButton(text, checkFn) {
   }
 
   btn.onclick = () => {
-   const currentVal = cardValue(currentCard);
-   const nextVal = cardValue(nextCard);
-    
-  const result = checkFn.length === 2 ? checkFn(nextVal, currentVal) : checkFn(nextVal);
-    
-console.log(`CurrentCard: ${currentCard} (${currentVal}), NextCard: ${nextCard} (${nextVal})`);
-console.log(`Risposta selezionata: ${text}, corretta: ${result}`);
-   
+    const result = checkFn(nextCard);
     if (result) {
       correctCount++;
       tappe++;
       if (correctCount % 3 === 0) jollyCount++;
+    } else {
+      if (jollyCount > 0 && errorCount < 3) {
+        jollyCount--;
       } else {
         errorCount++;
-   if (errorCount >= 3 && jollyCount > 0) {
-    jollyCount--;
-    errorCount--;  
       }
     }
 
@@ -207,7 +196,7 @@ console.log(`Risposta selezionata: ${text}, corretta: ${result}`);
 }
 
 function updateProgress() {
-  progressCounter.textContent = ${translate("stage")}: ${tappe};
+  progressCounter.textContent = `${translate("stage")}: ${tappe}`;
   progressPath.innerHTML = "";
 
   const multipliers = [1.2, 1.5, 2, 3, 20, 5, 8, 12, 40, 100];
@@ -263,29 +252,18 @@ if (steps.length >= 10) {
 
   tenthWrapper.appendChild(jackpotLabel);
 }
-  }
-  function aggiornaGuadagno(corretti) {
+}
+    function aggiornaGuadagno(corretti) {
   const label = document.getElementById("gainLabel");
-  const recordLabel = document.getElementById("recordLabel");
-
   let guadagno = puntataIniziale;
+
   for (let i = 0; i < corretti; i++) {
-    guadagno *= moltiplicatori[i] || 1;
+    guadagno *= moltiplicatori[i] || 1; // fallback a 1 se oltre i limiti
   }
 
   label.textContent = "+€" + guadagno.toFixed(2);
+}
 
-  // Gestione record con localStorage
-  const oldRecord = parseFloat(localStorage.getItem("deckstep_record") || "0");
-
-  if (guadagno > oldRecord) {
-    localStorage.setItem("deckstep_record", guadagno.toFixed(2));
-    recordLabel.textContent = "🎯 Record: €" + guadagno.toFixed(2);
-  } else {
-    recordLabel.textContent = "🎯 Record: €" + oldRecord.toFixed(2);
-  }
-  }
-  
 function updateLanguage() {
   document.querySelector("html").lang = currentLanguage;
   document.getElementById("gameTitle").textContent = translate("title");
@@ -329,17 +307,15 @@ function translate(key) {
       bet: "Puntata:",
       risk: "Modalità rischio:",
       lost: "Hai perso!",
-      rulesText: `
-  <p>Benvenuto in <strong>Deck Step</strong>! Il tuo obiettivo è superare una serie di sfide casuali indovinando correttamente il risultato della carta successiva.</p>
-  <ul>
-    <li>Puoi scegliere la <strong>puntata iniziale</strong> tra €0.10, €0.20, €0.50, €1, €2 e €5.</li>
-    <li>Puoi anche scegliere la <strong>difficoltà</strong>: Facile, Media o Difficile (più sfide, meno jolly).</li>
-    <li>Ogni turno una carta viene pescata e ti viene proposta una sfida.</li>
-    <li>Ogni risposta corretta ti fa avanzare di una <strong>tappa</strong>.</li>
-    <li>Dopo 3 risposte corrette consecutive, ricevi un <strong>jolly</strong>.</li>
-    <li>3 errori terminano la partita. Puoi ricominciare con il pulsante 🔁.</li>
-  </ul>
-`
+      rulesText: `<p>Benvenuto in <strong>Deck Step</strong>! Il tuo obiettivo è superare una serie di sfide casuali indovinando correttamente il risultato della carta successiva.</p>
+        <ul>
+          <li>Puoi scegliere la <strong>puntata iniziale</strong> tra €0.10, €0.20, €0.50, €1, €2 e €5.</li>
+          <li>Puoi anche scegliere la <strong>difficoltà</strong>: Facile, Media o Difficile (più sfide, meno jolly).</li>
+          <li>Ogni turno una carta viene pescata e ti viene proposta una sfida.</li>
+          <li>Ogni risposta corretta ti fa avanzare di una <strong>tappa</strong>.</li>
+          <li>Dopo 3 risposte corrette consecutive, ricevi un <strong>jolly</strong>.</li>
+          <li>3 errori terminano la partita. Puoi ricominciare con il pulsante 🔁.</li>
+        </ul>`,
       withdrawn: "Hai ritirato! Hai totalizzato {points} punti.",
       withdraw: "RITIRA", 
     },
@@ -354,8 +330,8 @@ function translate(key) {
       higher: "Higher",
       lower: "Lower",
       even: "Even",
-     odd: "Odd",
-     in: "In",
+      odd: "Odd",
+      in: "In",
       out: "Out",
       correct: "Correct",
       error: "Errors",
@@ -367,7 +343,7 @@ function translate(key) {
       risk: "Risk mode:",
       lost: "You lost!",
       withdraw: "WITHDRAW",
-      rulesText: <p>Welcome to <strong>Deck Step</strong>! Your goal is to complete a series of random challenges by correctly guessing the next card.</p>
+      rulesText: `<p>Welcome to <strong>Deck Step</strong>! Your goal is to complete a series of random challenges by correctly guessing the next card.</p>
         <ul>
           <li>You can choose your <strong>starting bet</strong> from €0.10 to €5.</li>
           <li>Select a <strong>difficulty</strong>: Easy, Medium, or Hard (more challenges, fewer jokers).</li>
@@ -375,7 +351,7 @@ function translate(key) {
           <li>Correct answers advance you a <strong>stage</strong>.</li>
           <li>After 3 correct answers in a row, you earn a <strong>joker</strong>.</li>
           <li>3 mistakes end the game. Use 🔁 to restart.</li>
-        </ul>`,
+        </ul>`
     }
   };
   return t[currentLanguage][key];
@@ -385,4 +361,4 @@ document.addEventListener("DOMContentLoaded", () => {
   currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
   languageSelect.value = currentLanguage;
   updateLanguage();
-   });
+});
