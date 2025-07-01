@@ -189,10 +189,8 @@ img {
 
 .progress-path {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 30px 0;
-  padding: 0 20px;
+  justify-content: flex-start; /* o center */
+  gap: 12px;
 }
 
 .progress-step {
