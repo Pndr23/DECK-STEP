@@ -176,44 +176,57 @@ img {
   vertical-align: middle;
 
 }
-.tappe-container {
+.progress-path {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  margin: 20px 0;
   position: relative;
-  margin: 20px auto;
   padding: 0 10px;
-  max-width: 90%;
 }
 
-.tappe-container::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background-color: #facc15;
-  z-index: 0;
-  transform: translateY(-50%);
-}
-
-.tappa {
-  width: 28px;
-  height: 28px;
-  background-color: white;
-  border: 3px solid #facc15;
-  border-radius: 50%;
-  margin: 0 10px;
+.progress-step {
   position: relative;
-  z-index: 1;
+  text-align: center;
+  flex: 1;
 }
 
-.tappa.attiva {
-  background-color: #facc15;
-  box-shadow: 0 0 6px #facc15;
+.circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: white;
+  margin: 0 auto;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
 }
 
-.tappa.completata {
-  background-color: #facc15;
+.progress-step.active .circle {
+  background-color: gold;
+}
+
+.progress-step.current .circle {
+  background-color: #4CAF50;
+  animation: pulse 1s infinite;
+}
+
+.progress-step.future .circle {
+  background-color: white;
+}
+
+.multiplier-label {
+  margin-top: 5px;
+  font-size: 0.8em;
+  font-weight: bold;
+  color: #333;
+}
+
+.jackpot {
+  color: #FF4500;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 0 5px #4CAF50; }
+  50% { transform: scale(1.2); box-shadow: 0 0 15px #4CAF50; }
+  100% { transform: scale(1); box-shadow: 0 0 5px #4CAF50; }
 }
