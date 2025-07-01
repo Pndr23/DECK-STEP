@@ -209,14 +209,10 @@ function updateProgress() {
 
     const step = document.createElement("div");
     step.classList.add("progress-step");
-
-    if (i < tappe) {
-      step.classList.add("active");
-    } else if (i === tappe) {
-      step.classList.add("current");
-    } else {
-      step.classList.add("future");
-    }
+    
+    const circle = document.createElement("div");
+    circle.classList.add("circle");
+    step.appendChild(circle);
 
     const label = document.createElement("div");
     label.classList.add("multiplier-label");
