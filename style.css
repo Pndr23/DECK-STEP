@@ -204,18 +204,18 @@ img {
 }
 
 .circle {
-  width: 30px;
-  height: 30px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
-  background-color: #444;
-  border: 3px solid white;
+  background-color: #222;
+  border: 3px solid #FFD700;
   margin: 0 auto;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
 }
 
 .progress-step.active .circle {
-  background-color: gold;
+  background-color: #FFD700; /* oro */
   box-shadow: 0 0 12px gold;
 }
 
@@ -225,8 +225,8 @@ img {
 }
 
 .progress-step.future .circle {
-  background-color: #222;
-  border: 3px solid #777;
+  background-color: #444;
+  border: 3px solid #999;
 }
 
 @keyframes pulse {
