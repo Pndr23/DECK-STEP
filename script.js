@@ -216,6 +216,7 @@ function updateProgress() {
     const circle = document.createElement("div");
     circle.classList.add("circle");
     if (i < tappe) {
+   void circle.offsetWidth; // forza il reflow
    circle.classList.add("completed-step");
    } else if (i === tappe) {
   // Questa è la tappa attuale
