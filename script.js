@@ -110,8 +110,8 @@ function drawCard() {
   return { value, suit, index }; // 👈 AGGIUNGI index
 }
 
-function displayCard(cardNumber) {
-  currentCardImg.src = `cards/card_${cardNumber}.png`;
+function displayCard(card) {
+  currentCardImg.src = `cards/card_${card.index}.png`;
 }
 
 function generateChallenge() {
