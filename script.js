@@ -215,7 +215,11 @@ function updateProgress() {
     
     const circle = document.createElement("div");
     circle.classList.add("circle");
+    if (i < tappe) {
+    circle.classList.add("completed-step");
+     }   
     step.appendChild(circle);
+
 
     const label = document.createElement("div");
     label.classList.add("multiplier-label");
@@ -256,8 +260,8 @@ if (steps.length >= 10) {
   const label = document.getElementById("gainLabel");
   let guadagno = puntataIniziale;
 
-  for (let i = 0; i < corretti; i++) {
-    guadagno *= moltiplicatori[i] || 1; // fallback a 1 se oltre i limiti
+for (let i = 0; i < corretti && i < moltiplicatori.length; i++) {
+  guadagno *= moltiplicatori[i]; // fallback a 1 se oltre i limiti
   }
 
   label.textContent = "+€" + guadagno.toFixed(2);
