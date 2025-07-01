@@ -131,17 +131,19 @@ img {
 }
 
 .green-button {
-  background-color: #14d928 ;
+  background-color: #14d928 !important;
+  background-image: none !important;
   color: white !important;
-  border: 2px solid white;
-  font-weight: bold;
+  border: 2px solid white !important;
+  font-weight: bold !important;
 }
 
 .red-button {
-  background-color: #ff0000 ;
+  background-color: #ff0000 !important;
+  background-image: none !important;
   color: white !important;
-  border: 2px solid white;
-  font-weight: bold;
+  border: 2px solid white !important;
+  font-weight: bold !important;
 }
 
 #gameTitle {
