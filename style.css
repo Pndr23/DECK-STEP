@@ -189,7 +189,7 @@ img {
 
 .progress-path {
   display: flex;
-  justify-content: flex-start; /* o center */
+  justify-content: center; /* o center */
   gap: 12px;
 }
 
