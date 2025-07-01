@@ -192,26 +192,26 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 20px 0;
-  padding: 0 10px;
-  position: relative;
+  margin: 30px 0;
+  padding: 0 20px;
 }
 
 .progress-step {
-  position: relative;
-  text-align: center;
   flex: 1;
-}
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  }
 .circle {
-  width: 34px;
-  height: 34px;
+ width: 40px;
+  height: 40px;
   border-radius: 50%;
   background-color: #222;
   border: 3px solid #FFD700;
-  margin: 0 auto;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+  margin-bottom: 5px;
   transition: all 0.3s ease;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
 }
 
 .progress-step.active .circle {
@@ -220,17 +220,24 @@ img {
 }
 
 .progress-step.current .circle {
-  background-color: #00cc66;
+  background-color: #00ff66;
+  box-shadow: 0 0 15px #00ff66;
   animation: pulse 1s infinite;
 }
 
 .progress-step.future .circle {
-  background-color: #444;
+   background-color: #444;
   border: 3px solid #999;
+  box-shadow: 0 0 6px #333;
 }
-
+.multiplier-label.jackpot {
+  color: #ff4444;
+  font-size: 1rem;
+  font-weight: 900;
+  text-shadow: 0 0 6px gold;
+}
 @keyframes pulse {
-  0% { transform: scale(1); box-shadow: 0 0 10px #00cc66; }
-  50% { transform: scale(1.2); box-shadow: 0 0 20px #00cc66; }
-  100% { transform: scale(1); box-shadow: 0 0 10px #00cc66; }
+  0%   { transform: scale(1);   box-shadow: 0 0 10px #00ff66; }
+  50%  { transform: scale(1.2); box-shadow: 0 0 20px #00ff66; }
+  100% { transform: scale(1);   box-shadow: 0 0 10px #00ff66; }
 }
