@@ -116,51 +116,46 @@ function displayCard(card) {
 
 function generateChallenge() {
   const challenges = [
-    { it: "Maggiore o Minore", en: "Higher or Lower" },
-    { it: "Pari o Dispari", en: "Even or Odd" },
-    { it: "Dentro o Fuori", en: "In or Out" },
-    { it: "Numero Esatto", en: "Exact Number" }
+    { key: "higherLower", it: "Maggiore o Minore", en: "Higher or Lower" },
+    { key: "evenOdd",   it: "Pari o Dispari", en: "Even or Odd" },
+    { key: "inOut",   it: "Dentro o Fuori", en: "In or Out" },
+    { key: "exact", it: "Numero Esatto", en: "Exact Number" }
   ];
   const selected = challenges[Math.floor(Math.random() * challenges.length)];
   const label = selected[currentLanguage];
+  const challengeKey = selected.key;
 
   challengeText.textContent = `${translate("challenge")}: ${label}`;
   challengeButtons.innerHTML = "";
 
-  if (label === translate("higher") + " o " + translate("lower")) {
-    addButton(translate("higher"), (next) => next.value> currentCard.value);
-    addButton(translate("lower"), (next) => next.value < currentCard.value);
-  } else if (label === translate("even") + " o " + translate("odd")) {
-    addButton(translate("even"), (next) => next.value % 2 === 0);
-    addButton(translate("odd"),  (next) => next.value % 2 !== 0);
-  } else if (label === translate("in") + " o " + translate("out")) {
+ if (challengeKey === "higherLower") {
+    addButton(translate("higher"), (next) => next.value > currentCard.value, "green");
+    addButton(translate("lower"), (next) => next.value < currentCard.value, "red");
+
+  } else if (challengeKey === "evenOdd") {
+    addButton(translate("even"), (next) => next.value % 2 === 0, "green");
+    addButton(translate("odd"), (next) => next.value % 2 !== 0, "red");
+
+  } else if (challengeKey === "inOut") {
     const a = Math.floor(Math.random() * 8) + 2;
     const b = a + 2;
     challengeText.textContent += ` (${a}-${b})`;
-    addButton(translate("in"), (next) => next.value >= a && next.value <= b);
-    addButton(translate("out"), (next) => next.value < a || next.value > b);
-  } else {
+    addButton(translate("in"), (next) => next.value >= a && next.value <= b, "green");
+    addButton(translate("out"), (next) => next.value < a || next.value > b, "red");
+
+  } else if (challengeKey === "exact") {
     for (let i = 1; i <= 10; i++) {
-      addButton(i, (next) => next.value === i);
+      addButton(i, (next) => next.value === i, "green");
     }
   }
 }
 
-function addButton(text, checkFn) {
+
+function addButton(text, checkFn, color = "green") {
   const btn = document.createElement("button");
   btn.textContent = text;
- 
+  btn.classList.add(color === "red" ? "red-button" : "green-button");
   btn.style.color = "white";
-
-  const lower = translate("lower");
-  const odd = translate("odd");
-  const out = translate("out");
-
-  if (text === lower || text === odd || text === out) {
-    btn.classList.add("red-button");
-  } else {
-    btn.classList.add("green-button"); 
-  }
 
   btn.onclick = () => {
     const result = checkFn(nextCard);
