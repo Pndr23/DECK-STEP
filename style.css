@@ -215,13 +215,6 @@ img {
   background-color: #FFD700; /* oro */
   box-shadow: 0 0 12px gold;
 }
-
-.progress-step.current .circle {
-  background-color: #00ff66;
-  box-shadow: 0 0 15px #00ff66;
-  animation: pulse 1s infinite;
-}
-
 .progress-step.future .circle {
    background-color: #444;
   border: 3px solid #999;
@@ -264,5 +257,8 @@ img {
 }
 
 .circle.current-step {
-  box-shadow: 0 0 8px 2px #ff9800;
-  border: 2px solid #ff9800;
+  background-color: #00ff66;
+  box-shadow: 0 0 15px #00ff66;
+  animation: pulse 1s infinite;
+  border: 2px solid #00ff66; /* opzionale per coerenza */
+}
