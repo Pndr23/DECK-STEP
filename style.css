@@ -42,7 +42,6 @@ button:hover {
 .button-pari {
   background-color: #ff0000 ;
   color: white;
-  text-shadow: 1px 1px 2px black;
 }
 
 .button-minore,
@@ -50,7 +49,6 @@ button:hover {
 .button-dispari {
   background-color: #14d928;
   color: white;
-  text-shadow: 1px 1px 2px black;
 }
 
 .hidden {
