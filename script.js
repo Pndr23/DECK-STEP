@@ -128,20 +128,20 @@ function generateChallenge() {
   challengeButtons.innerHTML = "";
 
   if (label === translate("higher") + " o " + translate("lower")) {
-    addButton(translate("higher"), (next) => next > currentCard);
-    addButton(translate("lower"), (next) => next < currentCard);
+    addButton(translate("higher"), (next) => next.value> currentCard.value);
+    addButton(translate("lower"), (next) => next.value < currentCard.value);
   } else if (label === translate("even") + " o " + translate("odd")) {
-    addButton(translate("even"), (next) => next % 2 === 0);
-    addButton(translate("odd"),  (next) => next % 2 !== 0);
+    addButton(translate("even"), (next) => next.value % 2 === 0);
+    addButton(translate("odd"),  (next) => next.value % 2 !== 0);
   } else if (label === translate("in") + " o " + translate("out")) {
     const a = Math.floor(Math.random() * 8) + 2;
     const b = a + 2;
     challengeText.textContent += ` (${a}-${b})`;
-    addButton(translate("in"), (next) => next >= a && next <= b);
-    addButton(translate("out"), (next) => next < a || next > b);
+    addButton(translate("in"), (next) => next.value >= a && next.value <= b);
+    addButton(translate("out"), (next) => next.value < a || next.value > b);
   } else {
     for (let i = 1; i <= 10; i++) {
-      addButton(i, (next) => next === i);
+      addButton(i, (next) => next.value === i);
     }
   }
 }
