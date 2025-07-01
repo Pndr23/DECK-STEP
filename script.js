@@ -104,7 +104,10 @@ function startGame() {
 }
 
 function drawCard() {
-  return Math.floor(Math.random() * 40) + 1;
+   const index = Math.floor(Math.random() * 40);
+  const value = (index % 10) + 1;
+  const suit = Math.floor(index / 10); // 0,1,2,3 per i semi
+  return { value, suit };  
 }
 
 function displayCard(cardNumber) {
@@ -137,7 +140,7 @@ function generateChallenge() {
     addButton(translate("in"), (next) => next >= a && next <= b);
     addButton(translate("out"), (next) => next < a || next > b);
   } else {
-    for (let i = 1; i <= 13; i++) {
+    for (let i = 1; i <= 10; i++) {
       addButton(i, (next) => next === i);
     }
   }
