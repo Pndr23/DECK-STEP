@@ -104,7 +104,7 @@ function startGame() {
 }
 
 function drawCard() {
-  return Math.floor(Math.random() * 13) + 1;
+  return Math.floor(Math.random() * 40) + 1;
 }
 
 function displayCard(cardNumber) {
@@ -131,7 +131,7 @@ function generateChallenge() {
     addButton(translate("even"), (next) => next % 2 === 0);
     addButton(translate("odd"),  (next) => next % 2 !== 0);
   } else if (label === translate("in") + " o " + translate("out")) {
-    const a = Math.floor(Math.random() * 6) + 2;
+    const a = Math.floor(Math.random() * 10) + 2;
     const b = a + 2;
     challengeText.textContent += ` (${a}-${b})`;
     addButton(translate("in"), (next) => next >= a && next <= b);
