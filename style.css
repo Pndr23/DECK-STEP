@@ -40,15 +40,15 @@ button:hover {
 .button-maggiore,
 .button-dentro,
 .button-pari {
-  background-color: #ff0000 ;
-  color: white;
+  background-color: #ff0000  !important;
+  color: white  !important;
 }
 
 .button-minore,
 .button-fuori,
 .button-dispari {
-  background-color: #14d928;
-  color: white;
+  background-color: #14d928 !important;
+  color: white  !important;
 }
 
 .hidden {
