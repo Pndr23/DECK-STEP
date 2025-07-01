@@ -71,92 +71,7 @@ img {
   height: auto;
   margin-top: 1rem;
 }
-.progress-path {
- display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin: 20px 0;
-  max-width: 95%;
-}
-.progress-step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 6px;
-  }
-  .progress-step::before {
- content: "";
-  position: absolute;
-  top: 12px;
-  left: -50%;
-  width: 100%;
-  height: 4px;
-  background: #a3c9f7;
-  z-index: -1;
-    }
-.progress-step:first-child::before {
-  display: none; /* nessuna linea per il primo cerchio */
-}
-.circle {
- width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: linear-gradient(145deg, #fdd835, #ffeb3b);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
-  border: 2px solid #0f2e53;
-  color: black;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  transition: all 0.3s ease;
-}
-
-/* Stato attivo */
-.progress-step.current .circle {
-  background: linear-gradient(145deg, #ff6f00, #ffa726);
-  box-shadow: 0 0 10px 3px #ffa726;
-  border: 3px solid #ffffff;
-}
-
-/* Stato completato */
-.progress-step.active .circle {
-  background: linear-gradient(145deg, #66bb6a, #43a047);
-  color: white;
-  box-shadow: 0 0 6px #66bb6a;
-}
-
-/* Passi futuri */
-.progress-step.future .circle {
-   background: #ccc;
-  border-color: #999;
-  color: #333;
-  box-shadow: none;
-}
-
-/* Cambia colore delle linee tra passi completati */
-.progress-step.active + .progress-step::before {
-  background: #2eb82e;
-}
-.progress-step.active {
- background-color: #2eb82e;
-}
-
-.progress-step.future {
-   background-color: #f6f0e6;
-}
-
-.progress-step.current {
- background-color: #ff6f00;
-  border: 2px solid #ffb300;
-  color: white;
-}
-
-
-#rulesToggle {
+ #rulesToggle {
   cursor: pointer;
   margin-bottom: 1rem;
   text-decoration: underline;
@@ -166,8 +81,6 @@ img {
   margin: 1rem 0;
   font-size: 1.1rem;
 }
-
-
 #toggle-regolamento {
   position: fixed;
   top: 10px;
@@ -261,10 +174,46 @@ img {
   border-radius: 6px;
   font-weight: bold;
   vertical-align: middle;
+
 }
-.circle.jackpot {
-  background: linear-gradient(145deg, gold, orange);
-  color: black;
-  box-shadow: 0 0 12px 4px gold;
-  font-weight: bold;
+.tappe-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 20px auto;
+  padding: 0 10px;
+  max-width: 90%;
+}
+
+.tappe-container::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: #facc15;
+  z-index: 0;
+  transform: translateY(-50%);
+}
+
+.tappa {
+  width: 28px;
+  height: 28px;
+  background-color: white;
+  border: 3px solid #facc15;
+  border-radius: 50%;
+  margin: 0 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.tappa.attiva {
+  background-color: #facc15;
+  box-shadow: 0 0 6px #facc15;
+}
+
+.tappa.completata {
+  background-color: #facc15;
 }
