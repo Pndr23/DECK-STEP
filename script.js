@@ -216,11 +216,13 @@ function updateProgress() {
     const circle = document.createElement("div");
     circle.classList.add("circle");
     if (i < tappe) {
-    circle.classList.add("completed-step");
-     }   
-    step.appendChild(circle);
-
-
+   circle.classList.add("completed-step");
+   } else if (i === tappe) {
+  // Questa è la tappa attuale
+   circle.classList.add("current-step");
+ }
+  step.appendChild(circle);
+    
     const label = document.createElement("div");
     label.classList.add("multiplier-label");
     label.textContent = "x" + multipliers[i].toFixed(2);
