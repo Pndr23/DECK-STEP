@@ -131,14 +131,14 @@ img {
 }
 
 .green-button {
-  background-color: #00cc66;
+  background-color: #14d928 ;
   color: white !important;
   border: 2px solid white;
   font-weight: bold;
 }
 
 .red-button {
-  background-color: #cc0033;
+  background-color: #ff0000 ;
   color: white !important;
   border: 2px solid white;
   font-weight: bold;
