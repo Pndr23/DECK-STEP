@@ -104,10 +104,10 @@ function startGame() {
 }
 
 function drawCard() {
-   const index = Math.floor(Math.random() * 40);
+  const index = Math.floor(Math.random() * 40);
   const value = (index % 10) + 1;
   const suit = Math.floor(index / 10); // 0,1,2,3 per i semi
-  return { value, suit };  
+  return { value, suit, index }; // 👈 AGGIUNGI index
 }
 
 function displayCard(cardNumber) {
