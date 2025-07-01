@@ -119,28 +119,33 @@ function generateChallenge() {
     { key: "higherLower", label: { it: "Maggiore o Minore", en: "Higher or Lower" } },
     { key: "evenOdd", label: { it: "Pari o Dispari", en: "Even or Odd" } },
     { key: "inOut", label: { it: "Dentro o Fuori", en: "In or Out" } },
-    { key: "exact", label: { it: "Numero Esatto", en: "Exact Number" } }
+    { key: "exactNumber", label: { it: "Numero Esatto", en: "Exact Number" } }
   ];
 
   const selected = challenges[Math.floor(Math.random() * challenges.length)];
-  challengeText.textContent = `${translate("challenge")}: ${selected.label[currentLanguage]}`;
+  const label = selected.label[currentLanguage];
+
+  challengeText.textContent = `${translate("challenge")}: ${label}`;
   challengeButtons.innerHTML = "";
 
   if (selected.key === "higherLower") {
-    addButton(translate("higher"), (next) => next.value > currentCard.value, "green");
-    addButton(translate("lower"), (next) => next.value < currentCard.value, "red");
+    addButton(translate("higher"), (next) => next.value > currentCard.value);
+    addButton(translate("lower"),  (next) => next.value < currentCard.value);
+
   } else if (selected.key === "evenOdd") {
-    addButton(translate("even"), (next) => next.value % 2 === 0, "green");
-    addButton(translate("odd"), (next) => next.value % 2 !== 0, "red");
+    addButton(translate("even"), (next) => next.value % 2 === 0);
+    addButton(translate("odd"),  (next) => next.value % 2 !== 0);
+
   } else if (selected.key === "inOut") {
     const a = Math.floor(Math.random() * 8) + 2;
     const b = a + 2;
     challengeText.textContent += ` (${a}-${b})`;
-    addButton(translate("in"), (next) => next.value >= a && next.value <= b, "green");
-    addButton(translate("out"), (next) => next.value < a || next.value > b, "red");
-  } else {
+    addButton(translate("in"),  (next) => next.value >= a && next.value <= b);
+    addButton(translate("out"), (next) => next.value < a || next.value > b);
+
+  } else if (selected.key === "exactNumber") {
     for (let i = 1; i <= 10; i++) {
-      addButton(i.toString(), (next) => next.value === i, "green");
+      addButton(i.toString(), (next) => next.value === i);
     }
   }
 }
