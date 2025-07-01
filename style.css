@@ -238,3 +238,7 @@ img {
   50%  { transform: scale(1.2); box-shadow: 0 0 20px #00ff66; }
   100% { transform: scale(1);   box-shadow: 0 0 10px #00ff66; }
 }
+.completed-step {
+  background-color: #4caf50; /* verde */
+  border: 2px solid #388e3c;
+}
