@@ -113,6 +113,7 @@ function displayCard(card) {
 }
 
 function generateChallenge() {
+  nextCard = drawCard(); // pesca la nuova carta ma non la mostra
   const challenges = [
     { key: "higherLower", label: { it: "Maggiore o Minore", en: "Higher or Lower" } },
     { key: "evenOdd", label: { it: "Pari o Dispari", en: "Even or Odd" } },
@@ -126,31 +127,24 @@ function generateChallenge() {
   challengeText.textContent = `${translate("challenge")}: ${label}`;
   challengeButtons.innerHTML = "";
 
-  const current = currentCard;     // salva il riferimento
-  const next = drawCard();         // pesca la prossima carta
-  nextCard = next;                 // salva per il display
-
-  // mostra l'immagine della carta già estratta
-  displayCard(current);
-
   if (selected.key === "higherLower") {
-    addButton(translate("higher"), () => next.value > current.value);
-    addButton(translate("lower"),  () => next.value < current.value);
+    addButton(translate("higher"), () => nextCard.value > currentCard.value);
+    addButton(translate("lower"),  () => nextCard.value < currentCard.value);
 
   } else if (selected.key === "evenOdd") {
-    addButton(translate("even"), () => next.value % 2 === 0);
-    addButton(translate("odd"),  () => next.value % 2 !== 0);
+    addButton(translate("even"), () => nextCard.value % 2 === 0);
+    addButton(translate("odd"),  () => nextCard.value % 2 !== 0);
 
   } else if (selected.key === "inOut") {
     const a = Math.floor(Math.random() * 8) + 2;
     const b = a + 2;
     challengeText.textContent += ` (${a}-${b})`;
-    addButton(translate("in"),  () => next.value >= a && next.value <= b);
-    addButton(translate("out"), () => next.value < a || next.value > b);
+    addButton(translate("in"),  () => nextCard.value >= a && nextCard.value <= b);
+    addButton(translate("out"), () => nextCard.value < a || nextCard.value > b);
 
   } else if (selected.key === "exactNumber") {
     for (let i = 1; i <= 10; i++) {
-      addButton(i.toString(), () => next.value === i);
+      addButton(i.toString(), () => nextCard.value === i);
     }
   }
 }
@@ -162,9 +156,9 @@ function addButton(text, checkFn) {
   btn.style.color = "white";
 
   btn.onclick = () => {
-    const isCorrect = checkFn(); // usa la funzione già chiusa su current/next
+    const result = checkFn(); // confronta currentCard con nextCard
 
-    if (isCorrect) {
+    if (result) {
       correctCount++;
       tappe++;
       if (correctCount % 3 === 0) jollyCount++;
@@ -176,8 +170,10 @@ function addButton(text, checkFn) {
       }
     }
 
-    currentCard = nextCard;             // aggiorna la carta corrente
-    displayCard(currentCard);          // mostra la nuova carta attuale
+    // MOSTRA LA CARTA RISPOSTA
+    displayCard(nextCard);
+    currentCard = nextCard;
+
     updateScore();
     updateProgress();
     updateJollyButton();
@@ -189,7 +185,9 @@ function addButton(text, checkFn) {
       restartBtn.classList.remove("hidden");
       withdrawBtn.classList.add("hidden");
     } else {
-      generateChallenge(); // nuova sfida
+      setTimeout(() => {
+        generateChallenge(); // nuova sfida DOPO AVER MOSTRATO LA CARTA
+      }, 500); // ritardo per far vedere la carta
     }
   };
 
