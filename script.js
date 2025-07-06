@@ -126,24 +126,31 @@ function generateChallenge() {
   challengeText.textContent = `${translate("challenge")}: ${label}`;
   challengeButtons.innerHTML = "";
 
+  const current = currentCard;     // salva il riferimento
+  const next = drawCard();         // pesca la prossima carta
+  nextCard = next;                 // salva per il display
+
+  // mostra l'immagine della carta già estratta
+  displayCard(current);
+
   if (selected.key === "higherLower") {
-    addButton(translate("higher"), (next, current) => next.value > current.value);
-    addButton(translate("lower"),  (next, current) => next.value < current.value);
+    addButton(translate("higher"), () => next.value > current.value);
+    addButton(translate("lower"),  () => next.value < current.value);
 
   } else if (selected.key === "evenOdd") {
-    addButton(translate("even"), (next) => next.value % 2 === 0);
-    addButton(translate("odd"),  (next) => next.value % 2 !== 0);
+    addButton(translate("even"), () => next.value % 2 === 0);
+    addButton(translate("odd"),  () => next.value % 2 !== 0);
 
   } else if (selected.key === "inOut") {
     const a = Math.floor(Math.random() * 8) + 2;
     const b = a + 2;
     challengeText.textContent += ` (${a}-${b})`;
-    addButton(translate("in"),  (next) => next.value >= a && next.value <= b);
-    addButton(translate("out"), (next) => next.value < a || next.value > b);
+    addButton(translate("in"),  () => next.value >= a && next.value <= b);
+    addButton(translate("out"), () => next.value < a || next.value > b);
 
   } else if (selected.key === "exactNumber") {
     for (let i = 1; i <= 10; i++) {
-      addButton(i.toString(), (next) => next.value === i);
+      addButton(i.toString(), () => next.value === i);
     }
   }
 }
@@ -151,12 +158,11 @@ function generateChallenge() {
 function addButton(text, checkFn) {
   const btn = document.createElement("button");
   btn.textContent = text;
-  btn.classList.add("green-button");  // colore base
+  btn.classList.add("green-button");
   btn.style.color = "white";
 
   btn.onclick = () => {
-    const prevCard = currentCard;     // salva la carta corrente
-    const isCorrect = checkFn(nextCard, prevCard); // verifica
+    const isCorrect = checkFn(); // usa la funzione già chiusa su current/next
 
     if (isCorrect) {
       correctCount++;
@@ -170,10 +176,8 @@ function addButton(text, checkFn) {
       }
     }
 
-    currentCard = nextCard;
-    displayCard(currentCard);
-    nextCard = drawCard();
-
+    currentCard = nextCard;             // aggiorna la carta corrente
+    displayCard(currentCard);          // mostra la nuova carta attuale
     updateScore();
     updateProgress();
     updateJollyButton();
@@ -185,7 +189,7 @@ function addButton(text, checkFn) {
       restartBtn.classList.remove("hidden");
       withdrawBtn.classList.add("hidden");
     } else {
-      generateChallenge();
+      generateChallenge(); // nuova sfida
     }
   };
 
