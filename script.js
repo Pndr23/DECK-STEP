@@ -127,8 +127,8 @@ function generateChallenge() {
   challengeButtons.innerHTML = "";
 
   if (selected.key === "higherLower") {
-    addButton(translate("higher"), (next) => next.value > currentCard.value);
-    addButton(translate("lower"),  (next) => next.value < currentCard.value);
+    addButton(translate("higher"), (next, current) => next.value > current.value);
+    addButton(translate("lower"),  (next, current) => next.value < current.value);
 
   } else if (selected.key === "evenOdd") {
     addButton(translate("even"), (next) => next.value % 2 === 0);
@@ -148,20 +148,17 @@ function generateChallenge() {
   }
 }
 
-function addButton(text, checkFn, color) {
+function addButton(text, checkFn) {
   const btn = document.createElement("button");
   btn.textContent = text;
+  btn.classList.add("green-button");  // colore base
   btn.style.color = "white";
 
-  if (color === "red") {
-    btn.classList.add("red-button");
-  } else {
-    btn.classList.add("green-button");
-  }
-
   btn.onclick = () => {
-    const result = checkFn(nextCard);
-    if (result) {
+    const prevCard = currentCard;     // salva la carta corrente
+    const isCorrect = checkFn(nextCard, prevCard); // verifica
+
+    if (isCorrect) {
       correctCount++;
       tappe++;
       if (correctCount % 3 === 0) jollyCount++;
