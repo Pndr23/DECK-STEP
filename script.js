@@ -95,12 +95,10 @@ function updateJollyButton() {
 }
 
 function startGame() {
-  if (currentCard === null) {
-    currentCard = drawCard();
-    displayCard(currentCard);
-  }
-  nextCard = drawCard();
-  generateChallenge();
+  currentCard = drawCard();          // sempre estrai una nuova carta
+  displayCard(currentCard);         // sempre visualizzala
+  nextCard = drawCard();            // estrai la prossima
+  generateChallenge();   
 }
 
 function drawCard() {
