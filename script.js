@@ -199,6 +199,7 @@ function addButton(text, checkFn) {
          setTimeout(() => {        
        displayCurrentCard(currentCard);
        displayDrawnCard(null, true);
+       showShuffleAnimation(() => {
        generateChallenge();   // ✅ e poi nuova sfida
       }, 2000);
     }
@@ -296,7 +297,23 @@ function updateLanguage() {
   rulesPanel.innerHTML = translate("rulesText");
   document.getElementById("withdrawLabel").textContent = translate("withdraw");
 }
+function showShuffleAnimation(callback) {
+  const shuffleDiv = document.getElementById("shuffleAnimation");
+  const gif = document.getElementById("shuffleGif");
 
+  shuffleDiv.classList.remove("hidden");
+  gif.style.transform = "scale(1)";
+
+  setTimeout(() => {
+    gif.style.transform = "scale(0.1)";
+  }, 100); // Avvia lo zoom dopo un attimo
+
+  setTimeout(() => {
+    shuffleDiv.classList.add("hidden");
+    gif.style.transform = "scale(1)"; // Reset per il prossimo round
+    if (callback) callback();
+  }, 2000); // Dopo 2 secondi prosegui con la prossima sfida
+}
 function translate(key) {
   const t = {
     it: {
