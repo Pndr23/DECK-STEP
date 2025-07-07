@@ -321,8 +321,8 @@ function showShuffleAnimation(callback) {
       shuffleDiv.classList.add("hidden");
       gif.style.transform = "scale(1)"; // Reset
       if (callback) callback();
-    }, 500); // tempo per completare il fade-out
-  }, 4000); // durata visibilità GIF
+    }, 400); // tempo per completare il fade-out
+  }, 2000); // durata visibilità GIF
 }
 function translate(key) {
   const t = {
