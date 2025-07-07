@@ -328,14 +328,25 @@ img {
   }
 
   .progress-path {
-    flex-wrap: nowrap;
+   flex-wrap: nowrap;
     overflow-x: auto;
-    gap: 8px;
-    padding: 10px 5px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: gold transparent;
+    padding-bottom: 10px;
+  }
+    .progress-path::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .progress-path::-webkit-scrollbar-thumb {
+    background-color: gold;
+    border-radius: 10px;
   }
 
   .progress-step {
-    min-width: 50px;
+  min-width: 50px;
+    flex: 0 0 auto;
   }
 
   .gain-label {
