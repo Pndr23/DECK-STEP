@@ -401,8 +401,8 @@ img {
   text-shadow: 0 0 6px black, 0 0 12px gold;
   animation: bounceLR 1.2s infinite;
   pointer-events: none;
- background: rgba(0, 0, 0, 0.7);
-  padding: 8px 12px;
-  border-radius: 10px;
-   z-index: 10;
+ background: rgba(0, 0, 0, 0.6);
+  padding: 8px 14px;
+  border-radius: 8px;
+   z-index: 999;
 }
