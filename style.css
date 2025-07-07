@@ -387,8 +387,7 @@ img {
     height: 100vh;
     object-fit: cover;
   }
-}
-@keyframes bounceLR {
+  @keyframes bounceLR {
   0%   { transform: translateX(0); opacity: 1; }
   50%  { transform: translateX(-6px); opacity: 0.5; }
   100% { transform: translateX(0); opacity: 1; }
@@ -397,15 +396,16 @@ img {
 .progress-path::after {
   content: '⬅️➡️';
   position: absolute;
-  right: 10px;
-  top: -24px; /* ALZATA più in alto rispetto alle tappe */
-  font-size: 2rem;
+  right: 8px;
+  bottom: -28px; /* ALZATA più in alto rispetto alle tappe */
+  font-size: 1.4rem;
   color: #FFD700;
   text-shadow: 0 0 5px black, 0 0 8px gold;
   animation: bounceLR 1.2s infinite;
   pointer-events: none;
  background: rgba(0, 0, 0, 0.6);
-  padding: 3px 8px;
+  padding: 4px 8px;
   border-radius: 8px;
-   z-index: 9999;
+   z-index: 999;
+}
 }
