@@ -209,7 +209,7 @@ img {
   flex-direction: column;
   align-items: center;
   position: relative;
-   margin-bottom: 4px; 
+   margin-bottom: 0px; 
   }
 .circle {
   width: 20px; /* prima 16 */
@@ -218,7 +218,7 @@ img {
   background-color: #222;
   border: 2px solid #FFD700;
   box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
-  margin-bottom: 1px; /* meno spazio */
+  margin-bottom: 0px; /* meno spazio */
   transition: all 0.3s ease;
 }
 
@@ -236,7 +236,7 @@ img {
   font-size: 1.1rem;
   font-weight: 900;
   text-shadow: 0 0 6px gold;
-  margin-bottom: 2px; 
+  margin-bottom: 0px; 
   margin-top: 2px;
   line-height: 1.2;
   white-space: nowrap;
