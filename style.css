@@ -197,8 +197,10 @@ img {
   gap: 12px;
   position: relative;
    overflow: visible;
-   padding-bottom: 28px; 
-  min-height: 190px;
+  padding-top: 20px;       /* 🔹 Alza tutto il blocco */
+  padding-bottom: 50px;    /* 🔹 Lascia spazio alle frecce sotto */
+  min-height: 120px;       /* 🔹 Fa stare bene tutto anche su mobile */
+  margin-top: 30px; 
 }
 
 .progress-step {
@@ -235,6 +237,9 @@ img {
   font-weight: 900;
   text-shadow: 0 0 6px gold;
   margin-bottom: 2px; 
+  margin-top: 4px;
+  line-height: 1.2;
+  white-space: nowrap;
 }
 @keyframes pulse {
   0%   { transform: scale(1);   box-shadow: 0 0 10px #00ff66; }
