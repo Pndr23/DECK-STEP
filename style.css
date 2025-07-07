@@ -193,7 +193,7 @@ img {
 .progress-path {
   display: flex;
   justify-content: center; /* o center */
-  gap: 12px;
+  gap: 16px;
   position: relative;
    overflow: visible;
     padding-bottom: 40px; 
