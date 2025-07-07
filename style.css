@@ -194,13 +194,13 @@ img {
 .progress-path {
   display: flex;
   justify-content: center; /* o center */
-  gap: 16px;
+  gap: 12px;
   position: relative;
    overflow: visible;
   padding-top: 20px;       /* 🔹 Alza tutto il blocco */
   padding-bottom: 50px;    /* 🔹 Lascia spazio alle frecce sotto */
-  min-height: 120px;       /* 🔹 Fa stare bene tutto anche su mobile */
-  margin-top: 120px; 
+  min-height: 130px;       /* 🔹 Fa stare bene tutto anche su mobile */
+  margin-top: 30px; 
 }
 
 .progress-step {
@@ -233,10 +233,10 @@ img {
 }
 .multiplier-label.jackpot {
   color: #ff4444;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 900;
   text-shadow: 0 0 6px gold;
-  margin-bottom: 2px; 
+  margin-bottom: 5px; 
   margin-top: 4px;
   line-height: 1.2;
   white-space: nowrap;
@@ -348,8 +348,9 @@ img {
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
   scrollbar-color: gold transparent;
-  padding-bottom: 28px; /* meno spazio sotto */
+  padding-bottom: 40px; /* meno spazio sotto */
   min-height: 90px;
+  padding-top: 10px;
   }
     .progress-path::-webkit-scrollbar {
     height: 6px;
@@ -376,13 +377,23 @@ img {
     right: 5px;
     top: 70px;
     font-size: 0.9rem;
+     }
+
+  .circle {
+    width: 12px;
+    height: 12px;
+    margin-bottom: 2px;
   }
 
   .multiplier-label {
-    font-size: 0.8rem;
-    margin-top: 4px;
+    font-size: 0.7rem;
+    margin-top: 2px;
   }
-
+.multiplier-label.jackpot {
+    font-size: 0.85rem;
+    margin-top: 2px;
+    margin-bottom: 2px;
+   }
   #scorePanel {
     font-size: 1rem;
   }
@@ -407,8 +418,8 @@ img {
 .progress-path::after {
  content: '⬅️➡️';
   position: absolute;
-  right: 8px;
-  bottom: 2px;  /* CORRETTO: non scrivere "4 px" ma "4px" */
+  right: 5px;
+  bottom: 4px;  /* CORRETTO: non scrivere "4 px" ma "4px" */
   font-size: 1rem;  /* ridotta da 1.2rem */
   color: #FFD700;
   text-shadow: 0 0 5px black, 0 0 8px gold;
