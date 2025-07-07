@@ -192,6 +192,7 @@ img {
   justify-content: center; /* o center */
   gap: 12px;
   position: relative;
+   overflow: visible;
 }
 
 .progress-step {
