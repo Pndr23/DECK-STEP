@@ -200,7 +200,7 @@ img {
   padding-top: 20px;       /* 🔹 Alza tutto il blocco */
   padding-bottom: 50px;    /* 🔹 Lascia spazio alle frecce sotto */
   min-height: 120px;       /* 🔹 Fa stare bene tutto anche su mobile */
-  margin-top: 30px; 
+  margin-top: 60px; 
 }
 
 .progress-step {
