@@ -73,6 +73,7 @@ withdrawBtn.addEventListener("click", () => {
   restartBtn.classList.remove("hidden");
 });
 function resetGame() {
+  document.getElementById("drawnCardImg").src = "";
   correctCount = 0;
   errorCount = 0;
   jollyCount = 0;
@@ -108,8 +109,9 @@ function drawCard() {
   return { value, suit, index }; // 👈 AGGIUNGI index
 }
 
-function displayCard(card) {
-  currentCardImg.src = `cards/card_${card.index}.png`;
+function displayDrawnCard(card) {
+  const drawnCardImg = document.getElementById("drawnCardImg");
+  drawnCardImg.src = `cards/card_${card.index}.png`;
 }
 
 function generateChallenge() {
@@ -156,8 +158,9 @@ function addButton(text, checkFn) {
   btn.style.color = "white";
 
   btn.onclick = () => {
-    const drawnCard = drawCard();      // Peschiamo la nuova carta
-    displayCard(drawnCard);            // La mostriamo
+   onst drawnCard = drawCard();
+displayCard(drawnCard); // mostra la carta nuova
+displayDrawnCard(drawnCard);          // La mostriamo
 
     const result = checkFn(drawnCard); // Usiamo il valore fissato prima
 
