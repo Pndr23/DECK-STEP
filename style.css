@@ -394,13 +394,14 @@ img {
   content: '⬅️➡️';
   position: absolute;
   right: 10px;
-  top: -30px; /* ALZATA più in alto rispetto alle tappe */
-  font-size: 1.6rem;
+  top: -60px; /* ALZATA più in alto rispetto alle tappe */
+  font-size: 2rem;
   color: #FFD700;
-  text-shadow: 0 0 5px black, 0 0 8px gold;
+  text-shadow: 0 0 6px black, 0 0 12px gold;
   animation: bounceLR 1.2s infinite;
   pointer-events: none;
-  background: linear-gradient(to right, rgba(0,0,0,0.5), rgba(0,0,0,0));
-  padding: 4px 8px;
-  border-radius: 8px;
+ background: rgba(0, 0, 0, 0.7);
+  padding: 8px 12px;
+  border-radius: 10px;
+   z-index: 10;
 }
