@@ -97,8 +97,9 @@ function updateJollyButton() {
 
 function startGame() {
   currentCard = drawCard();
-  displayDrawnCard(currentCard); // ✅ mostra la carta iniziale
-  generateChallenge();           // poi genera la prima sfida
+  displayCurrentCard(currentCard);  // 👈 mostra la carta attuale
+  document.getElementById("drawnCardImg").src = ""; // resetta l'immagine della carta pescata
+  generateChallenge();
 }
 
 function drawCard() {
@@ -109,7 +110,7 @@ function drawCard() {
 }
 
 function displayCurrentCard(card) {
-  currentCardImg.src = `cards/card_${card.index}.png`;
+currentCardImg.src = `cards/card_${card.index}.png`;
   }
 
   function displayDrawnCard(card) {
