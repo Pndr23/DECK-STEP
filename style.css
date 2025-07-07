@@ -13,6 +13,7 @@ body {
   padding: 2rem;
   border-radius: 20px;
   box-shadow: 0 0 40px gold;
+  overflow: visible;
 }
 
 select, button {
