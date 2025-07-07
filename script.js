@@ -157,10 +157,8 @@ function addButton(text, checkFn) {
   btn.style.color = "white";
 
   btn.onclick = () => {
-    const drawnCard = drawCard(); // 👉 ora peschiamo la carta solo al click
-    displayCard(drawnCard);       // 👉 mostriamo la nuova carta
-
-    const result = checkFn(drawnCard); // confrontiamo con currentCard
+    displayCard(nextCard); // Mostra la carta effettiva già pescata
+    const result = checkFn(nextCard); // Usa sempre nextCard
 
     if (result) {
       correctCount++;
@@ -174,7 +172,8 @@ function addButton(text, checkFn) {
       }
     }
 
-    currentCard = drawnCard;
+    currentCard = nextCard;       // aggiorna currentCard con quella appena giocata
+    nextCard = drawCard();        // pesca la nuova nextCard solo ora
 
     updateScore();
     updateProgress();
@@ -188,7 +187,7 @@ function addButton(text, checkFn) {
       withdrawBtn.classList.add("hidden");
     } else {
       setTimeout(() => {
-        generateChallenge();
+        generateChallenge(); // genera nuova sfida su nextCard
       }, 500);
     }
   };
