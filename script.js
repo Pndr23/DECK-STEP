@@ -110,6 +110,7 @@ function drawCard() {
 }
 
 function displayDrawnCard(card) {
+  currentCardImg.src = `cards/card_${card.index}.png`;
   const drawnCardImg = document.getElementById("drawnCardImg");
   drawnCardImg.src = `cards/card_${card.index}.png`;
 }
