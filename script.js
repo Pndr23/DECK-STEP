@@ -98,7 +98,7 @@ function updateJollyButton() {
 function startGame() {
   currentCard = drawCard();
   displayCurrentCard(currentCard);  // 👈 mostra la carta attuale
-  document.getElementById("drawnCardImg").src = ""; // resetta l'immagine della carta pescata
+ displayDrawnCard(null, true);// resetta l'immagine della carta pescata
   generateChallenge();
 }
 
@@ -194,11 +194,12 @@ function addButton(text, checkFn) {
       challengeButtons.innerHTML = "";
       restartBtn.classList.remove("hidden");
       withdrawBtn.classList.add("hidden");
-    } else {
+    } else { 
       currentCard = drawnCard;
+         setTimeout(() => {        
        displayCurrentCard(currentCard);
-      setTimeout(() => {
-        generateChallenge();   // ✅ e poi nuova sfida
+       displayDrawnCard(null, true);
+       generateChallenge();   // ✅ e poi nuova sfida
       }, 2000);
     }
   };
