@@ -187,7 +187,6 @@ displayDrawnCard(drawnCard);           // La mostriamo
       withdrawBtn.classList.add("hidden");
     } else {
       currentCard = drawnCard; // ✅ solo dopo aggiorniamo currentCard
-      currentCard = drawnCard;
       setTimeout(() => {
         generateChallenge();   // ✅ e poi nuova sfida
       }, 300);
