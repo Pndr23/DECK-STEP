@@ -303,18 +303,26 @@ function showShuffleAnimation(callback) {
   const shuffleDiv = document.getElementById("shuffleAnimation");
   const gif = document.getElementById("shuffleGif");
 
+  // Attiva animazione con fade-in
   shuffleDiv.classList.remove("hidden");
-  gif.style.transform = "scale(1)";
+  requestAnimationFrame(() => {
+    shuffleDiv.classList.add("visible");
+  });
 
+  gif.style.transform = "scale(1)";
   setTimeout(() => {
     gif.style.transform = "scale(0.1)";
-  }, 100); // Avvia lo zoom dopo un attimo
+  }, 200); // zoom dopo 200ms
 
+  // Durata dell'animazione totale (es. 3 secondi)
   setTimeout(() => {
-    shuffleDiv.classList.add("hidden");
-    gif.style.transform = "scale(1)"; // Reset per il prossimo round
-    if (callback) callback();
-  }, 4000); // Dopo 2 secondi prosegui con la prossima sfida
+    shuffleDiv.classList.remove("visible");
+    setTimeout(() => {
+      shuffleDiv.classList.add("hidden");
+      gif.style.transform = "scale(1)"; // Reset
+      if (callback) callback();
+    }, 500); // tempo per completare il fade-out
+  }, 4000); // durata visibilità GIF
 }
 function translate(key) {
   const t = {
