@@ -314,7 +314,7 @@ function showShuffleAnimation(callback) {
     shuffleDiv.classList.add("hidden");
     gif.style.transform = "scale(1)"; // Reset per il prossimo round
     if (callback) callback();
-  }, 2000); // Dopo 2 secondi prosegui con la prossima sfida
+  }, 4000); // Dopo 2 secondi prosegui con la prossima sfida
 }
 function translate(key) {
   const t = {
