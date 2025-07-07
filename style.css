@@ -268,7 +268,7 @@ img {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: trasparent; /* o un colore a tua scelta */
+  background-color: transparent; /* o un colore a tua scelta */
   display: flex;
   justify-content: center;
   align-items: center;
