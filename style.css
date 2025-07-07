@@ -3,6 +3,8 @@ body {
   min-height: 100vh;
   background:url(sfondo.jpg.jpg);
   font-family: 'Trebuchet MS', sans-serif;
+  overflow-x: visible;
+  overflow-y: visible; 
 }
 
 .container {
@@ -396,14 +398,14 @@ img {
   content: '⬅️➡️';
   position: absolute;
   right: 10px;
-  top: -60px; /* ALZATA più in alto rispetto alle tappe */
+  top: -40px; /* ALZATA più in alto rispetto alle tappe */
   font-size: 2rem;
   color: #FFD700;
-  text-shadow: 0 0 6px black, 0 0 12px gold;
+  text-shadow: 0 0 5px black, 0 0 8px gold;
   animation: bounceLR 1.2s infinite;
   pointer-events: none;
  background: rgba(0, 0, 0, 0.6);
-  padding: 8px 14px;
+  padding: 6px 12px;
   border-radius: 8px;
-   z-index: 999;
+   z-index: 9999;
 }
