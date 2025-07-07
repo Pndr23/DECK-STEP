@@ -196,12 +196,14 @@ function addButton(text, checkFn) {
       withdrawBtn.classList.add("hidden");
     } else { 
       currentCard = drawnCard;
-         setTimeout(() => {        
-       displayCurrentCard(currentCard);
-       displayDrawnCard(null, true);
-       showShuffleAnimation(() => {
-       generateChallenge();   // ✅ e poi nuova sfida
-      }, 2000);
+  setTimeout(() => {
+  displayCurrentCard(currentCard);
+  displayDrawnCard(null, true);
+
+  showShuffleAnimation(() => {
+    generateChallenge(); // nuova sfida dopo animazione
+  });
+}, 1000);
     }
   };
 
