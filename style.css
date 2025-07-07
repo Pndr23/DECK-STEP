@@ -383,6 +383,7 @@ img {
     height: 100vh;
     object-fit: cover;
   }
+}
 @keyframes bounceLR {
   0%   { transform: translateX(0); opacity: 1; }
   50%  { transform: translateX(-6px); opacity: 0.5; }
@@ -402,5 +403,4 @@ img {
   background: linear-gradient(to right, rgba(0,0,0,0.5), rgba(0,0,0,0));
   padding: 4px 8px;
   border-radius: 8px;
-}
 }
