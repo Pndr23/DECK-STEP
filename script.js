@@ -158,7 +158,7 @@ function addButton(text, checkFn) {
   btn.style.color = "white";
 
   btn.onclick = () => {
-   onst drawnCard = drawCard();
+   const drawnCard = drawCard();
 displayCard(drawnCard); // mostra la carta nuova
 displayDrawnCard(drawnCard);          // La mostriamo
 
