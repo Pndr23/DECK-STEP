@@ -113,7 +113,6 @@ function displayCard(card) {
 }
 
 function generateChallenge() {
-  nextCard = drawCard(); // pesca la nuova carta ma non la mostra
   const challenges = [
     { key: "higherLower", label: { it: "Maggiore o Minore", en: "Higher or Lower" } },
     { key: "evenOdd", label: { it: "Pari o Dispari", en: "Even or Odd" } },
@@ -128,27 +127,26 @@ function generateChallenge() {
   challengeButtons.innerHTML = "";
 
   if (selected.key === "higherLower") {
-    addButton(translate("higher"), () => nextCard.value > currentCard.value);
-    addButton(translate("lower"),  () => nextCard.value < currentCard.value);
+    addButton(translate("higher"), (drawn) => drawn.value > currentCard.value);
+    addButton(translate("lower"),  (drawn) => drawn.value < currentCard.value);
 
   } else if (selected.key === "evenOdd") {
-    addButton(translate("even"), () => nextCard.value % 2 === 0);
-    addButton(translate("odd"),  () => nextCard.value % 2 !== 0);
+    addButton(translate("even"), (drawn) => drawn.value % 2 === 0);
+    addButton(translate("odd"),  (drawn) => drawn.value % 2 !== 0);
 
   } else if (selected.key === "inOut") {
     const a = Math.floor(Math.random() * 8) + 2;
     const b = a + 2;
     challengeText.textContent += ` (${a}-${b})`;
-    addButton(translate("in"),  () => nextCard.value >= a && nextCard.value <= b);
-    addButton(translate("out"), () => nextCard.value < a || nextCard.value > b);
+    addButton(translate("in"),  (drawn) => drawn.value >= a && drawn.value <= b);
+    addButton(translate("out"), (drawn) => drawn.value < a || drawn.value > b);
 
   } else if (selected.key === "exactNumber") {
     for (let i = 1; i <= 10; i++) {
-      addButton(i.toString(), () => nextCard.value === i);
+      addButton(i.toString(), (drawn) => drawn.value === i);
     }
   }
 }
-
 function addButton(text, checkFn) {
   const btn = document.createElement("button");
   btn.textContent = text;
@@ -156,7 +154,10 @@ function addButton(text, checkFn) {
   btn.style.color = "white";
 
   btn.onclick = () => {
-    const result = checkFn(); // confronta currentCard con nextCard
+    const drawnCard = drawCard(); // 👉 ora peschiamo la carta solo al click
+    displayCard(drawnCard);       // 👉 mostriamo la nuova carta
+
+    const result = checkFn(drawnCard); // confrontiamo con currentCard
 
     if (result) {
       correctCount++;
@@ -170,9 +171,7 @@ function addButton(text, checkFn) {
       }
     }
 
-    // MOSTRA LA CARTA RISPOSTA
-    displayCard(nextCard);
-    currentCard = nextCard;
+    currentCard = drawnCard;
 
     updateScore();
     updateProgress();
@@ -186,8 +185,8 @@ function addButton(text, checkFn) {
       withdrawBtn.classList.add("hidden");
     } else {
       setTimeout(() => {
-        generateChallenge(); // nuova sfida DOPO AVER MOSTRATO LA CARTA
-      }, 500); // ritardo per far vedere la carta
+        generateChallenge();
+      }, 500);
     }
   };
 
