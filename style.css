@@ -395,7 +395,7 @@ img {
 }
 
 .progress-path::after {
-  content: '⬅️➡️';
+  content: '➖➕';
   position: absolute;
   right: 8px;
   bottom: -28px; /* ALZATA più in alto rispetto alle tappe */
