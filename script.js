@@ -96,10 +96,9 @@ function updateJollyButton() {
 }
 
 function startGame() {
-  currentCard = drawCard();          // sempre estrai una nuova carta
-  displayCard(currentCard);         // sempre visualizzala
-  nextCard = drawCard();            // estrai la prossima
-  generateChallenge();   
+  currentCard = drawCard();
+  displayDrawnCard(currentCard); // ✅ mostra la carta iniziale
+  generateChallenge();           // poi genera la prima sfida
 }
 
 function drawCard() {
@@ -160,8 +159,7 @@ function addButton(text, checkFn) {
 
   btn.onclick = () => {
    const drawnCard = drawCard();
-displayCard(drawnCard); // mostra la carta nuova
-displayDrawnCard(drawnCard);          // La mostriamo
+displayDrawnCard(drawnCard);           // La mostriamo
 
     const result = checkFn(drawnCard); // Usiamo il valore fissato prima
 
@@ -189,6 +187,7 @@ displayDrawnCard(drawnCard);          // La mostriamo
       withdrawBtn.classList.add("hidden");
     } else {
       currentCard = drawnCard; // ✅ solo dopo aggiorniamo currentCard
+      currentCard = drawnCard;
       setTimeout(() => {
         generateChallenge();   // ✅ e poi nuova sfida
       }, 300);
