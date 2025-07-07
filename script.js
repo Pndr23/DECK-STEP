@@ -199,7 +199,7 @@ function addButton(text, checkFn) {
        displayCurrentCard(currentCard);
       setTimeout(() => {
         generateChallenge();   // ✅ e poi nuova sfida
-      }, 300);
+      }, 1000);
     }
   };
 
