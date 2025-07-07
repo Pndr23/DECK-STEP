@@ -108,8 +108,11 @@ function drawCard() {
   return { value, suit, index }; // 👈 AGGIUNGI index
 }
 
-function displayDrawnCard(card) {
+function displayCurrentCard(card) {
   currentCardImg.src = `cards/card_${card.index}.png`;
+  }
+
+  function displayDrawnCard(card) {
   const drawnCardImg = document.getElementById("drawnCardImg");
   drawnCardImg.src = `cards/card_${card.index}.png`;
 }
@@ -186,7 +189,8 @@ displayDrawnCard(drawnCard);           // La mostriamo
       restartBtn.classList.remove("hidden");
       withdrawBtn.classList.add("hidden");
     } else {
-      currentCard = drawnCard; // ✅ solo dopo aggiorniamo currentCard
+      currentCard = drawnCard;
+       displayCurrentCard(currentCard);
       setTimeout(() => {
         generateChallenge();   // ✅ e poi nuova sfida
       }, 300);
