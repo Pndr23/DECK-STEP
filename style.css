@@ -119,12 +119,12 @@ img {
 }
 
 .multiplier-label {
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   color: gold;
   font-weight: bold;
   text-align: center;
-  margin-top: 0px;
-  line-height: 1;
+  margin-top: 2px;
+  line-height: 1.1;
 }
 
 .jackpot {
@@ -194,12 +194,12 @@ img {
 .progress-path {
   display: flex;
   justify-content: center; /* o center */
-  gap: 12px;
+  gap: 10px;
   position: relative;
    overflow: visible;
-  padding-top: 20px;       /* 🔹 Alza tutto il blocco */
-  padding-bottom: 50px;    /* 🔹 Lascia spazio alle frecce sotto */
-  min-height: 130px;       /* 🔹 Fa stare bene tutto anche su mobile */
+  padding-top: 10px;       /* 🔹 Alza tutto il blocco */
+  padding-bottom: 20px;    /* 🔹 Lascia spazio alle frecce sotto */
+  min-height: 100px;       /* 🔹 Fa stare bene tutto anche su mobile */
   margin-top: 30px; 
 }
 
@@ -212,13 +212,13 @@ img {
    margin-bottom: 4px; 
   }
 .circle {
-  width: 14px; /* prima 16 */
-  height: 14px;
+  width: 20px; /* prima 16 */
+  height: 20px;
   border-radius: 50%;
   background-color: #222;
   border: 2px solid #FFD700;
   box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
-  margin-bottom: 2px; /* meno spazio */
+  margin-bottom: 1px; /* meno spazio */
   transition: all 0.3s ease;
 }
 
@@ -233,11 +233,11 @@ img {
 }
 .multiplier-label.jackpot {
   color: #ff4444;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 900;
   text-shadow: 0 0 6px gold;
-  margin-bottom: 5px; 
-  margin-top: 4px;
+  margin-bottom: 2px; 
+  margin-top: 2px;
   line-height: 1.2;
   white-space: nowrap;
 }
