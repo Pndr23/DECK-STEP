@@ -122,16 +122,14 @@ function generateChallenge() {
 
   const selected = challenges[Math.floor(Math.random() * challenges.length)];
   const label = selected.label[currentLanguage];
-
   challengeText.textContent = `${translate("challenge")}: ${label}`;
   challengeButtons.innerHTML = "";
 
-  // 🔒 Fissa il valore della carta attuale per evitare errori nel confronto
-  const currentValue = currentCard.value;
+  const lockedValue = currentCard.value; // 🔒 Fissiamo il valore attuale
 
   if (selected.key === "higherLower") {
-    addButton(translate("higher"), (next) => next.value > currentValue);
-    addButton(translate("lower"),  (next) => next.value < currentValue);
+    addButton(translate("higher"), (next) => next.value > lockedValue);
+    addButton(translate("lower"),  (next) => next.value < lockedValue);
 
   } else if (selected.key === "evenOdd") {
     addButton(translate("even"), (next) => next.value % 2 === 0);
@@ -150,6 +148,7 @@ function generateChallenge() {
     }
   }
 }
+
 function addButton(text, checkFn) {
   const btn = document.createElement("button");
   btn.textContent = text;
@@ -157,8 +156,10 @@ function addButton(text, checkFn) {
   btn.style.color = "white";
 
   btn.onclick = () => {
-    displayCard(nextCard); // Mostra la carta effettiva già pescata
-    const result = checkFn(nextCard); // Usa sempre nextCard
+    const drawnCard = drawCard();      // Peschiamo la nuova carta
+    displayCard(drawnCard);            // La mostriamo
+
+    const result = checkFn(drawnCard); // Usiamo il valore fissato prima
 
     if (result) {
       correctCount++;
@@ -172,9 +173,6 @@ function addButton(text, checkFn) {
       }
     }
 
-    currentCard = nextCard;       // aggiorna currentCard con quella appena giocata
-    nextCard = drawCard();        // pesca la nuova nextCard solo ora
-
     updateScore();
     updateProgress();
     updateJollyButton();
@@ -186,9 +184,10 @@ function addButton(text, checkFn) {
       restartBtn.classList.remove("hidden");
       withdrawBtn.classList.add("hidden");
     } else {
+      currentCard = drawnCard; // ✅ solo dopo aggiorniamo currentCard
       setTimeout(() => {
-        generateChallenge(); // genera nuova sfida su nextCard
-      }, 500);
+        generateChallenge();   // ✅ e poi nuova sfida
+      }, 300);
     }
   };
 
