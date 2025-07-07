@@ -196,6 +196,7 @@ img {
   gap: 12px;
   position: relative;
    overflow: visible;
+    padding-bottom: 40px; 
 }
 
 .progress-step {
