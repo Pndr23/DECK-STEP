@@ -126,24 +126,27 @@ function generateChallenge() {
   challengeText.textContent = `${translate("challenge")}: ${label}`;
   challengeButtons.innerHTML = "";
 
+  // 🔒 Fissa il valore della carta attuale per evitare errori nel confronto
+  const currentValue = currentCard.value;
+
   if (selected.key === "higherLower") {
-    addButton(translate("higher"), (drawn) => drawn.value > currentCard.value);
-    addButton(translate("lower"),  (drawn) => drawn.value < currentCard.value);
+    addButton(translate("higher"), (next) => next.value > currentValue);
+    addButton(translate("lower"),  (next) => next.value < currentValue);
 
   } else if (selected.key === "evenOdd") {
-    addButton(translate("even"), (drawn) => drawn.value % 2 === 0);
-    addButton(translate("odd"),  (drawn) => drawn.value % 2 !== 0);
+    addButton(translate("even"), (next) => next.value % 2 === 0);
+    addButton(translate("odd"),  (next) => next.value % 2 !== 0);
 
   } else if (selected.key === "inOut") {
     const a = Math.floor(Math.random() * 8) + 2;
     const b = a + 2;
     challengeText.textContent += ` (${a}-${b})`;
-    addButton(translate("in"),  (drawn) => drawn.value >= a && drawn.value <= b);
-    addButton(translate("out"), (drawn) => drawn.value < a || drawn.value > b);
+    addButton(translate("in"),  (next) => next.value >= a && next.value <= b);
+    addButton(translate("out"), (next) => next.value < a || next.value > b);
 
   } else if (selected.key === "exactNumber") {
     for (let i = 1; i <= 10; i++) {
-      addButton(i.toString(), (drawn) => drawn.value === i);
+      addButton(i.toString(), (next) => next.value === i);
     }
   }
 }
