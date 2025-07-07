@@ -113,12 +113,17 @@ function displayCurrentCard(card) {
 currentCardImg.src = `cards/card_${card.index}.png`;
   }
 
-  function displayDrawnCard(card) {
+function displayDrawnCard(card, covered = false) {
   const drawnCardImg = document.getElementById("drawnCardImg");
-  drawnCardImg.src = `cards/card_${card.index}.png`;
+  if (covered) {
+    drawnCardImg.src = "cards/card_back.png"; // retro della carta
+  } else {
+    drawnCardImg.src = `cards/card_${card.index}.png`; // mostra la carta vera
+  }
 }
 
 function generateChallenge() {
+   displayDrawnCard(null, true);
   const challenges = [
     { key: "higherLower", label: { it: "Maggiore o Minore", en: "Higher or Lower" } },
     { key: "evenOdd", label: { it: "Pari o Dispari", en: "Even or Odd" } },
@@ -163,7 +168,7 @@ function addButton(text, checkFn) {
 
   btn.onclick = () => {
    const drawnCard = drawCard();
-displayDrawnCard(drawnCard);           // La mostriamo
+   displayDrawnCard(drawnCard);           // La mostriamo
 
     const result = checkFn(drawnCard); // Usiamo il valore fissato prima
 
