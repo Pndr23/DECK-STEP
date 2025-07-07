@@ -291,3 +291,85 @@ img {
   object-fit: cover; /* o "contain" se vuoi che si adatti */
   transition: transform 4s ease;
 }
+@media (max-width: 768px) {
+
+  body {
+    background-size: cover;
+    background-position: center;
+  }
+
+  .container {
+    padding: 1rem;
+    margin: 0.5rem;
+    border-radius: 12px;
+    box-shadow: 0 0 20px gold;
+  }
+
+  #gameTitle {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  select, button {
+    font-size: 0.9rem;
+    padding: 10px 14px;
+    margin: 6px;
+  }
+
+  #withdrawBtn,
+  #useJollyBtn {
+    font-size: 0.9rem;
+    padding: 8px 14px;
+  }
+
+  img {
+    width: 90px;
+    margin: 0.5rem 0;
+  }
+
+  .progress-path {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 8px;
+    padding: 10px 5px;
+  }
+
+  .progress-step {
+    min-width: 50px;
+  }
+
+  .gain-label {
+    font-size: 0.9rem;
+    padding: 4px 8px;
+    margin: 4px 0;
+  }
+
+  #regolamento-popup {
+    max-width: 90vw;
+    right: 5px;
+    top: 70px;
+    font-size: 0.9rem;
+  }
+
+  .multiplier-label {
+    font-size: 0.8rem;
+    margin-top: 4px;
+  }
+
+  #scorePanel {
+    font-size: 1rem;
+  }
+
+  #toggle-regolamento {
+    font-size: 20px;
+    top: 6px;
+    right: 6px;
+  }
+
+  .fullscreen-shuffle #shuffleGif {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+  }
+
+}
