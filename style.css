@@ -431,3 +431,29 @@ img {
   z-index: 999;
 }
 }
+@media (min-width: 769px) {
+  .progress-path {
+    padding-top: 10px;
+    padding-bottom: 20px; /* meno spazio sotto */
+    min-height: 100px;    /* più compatto */
+    gap: 10px;            /* meno spazio tra i cerchi */
+  }
+
+  .circle {
+    width: 18px;
+    height: 18px;
+    margin-bottom: 0px; /* quasi incollato al testo sotto */
+  }
+
+  .multiplier-label {
+    margin-top: 0px;
+    font-size: 0.9rem;
+    line-height: 1.1;
+  }
+
+  .multiplier-label.jackpot {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 1rem;
+  }
+}
