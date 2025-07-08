@@ -456,5 +456,8 @@ img {
 #drawnCardImg {
   backface-visibility: hidden;
   transform-style: preserve-3d;
+}
+.card-container {
   perspective: 1000px;
+  display: inline-block;
 }
