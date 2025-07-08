@@ -97,28 +97,28 @@ function updateJollyButton() {
 
 function startGame() {
   currentCard = drawCard();
-  displayCurrentCard(currentCard);  // 👈 mostra la carta attuale
- displayDrawnCard(null, true);// resetta l'immagine della carta pescata
+  displayCurrentCard(currentCard);
+  displayDrawnCard(null, true);
   generateChallenge();
 }
 
 function drawCard() {
   const index = Math.floor(Math.random() * 40) + 1;
   const value = (index % 10) + 1;
-  const suit = Math.floor(index / 10); // 0,1,2,3 per i semi
-  return { value, suit, index }; // 👈 AGGIUNGI index
+  const suit = Math.floor(index / 10);
+  return { value, suit, index };
 }
 
 function displayCurrentCard(card) {
-currentCardImg.src = `cards/card_${card.index}.png`;
-  }
+  currentCardImg.src = `cards/card_${card.index}.png`;
+}
 
 function displayDrawnCard(card, covered = false) {
   const drawnCardImg = document.getElementById("drawnCardImg");
   if (covered) {
-    drawnCardImg.src = "cards/card_back.png"; // retro della carta
+    drawnCardImg.src = "cards/card_back.png";
   } else {
-    drawnCardImg.src = `cards/card_${card.index}.png`; // mostra la carta vera
+    drawnCardImg.src = `cards/card_${card.index}.png`;
   }
 }
 
@@ -135,19 +135,20 @@ function generateChallenge() {
   const label = selected.label[currentLanguage];
   challengeText.textContent = `${translate("challenge")}: ${label}`;
   challengeButtons.innerHTML = "";
+
   const lockedValue = currentCard.value;
 
   if (selected.key === "higherLower") {
     addButton(translate("higher"), (next) => next.value > lockedValue);
-    addButton(translate("lower"),  (next) => next.value < lockedValue);
+    addButton(translate("lower"), (next) => next.value < lockedValue);
   } else if (selected.key === "evenOdd") {
     addButton(translate("even"), (next) => next.value % 2 === 0);
-    addButton(translate("odd"),  (next) => next.value % 2 !== 0);
+    addButton(translate("odd"), (next) => next.value % 2 !== 0);
   } else if (selected.key === "inOut") {
     const a = Math.floor(Math.random() * 8) + 2;
     const b = a + 2;
     challengeText.textContent += ` (${a}-${b})`;
-    addButton(translate("in"),  (next) => next.value >= a && next.value <= b);
+    addButton(translate("in"), (next) => next.value >= a && next.value <= b);
     addButton(translate("out"), (next) => next.value < a || next.value > b);
   } else if (selected.key === "exactNumber") {
     for (let i = 1; i <= 10; i++) {
@@ -272,12 +273,6 @@ function showShuffleAnimation(callback) {
   }, 2000);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
-  languageSelect.value = currentLanguage;
-  updateLanguage();
-});
-
 function translate(key) {
   const t = {
     it: {
@@ -351,6 +346,7 @@ function translate(key) {
   };
   return t[currentLanguage][key];
 }
+
 document.addEventListener("DOMContentLoaded", () => {
   currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
   languageSelect.value = currentLanguage;
