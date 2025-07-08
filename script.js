@@ -6,7 +6,7 @@ let errorCount = 0;
 let jollyCount = 0;
 let usedJolly = false;
 let currentLanguage = "it";
-let puntataIniziale = parseFloat(document.getElementById("bet").value);// valore di default, verrà aggiornato quando selezioni una puntata
+let puntataIniziale = parseFloat(document.getElementById("bet").value);
 let moltiplicatori = [1.2, 1.5, 2, 3, 20, 5, 8, 12, 40, 100];
 
 const withdrawBtn = document.getElementById("withdrawBtn");
@@ -29,9 +29,8 @@ const languageSelect = document.getElementById("languageSelect");
 const selectBet = document.getElementById("bet");
 
 selectBet.addEventListener("change", () => {
-puntataIniziale = parseFloat(selectBet.value);
+  puntataIniziale = parseFloat(selectBet.value);
 });
-
 
 rulesToggle.addEventListener("click", () => {
   rulesPanel.classList.toggle("hidden");
@@ -72,6 +71,7 @@ withdrawBtn.addEventListener("click", () => {
   withdrawBtn.classList.add("hidden");
   restartBtn.classList.remove("hidden");
 });
+
 function resetGame() {
   document.getElementById("drawnCardImg").src = "";
   correctCount = 0;
@@ -123,7 +123,7 @@ function displayDrawnCard(card, covered = false) {
 }
 
 function generateChallenge() {
-   displayDrawnCard(null, true);
+  displayDrawnCard(null, true);
   const challenges = [
     { key: "higherLower", label: { it: "Maggiore o Minore", en: "Higher or Lower" } },
     { key: "evenOdd", label: { it: "Pari o Dispari", en: "Even or Odd" } },
@@ -135,24 +135,20 @@ function generateChallenge() {
   const label = selected.label[currentLanguage];
   challengeText.textContent = `${translate("challenge")}: ${label}`;
   challengeButtons.innerHTML = "";
-
-  const lockedValue = currentCard.value; // 🔒 Fissiamo il valore attuale
+  const lockedValue = currentCard.value;
 
   if (selected.key === "higherLower") {
     addButton(translate("higher"), (next) => next.value > lockedValue);
     addButton(translate("lower"),  (next) => next.value < lockedValue);
-
   } else if (selected.key === "evenOdd") {
     addButton(translate("even"), (next) => next.value % 2 === 0);
     addButton(translate("odd"),  (next) => next.value % 2 !== 0);
-
   } else if (selected.key === "inOut") {
     const a = Math.floor(Math.random() * 8) + 2;
     const b = a + 2;
     challengeText.textContent += ` (${a}-${b})`;
     addButton(translate("in"),  (next) => next.value >= a && next.value <= b);
     addButton(translate("out"), (next) => next.value < a || next.value > b);
-
   } else if (selected.key === "exactNumber") {
     for (let i = 1; i <= 10; i++) {
       addButton(i.toString(), (next) => next.value === i);
@@ -167,10 +163,9 @@ function addButton(text, checkFn) {
   btn.style.color = "white";
 
   btn.onclick = () => {
-   const drawnCard = drawCard();
-   displayDrawnCard(drawnCard);           // La mostriamo
-
-    const result = checkFn(drawnCard); // Usiamo il valore fissato prima
+    const drawnCard = drawCard();
+    displayDrawnCard(drawnCard);
+    const result = checkFn(drawnCard);
 
     if (result) {
       correctCount++;
@@ -194,9 +189,9 @@ function addButton(text, checkFn) {
       challengeButtons.innerHTML = "";
       restartBtn.classList.remove("hidden");
       withdrawBtn.classList.add("hidden");
-    } else { 
+    } else {
       currentCard = drawnCard;
-   const isJackpot = tappe === 10;
+      const isJackpot = tappe === 10;
       const isFirstTurn = correctCount === 1;
       const isUsingJolly = usedJolly;
 
@@ -210,11 +205,9 @@ function addButton(text, checkFn) {
         }, 1000);
       } else {
         const drawnImg = document.getElementById("drawnCardImg");
-
         drawnImg.classList.add("card-shuffle");
         setTimeout(() => {
           drawnImg.classList.remove("card-shuffle");
-
           drawnImg.classList.add("card-flip");
           drawnImg.addEventListener("animationend", () => {
             drawnImg.classList.remove("card-flip");
@@ -224,19 +217,18 @@ function addButton(text, checkFn) {
           }, { once: true });
         }, 400);
       }
+    }
   };
 
   challengeButtons.appendChild(btn);
 }
-}
-    function aggiornaGuadagno(corretti) {
+
+function aggiornaGuadagno(corretti) {
   const label = document.getElementById("gainLabel");
   let guadagno = puntataIniziale;
-
-for (let i = 0; i < corretti && i < moltiplicatori.length; i++) {
-  guadagno *= moltiplicatori[i]; // fallback a 1 se oltre i limiti
+  for (let i = 0; i < corretti && i < moltiplicatori.length; i++) {
+    guadagno *= moltiplicatori[i];
   }
-
   label.textContent = "+€" + guadagno.toFixed(2);
 }
 
@@ -258,31 +250,34 @@ function updateLanguage() {
   rulesPanel.innerHTML = translate("rulesText");
   document.getElementById("withdrawLabel").textContent = translate("withdraw");
 }
+
 function showShuffleAnimation(callback) {
   const shuffleDiv = document.getElementById("shuffleAnimation");
   const gif = document.getElementById("shuffleGif");
-
-  // Attiva animazione con fade-in
   shuffleDiv.classList.remove("hidden");
   requestAnimationFrame(() => {
     shuffleDiv.classList.add("visible");
   });
-
   gif.style.transform = "scale(1)";
   setTimeout(() => {
     gif.style.transform = "scale(0.1)";
-  }, 200); // zoom dopo 200ms
-
-  // Durata dell'animazione totale (es. 3 secondi)
+  }, 200);
   setTimeout(() => {
     shuffleDiv.classList.remove("visible");
     setTimeout(() => {
       shuffleDiv.classList.add("hidden");
-      gif.style.transform = "scale(1)"; // Reset
+      gif.style.transform = "scale(1)";
       if (callback) callback();
-    }, 400); // tempo per completare il fade-out
-  }, 2000); // durata visibilità GIF
+    }, 400);
+  }, 2000);
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
+  languageSelect.value = currentLanguage;
+  updateLanguage();
+});
+
 function translate(key) {
   const t = {
     it: {
@@ -317,7 +312,7 @@ function translate(key) {
           <li>3 errori terminano la partita. Puoi ricominciare con il pulsante 🔁.</li>
         </ul>`,
       withdrawn: "Hai ritirato! Hai totalizzato {points} punti.",
-      withdraw: "RITIRA", 
+      withdraw: "RITIRA"
     },
     en: {
       withdrawn: "You withdrew! You earned {points} points.",
@@ -356,7 +351,6 @@ function translate(key) {
   };
   return t[currentLanguage][key];
 }
-
 document.addEventListener("DOMContentLoaded", () => {
   currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
   languageSelect.value = currentLanguage;
