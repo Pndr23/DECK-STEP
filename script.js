@@ -196,78 +196,38 @@ function addButton(text, checkFn) {
       withdrawBtn.classList.add("hidden");
     } else { 
       currentCard = drawnCard;
-  setTimeout(() => {
-  displayCurrentCard(currentCard);
-  displayDrawnCard(null, true);
+   const isJackpot = tappe === 10;
+      const isFirstTurn = correctCount === 1;
+      const isUsingJolly = usedJolly;
 
-  showShuffleAnimation(() => {
-    generateChallenge(); // nuova sfida dopo animazione
-  });
-}, 1000);
+      if (isFirstTurn || isUsingJolly || isJackpot) {
+        setTimeout(() => {
+          displayCurrentCard(currentCard);
+          displayDrawnCard(null, true);
+          showShuffleAnimation(() => {
+            generateChallenge();
+          });
+        }, 1000);
+      } else {
+        const drawnImg = document.getElementById("drawnCardImg");
+
+        drawnImg.classList.add("card-shuffle");
+        setTimeout(() => {
+          drawnImg.classList.remove("card-shuffle");
+
+          drawnImg.classList.add("card-flip");
+          drawnImg.addEventListener("animationend", () => {
+            drawnImg.classList.remove("card-flip");
+            displayCurrentCard(currentCard);
+            displayDrawnCard(null, true);
+            generateChallenge();
+          }, { once: true });
+        }, 400);
+      }
     }
   };
 
   challengeButtons.appendChild(btn);
-}
-function updateProgress() {
-  progressCounter.textContent = `${translate("stage")}: ${tappe}`;
-  progressPath.innerHTML = "";
-
-  const multipliers = [1.2, 1.5, 2, 3, 20, 5, 8, 12, 40, 100];
-
-  for (let i = 0; i < 10; i++) {
-    const wrapper = document.createElement("div");
-    wrapper.style.display = "flex";
-    wrapper.style.flexDirection = "column";
-    wrapper.style.alignItems = "center";
-
-    const step = document.createElement("div");
-    step.classList.add("progress-step");
-    
-    const circle = document.createElement("div");
-    circle.classList.add("circle");
-    if (i < tappe) {
-   void circle.offsetWidth; // forza il reflow
-   circle.classList.add("completed-step");
-   } else if (i === tappe) {
-  // Questa è la tappa attuale
-   circle.classList.add("current-step");
- }
-  step.appendChild(circle);
-    
-    const label = document.createElement("div");
-    label.classList.add("multiplier-label");
-    label.textContent = "x" + multipliers[i].toFixed(2);
-
-    wrapper.appendChild(step);
-    wrapper.appendChild(label);
-    progressPath.appendChild(wrapper);
-  }
-    // --- QUI: aggiungo la scritta JACKPOT sopra la decima tappa ---
-const steps = progressPath.querySelectorAll(".progress-step");
-if (steps.length >= 10) {
-  const tenthStep = steps[9];
-  
-  // Prendo il wrapper (genitore) della decima tappa
-  const tenthWrapper = tenthStep.parentNode;
-  
-  // Imposto il wrapper come relativo per contenere l'assoluto
-  tenthWrapper.style.position = "relative";
-
-  const jackpotLabel = document.createElement("div");
-  jackpotLabel.textContent = "🎉 JACKPOT 🎉";
-  jackpotLabel.style.fontWeight = "bold";
-  jackpotLabel.style.color = "#FFD700";  // colore oro
-  jackpotLabel.style.textAlign = "center";
-  jackpotLabel.style.fontSize = "18px"; 
-  // Posiziona il testo sopra senza spostare elementi
-  jackpotLabel.style.position = "absolute";
-  jackpotLabel.style.top = "-20px"; // alza sopra la tappa, aggiusta se serve
-  jackpotLabel.style.left = "50%";
-  jackpotLabel.style.transform = "translateX(-50%)";
-  jackpotLabel.style.whiteSpace = "nowrap";
-
-  tenthWrapper.appendChild(jackpotLabel);
 }
 }
     function aggiornaGuadagno(corretti) {
