@@ -267,23 +267,23 @@ function updateLanguage() {
 
 function showShuffleAnimation(callback) {
   const shuffleDiv = document.getElementById("shuffleAnimation");
-  const gif = document.getElementById("shuffleGif");
+
+  // Mostra la GIF con effetto elegante (già gestito dal CSS)
   shuffleDiv.classList.remove("hidden");
+
+  // Usa requestAnimationFrame per forzare il reflow (così il transition parte bene)
   requestAnimationFrame(() => {
     shuffleDiv.classList.add("visible");
   });
-  gif.style.transform = "scale(1)";
-  setTimeout(() => {
-    gif.style.transform = "scale(0.1)";
-  }, 200);
+
+  // Nascondi la GIF dopo 1 secondo (coordinato con il CSS transition da 1s)
   setTimeout(() => {
     shuffleDiv.classList.remove("visible");
     setTimeout(() => {
       shuffleDiv.classList.add("hidden");
-      gif.style.transform = "scale(1)";
       if (callback) callback();
-    }, 400);
-  }, 2000);
+    }, 500);
+  }, 1000);
 }
 
 function translate(key) {
