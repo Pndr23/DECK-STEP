@@ -224,7 +224,6 @@ function addButton(text, checkFn) {
           }, { once: true });
         }, 400);
       }
-    }
   };
 
   challengeButtons.appendChild(btn);
