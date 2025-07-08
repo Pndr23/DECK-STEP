@@ -221,7 +221,18 @@ img {
   margin-bottom: -2px; /* meno spazio */
   transition: all 0.3s ease;
 }
-
+.circle.completed-step {
+  background-color: #00ff66;
+  border: 2px solid white;
+  animation: pop 0.4s ease;
+  box-shadow: 0 0 10px #00ff66;
+}
+.circle.current-step {
+  background-color: #00ff66;
+  border: 2px solid white;
+  animation: pulse 1.5s infinite;
+  box-shadow: 0 0 15px #00ff66;
+}
 .progress-step.active .circle {
   background-color: #FFD700; /* oro */
   box-shadow: 0 0 12px gold;
@@ -242,18 +253,14 @@ img {
   white-space: nowrap;
 }
 @keyframes pop {
-  0% {
-    transform: scale(1);
-    background-color: #fff;
-  }
-  50% {
-    transform: scale(1.4);
-    background-color: #4caf50;
-  }
-  100% {
-    transform: scale(1);
-    background-color: #4caf50;
-  }
+  0%   { transform: scale(1); background-color: #00ff66; }
+  50%  { transform: scale(1.4); background-color: #00ff66; }
+  100% { transform: scale(1); background-color: #00ff66; }
+}
+@keyframes pulse {
+  0%   { transform: scale(1);   box-shadow: 0 0 10px #00ff66; }
+  50%  { transform: scale(1.2); box-shadow: 0 0 20px #00ff66; }
+  100% { transform: scale(1);   box-shadow: 0 0 10px #00ff66; }
 }
 .fullscreen-shuffle {
   position: fixed;
