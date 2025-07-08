@@ -119,11 +119,12 @@ img {
 }
 
 .multiplier-label {
-  font-size: 0.85rem;
+  font-size: 1em;
   color: gold;
   font-weight: bold;
   text-align: center;
-  margin-top: -2px;
+  margin-top: 4px;
+  margin-bottom: 4px;
   line-height: 1.1;
 }
 
@@ -198,9 +199,9 @@ img {
   position: relative;
    overflow: visible;
   padding-top: 5px;       /* 🔹 Alza tutto il blocco */
-  padding-bottom: 10px;    /* 🔹 Lascia spazio alle frecce sotto */
-  min-height: 80px;       /* 🔹 Fa stare bene tutto anche su mobile */
-  margin-top: 30px; 
+  padding-bottom: 4px;    /* 🔹 Lascia spazio alle frecce sotto */
+  min-height: 20px;       /* 🔹 Fa stare bene tutto anche su mobile */
+  margin-top: 80px; 
 }
 
 .progress-step {
@@ -212,13 +213,13 @@ img {
    margin-bottom: 0px; 
   }
 .circle {
-  width: 20px; /* prima 16 */
-  height: 20px;
+  width: 30px; /* prima 16 */
+  height: 30px;
   border-radius: 50%;
   background-color: #222;
   border: 2px solid #FFD700;
   box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
-  margin-bottom: -2px; /* meno spazio */
+  margin-bottom: 6px; /* meno spazio */
   transition: all 0.3s ease;
 }
 .circle.completed-step {
