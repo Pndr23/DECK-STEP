@@ -266,25 +266,24 @@ img {
 }
 @keyframes shuffleZoom {
   0% {
-    transform: scale(1.2);
+    transform: scale(0.8);
     opacity: 0;
   }
-  20% {
+  10% {
     transform: scale(1);
     opacity: 1;
   }
-  80% {
+  90% {
     transform: scale(1);
     opacity: 1;
   }
   100% {
-    transform: scale(1.2);
+    transform: scale(0.8);
     opacity: 0;
   }
 }
-
 .fullscreen-shuffle.visible {
-  animation: shuffleZoom 3s ease-in-out forwards; /* 🔸 durata 3s fluida */
+  animation: shuffleZoom 6s ease-in-out forwards; /* 🔸 durata 3s fluida */
   pointer-events: all;
 }
 .fullscreen-shuffle img#shuffleGif {
