@@ -37,6 +37,7 @@ rulesToggle.addEventListener("click", () => {
 });
 
 startButton.addEventListener("click", () => {
+  preloadCardImages();
   gameSetup.classList.add("hidden");
   gameArea.classList.remove("hidden");
   restartBtn.classList.add("hidden");
@@ -107,7 +108,16 @@ function updateProgress() {
 function updateJollyButton() {
   useJollyBtn.classList.toggle("hidden", jollyCount === 0 || errorCount === 0);
 }
+function preloadCardImages() {
+  for (let i = 1; i <= 40; i++) {
+    const img = new Image();
+    img.src = `cards/card_${i}.png`;
+  }
 
+  // Preload anche il retro della carta
+  const back = new Image();
+  back.src = "cards/card_back.png";
+}
 function startGame() {
   currentCard = drawCard();
   displayCurrentCard(currentCard);
