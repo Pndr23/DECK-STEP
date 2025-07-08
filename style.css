@@ -453,3 +453,8 @@ img {
   animation: cardFlip 0.6s ease;
   transform-style: preserve-3d;
 }
+#drawnCardImg {
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
