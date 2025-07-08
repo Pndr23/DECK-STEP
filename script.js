@@ -95,12 +95,10 @@ function updateProgress() {
 
   steps.forEach((step, i) => {
     const circle = step.querySelector(".circle");
-    circle.classList.remove("completed-step", "current-step");
+    circle.classList.remove("completed-step");
 
-    if (i < tappe - 1) {
+    if (i < tappe) {
       circle.classList.add("completed-step");
-    } else if (i === tappe - 1) {
-      circle.classList.add("current-step");
     }
   });
 
