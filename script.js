@@ -93,19 +93,15 @@ function updateScore() {
 function updateProgress() {
   const steps = progressPath.querySelectorAll(".progress-step");
   steps.forEach((step, i) => {
-    const circle = step.querySelector(".circle");
     if (i < tappe) {
-      circle.classList.add("completed-step");
-      circle.classList.remove("current-step");
-    } else if (i === tappe) {
-      circle.classList.add("current-step");
+      step.classList.add("active");
     } else {
-      circle.classList.remove("completed-step", "current-step");
+      step.classList.remove("active");
     }
   });
+
   progressCounter.textContent = `${translate("stage")}: ${tappe}`;
 }
-
 function updateJollyButton() {
   useJollyBtn.classList.toggle("hidden", jollyCount === 0 || errorCount === 0);
 }
