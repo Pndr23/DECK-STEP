@@ -93,10 +93,13 @@ function updateScore() {
 function updateProgress() {
   const steps = progressPath.querySelectorAll(".progress-step");
   steps.forEach((step, i) => {
+    const circle = step.querySelector(".circle");
     if (i < tappe) {
       step.classList.add("active");
+      circle.classList.add("completed-step"); // Trigger "pop"
     } else {
       step.classList.remove("active");
+      circle.classList.remove("completed-step");
     }
   });
 
