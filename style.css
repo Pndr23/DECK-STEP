@@ -264,8 +264,27 @@ img {
 .fullscreen-shuffle.hidden {
   display: none;
 }
+@keyframes shuffleZoom {
+  0% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+  20% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  80% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
 .fullscreen-shuffle.visible {
-  opacity: 1;
+  animation: shuffleZoom 3s ease-in-out forwards; /* 🔸 durata 3s fluida */
   pointer-events: all;
 }
 .fullscreen-shuffle img#shuffleGif {
