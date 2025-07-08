@@ -230,13 +230,15 @@ img {
 }
 .multiplier-label.jackpot {
   color: #ff4444;
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 900;
   text-shadow: 0 0 6px gold;
-  margin-bottom: 0px; 
-  margin-top: 4px;
-  line-height: 1.2;
+  margin-top: -12px;      /* 🔺 sposta il testo più in alto sopra il cerchio */
+  margin-bottom: 6px;
+  line-height: 1.1;
   white-space: nowrap;
+  position: relative;
+  z-index: 10;
 }
 @keyframes pop {
   0%   { transform: scale(1); background-color: #00ff66; }
