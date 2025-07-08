@@ -227,21 +227,6 @@ img {
   animation: pop 0.4s ease;
   box-shadow: 0 0 10px #00ff66;
 }
-.circle.current-step {
-  background-color: #00ff66;
-  border: 2px solid white;
-  animation: pulse 1.5s infinite;
-  box-shadow: 0 0 15px #00ff66;
-}
-.progress-step.active .circle {
-  background-color: #FFD700; /* oro */
-  box-shadow: 0 0 12px gold;
-}
-.progress-step.future .circle {
-   background-color: #444;
-  border: 3px solid #999;
-  box-shadow: 0 0 6px #333;
-}
 .multiplier-label.jackpot {
   color: #ff4444;
   font-size: 1rem;
@@ -256,11 +241,6 @@ img {
   0%   { transform: scale(1); background-color: #00ff66; }
   50%  { transform: scale(1.4); background-color: #00ff66; }
   100% { transform: scale(1); background-color: #00ff66; }
-}
-@keyframes pulse {
-  0%   { transform: scale(1);   box-shadow: 0 0 10px #00ff66; }
-  50%  { transform: scale(1.2); box-shadow: 0 0 20px #00ff66; }
-  100% { transform: scale(1);   box-shadow: 0 0 10px #00ff66; }
 }
 .fullscreen-shuffle {
   position: fixed;
