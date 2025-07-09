@@ -188,10 +188,9 @@ function addButton(text, checkFn) {
   btn.style.color = "white";
 
   btn.onclick = () => {
-    const drawnCard = drawCard();
-    displayDrawnCard(drawnCard);
-
-    const result = currentCheckFn(drawnCard);  // usa la funzione memorizzata
+    const drawnCard = drawCard();       // Pesca la nuova carta
+    displayDrawnCard(drawnCard);        // Mostra la carta pescata
+    const result = checkFn(drawnCard);  // Verifica se la risposta è corretta confrontandola con currentCard
 
     if (result) {
       correctCount++;
@@ -216,6 +215,7 @@ function addButton(text, checkFn) {
       restartBtn.classList.remove("hidden");
       withdrawBtn.classList.add("hidden");
     } else {
+      // Solo qui aggiorni currentCard, dopo il confronto
       currentCard = drawnCard;
 
       const isJackpot = tappe === 10;
@@ -246,9 +246,6 @@ function addButton(text, checkFn) {
       }
     }
   };
-
-  // 👇 Memorizza la funzione corrente per quando servirà
-  currentCheckFn = checkFn;
 
   challengeButtons.appendChild(btn);
 }
