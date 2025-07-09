@@ -192,55 +192,54 @@ function addButton(text, checkFn) {
   btn.classList.add("green-button");
   btn.style.color = "white";
 
-btn.onclick = () => {
-  const drawnCard = drawCard(currentCard.value); // evita stesso valore!
-  displayDrawnCard(drawnCard);
-  const result = checkFn(drawnCard);
+  btn.onclick = () => {
+    // ✅ Pesca una sola volta, evitando stesso valore
+    const drawnCard = drawCard(currentCard.value); 
+    displayDrawnCard(drawnCard); // Mostra immagine reale
+    const result = checkFn(drawnCard); // Valuta la sfida
 
-  console.log("Prev current:", currentCard.value, " -> drawn:", drawnCard.value);
-  console.log("checkFn result:", result);
-  console.log("checkFn result:", result)
-    // Aspetta l'animazione prima di valutare
+    console.log("🂠 Confronto: attuale =", currentCard.value, ", pescata =", drawnCard.value, ", risultato =", result);
+
+    // Anima la carta pescata
     const drawnImg = document.getElementById("drawnCardImg");
-    drawnImg.classList.add("card-shuffle");
+    drawnImg.classList.add("card-flip");
 
-    setTimeout(() => {
-      drawnImg.classList.remove("card-shuffle");
-      drawnImg.classList.add("card-flip");
+    drawnImg.addEventListener("animationend", () => {
+      drawnImg.classList.remove("card-flip");
 
-      drawnImg.addEventListener("animationend", () => {
-        drawnImg.classList.remove("card-flip");
-
-        if (result) {
-          correctCount++;
-          tappe++;
-          if (correctCount % 3 === 0) jollyCount++;
+      // ✅ Aggiorna punteggi solo dopo animazione
+      if (result) {
+        correctCount++;
+        tappe++;
+        if (correctCount % 3 === 0) jollyCount++;
+      } else {
+        if (jollyCount > 0 && errorCount < 3) {
+          jollyCount--;
         } else {
-          if (jollyCount > 0 && errorCount < 3) {
-            jollyCount--;
-          } else {
-            errorCount++;
-          }
+          errorCount++;
         }
+      }
 
-        updateScore();
-        updateProgress();
-        updateJollyButton();
-        aggiornaGuadagno(correctCount);
+      updateScore();
+      updateProgress();
+      updateJollyButton();
+      aggiornaGuadagno(correctCount);
 
-        if (errorCount >= 3) {
-          challengeText.textContent = translate("lost");
-          challengeButtons.innerHTML = "";
-          restartBtn.classList.remove("hidden");
-          withdrawBtn.classList.add("hidden");
-        } else {
-          currentCard = drawnCard; // ✅ aggiorna ora la carta corrente
-          displayCurrentCard(currentCard);
-          displayDrawnCard(null, true);
-          generateChallenge();
-        }
-      }, { once: true });
-    }, 400);
+      // ✅ Fine partita?
+      if (errorCount >= 3) {
+        challengeText.textContent = translate("lost");
+        challengeButtons.innerHTML = "";
+        restartBtn.classList.remove("hidden");
+        withdrawBtn.classList.add("hidden");
+      } else {
+        // ✅ Prossimo turno: la carta pescata diventa attuale
+        currentCard = drawnCard;
+        displayCurrentCard(currentCard);
+        displayDrawnCard(null, true); // Nasconde la prossima carta
+        generateChallenge(); // Genera nuova sfida
+      }
+
+    }, { once: true });
   };
 
   challengeButtons.appendChild(btn);
