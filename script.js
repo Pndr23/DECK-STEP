@@ -188,13 +188,13 @@ function addButton(text, checkFn) {
   btn.classList.add("green-button");
   btn.style.color = "white";
 
-  btn.onclick = () => {
-    // Pesca una nuova carta
-    const drawnCard = drawCard();
+ btn.onclick = () => {
+  const drawnCard = drawCard();
+  displayDrawnCard(drawnCard);
+  console.log("Prev current:", currentCard.value, " -> drawn:", drawnCard.value);
 
-    // Mostra la carta pescata
-    displayDrawnCard(drawnCard);
-
+  const result = checkFn(drawnCard);
+  console.log("checkFn result:", result)
     // Aspetta l'animazione prima di valutare
     const drawnImg = document.getElementById("drawnCardImg");
     drawnImg.classList.add("card-shuffle");
@@ -205,9 +205,6 @@ function addButton(text, checkFn) {
 
       drawnImg.addEventListener("animationend", () => {
         drawnImg.classList.remove("card-flip");
-
-        // ✅ SOLO ORA VALUTIAMO LA RISPOSTA
-        const result = checkFn(drawnCard);
 
         if (result) {
           correctCount++;
