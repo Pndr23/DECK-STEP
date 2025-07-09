@@ -126,10 +126,14 @@ function startGame() {
   generateChallenge();
 }
 
-function drawCard() {
-  const index = Math.floor(Math.random() * 40) + 1;
-  const value = (index % 10) + 1; // 1-10
-  const suit = Math.floor((index - 1) / 10); // 0-3
+function drawCard(avoidValue = null) {
+  let index, value, suit;
+  do {
+    index = Math.floor(Math.random() * 40) + 1;
+    value = (index % 10) + 1; // da 1 a 10
+  } while (value === avoidValue); // evita stesso valore
+
+  suit = Math.floor((index - 1) / 10);
   console.log("Carta pescata:", { index, value, suit });
   return { value, suit, index };
 }
@@ -188,12 +192,13 @@ function addButton(text, checkFn) {
   btn.classList.add("green-button");
   btn.style.color = "white";
 
- btn.onclick = () => {
-  const drawnCard = drawCard();
+btn.onclick = () => {
+  const drawnCard = drawCard(currentCard.value); // evita stesso valore!
   displayDrawnCard(drawnCard);
-  console.log("Prev current:", currentCard.value, " -> drawn:", drawnCard.value);
-
   const result = checkFn(drawnCard);
+
+  console.log("Prev current:", currentCard.value, " -> drawn:", drawnCard.value);
+  console.log("checkFn result:", result);
   console.log("checkFn result:", result)
     // Aspetta l'animazione prima di valutare
     const drawnImg = document.getElementById("drawnCardImg");
