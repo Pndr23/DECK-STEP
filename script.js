@@ -130,14 +130,13 @@ function drawCard(avoidValue = null) {
   let index, value, suit;
   do {
     index = Math.floor(Math.random() * 40) + 1;
-    value = (index % 10) + 1; // da 1 a 10
-  } while (value === avoidValue); // evita stesso valore
+    value = (index % 10) + 1;
+  } while (value === avoidValue); // Evita stesso valore
 
   suit = Math.floor((index - 1) / 10);
-  console.log("Carta pescata:", { index, value, suit });
+  console.log("✅ Carta pescata:", { index, value, suit });
   return { value, suit, index };
 }
-
 function displayCurrentCard(card) {
   currentCardImg.src = `cards/card_${card.index}.png`;
 }
