@@ -128,8 +128,9 @@ function startGame() {
 
 function drawCard() {
   const index = Math.floor(Math.random() * 40) + 1;
-  const value = (index % 10) + 1;
-  const suit = Math.floor(index / 10);
+  const value = (index % 10) + 1; // 1-10
+  const suit = Math.floor((index - 1) / 10); // 0-3
+  console.log("Carta pescata:", { index, value, suit });
   return { value, suit, index };
 }
 
@@ -188,15 +189,17 @@ function addButton(text, checkFn) {
   btn.style.color = "white";
 
   btn.onclick = () => {
-    const drawnCard = drawCard();       // Pesca la nuova carta
-    displayDrawnCard(drawnCard);        // Mostra la carta pescata
-    const result = checkFn(drawnCard);  // Verifica se la risposta è corretta confrontandola con currentCard
+    const drawnCard = drawCard(); // Pesca una nuova carta
+    const result = checkFn(drawnCard); // Valuta la carta pescata
+    displayDrawnCard(drawnCard); // Mostra la carta pescata
 
+    // Se la risposta è corretta
     if (result) {
       correctCount++;
       tappe++;
       if (correctCount % 3 === 0) jollyCount++;
     } else {
+      // Se sbagliato ma hai un jolly, lo usi
       if (jollyCount > 0 && errorCount < 3) {
         jollyCount--;
       } else {
@@ -215,8 +218,7 @@ function addButton(text, checkFn) {
       restartBtn.classList.remove("hidden");
       withdrawBtn.classList.add("hidden");
     } else {
-      // Solo qui aggiorni currentCard, dopo il confronto
-      currentCard = drawnCard;
+      currentCard = drawnCard; // La nuova carta diventa quella corrente
 
       const isJackpot = tappe === 10;
       const isFirstTurn = correctCount === 1;
