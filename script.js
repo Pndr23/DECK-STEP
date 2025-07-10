@@ -124,10 +124,6 @@ function preloadCardImages() {
   back.src = "cards/card_back.png";
 }
 
-  // Preload anche il retro della carta
-  const back = new Image();
-  back.src = "cards/card_back.png";
-}
 function startGame() {
   currentCard = drawCard();
   displayCurrentCard(currentCard);
