@@ -1,4 +1,5 @@
 let tappe = 0;
+let images = [];
 let currentCard = null;
 let nextCard = null;
 let currentCheckFn = null; 
@@ -111,12 +112,16 @@ function updateJollyButton() {
 }
 function preloadCardImages() {
   const suits = ['C', 'P', 'F', 'Q'];
-for (let suit of suits) {
-  for (let i = 1; i <= 10; i++) {
-    const img = new Image();
-    img.src = `cards/card_${i}${suit}.png`;
-    images.push(img);
+  for (let suit of suits) {
+    for (let i = 1; i <= 10; i++) {
+      const img = new Image();
+      img.src = `cards/card_${i}${suit}.png`;
+      images.push(img);
+    }
   }
+  // Preload retro carta
+  const back = new Image();
+  back.src = "cards/card_back.png";
 }
 
   // Preload anche il retro della carta
@@ -130,30 +135,33 @@ function startGame() {
   generateChallenge();
 }
 
-function drawCard(avoidValue = null) {
-  let index, value, suit;
-  do {
-    index = Math.floor(Math.random() * 40) + 1;
-    value = (index % 10) + 1;
-  } while (value === avoidValue); // Evita stesso valore
+const suitsLetters = ['C', 'P', 'F', 'Q']; // Cuori, Picche, Fiori, Quadri (attento all'ordine!)
 
-  suit = Math.floor((index - 1) / 10);
-  console.log("✅ Carta pescata:", { index, value, suit });
-  return { value, suit, index };
+function drawCard(avoidValue = null) {
+  let index, value, suitIndex, suitLetter;
+  do {
+    index = Math.floor(Math.random() * 40) + 1; // 1-40 carte totali
+    value = ((index - 1) % 10) + 1;  // valori 1-10
+  } while (value === avoidValue); // evita stesso valore
+
+  suitIndex = Math.floor((index - 1) / 10); // 0-3
+  suitLetter = suitsLetters[suitIndex];
+
+  console.log("✅ Carta pescata:", { index, value, suitLetter });
+  return { value, suit: suitLetter };
 }
 function displayCurrentCard(card) {
-  currentCardImg.src = `cards/card_${card.index}.png`;
+  currentCardImg.src = `cards/card_${card.value}${card.suit}.png`;
 }
 
 function displayDrawnCard(card, covered = false) {
   const drawnCardImg = document.getElementById("drawnCardImg");
-  if (covered) {
+  if (covered || !card) {
     drawnCardImg.src = "cards/card_back.png";
   } else {
-   drawnCardImg.src = `cards/${card.name}`;
+    drawnCardImg.src = `cards/card_${card.value}${card.suit}.png`;
   }
 }
-
 function generateChallenge() {
   displayDrawnCard(null, true);
   const challenges = [
