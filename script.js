@@ -110,10 +110,14 @@ function updateJollyButton() {
   useJollyBtn.classList.toggle("hidden", jollyCount === 0 || errorCount === 0);
 }
 function preloadCardImages() {
-  for (let i = 1; i <= 40; i++) {
+  const suits = ['C', 'P', 'F', 'Q'];
+for (let suit of suits) {
+  for (let i = 1; i <= 10; i++) {
     const img = new Image();
-    img.src = `cards/card_${i}.png`;
+    img.src = `cards/card_${i}${suit}.png`;
+    images.push(img);
   }
+}
 
   // Preload anche il retro della carta
   const back = new Image();
@@ -146,7 +150,7 @@ function displayDrawnCard(card, covered = false) {
   if (covered) {
     drawnCardImg.src = "cards/card_back.png";
   } else {
-    drawnCardImg.src = `cards/card_${card.index}.png`;
+   drawnCardImg.src = `cards/${card.name}`;
   }
 }
 
