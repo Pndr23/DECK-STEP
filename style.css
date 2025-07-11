@@ -59,7 +59,7 @@ button:hover {
 }
 
 img {
-  width: 200px;
+  width: 400px;
   height: auto;
   margin-top: 0.5rem;
 }
@@ -430,7 +430,7 @@ img {
   transform-style: preserve-3d;
 }
 .card-container {
-  perspective: 900px;
+  perspective: 1000px;
   display: inline-block;
 }
 @media (min-width: 768px) {
