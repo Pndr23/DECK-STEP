@@ -280,7 +280,12 @@ img {
   transform: scale(1);
 }
 @media (max-width: 768px) {
-
+#currentCardImg,
+  #drawnCardImg {
+    width: 100%;          /* fallback sicuro */
+    max-width: 40vw;      /* limite massimo rispetto alla larghezza viewport */
+    height: auto;
+  }
   body {
     background-size: cover;
     background-position: center;
