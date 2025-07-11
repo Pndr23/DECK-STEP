@@ -247,13 +247,10 @@ function addButton(text, checkFn) {
       updateProgress();
       updateJollyButton();
       aggiornaGuadagno(correctCount);
-
-     if (errorCount < 3) {
+      
       currentCard = drawnCard;
       displayCurrentCard(currentCard);
-      displayDrawnCard(null, true);
       generateChallenge();
-    }
 
     }, { once: true });
   };
