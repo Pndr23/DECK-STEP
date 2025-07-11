@@ -493,7 +493,7 @@ img {
   #correctCount,
   #errorCount,
   #jollyCount {
-    font-size: 2rem; /* aumenta la dimensione come vuoi */
+    font-size: 2.6rem; /* aumenta la dimensione come vuoi */
     font-weight: bold;
     color: gold;
     text-shadow: 0 0 5px black, 0 0 8px gold;
