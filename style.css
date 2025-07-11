@@ -446,3 +446,34 @@ img {
     overflow-y: visible;
   }
 }
+#currentCardImg,
+#drawnCardImg {
+  width: 200px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+/* Contenitori carte con allineamento verticale centrato */
+.card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  perspective: 900px;
+  width: 200px;
+  margin: 0 10px;
+}
+
+/* Uniforma altezza e stile delle etichette sopra le carte */
+.card-container > div:first-child {
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
