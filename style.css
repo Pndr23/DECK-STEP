@@ -448,7 +448,7 @@ img {
 }
 #currentCardImg,
 #drawnCardImg {
-  width: 200px;
+  width: 140px;
   height: auto;
   display: block;
   margin: 0 auto;
@@ -464,7 +464,7 @@ img {
   justify-content: flex-start;
   perspective: 900px;
   width: 200px;
-  margin: 0 12px;
+  margin: 0 10px;
 }
 
 /* Uniforma altezza e stile delle etichette sopra le carte */
