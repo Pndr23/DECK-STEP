@@ -296,6 +296,27 @@ img {
   transform: scale(1);
 }
 @media (max-width: 768px) {
+  #scorePanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+#scorePanel .top-row {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+#correctLabel,
+#errorLabel {
+  margin: 0;
+}
+
+#jollyLabel {
+  margin-top: 0.2rem;
+}
   #correctLabel,
   #errorLabel,
   #jollyLabel {
@@ -485,5 +506,5 @@ img {
   backface-visibility: hidden;
   transform-style: preserve-3d;
 }
-}
+
 
