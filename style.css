@@ -12,7 +12,9 @@ body {
   background: url(sfondo.jpg.jpg);
   border: 2px solid gold;
   color: white;
-  padding: 1rem;
+  padding: 0.8rem;
+  margin-top: 10px;    
+  margin-bottom: 10px; 
   border-radius: 20px;
   box-shadow: 0 0 40px gold;
   overflow: visible;
@@ -80,7 +82,7 @@ img {
 #correctLabel,
 #errorLabel,
 #jollyLabel {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: bold;
   color: white;
   text-shadow: 0 0 3px gold;
@@ -489,7 +491,7 @@ img {
 }
 @media (min-width: 768px) {
   body {
-    transform: scale(0.85);        /* Riduce tutto */
+    transform: scale(0.75);        /* Riduce tutto */
     transform-origin: top center;  /* Scala dal centro sopra */
     overflow-x: hidden;            /* Nasconde eventuali barre laterali */
     overflow-y: visible;           /* Fa vedere ciò che c'è in basso */
