@@ -80,7 +80,7 @@ img {
 #correctLabel,
 #errorLabel,
 #jollyLabel {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
   color: white;
   text-shadow: 0 0 3px gold;
@@ -327,7 +327,7 @@ img {
   }
 
   #challengeText {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
 #currentCardImg,
   #drawnCardImg {
