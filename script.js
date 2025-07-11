@@ -53,7 +53,6 @@ restartBtn.addEventListener("click", () => {
   gameSetup.classList.remove("hidden");
   gameArea.classList.add("hidden");
 });
-
 useJollyBtn.addEventListener("click", () => {
   if (jollyCount > 0 && errorCount > 0) {
     jollyCount--;
@@ -109,7 +108,7 @@ function updateProgress() {
   progressCounter.textContent = `${translate("stage")}: ${tappe}`;
 }
 function updateJollyButton() {
-  useJollyBtn.classList.toggle("hidden", jollyCount === 0 || errorCount === 0);
+    useJollyBtn.classList.toggle("hidden", jollyCount === 0);
 }
 function preloadCardImages() {
   const suits = ['C', 'P', 'F', 'Q'];
@@ -220,36 +219,41 @@ function addButton(text, checkFn) {
         correctCount++;
         tappe++;
         consecutiveCorrect++;
-        if (correctCount % 3 === 0) jollyCount++;
+       if (consecutiveCorrect === 3) {
+        jollyCount++;
           consecutiveCorrect = 0; 
         }
-      } else {
-        if (jollyCount > 0 && errorCount < 3) {
-          jollyCount--;
         } else {
           errorCount++;
           consecutiveCorrect = 0;
+        
+         if (errorCount >= 3) {
+        if (jollyCount > 0) {
+          jollyCount--;
+          errorCount = 2; // annulla l'errore
+        } else {
+          // Fine partita
+          challengeText.textContent = translate("lost");
+          challengeButtons.innerHTML = "";
+          restartBtn.classList.remove("hidden");
+          withdrawBtn.classList.add("hidden");
+          updateScore();
+          updateJollyButton();
+          return;
         }
       }
-
+}
       updateScore();
       updateProgress();
       updateJollyButton();
       aggiornaGuadagno(correctCount);
 
-      // ✅ Fine partita?
-      if (errorCount >= 3) {
-        challengeText.textContent = translate("lost");
-        challengeButtons.innerHTML = "";
-        restartBtn.classList.remove("hidden");
-        withdrawBtn.classList.add("hidden");
-      } else {
-        // ✅ Prossimo turno: la carta pescata diventa attuale
-        currentCard = drawnCard;
-        displayCurrentCard(currentCard);
-        displayDrawnCard(null, true); // Nasconde la prossima carta
-        generateChallenge(); // Genera nuova sfida
-      }
+     if (errorCount < 3) {
+      currentCard = drawnCard;
+      displayCurrentCard(currentCard);
+      displayDrawnCard(null, true);
+      generateChallenge();
+    }
 
     }, { once: true });
   };
