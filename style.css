@@ -491,7 +491,7 @@ img {
 }
 @media (min-width: 768px) {
   body {
-    transform: scale(0.75);        /* Riduce tutto */
+    transform: scale(0.65);        /* Riduce tutto */
     transform-origin: top center;  /* Scala dal centro sopra */
     overflow-x: hidden;            /* Nasconde eventuali barre laterali */
     overflow-y: visible;           /* Fa vedere ciò che c'è in basso */
