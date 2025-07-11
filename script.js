@@ -1,4 +1,5 @@
 let tappe = 0;
+let consecutiveCorrect = 0;
 let images = [];
 let currentCard = null;
 let nextCard = null;
@@ -218,12 +219,16 @@ function addButton(text, checkFn) {
       if (result) {
         correctCount++;
         tappe++;
+        consecutiveCorrect++;
         if (correctCount % 3 === 0) jollyCount++;
+          consecutiveCorrect = 0; 
+        }
       } else {
         if (jollyCount > 0 && errorCount < 3) {
           jollyCount--;
         } else {
           errorCount++;
+          consecutiveCorrect = 0;
         }
       }
 
