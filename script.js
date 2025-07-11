@@ -250,8 +250,10 @@ function addButton(text, checkFn) {
       
       currentCard = drawnCard;
       displayCurrentCard(currentCard);
-      generateChallenge();
-
+      setTimeout(() => {
+     displayDrawnCard(null, true);
+     generateChallenge();
+  }, 400);
     }, { once: true });
   };
 
