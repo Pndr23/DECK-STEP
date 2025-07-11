@@ -296,6 +296,15 @@ img {
   transform: scale(1);
 }
 @media (max-width: 768px) {
+  #correctLabel,
+  #errorLabel,
+  #jollyLabel {
+    font-size: 1rem;
+  }
+
+  #challengeText {
+    font-size: 1.2rem;
+  }
 #currentCardImg,
   #drawnCardImg {
     width: 100%;          /* fallback sicuro */
