@@ -1,9 +1,6 @@
 let tappe = 0;
-let consecutiveCorrect = 0;
-let images = [];
 let currentCard = null;
 let nextCard = null;
-let currentCheckFn = null; 
 let correctCount = 0;
 let errorCount = 0;
 let jollyCount = 0;
@@ -53,6 +50,7 @@ restartBtn.addEventListener("click", () => {
   gameSetup.classList.remove("hidden");
   gameArea.classList.add("hidden");
 });
+
 useJollyBtn.addEventListener("click", () => {
   if (jollyCount > 0 && errorCount > 0) {
     jollyCount--;
@@ -108,22 +106,18 @@ function updateProgress() {
   progressCounter.textContent = `${translate("stage")}: ${tappe}`;
 }
 function updateJollyButton() {
-    useJollyBtn.classList.toggle("hidden", jollyCount === 0);
+  useJollyBtn.classList.toggle("hidden", jollyCount === 0 || errorCount === 0);
 }
 function preloadCardImages() {
-  const suits = ['C', 'P', 'F', 'Q'];
-  for (let suit of suits) {
-    for (let i = 1; i <= 10; i++) {
-      const img = new Image();
-      img.src = `cards/card_${i}${suit}.png`;
-      images.push(img);
-    }
+  for (let i = 1; i <= 40; i++) {
+    const img = new Image();
+    img.src = `cards/card_${i}.png`;
   }
-  // Preload retro carta
+
+  // Preload anche il retro della carta
   const back = new Image();
   back.src = "cards/card_back.png";
 }
-
 function startGame() {
   currentCard = drawCard();
   displayCurrentCard(currentCard);
@@ -131,23 +125,22 @@ function startGame() {
   generateChallenge();
 }
 
-const suitsLetters = ['C', 'P', 'F', 'Q']; // Cuori, Picche, Fiori, Quadri (attento all'ordine!)
-
 function drawCard(avoidValue = null) {
-  let index, value, suitIndex, suitLetter;
+  const suitsLetters = ['C', 'P', 'F', 'Q']; // Cuori, Picche, Fiori, Quadri
+  let index, value, suitLetter;
+
   do {
-    index = Math.floor(Math.random() * 40) + 1; // 1-40 carte totali
-    value = ((index - 1) % 10) + 1;  // valori 1-10
-  } while (value === avoidValue); // evita stesso valore
+    index = Math.floor(Math.random() * 40) + 1;
+    value = ((index - 1) % 10) + 1;
+    const suitIndex = Math.floor((index - 1) / 10);
+    suitLetter = suitsLetters[suitIndex];
+  } while (value === avoidValue);
 
-  suitIndex = Math.floor((index - 1) / 10); // 0-3
-  suitLetter = suitsLetters[suitIndex];
-
-  console.log("✅ Carta pescata:", { index, value, suitLetter });
   return { value, suit: suitLetter };
 }
+
 function displayCurrentCard(card) {
-  currentCardImg.src = `cards/card_${card.value}${card.suit}.png`;
+   currentCardImg.src = `cards/card_${card.value}${card.suit}.png`;
 }
 
 function displayDrawnCard(card, covered = false) {
@@ -158,6 +151,7 @@ function displayDrawnCard(card, covered = false) {
     drawnCardImg.src = `cards/card_${card.value}${card.suit}.png`;
   }
 }
+
 function generateChallenge() {
   displayDrawnCard(null, true);
   const challenges = [
@@ -181,7 +175,7 @@ function generateChallenge() {
     addButton(translate("even"), (next) => next.value % 2 === 0);
     addButton(translate("odd"), (next) => next.value % 2 !== 0);
   } else if (selected.key === "inOut") {
-    const a = Math.floor(Math.random() * 7) + 2;
+    const a = Math.floor(Math.random() * 8) + 2;
     const b = a + 2;
     challengeText.textContent += ` (${a}-${b})`;
     addButton(translate("in"), (next) => next.value >= a && next.value <= b);
@@ -259,7 +253,6 @@ function addButton(text, checkFn) {
 
   challengeButtons.appendChild(btn);
 }
-
 
 function aggiornaGuadagno(corretti) {
   const label = document.getElementById("gainLabel");
