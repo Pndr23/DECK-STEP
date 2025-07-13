@@ -200,68 +200,66 @@ function addButton(text, checkFn) {
   btn.style.color = "white";
 
   btn.onclick = () => {
-    const drawnCard = drawCard(currentCard.value);
-    const drawnImg = document.getElementById("drawnCardImg");
+    const drawnCard = drawCard();
+    displayDrawnCard(drawnCard);
+    const result = checkFn(drawnCard);
 
-    // Mostra la carta pescata
-    displayDrawnCard(drawnCard, false);
-
-    // Applica animazione flip
-    drawnImg.classList.add("card-flip");
-
-    drawnImg.addEventListener("animationend", () => {
-      drawnImg.classList.remove("card-flip");
-
-      const result = checkFn(drawnCard);
-
-      if (result) {
-        correctCount++;
-        tappe++;
-        consecutiveCorrect++;
-        if (consecutiveCorrect === 3) {
-          jollyCount++;
-          consecutiveCorrect = 0;
-        }
+    if (result) {
+      correctCount++;
+      tappe++;
+      if (correctCount % 3 === 0) jollyCount++;
+    } else {
+      if (jollyCount > 0 && errorCount < 3) {
+        jollyCount--;
       } else {
         errorCount++;
-        consecutiveCorrect = 0;
-
-        if (errorCount >= 3) {
-          if (jollyCount > 0) {
-            jollyCount--;
-            errorCount = 2;
-          } else {
-            challengeText.textContent = translate("lost");
-            challengeButtons.innerHTML = "";
-            restartBtn.classList.remove("hidden");
-            withdrawBtn.classList.add("hidden");
-            updateScore();
-            updateJollyButton();
-            return;
-          }
-        }
       }
+    }
 
-      updateScore();
-      updateProgress();
-      updateJollyButton();
-      aggiornaGuadagno(correctCount);
+    updateScore();
+    updateProgress();
+    updateJollyButton();
+    aggiornaGuadagno(correctCount);
 
-      // 👇 Ricopri la carta dopo valutazione
-      setTimeout(() => {
-        displayDrawnCard(null, true);
+    if (errorCount >= 3) {
+      challengeText.textContent = translate("lost");
+      challengeButtons.innerHTML = "";
+      restartBtn.classList.remove("hidden");
+      withdrawBtn.classList.add("hidden");
+    } else {
+      currentCard = drawnCard;
+      const isJackpot = tappe === 10;
+      const isFirstTurn = correctCount === 1;
+      const isUsingJolly = usedJolly;
 
-        // 👇 Nuova sfida + nuova carta corrente
-        currentCard = drawnCard;
-        displayCurrentCard(currentCard);
-        generateChallenge();
-      }, 600); // tempo per far vedere la carta prima di ricoprirla
-
-    }, { once: true });
+      if (isFirstTurn || isUsingJolly || isJackpot) {
+        setTimeout(() => {
+          displayCurrentCard(currentCard);
+          displayDrawnCard(null, true);
+          showShuffleAnimation(() => {
+            generateChallenge();
+          });
+        }, 1000);
+      } else {
+        const drawnImg = document.getElementById("drawnCardImg");
+        drawnImg.classList.add("card-shuffle");
+        setTimeout(() => {
+          drawnImg.classList.remove("card-shuffle");
+          drawnImg.classList.add("card-flip");
+          drawnImg.addEventListener("animationend", () => {
+            drawnImg.classList.remove("card-flip");
+            displayCurrentCard(currentCard);
+            displayDrawnCard(null, true);
+            generateChallenge();
+          }, { once: true });
+        }, 400);
+      }
+    }
   };
 
   challengeButtons.appendChild(btn);
 }
+
 
 function aggiornaGuadagno(corretti) {
   const label = document.getElementById("gainLabel");
