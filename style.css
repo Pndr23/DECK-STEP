@@ -519,6 +519,21 @@ img {
   backface-visibility: hidden;
   transform-style: preserve-3d;
 }
+.card {
+  transition: transform 0.6s ease;
+  transform-style: preserve-3d;
+}
 
+.card.flip-animation {
+  animation: flip 0.6s ease;
+}
+@keyframes flip {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(180deg);
+  }
+}
 
 
