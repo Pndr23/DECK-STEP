@@ -247,17 +247,17 @@ function addButton(text, checkFn) {
               showShuffleAnimation(() => {
                 generateChallenge(); // Genera nuova sfida
               });
-            }, 2000);
+            }, 3000);
           } else {
             setTimeout(() => {
               displayDrawnCard(null, true); // Ricopri
               displayCurrentCard(currentCard);
               generateChallenge(); // Nuova sfida
-            }, 1500);
+            }, 2000);
           }
         }
       }, { once: true });
-    }, 500); // 🔸 Delay prima del flip
+    },800); // 🔸 Delay prima del flip
   };
 
   challengeButtons.appendChild(btn);
