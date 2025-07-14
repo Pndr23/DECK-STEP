@@ -197,12 +197,12 @@ function addButton(text, checkFn) {
     const drawnCard = drawCard(currentCard.value);
     const drawnImg = document.getElementById("drawnCardImg");
 
-    // Mostra la carta coperta prima del flip
+    // Mostra retro prima del flip
     displayDrawnCard(null, true);
 
-    // Attiva il flip
+    // Aspetta 100ms per assicurarsi che il retro sia visibile
     setTimeout(() => {
-      displayDrawnCard(drawnCard); // mostra la carta scoperta
+      displayDrawnCard(drawnCard, false); // Mostra la carta pescata vera
       drawnImg.classList.add("card-flip");
 
       drawnImg.addEventListener("animationend", () => {
@@ -235,27 +235,28 @@ function addButton(text, checkFn) {
         } else {
           currentCard = drawnCard;
 
-          // 🔹 Determina se serve la GIF di mischiata
           const isJackpot = tappe === 10;
           const isFirstTurn = correctCount === 1;
           const isUsingJolly = usedJolly;
 
-          const afterFlip = () => {
-            displayDrawnCard(null, true);   // Ricopri la carta pescata
-            displayCurrentCard(currentCard); // Aggiorna carta attuale
-            generateChallenge();             // Nuova sfida
-          };
-
           if (isFirstTurn || isUsingJolly || isJackpot) {
             setTimeout(() => {
-              showShuffleAnimation(afterFlip);
-            }, 600);
+              displayCurrentCard(currentCard);
+              displayDrawnCard(null, true);
+              showShuffleAnimation(() => {
+                generateChallenge(); // Genera nuova sfida
+              });
+            }, 1000);
           } else {
-            setTimeout(afterFlip, 600);
+            setTimeout(() => {
+              displayDrawnCard(null, true); // Ricopri
+              displayCurrentCard(currentCard);
+              generateChallenge(); // Nuova sfida
+            }, 600);
           }
         }
       }, { once: true });
-    }, 300); // ritardo per vedere brevemente il retro prima del flip
+    }, 100); // 🔸 Delay prima del flip
   };
 
   challengeButtons.appendChild(btn);
