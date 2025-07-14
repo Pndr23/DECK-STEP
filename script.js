@@ -194,6 +194,7 @@ function addButton(text, checkFn) {
   btn.style.color = "white";
 
   btn.onclick = () => {
+    console.log("clicked", text)
     const drawnCard = drawCard(currentCard.value);
     const drawnImg = document.getElementById("drawnCardImg");
 
