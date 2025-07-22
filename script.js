@@ -13,7 +13,8 @@ const moltiplicatoriMedio =[1.2, 1.5, 2, 2.5, 3, 3.5, 4, 5, 7, 10];
 const moltiplicatoriDifficile = [1.5, 2, 2.5, 3, 4, 5, 6, 8, 12, 40];
 
 // Variabile dinamica moltiplicatori
-let moltiplicatori = moltiplicatoriFacile;
+let moltiplicatori = [];
+
 
 const withdrawBtn = document.getElementById("withdrawBtn");
 const startButton = document.getElementById("startButton");
