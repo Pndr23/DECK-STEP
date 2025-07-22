@@ -14,7 +14,7 @@ const moltiplicatoriDifficile = [1.5, 2, 3, 5, 8, 12, 20, 40, 80, 150];
 
 function aggiornaMoltiplicatori() {
   const livello = document.getElementById("risk").value;
-    console.log("aggiornaMoltiplicatori chiamata, livello:", livello);
+  console.log("aggiornaMoltiplicatori chiamata, livello:", livello);
   if (livello === "easy") {
     moltiplicatori = moltiplicatoriFacile;
   } else if (livello === "medium") {
@@ -22,11 +22,18 @@ function aggiornaMoltiplicatori() {
   } else if (livello === "hard") {
     moltiplicatori = moltiplicatoriDifficile;
   }
-    console.log("Moltiplicatori aggiornati a:", moltiplicatori);
-   aggiornaGuadagno(correctCount);
-  }
-  document.getElementById("risk").addEventListener("change", () => {
-console.log("Difficoltà cambiata a:", document.getElementById("risk").value);
+  console.log("Moltiplicatori aggiornati a:", moltiplicatori);
+  const multiplierLabels = document.querySelectorAll(".multiplier-label");
+  multiplierLabels.forEach((label, index) => {
+    if (moltiplicatori[index]) {
+      label.textContent = "x" + moltiplicatori[index];
+      label.classList.remove("jackpot");
+    }
+  });
+  aggiornaGuadagno(correctCount);
+}
+document.getElementById("risk").addEventListener("change", () => {
+  console.log("Difficoltà cambiata a:", document.getElementById("risk").value);
   aggiornaMoltiplicatori();
 });
 const withdrawBtn = document.getElementById("withdrawBtn");
