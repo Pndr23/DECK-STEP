@@ -286,9 +286,11 @@ function addButton(text, checkFn) {
 function aggiornaGuadagno(corretti) {
   const label = document.getElementById("gainLabel");
   let guadagno = puntataIniziale;
+  console.log("aggiornaGuadagno: corretti =", corretti, "moltiplicatori =", moltiplicatori);
   for (let i = 0; i < corretti && i < moltiplicatori.length; i++) {
     guadagno *= moltiplicatori[i];
   }
+  console.log("Guadagno calcolato:", guadagno);
   label.textContent = "+€" + guadagno.toFixed(2);
 }
 
