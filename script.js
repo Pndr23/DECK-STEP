@@ -8,9 +8,9 @@ let usedJolly = false;
 let currentLanguage = "it";
 let puntataIniziale = parseFloat(document.getElementById("bet").value);
 
-const moltiplicatoriFacile = [1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2];
-const moltiplicatoriMedio = [1.2, 1.4, 1.6, 1.8, 2, 2.3, 2.6, 3, 3.5, 4];
-const moltiplicatoriDifficile = [1.3, 1.6, 2, 2.4, 2.8, 3.4, 4, 4.8, 5.5, 6];
+const moltiplicatoriFacile = [1.1, 1.2, 1.3, 1.5, 1.8, 2, 2.2, 2.5, 3, 5];
+const moltiplicatoriMedio =[1.2, 1.5, 2, 2.5, 3, 3.5, 4, 5, 7, 10];
+const moltiplicatoriDifficile = [1.5, 2, 2.5, 3, 4, 5, 6, 8, 12, 40];
 
 // Variabile dinamica moltiplicatori
 let moltiplicatori = moltiplicatoriFacile;
