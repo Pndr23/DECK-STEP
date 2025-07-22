@@ -7,8 +7,27 @@ let jollyCount = 0;
 let usedJolly = false;
 let currentLanguage = "it";
 let puntataIniziale = parseFloat(document.getElementById("bet").value);
-let moltiplicatori = [1.2, 1.5, 2, 3, 20, 5, 8, 12, 40, 100];
+let moltiplicatori = []; 
+const moltiplicatoriFacile = [1.1, 1.2, 1.3, 1.5, 2, 3, 5, 8, 12, 20];
+const moltiplicatoriMedio = [1.2, 1.5, 2, 3, 5, 8, 12, 20, 40, 100];
+const moltiplicatoriDifficile = [1.5, 2, 3, 5, 8, 12, 20, 40, 80, 150];
 
+function aggiornaMoltiplicatori() {
+  const livello = document.getElementById("risk").value;
+  if (livello === "easy") {
+    moltiplicatori = moltiplicatoriFacile;
+  } else if (livello === "medium") {
+    moltiplicatori = moltiplicatoriMedio;
+  } else if (livello === "hard") {
+    moltiplicatori = moltiplicatoriDifficile;
+  }
+    aggiornaGuadagno(correctCount);
+  }
+  document.getElementById("risk").addEventListener("change", () => {
+  aggiornaMoltiplicatori();
+  aggiornaGuadagno(correctCount);
+});
+}
 const withdrawBtn = document.getElementById("withdrawBtn");
 const startButton = document.getElementById("startButton");
 const gameArea = document.getElementById("gameArea");
@@ -37,6 +56,7 @@ rulesToggle.addEventListener("click", () => {
 });
 
 startButton.addEventListener("click", () => {
+ aggiornaMoltiplicatori();
   preloadCardImages();
   gameSetup.classList.add("hidden");
   gameArea.classList.remove("hidden");
