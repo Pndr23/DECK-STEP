@@ -11,7 +11,6 @@ let moltiplicatori = [];
 const moltiplicatoriFacile = [1.1,1.2,1.3,1.5,1.8,2,2.2,2.5,3,5];
 const moltiplicatoriMedio = [1.2,1.5,2,2.5,3,3.5,4,5,7,10];
 const moltiplicatoriDifficile = [1.5,2,2.5,3,4,5,6,8,12,40];
-
 function aggiornaMoltiplicatori() {
   const livello = document.getElementById("risk").value;
   console.log("aggiornaMoltiplicatori chiamata, livello:", livello);
@@ -54,15 +53,12 @@ const progressPath = document.getElementById("progressPath");
 const useJollyBtn = document.getElementById("useJollyBtn");
 const languageSelect = document.getElementById("languageSelect");
 const selectBet = document.getElementById("bet");
-
 selectBet.addEventListener("change", () => {
   puntataIniziale = parseFloat(selectBet.value);
 });
-
 rulesToggle.addEventListener("click", () => {
   rulesPanel.classList.toggle("hidden");
 });
-
 startButton.addEventListener("click", () => {
  aggiornaMoltiplicatori();
   preloadCardImages();
@@ -112,7 +108,6 @@ function resetGame() {
   updateProgress();
   updateJollyButton();
 }
-
 function updateScore() {
   document.getElementById("scoreValue").innerText = correctCount;
   correctCountSpan.textContent = correctCount;
@@ -141,7 +136,6 @@ function preloadCardImages() {
     const img = new Image();
     img.src = `cards/card_${i}.png`;
   }
-
   // Preload anche il retro della carta
   const back = new Image();
   back.src = "cards/card_back.png";
@@ -152,9 +146,8 @@ function startGame() {
   displayDrawnCard(null, true);
   generateChallenge();
 }
-
 function drawCard(avoidValue = null) {
-  const suitsLetters = ['C', 'P', 'F', 'Q']; // Cuori, Picche, Fiori, Quadri
+  const suitsLetters = ['C', 'P', 'F', 'Q'];
   let index, value, suitLetter;
 
   do {
@@ -225,13 +218,9 @@ function addButton(text, checkFn) {
     console.log("clicked", text)
     const drawnCard = drawCard(currentCard.value);
     const drawnImg = document.getElementById("drawnCardImg");
-
-    // Mostra retro prima del flip
     displayDrawnCard(null, true);
-
-    // Aspetta 100ms per assicurarsi che il retro sia visibile
     setTimeout(() => {
-      displayDrawnCard(drawnCard, false); // Mostra la carta pescata vera
+      displayDrawnCard(drawnCard, false); 
       drawnImg.classList.add("card-flip");
 
       drawnImg.addEventListener("animationend", () => {
@@ -289,7 +278,7 @@ function addButton(text, checkFn) {
           }
         }
       }, { once: true });
-    },700); // 🔸 Delay prima del flip
+    },700);
   };
 
   challengeButtons.appendChild(btn);
@@ -323,19 +312,12 @@ function updateLanguage() {
   rulesPanel.innerHTML = translate("rulesText");
   document.getElementById("withdrawLabel").textContent = translate("withdraw");
 }
-
 function showShuffleAnimation(callback) {
   const shuffleDiv = document.getElementById("shuffleAnimation");
-
-  // Mostra la GIF con effetto elegante (già gestito dal CSS)
   shuffleDiv.classList.remove("hidden");
-
-  // Usa requestAnimationFrame per forzare il reflow (così il transition parte bene)
   requestAnimationFrame(() => {
     shuffleDiv.classList.add("visible");
   });
-
-  // Nascondi la GIF dopo 1 secondo (coordinato con il CSS transition da 1s)
   setTimeout(() => {
     shuffleDiv.classList.remove("visible");
     setTimeout(() => {
@@ -425,15 +407,9 @@ document.addEventListener("DOMContentLoaded", () => {
   updateLanguage();
 });
 document.addEventListener("DOMContentLoaded", () => {
-  // Imposta i moltiplicatori in base alla difficoltà iniziale selezionata appena carica la pagina
   aggiornaMoltiplicatori();
 });
 function fineGioco() {
-  // Disattiva i pulsanti
   document.querySelectorAll(".answer-button").forEach(btn => btn.disabled = true);
-
-  // Mostra messaggio di vittoria
   alert("🎉 Complimenti! Hai completato tutte le tappe e vinto il jackpot!");
-
-  // Puoi anche aggiungere un bottone "Rigioca" se vuoi
 }
