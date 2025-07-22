@@ -47,8 +47,25 @@ difficultySelect.addEventListener("change", (e) => {
 rulesToggle.addEventListener("click", () => {
   rulesPanel.classList.toggle("hidden");
 });
+const multipliersByDifficulty = {
+  facile:    [1.1, 1.2, 1.3, 1.5, 1.8, 2, 2.2, 2.5, 3, 5],
+  medio:     [1.2, 1.5, 2, 2.5, 3, 3.5, 4, 5, 7, 10],
+  difficile: [1.5, 2, 2.5, 3, 4, 5, 6, 8, 12, 40]
+};
 
+// Funzione per aggiornare i moltiplicatori nella barra visiva
+function updateVisualMultipliers(difficulty) {
+  const multipliers = multipliersByDifficulty[difficulty];
+  const labels = document.querySelectorAll('.multiplier-label');
+  labels.forEach((label, index) => {
+    if (multipliers[index]) {
+      label.textContent = 'x' + multipliers[index];
+    }
+  });
+}
 startButton.addEventListener("click", () => {
+  const difficulty = document.getElementById('difficultySelect').value;
+  updateVisualMultipliers(difficulty); 
   preloadCardImages();
   gameSetup.classList.add("hidden");
   gameArea.classList.remove("hidden");
