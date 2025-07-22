@@ -241,6 +241,10 @@ function addButton(text, checkFn) {
 
         if (result) {
           correctCount++;
+           if (correctCount >= moltiplicatori.length) {
+          fineGioco();
+            return;
+          }
           tappe++;
           if (correctCount % 3 === 0) jollyCount++;
         } else {
@@ -424,3 +428,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // Imposta i moltiplicatori in base alla difficoltà iniziale selezionata appena carica la pagina
   aggiornaMoltiplicatori();
 });
+function fineGioco() {
+  // Disattiva i pulsanti
+  document.querySelectorAll(".answer-button").forEach(btn => btn.disabled = true);
+
+  // Mostra messaggio di vittoria
+  alert("🎉 Complimenti! Hai completato tutte le tappe e vinto il jackpot!");
+
+  // Puoi anche aggiungere un bottone "Rigioca" se vuoi
+}
