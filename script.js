@@ -21,11 +21,10 @@ function aggiornaMoltiplicatori() {
   } else if (livello === "hard") {
     moltiplicatori = moltiplicatoriDifficile;
   }
-    aggiornaGuadagno(correctCount);
+   aggiornaGuadagno(correctCount);
   }
   document.getElementById("risk").addEventListener("change", () => {
   aggiornaMoltiplicatori();
-  aggiornaGuadagno(correctCount);
 });
 }
 const withdrawBtn = document.getElementById("withdrawBtn");
