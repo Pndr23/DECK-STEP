@@ -26,7 +26,6 @@ function aggiornaMoltiplicatori() {
   document.getElementById("risk").addEventListener("change", () => {
   aggiornaMoltiplicatori();
 });
-}
 const withdrawBtn = document.getElementById("withdrawBtn");
 const startButton = document.getElementById("startButton");
 const gameArea = document.getElementById("gameArea");
