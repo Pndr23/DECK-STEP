@@ -65,7 +65,13 @@ function updateVisualMultipliers(difficulty) {
 }
 startButton.addEventListener("click", () => {
   const difficulty = document.getElementById('difficultySelect').value;
-  updateVisualMultipliers(difficulty); 
+  
+  // ✅ Imposta correttamente i moltiplicatori interni
+  setDifficulty(difficulty);
+  
+  // ✅ Aggiorna la barra grafica
+  updateVisualMultipliers(difficulty);
+
   preloadCardImages();
   gameSetup.classList.add("hidden");
   gameArea.classList.remove("hidden");
