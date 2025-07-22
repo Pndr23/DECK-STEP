@@ -7,7 +7,13 @@ let jollyCount = 0;
 let usedJolly = false;
 let currentLanguage = "it";
 let puntataIniziale = parseFloat(document.getElementById("bet").value);
-let moltiplicatori = [1.2, 1.5, 2, 3, 20, 5, 8, 12, 40, 100];
+
+const moltiplicatoriFacile = [1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2];
+const moltiplicatoriMedio = [1.2, 1.4, 1.6, 1.8, 2, 2.3, 2.6, 3, 3.5, 4];
+const moltiplicatoriDifficile = [1.3, 1.6, 2, 2.4, 2.8, 3.4, 4, 4.8, 5.5, 6];
+
+// Variabile dinamica moltiplicatori
+let moltiplicatori = moltiplicatoriFacile;
 
 const withdrawBtn = document.getElementById("withdrawBtn");
 const startButton = document.getElementById("startButton");
@@ -27,9 +33,15 @@ const progressPath = document.getElementById("progressPath");
 const useJollyBtn = document.getElementById("useJollyBtn");
 const languageSelect = document.getElementById("languageSelect");
 const selectBet = document.getElementById("bet");
+const difficultySelect = document.getElementById("difficultySelect"); // aggiunto
 
 selectBet.addEventListener("change", () => {
   puntataIniziale = parseFloat(selectBet.value);
+});
+
+difficultySelect.addEventListener("change", (e) => {
+  setDifficulty(e.target.value);
+  aggiornaGuadagno(correctCount);
 });
 
 rulesToggle.addEventListener("click", () => {
@@ -91,6 +103,7 @@ function updateScore() {
   errorCountSpan.textContent = errorCount;
   jollyCountSpan.textContent = jollyCount;
 }
+
 function updateProgress() {
   const steps = progressPath.querySelectorAll(".progress-step");
 
@@ -105,19 +118,21 @@ function updateProgress() {
 
   progressCounter.textContent = `${translate("stage")}: ${tappe}`;
 }
+
 function updateJollyButton() {
   useJollyBtn.classList.toggle("hidden", jollyCount === 0 || errorCount === 0);
 }
+
 function preloadCardImages() {
   for (let i = 1; i <= 40; i++) {
     const img = new Image();
     img.src = `cards/card_${i}.png`;
   }
 
-  // Preload anche il retro della carta
   const back = new Image();
   back.src = "cards/card_back.png";
 }
+
 function startGame() {
   currentCard = drawCard();
   displayCurrentCard(currentCard);
@@ -194,7 +209,7 @@ function addButton(text, checkFn) {
   btn.style.color = "white";
 
   btn.onclick = () => {
-    console.log("clicked", text)
+    console.log("clicked", text);
     const drawnCard = drawCard(currentCard.value);
     const drawnImg = document.getElementById("drawnCardImg");
 
@@ -257,11 +272,12 @@ function addButton(text, checkFn) {
           }
         }
       }, { once: true });
-    },700); // 🔸 Delay prima del flip
+    }, 700); // 🔸 Delay prima del flip
   };
 
   challengeButtons.appendChild(btn);
 }
+
 function aggiornaGuadagno(corretti) {
   const label = document.getElementById("gainLabel");
   let guadagno = puntataIniziale;
@@ -269,6 +285,16 @@ function aggiornaGuadagno(corretti) {
     guadagno *= moltiplicatori[i];
   }
   label.textContent = "+€" + guadagno.toFixed(2);
+}
+
+function setDifficulty(level) {
+  if(level === "facile") {
+    moltiplicatori = moltiplicatoriFacile;
+  } else if(level === "medio") {
+    moltiplicatori = moltiplicatoriMedio;
+  } else if(level === "difficile") {
+    moltiplicatori = moltiplicatoriDifficile;
+  }
 }
 
 function updateLanguage() {
@@ -293,15 +319,12 @@ function updateLanguage() {
 function showShuffleAnimation(callback) {
   const shuffleDiv = document.getElementById("shuffleAnimation");
 
-  // Mostra la GIF con effetto elegante (già gestito dal CSS)
   shuffleDiv.classList.remove("hidden");
 
-  // Usa requestAnimationFrame per forzare il reflow (così il transition parte bene)
   requestAnimationFrame(() => {
     shuffleDiv.classList.add("visible");
   });
 
-  // Nascondi la GIF dopo 1 secondo (coordinato con il CSS transition da 1s)
   setTimeout(() => {
     shuffleDiv.classList.remove("visible");
     setTimeout(() => {
@@ -389,4 +412,5 @@ document.addEventListener("DOMContentLoaded", () => {
   currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
   languageSelect.value = currentLanguage;
   updateLanguage();
+  setDifficulty(difficultySelect.value);  // setta moltiplicatori al caricamento
 });
