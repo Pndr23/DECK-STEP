@@ -7,14 +7,7 @@ let jollyCount = 0;
 let usedJolly = false;
 let currentLanguage = "it";
 let puntataIniziale = parseFloat(document.getElementById("bet").value);
-
-const moltiplicatoriFacile = [1.1, 1.2, 1.3, 1.5, 1.8, 2, 2.2, 2.5, 3, 5];
-const moltiplicatoriMedio =[1.2, 1.5, 2, 2.5, 3, 3.5, 4, 5, 7, 10];
-const moltiplicatoriDifficile = [1.5, 2, 2.5, 3, 4, 5, 6, 8, 12, 40];
-
-// Variabile dinamica moltiplicatori
-let moltiplicatori = [];
-
+let moltiplicatori = [1.2, 1.5, 2, 3, 20, 5, 8, 12, 40, 100];
 
 const withdrawBtn = document.getElementById("withdrawBtn");
 const startButton = document.getElementById("startButton");
@@ -34,45 +27,16 @@ const progressPath = document.getElementById("progressPath");
 const useJollyBtn = document.getElementById("useJollyBtn");
 const languageSelect = document.getElementById("languageSelect");
 const selectBet = document.getElementById("bet");
-const difficultySelect = document.getElementById("difficultySelect"); // aggiunto
 
 selectBet.addEventListener("change", () => {
   puntataIniziale = parseFloat(selectBet.value);
 });
 
-difficultySelect.addEventListener("change", (e) => {
-  setDifficulty(e.target.value);
-  aggiornaGuadagno(correctCount);
-});
-
 rulesToggle.addEventListener("click", () => {
   rulesPanel.classList.toggle("hidden");
 });
-const multipliersByDifficulty = {
-  facile:    [1.1, 1.2, 1.3, 1.5, 1.8, 2, 2.2, 2.5, 3, 5],
-  medio:     [1.2, 1.5, 2, 2.5, 3, 3.5, 4, 5, 7, 10],
-  difficile: [1.5, 2, 2.5, 3, 4, 5, 6, 8, 12, 40]
-};
 
-// Funzione per aggiornare i moltiplicatori nella barra visiva
-function updateVisualMultipliers(difficulty) {
-  const multipliers = multipliersByDifficulty[difficulty];
-  const labels = document.querySelectorAll('.multiplier-label');
-  labels.forEach((label, index) => {
-    if (multipliers[index]) {
-      label.textContent = 'x' + multipliers[index];
-    }
-  });
-}
 startButton.addEventListener("click", () => {
-  const difficulty = document.getElementById('difficultySelect').value;
-  
-  // ✅ Imposta correttamente i moltiplicatori interni
-  setDifficulty(difficulty);
-  
-  // ✅ Aggiorna la barra grafica
-  updateVisualMultipliers(difficulty);
-
   preloadCardImages();
   gameSetup.classList.add("hidden");
   gameArea.classList.remove("hidden");
@@ -127,7 +91,6 @@ function updateScore() {
   errorCountSpan.textContent = errorCount;
   jollyCountSpan.textContent = jollyCount;
 }
-
 function updateProgress() {
   const steps = progressPath.querySelectorAll(".progress-step");
 
@@ -142,21 +105,19 @@ function updateProgress() {
 
   progressCounter.textContent = `${translate("stage")}: ${tappe}`;
 }
-
 function updateJollyButton() {
   useJollyBtn.classList.toggle("hidden", jollyCount === 0 || errorCount === 0);
 }
-
 function preloadCardImages() {
   for (let i = 1; i <= 40; i++) {
     const img = new Image();
     img.src = `cards/card_${i}.png`;
   }
 
+  // Preload anche il retro della carta
   const back = new Image();
   back.src = "cards/card_back.png";
 }
-
 function startGame() {
   currentCard = drawCard();
   displayCurrentCard(currentCard);
@@ -233,7 +194,7 @@ function addButton(text, checkFn) {
   btn.style.color = "white";
 
   btn.onclick = () => {
-    console.log("clicked", text);
+    console.log("clicked", text)
     const drawnCard = drawCard(currentCard.value);
     const drawnImg = document.getElementById("drawnCardImg");
 
@@ -296,12 +257,11 @@ function addButton(text, checkFn) {
           }
         }
       }, { once: true });
-    }, 700); // 🔸 Delay prima del flip
+    },700); // 🔸 Delay prima del flip
   };
 
   challengeButtons.appendChild(btn);
 }
-
 function aggiornaGuadagno(corretti) {
   const label = document.getElementById("gainLabel");
   let guadagno = puntataIniziale;
@@ -309,16 +269,6 @@ function aggiornaGuadagno(corretti) {
     guadagno *= moltiplicatori[i];
   }
   label.textContent = "+€" + guadagno.toFixed(2);
-}
-
-function setDifficulty(level) {
-  if(level === "facile") {
-    moltiplicatori = moltiplicatoriFacile;
-  } else if(level === "medio") {
-    moltiplicatori = moltiplicatoriMedio;
-  } else if(level === "difficile") {
-    moltiplicatori = moltiplicatoriDifficile;
-  }
 }
 
 function updateLanguage() {
@@ -343,12 +293,15 @@ function updateLanguage() {
 function showShuffleAnimation(callback) {
   const shuffleDiv = document.getElementById("shuffleAnimation");
 
+  // Mostra la GIF con effetto elegante (già gestito dal CSS)
   shuffleDiv.classList.remove("hidden");
 
+  // Usa requestAnimationFrame per forzare il reflow (così il transition parte bene)
   requestAnimationFrame(() => {
     shuffleDiv.classList.add("visible");
   });
 
+  // Nascondi la GIF dopo 1 secondo (coordinato con il CSS transition da 1s)
   setTimeout(() => {
     shuffleDiv.classList.remove("visible");
     setTimeout(() => {
@@ -436,5 +389,4 @@ document.addEventListener("DOMContentLoaded", () => {
   currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
   languageSelect.value = currentLanguage;
   updateLanguage();
-  setDifficulty(difficultySelect.value);  // setta moltiplicatori al caricamento
 });
