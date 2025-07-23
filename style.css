@@ -568,6 +568,55 @@ img {
     transform: scale(1.1);
     opacity: 0.8;
   }
+  .game-over-text {
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-size: 6rem;
+  color: #111; /* testo scuro */
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-shadow:
+    0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 20px #fff,
+    0 0 30px #fff,
+    0 0 40px #fff;
+  animation: pulseGlow 1.5s ease-in-out infinite alternate;
+  pointer-events: none; /* passa clic sotto */
+  z-index: 1000;
+}
+
+@keyframes pulseGlow {
+  0% {
+    color: #111;
+    text-shadow:
+      0 0 5px #fff,
+      0 0 10px #fff,
+      0 0 15px #fff;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    color: #222;
+    text-shadow:
+      0 0 12px #fff,
+      0 0 20px #fff,
+      0 0 30px #fff,
+      0 0 40px #fff;
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0.85;
+  }
+}
+
   100% {
     transform: scale(1);
     opacity: 1;
