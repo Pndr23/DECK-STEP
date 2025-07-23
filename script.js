@@ -211,7 +211,7 @@ function addButton(text, checkFn) {
         const result = checkFn(drawnCard);
         if (result) {
           correctCount++;
-          tappe++;
+           tappe++;
           if (correctCount % 3 === 0) jollyCount++;
         } else {
           if (jollyCount > 0 && errorCount < 3) {
@@ -228,7 +228,7 @@ function addButton(text, checkFn) {
           showGameOverScreen();
           return;
         }
-        if (tappe >= 10) {
+        if (tappe + 1 >= 10)  {
           fineGioco();
           return;
         }
