@@ -418,21 +418,16 @@ function showWinScreen() {
   screen.classList.remove("hidden");
 }
 function showGameOverScreen() {
-  gameArea.classList.add("hidden");
-  gameSetup.classList.add("hidden");
-  const gameOverScreen = document.getElementById("gameOverScreen");
-  gameOverScreen.classList.remove("hidden");
-  const gameOverText = document.querySelector(".game-over-text");
+  const screen = document.getElementById("gameOverScreen");
+  const winText = document.getElementById("winText");
+  const gameOverText = document.getElementById("gameOverText");
+  const totalWinnings = document.getElementById("totalWinnings");
+  if (winText) winText.classList.add("hidden");
   if (gameOverText) {
+    gameOverText.classList.remove("hidden");
     gameOverText.style.display = "block";
   }
-  const victoryScreen = document.getElementById("victoryScreen");
-  if (victoryScreen) victoryScreen.classList.add("hidden");
-  const winText = document.getElementById("winText");
-  if (winText) winText.classList.add("hidden");
-  const totalWinnings = document.getElementById("totalWinnings");
   if (totalWinnings) totalWinnings.textContent = "";
-  if (typeof withdrawBtn !== "undefined") withdrawBtn.classList.add("hidden");
-  if (typeof restartBtn !== "undefined") restartBtn.classList.add("hidden");
+  if (screen) screen.classList.remove("hidden");
 }
 });
