@@ -830,9 +830,7 @@ function showGameOverScreen() {
 function mostraGameOver() {
   document.getElementById("gameArea").classList.add("hidden"); // nasconde l'area di gioco
   document.getElementById("gameOverScreen").classList.remove("hidden"); // mostra il game over
- });
   }
-});
 function fineGioco() {
   console.log("🎉 Fine del gioco!");
   document.getElementById("gameArea").classList.add("hidden");
