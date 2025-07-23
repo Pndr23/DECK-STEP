@@ -430,6 +430,7 @@ function showGameOverScreen() {
   if (totalWinnings) totalWinnings.textContent = "";
   if (screen) screen.classList.remove("hidden");
 }
+  });
   document.getElementById("restartBtn").addEventListener("click", () => {
   location.reload(); // Ricarica la pagina per ricominciare da zero
 });
