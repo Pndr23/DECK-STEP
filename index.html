@@ -51,12 +51,16 @@
     <div class="circle"></div>
     <div class="multiplier-label">x1</div>
   </div>
-    <div id="gameOverScreen" class="hidden">
-   <h1 id="winText" class="pulse">🎉 Hai vinto!</h1>
-  <h1 id="gameOverText" class="game-over-text hidden">GAME OVER</h1>
+   <div id="victoryScreen" class="hidden">
+  <h1 class="animated-win-text">🎉 Hai vinto!</h1>
   <p id="totalWinnings" class="pulse"></p>
   <button id="withdrawFinalBtn">Ritira</button>
   <button id="restartFinalBtn">Ricomincia</button>
+</div>
+<!-- Schermata di Sconfitta -->
+<div id="gameLoseScreen" class="hidden">
+  <h1 class="game-over-text">GAME OVER</h1>
+  <button id="restartLoseBtn">Ricomincia</button>
 </div>
   <div class="progress-step current">
     <div class="circle"></div>
