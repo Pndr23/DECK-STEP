@@ -441,6 +441,5 @@ function showWinScreen() {
   if (totalWinnings) totalWinnings.textContent = "";
   if (screen) screen.classList.remove("hidden");
 }
-  });
 
 
