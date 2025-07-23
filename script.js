@@ -381,7 +381,7 @@ document.addEventListener("DOMContentLoaded", () => {
   languageSelect.value = currentLanguage;
   updateLanguage(); 
   aggiornaMoltiplicatori();
-    document.getElementById("restartLoseBtn").addEventListener("click", () => {
+    document.getElementById("restartBtn").addEventListener("click", () => {
     document.getElementById("gameOverScreen").classList.add("hidden");
     document.getElementById("gameArea").classList.remove("hidden");
     startGame(); 
