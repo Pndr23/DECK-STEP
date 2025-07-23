@@ -226,7 +226,7 @@ function addButton(text, checkFn) {
         if (result) {
           correctCount++;
            if (correctCount >= moltiplicatori.length) {
-          fineGioco();
+           showWinScreen();
             return;
           }
           tappe++;
@@ -247,6 +247,7 @@ function addButton(text, checkFn) {
           challengeButtons.innerHTML = "";
           restartBtn.classList.remove("hidden");
           withdrawBtn.classList.add("hidden");
+           showGameOverScreen();
         } else {
           currentCard = drawnCard;
           const isJackpot = tappe === 10;
@@ -419,4 +420,29 @@ function calcolaGuadagno(corretti) {
     guadagno *= moltiplicatori[i];
   }
   return guadagno;
+}
+function showWinScreen() {
+  const screen = document.getElementById("gameOverScreen");
+  const winText = document.getElementById("winText");
+  const gameOverText = document.getElementById("gameOverText");
+  const totalWinnings = document.getElementById("totalWinnings");
+
+  const vincitaFinale = calcolaGuadagno(correctCount);
+  
+  winText.classList.remove("hidden");
+  gameOverText.classList.add("hidden");
+  totalWinnings.textContent = `Hai vinto: €${vincitaFinale.toFixed(2)}`;
+  screen.classList.remove("hidden");
+}
+
+function showGameOverScreen() {
+  const screen = document.getElementById("gameOverScreen");
+  const winText = document.getElementById("winText");
+  const gameOverText = document.getElementById("gameOverText");
+  const totalWinnings = document.getElementById("totalWinnings");
+
+  winText.classList.add("hidden");
+  gameOverText.classList.remove("hidden");
+  totalWinnings.textContent = "";
+  screen.classList.remove("hidden");
 }
