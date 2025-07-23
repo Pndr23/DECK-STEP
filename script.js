@@ -417,13 +417,19 @@ function showWinScreen() {
   screen.classList.remove("hidden");
 }
 function showGameOverScreen() {
+  gameArea.classList.add("hidden");
+  gameSetup.classList.add("hidden");
   const screen = document.getElementById("gameOverScreen");
-  const winText = document.getElementById("winText");
-  const gameOverText = document.getElementById("gameOverText");
-  const totalWinnings = document.getElementById("totalWinnings");
-  winText.classList.add("hidden");
-  gameOverText.classList.remove("hidden");
-  totalWinnings.textContent = "";
   screen.classList.remove("hidden");
+  const gameOverText = document.querySelector(".game-over-text");
+  gameOverText.style.display = "block";
+  const victoryScreen = document.getElementById("victoryScreen");
+  if (victoryScreen) victoryScreen.classList.add("hidden");
+  const winText = document.getElementById("winText");
+  if (winText) winText.classList.add("hidden");
+  const totalWinnings = document.getElementById("totalWinnings");
+  if (totalWinnings) totalWinnings.textContent = "";
+  withdrawBtn.classList.add("hidden");
+  restartBtn.classList.add("hidden");
 }
 });
