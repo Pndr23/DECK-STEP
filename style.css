@@ -551,5 +551,26 @@ img {
     transform: rotateY(180deg);
   }
 }
+.animated-win-text {
+  font-size: 2em;
+  color: #ffd700; /* oro */
+  animation: pulseFinale 1.5s infinite;
+  text-align: center;
+  margin: 20px 0;
+}
 
+@keyframes pulseFinale {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
 
