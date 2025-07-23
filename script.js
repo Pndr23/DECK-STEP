@@ -186,9 +186,7 @@ function generateChallenge() {
   const label = selected.label[currentLanguage];
   challengeText.textContent = `${translate("challenge")}: ${label}`;
   challengeButtons.innerHTML = "";
-
   const lockedValue = currentCard.value;
-
   if (selected.key === "higherLower") {
     addButton(translate("higher"), (next) => next.value > lockedValue);
     addButton(translate("lower"), (next) => next.value < lockedValue);
@@ -207,7 +205,6 @@ function generateChallenge() {
     }
   }
 }
-
 function addButton(text, checkFn) {
   const btn = document.createElement("button");
   btn.textContent = text;
@@ -222,12 +219,9 @@ function addButton(text, checkFn) {
     setTimeout(() => {
       displayDrawnCard(drawnCard, false); 
       drawnImg.classList.add("card-flip");
-
       drawnImg.addEventListener("animationend", () => {
         drawnImg.classList.remove("card-flip");
-
         const result = checkFn(drawnCard);
-
         if (result) {
           correctCount++;
            if (correctCount >= moltiplicatori.length) {
@@ -243,12 +237,10 @@ function addButton(text, checkFn) {
             errorCount++;
           }
         }
-
         updateScore();
         updateProgress();
         updateJollyButton();
         aggiornaGuadagno(correctCount);
-
         if (errorCount >= 3) {
           challengeText.textContent = translate("lost");
           challengeButtons.innerHTML = "";
@@ -256,11 +248,9 @@ function addButton(text, checkFn) {
           withdrawBtn.classList.add("hidden");
         } else {
           currentCard = drawnCard;
-
           const isJackpot = tappe === 10;
           const isFirstTurn = correctCount === 1;
           const isUsingJolly = usedJolly;
-
           if (isFirstTurn || isUsingJolly || isJackpot) {
             setTimeout(() => {
               displayCurrentCard(currentCard);
@@ -280,7 +270,6 @@ function addButton(text, checkFn) {
       }, { once: true });
     },700);
   };
-
   challengeButtons.appendChild(btn);
 }
 function aggiornaGuadagno(corretti) {
@@ -293,7 +282,6 @@ function aggiornaGuadagno(corretti) {
   console.log("Guadagno calcolato:", guadagno);
   label.textContent = "+€" + guadagno.toFixed(2);
 }
-
 function updateLanguage() {
   document.querySelector("html").lang = currentLanguage;
   document.getElementById("gameTitle").textContent = translate("title");
@@ -326,7 +314,6 @@ function showShuffleAnimation(callback) {
     }, 500);
   }, 1000);
 }
-
 function translate(key) {
   const t = {
     it: {
@@ -400,7 +387,6 @@ function translate(key) {
   };
   return t[currentLanguage][key];
 }
-
 document.addEventListener("DOMContentLoaded", () => {
   currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
   languageSelect.value = currentLanguage;
@@ -409,7 +395,27 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
   aggiornaMoltiplicatori();
 });
+document.getElementById("withdrawFinalBtn").addEventListener("click", () => {
+  alert("💰 Vincita ritirata!");
+  location.reload(); // o eventualmente redirect a pagina iniziale
+});
+document.getElementById("restartFinalBtn").addEventListener("click", () => {
+  location.reload(); // ricarica tutto per ricominciare
+});
 function fineGioco() {
-  document.querySelectorAll(".answer-button").forEach(btn => btn.disabled = true);
-  alert("🎉 Complimenti! Hai completato tutte le tappe e vinto il jackpot!");
+  console.log("🎉 Fine del gioco!");
+  document.getElementById("gameArea").classList.add("hidden");
+  document.getElementById("gameSetup").classList.add("hidden");
+  const vincitaFinale = calcolaGuadagno(correctCount); // o guadagno, se già esiste
+  const gameOverScreen = document.getElementById("gameOverScreen");
+  gameOverScreen.classList.remove("hidden");
+  const totalWinnings = document.getElementById("totalWinnings");
+  totalWinnings.textContent = `Hai vinto: € ${vincitaFinale.toFixed(2)}`;
+}
+function calcolaGuadagno(corretti) {
+  let guadagno = puntataIniziale;
+  for (let i = 0; i < corretti && i < moltiplicatori.length; i++) {
+    guadagno *= moltiplicatori[i];
+  }
+  return guadagno;
 }
