@@ -199,7 +199,7 @@ function addButton(text, checkFn) {
   btn.classList.add("green-button");
   btn.style.color = "white";
   btn.onclick = () => {
-    console.log("clicked", text)
+    console.log("clicked", text);
     const drawnCard = drawCard(currentCard.value);
     const drawnImg = document.getElementById("drawnCardImg");
     displayDrawnCard(null, true);
@@ -211,10 +211,6 @@ function addButton(text, checkFn) {
         const result = checkFn(drawnCard);
         if (result) {
           correctCount++;
-           if (correctCount >= moltiplicatori.length) {
-           showWinScreen();
-            return;
-          }
           tappe++;
           if (correctCount % 3 === 0) jollyCount++;
         } else {
@@ -224,39 +220,44 @@ function addButton(text, checkFn) {
             errorCount++;
           }
         }
-        updateScore();
-        updateProgress();
-        updateJollyButton();
-        aggiornaGuadagno(correctCount);
         if (errorCount >= 3) {
           challengeText.textContent = translate("lost");
           challengeButtons.innerHTML = "";
           restartBtn.classList.remove("hidden");
           withdrawBtn.classList.add("hidden");
-           showGameOverScreen();
+          showGameOverScreen();
+          return;
+        }
+        if (tappe >= 10) {
+          fineGioco();
+          return;
+        }
+        updateScore();
+        updateProgress();
+        updateJollyButton();
+        aggiornaGuadagno(correctCount);
+        currentCard = drawnCard;
+        const isJackpot = tappe === 10;
+        const isFirstTurn = correctCount === 1;
+        const isUsingJolly = usedJolly;
+
+        if (isFirstTurn || isUsingJolly || isJackpot) {
+          setTimeout(() => {
+            displayCurrentCard(currentCard);
+            displayDrawnCard(null, true);
+            showShuffleAnimation(() => {
+              generateChallenge();
+            });
+          }, 2000);
         } else {
-          currentCard = drawnCard;
-          const isJackpot = tappe === 10;
-          const isFirstTurn = correctCount === 1;
-          const isUsingJolly = usedJolly;
-          if (isFirstTurn || isUsingJolly || isJackpot) {
-            setTimeout(() => {
-              displayCurrentCard(currentCard);
-              displayDrawnCard(null, true);
-              showShuffleAnimation(() => {
-                generateChallenge(); // Genera nuova sfida
-              });
-            }, 2000);
-          } else {
-            setTimeout(() => {
-              displayDrawnCard(null, true); // Ricopri
-              displayCurrentCard(currentCard);
-              generateChallenge(); // Nuova sfida
-            }, 1500);
-          }
+          setTimeout(() => {
+            displayDrawnCard(null, true);
+            displayCurrentCard(currentCard);
+            generateChallenge();
+          }, 1500);
         }
       }, { once: true });
-    },700);
+    }, 700);
   };
   challengeButtons.appendChild(btn);
 }
@@ -387,11 +388,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 function fineGioco() {
   console.log("🎉 Fine del gioco!");
-  document.getElementById("gameArea").classList.add("hidden");
-  document.getElementById("gameSetup").classList.add("hidden");
-  const vincitaFinale = calcolaGuadagno(correctCount);
+  gameArea.classList.add("hidden");
+  gameSetup.classList.add("hidden");
   const victoryScreen = document.getElementById("victoryScreen");
   victoryScreen.classList.remove("hidden");
+  const vincitaFinale = calcolaGuadagno(correctCount);
   const totalWinnings = document.getElementById("totalWinnings");
   totalWinnings.textContent = `Hai vinto: € ${vincitaFinale.toFixed(2)}`;
 }
@@ -419,17 +420,19 @@ function showWinScreen() {
 function showGameOverScreen() {
   gameArea.classList.add("hidden");
   gameSetup.classList.add("hidden");
-  const screen = document.getElementById("gameOverScreen");
-  screen.classList.remove("hidden");
+  const gameOverScreen = document.getElementById("gameOverScreen");
+  gameOverScreen.classList.remove("hidden");
   const gameOverText = document.querySelector(".game-over-text");
-  gameOverText.style.display = "block";
+  if (gameOverText) {
+    gameOverText.style.display = "block";
+  }
   const victoryScreen = document.getElementById("victoryScreen");
   if (victoryScreen) victoryScreen.classList.add("hidden");
   const winText = document.getElementById("winText");
   if (winText) winText.classList.add("hidden");
   const totalWinnings = document.getElementById("totalWinnings");
   if (totalWinnings) totalWinnings.textContent = "";
-  withdrawBtn.classList.add("hidden");
-  restartBtn.classList.add("hidden");
+  if (typeof withdrawBtn !== "undefined") withdrawBtn.classList.add("hidden");
+  if (typeof restartBtn !== "undefined") restartBtn.classList.add("hidden");
 }
 });
