@@ -426,4 +426,4 @@ function showGameOverScreen() {
   totalWinnings.textContent = "";
   screen.classList.remove("hidden");
 }
-
+});
