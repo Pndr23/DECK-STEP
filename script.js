@@ -209,7 +209,9 @@ function showGameOverScreen() {
   if (winText) winText.classList.add("hidden");
   if (totalWinnings) totalWinnings.textContent = "";
   withdrawBtn.classList.add("hidden");
-  restartBtn.classList.remove("hidden"); // mostra solo questo pulsante
+  restartBtn.classList.remove("hidden"); 
+  if (totalWinnings) totalWinnings.textContent = "";
+  if (screen) screen.classList.remove("hidden");// mostra solo questo pulsante
   }
 function addButton(text, checkFn) {
   const btn = document.createElement("button");
@@ -434,8 +436,6 @@ function showWinScreen() {
   if(gameOverScreen) gameOverScreen.classList.add("hidden");
   totalWinnings.textContent = `Hai vinto: €${vincitaFinale.toFixed(2)}`;
   screen.classList.remove("hidden");
-  if (totalWinnings) totalWinnings.textContent = "";
-  if (screen) screen.classList.remove("hidden");
   }
   document.getElementById("restartBtn").addEventListener("click", () => {
   location.reload();
