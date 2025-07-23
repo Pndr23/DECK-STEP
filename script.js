@@ -98,6 +98,7 @@ withdrawBtn.addEventListener("click", () => {
 });
 
 function resetGame() {
+  document.getElementById("gameOverScreen").classList.add("hidden");
   document.getElementById("drawnCardImg").src = "";
   correctCount = 0;
   errorCount = 0;
