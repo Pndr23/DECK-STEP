@@ -788,14 +788,13 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("gameArea").classList.remove("hidden");
     startGame();
   });
-});
 function fineGioco() {
   console.log("🎉 Fine del gioco!");
   document.getElementById("gameArea").classList.add("hidden");
   document.getElementById("gameSetup").classList.add("hidden");
-  const vincitaFinale = calcolaGuadagno(correctCount); // o guadagno, se già esiste
+  const vincitaFinale = calcolaGuadagno(correctCount);
   const victoryScreen = document.getElementById("victoryScreen");
-  gameOverScreen.classList.remove("hidden");
+  victoryScreen.classList.remove("hidden");
   const totalWinnings = document.getElementById("totalWinnings");
   totalWinnings.textContent = `Hai vinto: € ${vincitaFinale.toFixed(2)}`;
 }
@@ -811,9 +810,12 @@ function showWinScreen() {
   const winText = document.getElementById("winText");
   const victoryText = document.getElementById("victoryText");
   const totalWinnings = document.getElementById("totalWinnings");
-  const vincitaFinale = calcolaGuadagno(correctCount); 
+  const gameOverText = document.getElementById("gameOverText"); 
+  const gameOverScreen = document.getElementById("gameOverScreen");
+  const vincitaFinale = calcolaGuadagno(correctCount);
   winText.classList.remove("hidden");
-  gameOverText.classList.add("hidden");
+  if(gameOverText) gameOverText.classList.add("hidden");
+  if(gameOverScreen) gameOverScreen.classList.add("hidden");
   totalWinnings.textContent = `Hai vinto: €${vincitaFinale.toFixed(2)}`;
   screen.classList.remove("hidden");
 }
@@ -827,47 +829,4 @@ function showGameOverScreen() {
   totalWinnings.textContent = "";
   screen.classList.remove("hidden");
 }
-function mostraGameOver() {
-  document.getElementById("gameArea").classList.add("hidden"); // nasconde l'area di gioco
-  document.getElementById("gameOverScreen").classList.remove("hidden"); // mostra il game over
-  }
-function fineGioco() {
-  console.log("🎉 Fine del gioco!");
-  document.getElementById("gameArea").classList.add("hidden");
-  document.getElementById("gameSetup").classList.add("hidden");
-  const vincitaFinale = calcolaGuadagno(correctCount); // o guadagno, se già esiste
-  const victoryScreen = document.getElementById("victoryScreen");
-  gameOverScreen.classList.remove("hidden");
-  const totalWinnings = document.getElementById("totalWinnings");
-  totalWinnings.textContent = `Hai vinto: € ${vincitaFinale.toFixed(2)}`;
-}
-function calcolaGuadagno(corretti) {
-  let guadagno = puntataIniziale;
-  for (let i = 0; i < corretti && i < moltiplicatori.length; i++) {
-    guadagno *= moltiplicatori[i];
-  }
-  return guadagno;
-}
-function showWinScreen() {
-  const screen = document.getElementById("victoryScreen");
-  const winText = document.getElementById("winText");
-  const victoryText = document.getElementById("victoryText");
-  const totalWinnings = document.getElementById("totalWinnings");
-  const vincitaFinale = calcolaGuadagno(correctCount); 
-  winText.classList.remove("hidden");
-  gameOverText.classList.add("hidden");
-  totalWinnings.textContent = `Hai vinto: €${vincitaFinale.toFixed(2)}`;
-  screen.classList.remove("hidden");
-}
-function showGameOverScreen() {
-  const screen = document.getElementById("gameOverScreen");
-  const winText = document.getElementById("winText");
-  const gameOverText = document.getElementById("gameOverText");
-  const totalWinnings = document.getElementById("totalWinnings");
-  winText.classList.add("hidden");
-  gameOverText.classList.remove("hidden");
-  totalWinnings.textContent = "";
-  screen.classList.remove("hidden");
-}
-
 
