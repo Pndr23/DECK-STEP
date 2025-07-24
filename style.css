@@ -569,18 +569,21 @@ img {
     opacity: 0.8;
   }
 #gameOverScreen {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.85);
-  color: white;
-  padding: 40px;
-  border-radius: 20px;
-  text-align: center;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8); /* sfondo scuro trasparente */
   z-index: 9999;
-  animation: zoomIn 0.6s ease;
-  box-shadow: 0 0 20px #000;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  font-size: 3em;
+  font-weight: bold;
+  text-align: center;
 }
 #gameOverScreen.hidden {
   display: none;
@@ -604,12 +607,9 @@ img {
   background-color: #cc0000;
 }
 @keyframes zoomIn {
-  from {
-    transform: scale(0.3) translate(-50%, -50%);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1) translate(-50%, -50%);
-    opacity: 1;
-  }
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+#gameOverText {
+  animation: zoomIn 0.8s ease forwards;
 }
