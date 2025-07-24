@@ -568,38 +568,48 @@ img {
     transform: scale(1.1);
     opacity: 0.8;
   }
-@keyframes gameOverZoom {
-  0% {
-    transform: scale(0.5);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
 #gameOverScreen {
-  position: fixed;      /* sopra tutto */
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.7);  /* sfondo scuro semi-trasparente */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;  /* verticale */
-  align-items: center;      /* orizzontale */
-  z-index: 9999;            /* sopra tutto */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  z-index: 9999;
+  animation: zoomIn 0.6s ease;
+  box-shadow: 0 0 20px #000;
+}
+#gameOverScreen.hidden {
+  display: none;
 }
 #gameOverText {
-  font-family: 'Press Start 2P', cursive;
-  font-size: 40px;
-  color: white;
+  font-size: 3em;
+  font-weight: bold;
   margin-bottom: 20px;
-  animation: zoomIn 0.5s ease forwards;
 }
 #restartBtn {
-  padding: 10px 20px;
-  font-size: 18px;
+  font-size: 1.2em;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 10px;
+  background-color: #ff3333;
+  color: white;
   cursor: pointer;
+  transition: background-color 0.3s;
+}
+#restartBtn:hover {
+  background-color: #cc0000;
+}
+@keyframes zoomIn {
+  from {
+    transform: scale(0.3) translate(-50%, -50%);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translate(-50%, -50%);
+    opacity: 1;
+  }
 }
