@@ -406,6 +406,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("gameArea").classList.remove("hidden");
     startGame(); 
   });
+   });
 function fineGioco() {
   console.log("🎉 Fine del gioco!");
   gameArea.classList.add("hidden");
