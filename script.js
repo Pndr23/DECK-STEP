@@ -194,25 +194,18 @@ function generateChallenge() {
   }
 }
 function showGameOverScreen() {
-  gameArea.classList.add("hidden");
-  gameSetup.classList.add("hidden");
   const screen = document.getElementById("gameOverScreen");
-  const gameOverText = document.querySelector(".game-over-text");
-  const victoryScreen = document.getElementById("victoryScreen");
   const winText = document.getElementById("winText");
+  const gameOverText = document.getElementById("gameOverText");
   const totalWinnings = document.getElementById("totalWinnings");
-  if (screen) screen.classList.remove("hidden");
-  if (gameOverText) {
-    gameOverText.style.display = "block"; // forza visibilità
-  }
-  if (victoryScreen) victoryScreen.classList.add("hidden");
   if (winText) winText.classList.add("hidden");
-  if (totalWinnings) totalWinnings.textContent = "";
-  withdrawBtn.classList.add("hidden");
-  restartBtn.classList.remove("hidden"); 
-  if (totalWinnings) totalWinnings.textContent = "";
-  if (screen) screen.classList.remove("hidden");// mostra solo questo pulsante
+  if (gameOverText) {
+    gameOverText.classList.remove("hidden");
+    gameOverText.style.display = "block";
   }
+  if (totalWinnings) totalWinnings.textContent = "";
+  if (screen) screen.classList.remove("hidden");
+}
 function addButton(text, checkFn) {
   const btn = document.createElement("button");
   btn.textContent = text;
@@ -249,6 +242,7 @@ function addButton(text, checkFn) {
           return;
         }
         if (tappe + 1 >= 10)  {
+          showWinScreen();
           fineGioco();
           return;
         }
