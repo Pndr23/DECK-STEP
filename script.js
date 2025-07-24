@@ -196,13 +196,13 @@ function generateChallenge() {
 function showGameOverScreen() {
   const screen = document.getElementById("gameOverScreen");
   const gameOverText = document.getElementById("gameOverText");
+  gameOverText.textContent = translate("lost") || "Hai perso!";
+  screen.style.display = "flex";
+  screen.classList.remove("hidden");
   const gameArea = document.getElementById("gameArea");
   const gameSetup = document.getElementById("gameSetup");
-  gameOverText.textContent = translate("lost") || "Hai perso!";
-  screen.classList.remove("hidden");
-  screen.classList.add("zoom-in");
-  gameArea.classList.add("hidden");
-  gameSetup.classList.add("hidden");
+  if (gameArea) gameArea.classList.add("hidden");
+  if (gameSetup) gameSetup.classList.add("hidden");
 }
 function addButton(text, checkFn) {
   const btn = document.createElement("button");
