@@ -568,53 +568,46 @@ img {
     transform: scale(1.1);
     opacity: 0.8;
   }
-  .game-over-text {
-  font-family: 'Arial Black', Arial, sans-serif;
-  font-size: 6rem;
-  color: #111; /* testo scuro */
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 0.3em;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  text-shadow:
-    0 0 5px #fff,
-    0 0 10px #fff,
-    0 0 20px #fff,
-    0 0 30px #fff,
-    0 0 40px #fff;
-  animation: pulseGlow 1.5s ease-in-out infinite alternate;
-  pointer-events: none; /* passa clic sotto */
-  z-index: 1000;
-}
-
-@keyframes pulseGlow {
+@keyframes gameOverZoom {
   0% {
-    color: #111;
-    text-shadow:
-      0 0 5px #fff,
-      0 0 10px #fff,
-      0 0 15px #fff;
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
+    transform: scale(0.5);
+    opacity: 0;
   }
   100% {
-    color: #222;
-    text-shadow:
-      0 0 12px #fff,
-      0 0 20px #fff,
-      0 0 30px #fff,
-      0 0 40px #fff;
-    transform: translate(-50%, -50%) scale(1.1);
-    opacity: 0.85;
+    transform: scale(1);
+    opacity: 1;
   }
 }
-
-
+#gameOverScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+#gameOverText {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 4rem;
+  color: #FF003C;
+  text-shadow: 2px 2px 0 #000, 4px 4px 0 #fff;
+  animation: gameOverZoom 0.8s ease-out;
+  margin-bottom: 30px;
+}
+#restartBtn {
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  background-color: #FF003C;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  animation: gameOverZoom 0.8s ease-out;
+  animation-delay: 0.3s;
+  animation-fill-mode: both;
+}
