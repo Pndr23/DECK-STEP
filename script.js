@@ -195,16 +195,13 @@ function generateChallenge() {
 }
 function showGameOverScreen() {
   const screen = document.getElementById("gameOverScreen");
-  const winText = document.getElementById("winText");
   const gameOverText = document.getElementById("gameOverText");
-  const totalWinnings = document.getElementById("totalWinnings");
-  if (winText) winText.classList.add("hidden");
-  if (gameOverText) {
-    gameOverText.classList.remove("hidden");
-    gameOverText.style.display = "block";
-  }
-  if (totalWinnings) totalWinnings.textContent = "";
-  if (screen) screen.classList.remove("hidden");
+  gameOverText.textContent = translate("lost") || "Hai perso!";
+  screen.classList.remove("hidden");
+  const gameArea = document.getElementById("gameArea");
+  const gameSetup = document.getElementById("gameSetup");
+  if (gameArea) gameArea.classList.add("hidden");
+  if (gameSetup) gameSetup.classList.add("hidden");
 }
 function addButton(text, checkFn) {
   const btn = document.createElement("button");
