@@ -198,7 +198,6 @@ function showGameOverScreen() {
   const gameOverText = document.getElementById("gameOverText");
   if (screen) {
     screen.classList.remove("hidden");
-    screen.style.display = "flex";
   }
   if (gameOverText) {
     gameOverText.textContent = translate("lost") || "Hai perso!";
