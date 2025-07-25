@@ -435,4 +435,7 @@ function showWinScreen() {
   document.getElementById("restartBtn").addEventListener("click", () => {
   location.reload();
 });
+window.onload = () => {
+  showGameOverScreen();
+};
 
