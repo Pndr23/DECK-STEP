@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
@@ -6,7 +6,6 @@
   <title>DECK STEP</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <select id="languageSelect" onchange="changeLanguage()" style="position:absolute; top:10px; right:10px; z-index:1000;">
@@ -46,98 +45,101 @@
       </div>
     </div>
 
-  <div id="gameArea" class="hidden">
-  <p id="progressCounter">Tappa: 0</p>
-  <div id="progressPath" class="progress-path">
-  <div class="progress-step active">
-    <div class="circle"></div>
-    <div class="multiplier-label">x1</div>
-  </div>
-   <div id="victoryScreen" class="hidden">
-  <h1 class="animated-win-text">🎉 Hai vinto!</h1>
-  <p id="totalWinnings" class="pulse"></p>
-  <button id="withdrawFinalBtn">Ritira</button>
-  <button id="restartFinalBtn">Ricomincia</button>
-</div>
-<!-- Schermata di Sconfitta -->
+    <div id="gameArea" class="hidden">
+      <p id="progressCounter">Tappa: 0</p>
+      <div id="progressPath" class="progress-path">
+        <div class="progress-step active">
+          <div class="circle"></div>
+          <div class="multiplier-label">x1</div>
+        </div>
+        <div class="progress-step current">
+          <div class="circle"></div>
+          <div class="multiplier-label">x1.2</div>
+        </div>
+        <div class="progress-step future">
+          <div class="circle"></div>
+          <div class="multiplier-label">x1.5</div>
+        </div>
+        <div class="progress-step future">
+          <div class="circle"></div>
+          <div class="multiplier-label">x2</div>
+        </div>
+        <div class="progress-step future">
+          <div class="circle"></div>
+          <div class="multiplier-label">x3</div>
+        </div>
+        <div class="progress-step future">
+          <div class="circle"></div>
+          <div class="multiplier-label">x5</div>
+        </div>
+        <div class="progress-step future">
+          <div class="circle"></div>
+          <div class="multiplier-label">x8</div>
+        </div>
+        <div class="progress-step future">
+          <div class="circle"></div>
+          <div class="multiplier-label">x12</div>
+        </div>
+        <div class="progress-step future">
+          <div class="circle"></div>
+          <div class="multiplier-label jackpot">x100</div>
+        </div>
+      </div>
 
-  <div class="progress-step current">
-    <div class="circle"></div>
-    <div class="multiplier-label">x1.2</div>
-  </div>
-  <div class="progress-step future">
-    <div class="circle"></div>
-    <div class="multiplier-label">x1.5</div>
-  </div>
-  <div class="progress-step future">
-    <div class="circle"></div>
-    <div class="multiplier-label">x2</div>
-  </div>
-  <div class="progress-step future">
-    <div class="circle"></div>
-    <div class="multiplier-label">x3</div>
-  </div>
-  <div class="progress-step future">
-    <div class="circle"></div>
-    <div class="multiplier-label">x5</div>
-  </div>
-  <div class="progress-step future">
-    <div class="circle"></div>
-    <div class="multiplier-label">x8</div>
-  </div>
-  <div class="progress-step future">
-    <div class="circle"></div>
-    <div class="multiplier-label">x12</div>
-  </div>
-  <div class="progress-step future">
-    <div class="circle"></div>
-    <div class="multiplier-label">x40</div>
-  </div>
-  <div class="progress-step future">
-    <div class="circle"></div>
-    <div class="multiplier-label jackpot">x100</div>
-  </div>
-</div>
-     <div id="scorePanel">
-  <div class="top-row">
-    <span id="correctLabel">✅ Corrette:</span> <span id="correctCount">0</span>
-    <span id="errorLabel">❌ Errori:</span> <span id="errorCount">0</span>
-  </div>
-  <div class="jolly-row">
-    <span id="jollyLabel">🃏 Jolly:</span> <span id="jollyCount">0</span>
-  </div>
-</div>
-<div id="gainLabel" class="gain-label"></div>
+      <div id="scorePanel">
+        <div class="top-row">
+          <span id="correctLabel">✅ Corrette:</span> <span id="correctCount">0</span>
+          <span id="errorLabel">❌ Errori:</span> <span id="errorCount">0</span>
+        </div>
+        <div class="jolly-row">
+          <span id="jollyLabel">🃏 Jolly:</span> <span id="jollyCount">0</span>
+        </div>
+      </div>
+
+      <div id="gainLabel" class="gain-label"></div>
       <button id="useJollyBtn" class="hidden">🃏 Usa Jolly</button>
-   <button id="withdrawBtn" class="hidden" type="button">
-  🏁 <span id="withdrawLabel">RITIRA</span>
-</button>
+      <button id="withdrawBtn" class="hidden" type="button">
+        🏁 <span id="withdrawLabel">RITIRA</span>
+      </button>
 
-     <div id="cardDisplay" style="display: flex; justify-content: center; gap: 20px; align-items: center;">
-  <div>
-    <p id="currentCardLabel">Carta attuale:</p>
-    <img id="currentCardImg" src="" alt="Carta attuale" />
+      <div id="cardDisplay" style="display: flex; justify-content: center; gap: 20px; align-items: center;">
+        <div>
+          <p id="currentCardLabel">Carta attuale:</p>
+          <img id="currentCardImg" src="" alt="Carta attuale" />
+        </div>
+        <div>
+          <p id="drawnCardLabel">Carta pescata:</p>
+          <div class="card-container">
+            <img id="drawnCardImg" src="cards/card_back.png" alt="Carta coperta" />
+          </div>
+        </div>
+      </div>
+
+      <div id="shuffleAnimation" class="fullscreen-shuffle hidden">
+        <img src="shuffle_cards.gif" alt="Shuffle Animation" id="shuffleGif" />
+      </div>
+
+      <div id="challengeArea">
+        <p id="challengeText">Sfida in corso...</p>
+        <div id="challengeButtons"></div>
+      </div>
+    </div> <!-- fine #gameArea -->
+  </div> <!-- fine .container -->
+
+  <!-- Schermata di Vittoria -->
+  <div id="victoryScreen" class="hidden">
+    <h1 class="animated-win-text">🎉 Hai vinto!</h1>
+    <p id="totalWinnings" class="pulse"></p>
+    <button id="withdrawFinalBtn">Ritira</button>
+    <button id="restartFinalBtn">Ricomincia</button>
   </div>
- <div>
-  <p id="drawnCardLabel">Carta pescata:</p>
-  <div class="card-container">
-    <img id="drawnCardImg" src="cards/card_back.png" alt="Carta coperta" />
-  </div>
-</div>
-</div>
-<div id="shuffleAnimation" class="fullscreen-shuffle hidden">
-  <img src="shuffle_cards.gif" alt="Shuffle Animation" id="shuffleGif" />
-</div>
-<div id="challengeArea">
-  <p id="challengeText">Sfida in corso...</p>
-  <div id="challengeButtons"></div>
-</div>
-    </div> 
-  </div>
+
+  <!-- Schermata di Sconfitta -->
   <div id="gameOverScreen" class="hidden">
-  <div id="gameOverText">Hai perso!</div>
- <button id="restartBtn">Ricomincia</button>
-</div>
-<script src="script.js"></script>
+    <div id="gameOverText">Hai perso!</div>
+    <button id="restartBtn">Ricomincia</button>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
