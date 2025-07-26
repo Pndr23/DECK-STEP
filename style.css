@@ -584,39 +584,44 @@ img {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.85);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 10000;
+  z-index: 9999;
   font-family: 'Press Start 2P', cursive;
   color: white;
   text-align: center;
   gap: 2rem;
   animation: zoomIn 0.6s ease-out;
+  padding: 2rem;
+  box-sizing: border-box;
 }
+
 #gameOverScreen.hidden {
   display: none;
 }
+
 #gameOverText {
   font-size: 2.5rem;
   text-shadow: 3px 3px 0 #ff0000, 6px 6px 0 #000000;
   color: yellow;
   animation: zoomIn 0.6s ease-out;
 }
-#restartBtn:hover {
-  background-color: #ff2222;
-}
+
 #restartBtn {
-  padding: 10px 20px;
-  font-size: 1rem;
-  font-family: 'Press Start 2P', sans-serif;
-  background-color: #ff5555;
-  color: white;
+  background: linear-gradient(to top, #d18b00, #ffcc00);
   border: none;
-  border-radius: 10px;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-family: 'Press Start 2P', cursive;
   cursor: pointer;
-  transition: background-color 0.3s;
+  border-radius: 10px;
+  box-shadow: 3px 3px 10px #000;
+  transition: transform 0.2s ease;
 }
 
+#restartBtn:hover {
+  transform: scale(1.05);
+}
