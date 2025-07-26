@@ -240,7 +240,7 @@ function addButton(text, checkFn) {
           showGameOverScreen();
           return;
         }
-        if (tappe + 1 >= 10)  {
+        if (tappe >= 10)  {
           showWinScreen();
           fineGioco();
           return;
