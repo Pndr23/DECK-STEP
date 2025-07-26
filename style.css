@@ -558,26 +558,7 @@ img {
   text-align: center;
   margin: 20px 0;
 }
-
-@keyframes pulseFinale {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 0.8;
-  }
-  @keyframes zoomIn {
-  from {
-    transform: scale(0.5);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-
+#gameOverScreen {
 position: fixed;
   top: 0;
   left: 0;
@@ -620,5 +601,5 @@ position: fixed;
 #restartBtn:hover {
   transform: scale(1.05);
 }
-}
+
 
