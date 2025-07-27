@@ -12,15 +12,12 @@
     <option value="it">🇮🇹 Italiano</option>
     <option value="en">🇬🇧 English</option>
   </select>
-
   <div class="container">
     <h1 id="gameTitle">Deck Step</h1>
-
     <div id="rulesLabel" class="rules-toggle">📜 Regole</div>
     <div id="rulesPanel" class="hidden">
       <!-- Contenuto dinamico -->
     </div>
-
     <div id="gameSetup" class="setup">
       <label for="bet" id="betLabel">Puntata:</label>
       <select id="bet">
@@ -31,20 +28,17 @@
         <option value="2">€2</option>
         <option value="5">€5</option>
       </select>
-
       <label for="risk" id="riskLabel">Modalità rischio:</label>
       <select id="risk">
         <option value="easy">Facile</option>
         <option value="medium">Media</option>
         <option value="hard">Difficile</option>
       </select>
-
       <button id="startButton">🎮 Inizia la partita</button>
       <div style="margin-top: 10px;">
         <span id="pointsLabel">🏆 Punti:</span> <span id="scoreValue">0</span>
       </div>
     </div>
-
     <div id="gameArea" class="hidden">
       <p id="progressCounter">Tappa: 0</p>
       <div id="progressPath" class="progress-path">
@@ -84,8 +78,11 @@
           <div class="circle"></div>
           <div class="multiplier-label jackpot">x100</div>
         </div>
+        <div class="progress-step future">
+        <div class="circle"></div>
+        <div class="multiplier-label">x200</div>
+</div>
       </div>
-
       <div id="scorePanel">
         <div class="top-row">
           <span id="correctLabel">✅ Corrette:</span> <span id="correctCount">0</span>
@@ -101,7 +98,6 @@
       <button id="withdrawBtn" class="hidden" type="button">
         🏁 <span id="withdrawLabel">RITIRA</span>
       </button>
-
       <div id="cardDisplay" style="display: flex; justify-content: center; gap: 20px; align-items: center;">
         <div>
           <p id="currentCardLabel">Carta attuale:</p>
@@ -114,7 +110,6 @@
           </div>
         </div>
       </div>
-
       <div id="shuffleAnimation" class="fullscreen-shuffle hidden">
         <img src="shuffle_cards.gif" alt="Shuffle Animation" id="shuffleGif" />
       </div>
