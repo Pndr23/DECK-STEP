@@ -87,14 +87,12 @@ languageSelect.addEventListener("change", () => {
   updateLanguage();
 });
 withdrawBtn.addEventListener("click", () => {
-  // Nascondi UI gioco
   document.getElementById("gameContainer").classList.add("hidden");
   document.getElementById("gameOverScreen")?.classList.add("hidden");
   document.getElementById("victoryScreen")?.classList.add("hidden");
-  // Popola withdrawScreen
-  document.getElementById("withdrawText").textContent = translate("withdrawnTitle") || "Hai ritirato!";
-  document.getElementById("withdrawWinnings").textContent = `Hai incassato: €${calcolaGuadagno(correctCount).toFixed(2)}`;
-  // Mostra schermata di ritiro
+  document.getElementById("withdrawText").textContent = "Hai ritirato!";
+  document.getElementById("withdrawWinnings").textContent =
+    `Hai incassato: €${calcolaGuadagno(correctCount).toFixed(2)}`;
   document.getElementById("withdrawScreen").classList.remove("hidden");
 });
 function resetGame() {
@@ -350,12 +348,9 @@ function showWithdrawScreen() {
   const winText = document.getElementById("winText");
   const totalWinnings = document.getElementById("totalWinnings");
   const gameOverScreen = document.getElementById("gameOverScreen");
-
   if (gameOverScreen) gameOverScreen.classList.add("hidden");
-
   winText.textContent = "Hai ritirato!";
   totalWinnings.textContent = `Hai incassato: €${calcolaGuadagno(correctCount).toFixed(2)}`;
-
   screen.classList.remove("hidden");
   restartBtn.classList.remove("hidden");
 }
