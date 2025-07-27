@@ -105,6 +105,14 @@ function resetGame() {
   updateProgress();
   updateJollyButton();
 }
+function updateJollyDisplay() {
+  document.getElementById("jollyCount").textContent = jollyCount;
+  if (jollyCount > 0) {
+    document.getElementById("useJollyBtn").classList.remove("hidden");
+  } else {
+    document.getElementById("useJollyBtn").classList.add("hidden");
+  }
+}
 function updateScore() {
   document.getElementById("scoreValue").innerText = correctCount;
   correctCountSpan.textContent = correctCount;
@@ -238,6 +246,16 @@ if (correctStreak === 3) {
             jollyCount--;
           } else {
             errorCount++;
+            if (jollyCount > 0 && errorCount === 3 && !jollyUsedInThisTurn) {
+  // Uso automatico del jolly
+  jollyCount--;
+  errorCount--; // annulla l'errore che avrebbe causato il game over
+  updateJollyDisplay();
+  jollyUsedInThisTurn = true;
+  alert("Jolly usato automaticamente!");
+} else {
+  correctStreak = 0; // interrompe la serie
+}
           }
         }
         if (errorCount >= 3) {
@@ -442,5 +460,12 @@ function showWinScreen() {
   document.getElementById("restartBtn").addEventListener("click", () => {
   location.reload();
 });
-
+document.getElementById("useJollyBtn").addEventListener("click", () => {
+  if (jollyCount > 0 && !jollyUsedInThisTurn) {
+    jollyCount--;
+    updateJollyDisplay();
+    jollyUsedInThisTurn = true;
+    alert("Hai usato il Jolly manualmente!");
+  }
+});
 
