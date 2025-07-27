@@ -87,17 +87,15 @@ languageSelect.addEventListener("change", () => {
   updateLanguage();
 });
 withdrawBtn.addEventListener("click", () => {
-  const withdrawScreen = document.getElementById("withdrawScreen");
-  const withdrawText = document.getElementById("withdrawText");
-  const withdrawWinnings = document.getElementById("withdrawWinnings");
-  // Nascondi tutto il resto
+  // Nascondi UI gioco
   document.getElementById("gameContainer").classList.add("hidden");
-  document.getElementById("victoryScreen")?.classList.add("hidden");
   document.getElementById("gameOverScreen")?.classList.add("hidden");
+  document.getElementById("victoryScreen")?.classList.add("hidden");
+  // Popola withdrawScreen
+  document.getElementById("withdrawText").textContent = translate("withdrawnTitle") || "Hai ritirato!";
+  document.getElementById("withdrawWinnings").textContent = `Hai incassato: €${calcolaGuadagno(correctCount).toFixed(2)}`;
   // Mostra schermata di ritiro
-  withdrawText.textContent = "Hai ritirato!";
-  withdrawWinnings.textContent = `Hai incassato: €${calcolaGuadagno(correctCount).toFixed(2)}`;
-  withdrawScreen.classList.remove("hidden");
+  document.getElementById("withdrawScreen").classList.remove("hidden");
 });
 function resetGame() {
   document.getElementById("gameOverScreen").classList.add("hidden");
