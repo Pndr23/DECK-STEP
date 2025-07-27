@@ -87,9 +87,17 @@ languageSelect.addEventListener("change", () => {
   updateLanguage();
 });
 withdrawBtn.addEventListener("click", () => {
-  challengeButtons.innerHTML = "";
-  withdrawBtn.classList.add("hidden");
-  showWithdrawScreen(); // ← mostra la schermata finale
+  const withdrawScreen = document.getElementById("withdrawScreen");
+  const withdrawText = document.getElementById("withdrawText");
+  const withdrawWinnings = document.getElementById("withdrawWinnings");
+  // Nascondi tutto il resto
+  document.getElementById("gameContainer").classList.add("hidden");
+  document.getElementById("victoryScreen")?.classList.add("hidden");
+  document.getElementById("gameOverScreen")?.classList.add("hidden");
+  // Mostra schermata di ritiro
+  withdrawText.textContent = "Hai ritirato!";
+  withdrawWinnings.textContent = `Hai incassato: €${calcolaGuadagno(correctCount).toFixed(2)}`;
+  withdrawScreen.classList.remove("hidden");
 });
 function resetGame() {
   document.getElementById("gameOverScreen").classList.add("hidden");
@@ -479,5 +487,8 @@ document.getElementById("useJollyBtn").addEventListener("click", () => {
     jollyUsedInThisTurn = true;
     alert("Hai usato il Jolly manualmente!");
   }
+});
+document.getElementById("restartBtnWithdraw").addEventListener("click", () => {
+  location.reload(); // ricarica il gioco da zero
 });
 
