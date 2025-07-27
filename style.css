@@ -625,9 +625,75 @@ position: fixed;
   transition: transform 0.2s ease;
   position: center; 
 }
-
 #restartBtn:hover {
   transform: scale(1.05);
+}
+/* Schermata vittoria centrata fullscreen */
+#victoryScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at center, #000000dd 0%, #000000f5 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+/* Testo vittoria con glow oro */
+.victory-glow-text {
+  font-size: 4rem;
+  color: #FFD700;
+  text-shadow:
+    0 0 10px #FFD700,
+    0 0 20px #FFA500,
+    0 0 30px #FF8C00,
+    0 0 40px #FFD700;
+  animation: glowPulse 2s infinite alternate;
+  font-family: 'Press Start 2P', cursive;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* Effetto pulsazione glow */
+@keyframes glowPulse {
+  from {
+    text-shadow:
+      0 0 10px #FFD700,
+      0 0 20px #FFA500,
+      0 0 30px #FF8C00,
+      0 0 40px #FFD700;
+    transform: scale(1);
+  }
+  to {
+    text-shadow:
+      0 0 20px #FFFF33,
+      0 0 40px #FF9900,
+      0 0 60px #FF8C00,
+      0 0 80px #FFD700;
+    transform: scale(1.05);
+  }
+}
+/* Bottone Ricomincia brillante */
+.restart-glow-btn {
+  padding: 15px 30px;
+  font-size: 1.5rem;
+  font-family: 'Press Start 2P', cursive;
+  color: white;
+  background: linear-gradient(45deg, #ff9900, #ffcc00);
+  border: 3px solid #cc8400;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 0 15px #ffcc00;
+  transition: all 0.3s ease;
+}
+
+.restart-glow-btn:hover {
+  background: linear-gradient(45deg, #ffcc00, #ff9900);
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #ffcc00, 0 0 40px #ff9900;
 }
 
 
