@@ -242,7 +242,7 @@ img {
 .progress-path {
   display: flex;
   justify-content: center; /* o center */
-  gap: 8px;
+  gap: 6px;
   position: relative;
    overflow: visible;
   padding-top: 5px;       /* 🔹 Alza tutto il blocco */
