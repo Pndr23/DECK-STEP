@@ -88,10 +88,8 @@ languageSelect.addEventListener("change", () => {
 });
 withdrawBtn.addEventListener("click", () => {
   challengeButtons.innerHTML = "";
-  const message = translate("withdrawn").replace("{points}", correctCount);
-  challengeText.textContent = message;
   withdrawBtn.classList.add("hidden");
-  restartBtn.classList.remove("hidden");
+  showWithdrawScreen(); // ← mostra la schermata finale
 });
 function resetGame() {
   document.getElementById("gameOverScreen").classList.add("hidden");
@@ -147,6 +145,20 @@ function startGame() {
   displayCurrentCard(currentCard);
   displayDrawnCard(null, true);
   generateChallenge();
+}
+function showWithdrawScreen() {
+  const screen = document.getElementById("victoryScreen");
+  const winText = document.getElementById("winText");
+  const totalWinnings = document.getElementById("totalWinnings");
+  const gameOverScreen = document.getElementById("gameOverScreen");
+
+  if (gameOverScreen) gameOverScreen.classList.add("hidden");
+
+  winText.textContent = "Hai ritirato!";
+  totalWinnings.textContent = `Hai incassato: €${calcolaGuadagno(correctCount).toFixed(2)}`;
+
+  screen.classList.remove("hidden");
+  restartBtn.classList.remove("hidden");
 }
 function drawCard(avoidValue = null) {
   const suitsLetters = ['C', 'P', 'F', 'Q'];
