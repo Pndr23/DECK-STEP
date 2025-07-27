@@ -233,15 +233,15 @@ function addButton(text, checkFn) {
         if (result) {
           correctCount++;
           correctStreak++;
-if (correctStreak === 3) {
+  if (correctStreak === 3 && jollyCount === 0) {
   jollyCount++;
   correctStreak = 0;
   updateJollyDisplay();
   document.getElementById("useJollyBtn").classList.remove("hidden");
 }
            tappe++;
-          if (correctCount % 3 === 0) jollyCount++;
         } else {
+           correctStreak = 0; 
           if (jollyCount > 0 && errorCount < 3) {
             jollyCount--;
           } else {
@@ -253,11 +253,9 @@ if (correctStreak === 3) {
   updateJollyDisplay();
   jollyUsedInThisTurn = true;
   alert("Jolly usato automaticamente!");
-} else {
-  correctStreak = 0; // interrompe la serie
-}
-          }
-        }
+ }
+   }
+     }
         if (errorCount >= 3) {
           challengeText.textContent = translate("lost");
           challengeButtons.innerHTML = "";
