@@ -233,7 +233,7 @@ function addButton(text, checkFn) {
         if (result) {
           correctCount++;
           correctStreak++;
-  if (correctStreak === 3 && jollyCount === 0) {
+  if (correctStreak === 3){
   jollyCount++;
   correctStreak = 0;
   updateJollyDisplay();
