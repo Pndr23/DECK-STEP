@@ -339,6 +339,20 @@ function showShuffleAnimation(callback) {
     }, 500);
   }, 1000);
 }
+function showWithdrawScreen() {
+  const screen = document.getElementById("victoryScreen");
+  const winText = document.getElementById("winText");
+  const totalWinnings = document.getElementById("totalWinnings");
+  const gameOverScreen = document.getElementById("gameOverScreen");
+
+  if (gameOverScreen) gameOverScreen.classList.add("hidden");
+
+  winText.textContent = "Hai ritirato!";
+  totalWinnings.textContent = `Hai incassato: €${calcolaGuadagno(correctCount).toFixed(2)}`;
+
+  screen.classList.remove("hidden");
+  restartBtn.classList.remove("hidden");
+}
 function translate(key) {
   const t = {
     it: {
@@ -454,20 +468,7 @@ function showWinScreen() {
   totalWinnings.textContent = `Hai vinto: €${vincitaFinale.toFixed(2)}`;
   screen.classList.remove("hidden");
   }
-function showWithdrawScreen() {
-  const screen = document.getElementById("victoryScreen");
-  const winText = document.getElementById("winText");
-  const totalWinnings = document.getElementById("totalWinnings");
-  const gameOverScreen = document.getElementById("gameOverScreen");
 
-  if (gameOverScreen) gameOverScreen.classList.add("hidden");
-
-  winText.textContent = "Hai ritirato!";
-  totalWinnings.textContent = `Hai incassato: €${calcolaGuadagno(correctCount).toFixed(2)}`;
-
-  screen.classList.remove("hidden");
-  restartBtn.classList.remove("hidden");
-}
   document.getElementById("restartBtn").addEventListener("click", () => {
   location.reload();
 });
