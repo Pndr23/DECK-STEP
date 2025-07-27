@@ -140,18 +140,31 @@ img {
 }
 
 #useJollyBtn {
-  margin: 10px 0;
-  padding: 10px 16px;
-  background: crimson;
-  color: white;
-  border: 2px solid gold;
+  background-color: gold;
+  color: black;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: 2px solid darkgoldenrod;
   border-radius: 10px;
   font-size: 1rem;
   cursor: pointer;
-  font-weight: bold;
-  text-shadow: 0 0 3px black;
+  animation: pulseJolly 1.5s infinite;
+  box-shadow: 0 0 10px gold;
 }
-
+@keyframes pulseJolly {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 10px gold;
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px gold;
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px gold;
+  }
+}
 .multiplier-label {
   font-size: 1.5em;
   color: gold;
