@@ -87,7 +87,7 @@ languageSelect.addEventListener("change", () => {
   updateLanguage();
 });
 withdrawBtn.addEventListener("click", () => {
-  document.getElementById("gameContainer").classList.add("hidden");
+  document.getElementById("container").classList.add("hidden");
   document.getElementById("gameOverScreen")?.classList.add("hidden");
   document.getElementById("victoryScreen")?.classList.add("hidden");
   document.getElementById("withdrawText").textContent = "Hai ritirato!";
