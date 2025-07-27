@@ -628,7 +628,7 @@ position: fixed;
 #restartBtn:hover {
   transform: scale(1.05);
 }
-/* Schermata vittoria centrata fullscreen */
+* Schermata vittoria */
 #victoryScreen {
   position: fixed;
   top: 0;
@@ -642,7 +642,7 @@ position: fixed;
   align-items: center;
   z-index: 1000;
 }
-/* Testo vittoria con glow oro */
+/* Testo "HAI VINTO" */
 .victory-glow-text {
   font-size: 4rem;
   color: #FFD700;
@@ -654,10 +654,18 @@ position: fixed;
   animation: glowPulse 2s infinite alternate;
   font-family: 'Press Start 2P', cursive;
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
-
-/* Effetto pulsazione glow */
+/* Totale vincita */
+.victory-winnings-text {
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 40px;
+  font-family: 'Press Start 2P', cursive;
+  text-shadow: 0 0 5px #ffcc00;
+  text-align: center;
+}
+/* Pulsazione dorata */
 @keyframes glowPulse {
   from {
     text-shadow:
@@ -676,7 +684,7 @@ position: fixed;
     transform: scale(1.05);
   }
 }
-/* Bottone Ricomincia brillante */
+/* Bottone Ricomincia */
 .restart-glow-btn {
   padding: 15px 30px;
   font-size: 1.5rem;
@@ -689,11 +697,9 @@ position: fixed;
   box-shadow: 0 0 15px #ffcc00;
   transition: all 0.3s ease;
 }
-
 .restart-glow-btn:hover {
   background: linear-gradient(45deg, #ffcc00, #ff9900);
   transform: scale(1.05);
   box-shadow: 0 0 25px #ffcc00, 0 0 40px #ff9900;
 }
-
 
