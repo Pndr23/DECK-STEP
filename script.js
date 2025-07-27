@@ -4,7 +4,8 @@ let nextCard = null;
 let correctCount = 0;
 let errorCount = 0;
 let jollyCount = 0;
-let usedJolly = false;
+let correctStreak = 0;
+let jollyUsedInThisTurn = false;
 let currentLanguage = "it";
 let puntataIniziale = parseFloat(document.getElementById("bet").value);
 let moltiplicatori = []; 
@@ -223,6 +224,13 @@ function addButton(text, checkFn) {
         const result = checkFn(drawnCard);
         if (result) {
           correctCount++;
+          correctStreak++;
+if (correctStreak === 3) {
+  jollyCount++;
+  correctStreak = 0;
+  updateJollyDisplay();
+  document.getElementById("useJollyBtn").classList.remove("hidden");
+}
            tappe++;
           if (correctCount % 3 === 0) jollyCount++;
         } else {
