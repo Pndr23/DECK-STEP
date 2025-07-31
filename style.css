@@ -829,4 +829,10 @@ position: fixed;
   box-shadow: 0 0 25px gold;
 }
 
-
+@media (max-width: 768px) {
+  .circle.completed-step {
+    background-color: #00ff66 !important;
+    border: 2px solid white !important;
+    box-shadow: 0 0 10px #00ff66 !important;
+  }
+}
