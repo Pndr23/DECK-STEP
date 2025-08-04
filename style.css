@@ -271,8 +271,7 @@ img {
 .progress-step.completed-step .circle {
   background-color: #00ff66;
   border: 2px solid white;
-  animation: pop 0.4s ease;
-  box-shadow: 0 0 10px #00ff66;
+  animation: pulseOnce 0.5s ease; /* animazione singola */
 }
 .multiplier-label.jackpot {
   color:gold;
@@ -828,4 +827,17 @@ position: fixed;
   transform: scale(1.05);
   box-shadow: 0 0 25px gold;
 }
-
+@keyframes pulseOnce {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0px rgba(0, 255, 102, 0.7);
+  }
+  50% {
+    transform: scale(1.3);
+    box-shadow: 0 0 15px rgba(0, 255, 102, 1);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0px rgba(0, 255, 102, 0.7);
+  }
+}
