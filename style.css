@@ -268,7 +268,7 @@ img {
   margin-bottom: 6px; /* meno spazio */
   transition: all 0.3s ease;
 }
-.circle.completed-step {
+.progress-step.completed-step .circle {
   background-color: #00ff66;
   border: 2px solid white;
   animation: pop 0.4s ease;
