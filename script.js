@@ -128,6 +128,7 @@ function updateProgress() {
     const circle = step.querySelector(".circle");
     circle.classList.remove("completed-step");
     if (i < tappe) {
+       void circle.offsetWidth;
       circle.classList.add("completed-step");
     }
   });
