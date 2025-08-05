@@ -297,7 +297,8 @@ function addButton(text, checkFn) {
  }
    }
      }
-        if (errorCount >= 3) {
+      const maxErrors = (currentLevel === "hard") ? 3 : 4;
+      if (errorCount >= maxErrors) {
           challengeText.textContent = translate("lost");
           challengeButtons.innerHTML = "";
           restartBtn.classList.remove("hidden");
