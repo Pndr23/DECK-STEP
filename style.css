@@ -82,7 +82,7 @@ img {
 }
 
 #rulesToggle {
-  font-size: 30px;
+  font-size: 10px;
   cursor: pointer;
   margin-bottom: 2rem;
   text-decoration: underline;
@@ -91,7 +91,7 @@ img {
 
 #scorePanel {
   margin: 1rem 0;
-  font-size: 30xp;
+  font-size: 10xp;
   color: white;
   text-shadow: 0 0 3px gold;
 }
