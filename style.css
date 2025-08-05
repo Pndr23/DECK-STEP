@@ -268,25 +268,6 @@ img {
   margin-bottom: 6px; /* meno spazio */
   transition: all 0.3s ease;
 }
-.progress-step.completed-step .circle {
-  background-color:#14d928;
-  border: 2px solid white;
-  animation: pulseOnce 0.5s ease; /* animazione singola */
-}
-@keyframes pulseOnce {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 0px rgba(0, 255, 102, 0.7);
-  }
-  50% {
-    transform: scale(1.3);
-    box-shadow: 0 0 15px rgba(0, 255, 102, 1);
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 0px rgba(0, 255, 102, 0.7);
-  }
-}
 .multiplier-label.jackpot {
   color:gold;
   font-size: 1.5rem;
@@ -842,8 +823,8 @@ position: fixed;
   box-shadow: 0 0 25px gold;
 }
 .completed-step {
-  background-color:#00e676 !important; /* Verde brillante */
-  border: 2px solid #28a745;
+  background-color:#1aff66 !important; /* Verde brillante */
+  border: 2px solid #1aff66;
   color: white;
   transition: background-color 0.5s ease, border 0.5s ease, color 0.5s ease;
   transform: scale(1.1);
