@@ -177,17 +177,24 @@ function displayDrawnCard(card, covered = false) {
 
 function generateChallenge() {
   displayDrawnCard(null, true);
-  const challenges = [
+  // Definiamo tutte le sfide possibili
+  let challenges = [
     { key: "higherLower", label: { it: "Maggiore o Minore", en: "Higher or Lower" } },
     { key: "evenOdd", label: { it: "Pari o Dispari", en: "Even or Odd" } },
     { key: "inOut", label: { it: "Dentro o Fuori", en: "In or Out" } },
     { key: "exactNumber", label: { it: "Numero Esatto", en: "Exact Number" } }
   ];
+  // Filtriamo la sfida "exactNumber" fuori se non siamo al livello "hard"
+  if (currentLevel !== "hard") {
+    challenges = challenges.filter(ch => ch.key !== "exactNumber");
+  }
+  // Scegliamo random tra le sfide filtrate
   const selected = challenges[Math.floor(Math.random() * challenges.length)];
   const label = selected.label[currentLanguage];
   challengeText.textContent = `${translate("challenge")}: ${label}`;
   challengeButtons.innerHTML = "";
   const lockedValue = currentCard.value;
+
   if (selected.key === "higherLower") {
     addButton(translate("higher"), (next) => next.value > lockedValue);
     addButton(translate("lower"), (next) => next.value < lockedValue);
