@@ -841,4 +841,27 @@ position: fixed;
   transform: scale(1.05);
   box-shadow: 0 0 25px gold;
 }
+.completed-step {
+  background-color: #28a745 !important; /* Verde brillante */
+  border: 2px solid #28a745;
+  color: white;
+  transition: background-color 0.5s ease, border 0.5s ease, color 0.5s ease;
+  transform: scale(1.1);
+}
 
+/* Aggiungi una piccola animazione */
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.completed-step {
+  animation: pop 0.3s ease;
+}
