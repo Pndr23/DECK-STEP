@@ -180,23 +180,25 @@ function displayDrawnCard(card, covered = false) {
 
 function generateChallenge() {
   displayDrawnCard(null, true);
-  // Definiamo tutte le sfide possibili
   let challenges = [
     { key: "higherLower", label: { it: "Maggiore o Minore", en: "Higher or Lower" } },
     { key: "evenOdd", label: { it: "Pari o Dispari", en: "Even or Odd" } },
     { key: "inOut", label: { it: "Dentro o Fuori", en: "In or Out" } },
-    { key: "exactNumber", label: { it: "Numero Esatto", en: "Exact Number" } }
+    { key: "exactNumber", label: { it: "Numero Esatto", en: "Exact Number" } },
+    { key: "color", label: { it: "Colore", en: "Color" } }  // nuova sfida
   ];
-  // Filtriamo la sfida "exactNumber" fuori se non siamo al livello "hard"
-  if (currentLevel !== "hard") {
+  if (currentLevel === "hard") {
+    challenges = challenges.filter(ch => ch.key !== "color");
+  } else {
     challenges = challenges.filter(ch => ch.key !== "exactNumber");
   }
-  // Scegliamo random tra le sfide filtrate
   const selected = challenges[Math.floor(Math.random() * challenges.length)];
   const label = selected.label[currentLanguage];
   challengeText.textContent = `${translate("challenge")}: ${label}`;
   challengeButtons.innerHTML = "";
   const lockedValue = currentCard.value;
+  const lockedSuit = currentCard.suit;
+
   if (selected.key === "higherLower") {
     addButton(translate("higher"), (next) => next.value > lockedValue);
     addButton(translate("lower"), (next) => next.value < lockedValue);
@@ -213,15 +215,17 @@ function generateChallenge() {
     for (let i = 1; i <= 10; i++) {
       addButton(i.toString(), (next) => next.value === i);
     }
+  } else if (selected.key === "color") {
+    addButton(translate("red"), (next) => next.suit === "C" || next.suit === "P");
+    addButton(translate("black"), (next) => next.suit === "F" || next.suit === "Q");
   }
-}
+ }
 document.addEventListener("DOMContentLoaded", () => {
   currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
   languageSelect.value = currentLanguage;
   currentLevel = document.getElementById("risk").value; // inizializza currentLevel all'avvio
   updateLanguage();
   aggiornaMoltiplicatori();
-
   document.getElementById("restartBtn").addEventListener("click", () => {
     document.getElementById("gameOverScreen").classList.add("hidden");
     document.getElementById("gameArea").classList.remove("hidden");
@@ -380,6 +384,8 @@ function showWithdrawScreen() {
 function translate(key) {
   const t = {
     it: {
+      red: "Rosso",
+      black: "Nero",
       title: "Deck Step",
       start: "🎮 Inizia la partita",
       restart: "🔁 Ricomincia",
@@ -414,6 +420,8 @@ function translate(key) {
       withdraw: "RITIRA"
     },
     en: {
+      red: "Red",
+      black: "Black",
       withdrawn: "You withdrew! You earned {points} points.",
       title: "Deck Step",
       start: "🎮 Start Game",
