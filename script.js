@@ -7,6 +7,7 @@ let jollyCount = 0;
 let correctStreak = 0;
 let jollyUsedInThisTurn = false;
 let currentLanguage = "it";
+let currentLevel = "easy";
 let puntataIniziale = parseFloat(document.getElementById("bet").value);
 let moltiplicatori = []; 
 const moltiplicatoriFacile = [1.1,1.2,1.3,1.5,1.8,2,2.2,2.5,3,5];
@@ -15,6 +16,7 @@ const moltiplicatoriDifficile = [1.5,2,2.5,3,4,5,6,8,12,40];
 function aggiornaMoltiplicatori() {
   const livello = document.getElementById("risk").value;
   console.log("aggiornaMoltiplicatori chiamata, livello:", livello);
+   currentLevel = livello; 
   if (livello === "easy") {
     moltiplicatori = moltiplicatoriFacile;
   } else if (livello === "medium") {
@@ -33,7 +35,8 @@ function aggiornaMoltiplicatori() {
   aggiornaGuadagno(correctCount);
 }
 document.getElementById("risk").addEventListener("change", () => {
-  console.log("Difficoltà cambiata a:", document.getElementById("risk").value);
+  currentLevel = document.getElementById("risk").value;  // aggiornamento qui
+  console.log("Difficoltà cambiata a:", currentLevel);
   aggiornaMoltiplicatori();
 });
 const withdrawBtn = document.getElementById("withdrawBtn");
@@ -194,7 +197,6 @@ function generateChallenge() {
   challengeText.textContent = `${translate("challenge")}: ${label}`;
   challengeButtons.innerHTML = "";
   const lockedValue = currentCard.value;
-
   if (selected.key === "higherLower") {
     addButton(translate("higher"), (next) => next.value > lockedValue);
     addButton(translate("lower"), (next) => next.value < lockedValue);
@@ -213,6 +215,19 @@ function generateChallenge() {
     }
   }
 }
+document.addEventListener("DOMContentLoaded", () => {
+  currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
+  languageSelect.value = currentLanguage;
+  currentLevel = document.getElementById("risk").value; // inizializza currentLevel all'avvio
+  updateLanguage();
+  aggiornaMoltiplicatori();
+
+  document.getElementById("restartBtn").addEventListener("click", () => {
+    document.getElementById("gameOverScreen").classList.add("hidden");
+    document.getElementById("gameArea").classList.remove("hidden");
+    startGame();
+  });
+});
 function showGameOverScreen() {
   const screen = document.getElementById("gameOverScreen");
   const gameOverText = document.getElementById("gameOverText");
