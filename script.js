@@ -177,7 +177,12 @@ function displayDrawnCard(card, covered = false) {
     drawnCardImg.src = `cards/card_${card.value}${card.suit}.png`;
   }
 }
-
+function isRed(suit) {
+  return suit === "C" || suit === "Q";
+}
+function isBlack(suit) {
+  return suit === "F" || suit === "P";
+}
 function generateChallenge() {
   displayDrawnCard(null, true);
   let challenges = [
@@ -185,7 +190,8 @@ function generateChallenge() {
     { key: "evenOdd", label: { it: "Pari o Dispari", en: "Even or Odd" } },
     { key: "inOut", label: { it: "Dentro o Fuori", en: "In or Out" } },
     { key: "exactNumber", label: { it: "Numero Esatto", en: "Exact Number" } },
-    { key: "color", label: { it: "Colore", en: "Color" } }  // nuova sfida
+    { key: "color", label: { it: "Colore", en: "Color" } },
+    { key: "suit", label: { it: "Seme", en: "Suit" } } // Nuova sfida
   ];
   if (currentLevel === "hard") {
     challenges = challenges.filter(ch => ch.key !== "color");
@@ -198,7 +204,6 @@ function generateChallenge() {
   challengeButtons.innerHTML = "";
   const lockedValue = currentCard.value;
   const lockedSuit = currentCard.suit;
-
   if (selected.key === "higherLower") {
     addButton(translate("higher"), (next) => next.value > lockedValue);
     addButton(translate("lower"), (next) => next.value < lockedValue);
@@ -211,15 +216,21 @@ function generateChallenge() {
     challengeText.textContent += ` (${a}-${b})`;
     addButton(translate("in"), (next) => next.value >= a && next.value <= b);
     addButton(translate("out"), (next) => next.value < a || next.value > b);
+
   } else if (selected.key === "exactNumber") {
     for (let i = 1; i <= 10; i++) {
       addButton(i.toString(), (next) => next.value === i);
     }
   } else if (selected.key === "color") {
-    addButton(translate("red"), (next) => next.suit === "C" || next.suit === "P");
-    addButton(translate("black"), (next) => next.suit === "F" || next.suit === "Q");
+    addButton(translate("red"), (next) => next.suit === "C" || next.suit === "Q");
+    addButton(translate("black"), (next) => next.suit === "F" || next.suit === "P");
+  } else if (selected.key === "suit") {
+    addButton(translate("hearts"), (next) => next.suit === "C");
+    addButton(translate("diamonds"), (next) => next.suit === "Q");
+    addButton(translate("clubs"), (next) => next.suit === "F");
+    addButton(translate("spades"), (next) => next.suit === "P");
   }
- }
+}
 document.addEventListener("DOMContentLoaded", () => {
   currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
   languageSelect.value = currentLanguage;
@@ -386,6 +397,10 @@ function translate(key) {
     it: {
       red: "Rosso",
       black: "Nero",
+      hearts: "Cuori",
+      diamonds: "Quadri",
+      clubs: "Fiori",
+      spades: "Picche",
       title: "Deck Step",
       start: "🎮 Inizia la partita",
       restart: "🔁 Ricomincia",
@@ -420,8 +435,12 @@ function translate(key) {
       withdraw: "RITIRA"
     },
     en: {
-      red: "Red",
-      black: "Black",
+     red: "Red",
+     black: "Black",
+     hearts: "Hearts",
+     diamonds: "Diamonds",
+     clubs: "Clubs",
+     spades: "Spades",
       withdrawn: "You withdrew! You earned {points} points.",
       title: "Deck Step",
       start: "🎮 Start Game",
