@@ -325,7 +325,7 @@ img {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.3rem;
+    gap: 1rem;
   }
 
   #scorePanel .top-row {
@@ -456,7 +456,7 @@ img {
   }
 
   #toggle-regolamento {
-    font-size: 20px;
+    font-size: 1rem;
     top: 6px;
     right: 6px;
   }
