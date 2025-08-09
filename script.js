@@ -280,6 +280,7 @@ function addButton(text, checkFn) {
   document.getElementById("useJollyBtn").classList.remove("hidden");
 }
            tappe++;
+          setTimeout(updateProgress, 100);
         } else {
            correctStreak = 0; 
           if (jollyCount > 0 && errorCount < 3) {
