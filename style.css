@@ -442,14 +442,14 @@ img {
   border-radius: 6px;
   z-index: 999;
   } 
-  .progress-step.completed .circle {
+.progress-step.completed-step .circle {
   background-color: #4CAF50 !important; /* verde completato */
   border-color: #4CAF50 !important;
   box-shadow: 0 0 10px #4CAF50;
   transform: scale(1.1);
   transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
- .progress-step.active .circle {
+ .progress-step.active-step .circle {
   background-color: #2196F3 !important; /* blu attivo */
 }
 }
@@ -487,10 +487,10 @@ img {
     height: 24px;
     background-color: #ccc; 
 }
-.progress-step.completed .circle {
+.progress-step.completed-step .circle {
   background-color: #4CAF50; /* verde completato */
 }
-   .progress-step.active .circle {
+  .progress-step.active-step .circle {
     background-color: #2196F3 !important; /* blu attivo */
   }
   #correctCount,
@@ -807,12 +807,12 @@ position: fixed;
   margin-bottom: 6px;
   transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
-.progress-step.completed .circle {
+.progress-step.completed-step .circle{
   background-color: #4CAF50 !important; /* verde per tappe completate */
   border-color: #4CAF50 !important;
   box-shadow: 0 0 10px #4CAF50;
   transform: scale(1.1);
 }
-.progress-step.active .circle {
+.progress-step.active-step .circle  {
   background-color: #2196F3 !important; /* blu tappa attiva */
 }
