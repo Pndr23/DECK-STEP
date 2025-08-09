@@ -135,6 +135,10 @@ function updateProgress() {
     }
   });
   progressCounter.textContent = `${translate("stage")}: ${tappe}`;
+    const activeStep = steps[tappe - 1];
+  if (activeStep) {
+    activeStep.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+  }
 }
 function updateJollyButton() {
   useJollyBtn.classList.toggle("hidden", jollyCount === 0 || errorCount === 0);
