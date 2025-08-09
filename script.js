@@ -137,7 +137,7 @@ function updateProgress() {
   progressCounter.textContent = `${translate("stage")}: ${tappe}`;
     const activeStep = steps[tappe - 1];
   if (activeStep) {
-    activeStep.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+ progressPath.scrollLeft = activeStep.offsetLeft - progressPath.offsetWidth / 2 + activeStep.offsetWidth / 2;
   }
 }
 function updateJollyButton() {
