@@ -128,11 +128,10 @@ function updateProgress() {
   const steps = progressPath.querySelectorAll(".progress-step");
 
   steps.forEach((step, i) => {
-    const circle = step.querySelector(".circle");
-    circle.classList.remove("completed-step");
+    step.classList.remove("completed-step");
     if (i < tappe) {
-       void circle.offsetWidth;
-      circle.classList.add("completed-step");
+      void step.offsetWidth;
+      step.classList.add("completed-step");
     }
   });
   progressCounter.textContent = `${translate("stage")}: ${tappe}`;
