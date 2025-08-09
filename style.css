@@ -817,13 +817,16 @@ position: fixed;
   background-color: #2196F3 !important; /* blu tappa attiva */
 }
 #minigiocoJolly {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 40px;
+  overflow: auto;  
   background: linear-gradient(135deg, #1a1a1a, #222);
-  padding: 20px;
-  border-radius: 14px;
-  box-shadow: 0 0 20px 5px gold;
-  width: 320px;
-  text-align: center;
-  user-select: none;
+  border-radius: 0; 
+  box-shadow: none; 
+  z-index: 9999; 
 }
 
 #minigiocoJolly h2 {
