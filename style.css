@@ -441,6 +441,16 @@ img {
   padding: 1px 5px;
   border-radius: 6px;
   z-index: 999;
+  } 
+  .progress-step.completed .circle {
+  background-color: #4CAF50 !important; /* verde completato */
+  border-color: #4CAF50 !important;
+  box-shadow: 0 0 10px #4CAF50;
+  transform: scale(1.1);
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+ .progress-step.active .circle {
+  background-color: #2196F3 !important; /* blu attivo */
 }
 }
 @keyframes cardShuffle {
@@ -473,15 +483,16 @@ img {
 }
 @media (min-width: 768px) {
   .progress-step .circle {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background-color: #ccc; /* colore di base */
-  transition: background-color 0.3s ease;
+    width: 24px;
+    height: 24px;
+    background-color: #ccc; 
 }
 .progress-step.completed .circle {
   background-color: #4CAF50; /* verde completato */
 }
+   .progress-step.active .circle {
+    background-color: #2196F3 !important; /* blu attivo */
+  }
   #correctCount,
   #errorCount,
   #jollyCount {
@@ -775,13 +786,6 @@ position: fixed;
   transform: scale(1.05);
   box-shadow: 0 0 25px gold;
 }
-.completed-step {
-  background-color:#1aff66 !important;
-  border: 2px solid #1aff66;
-  color: white;
-  transition: background-color 0.5s ease, border 0.5s ease, color 0.5s ease;
-  transform: scale(1.1);
-}
 @keyframes pulseClean {
   0% {
     transform: scale(1);
@@ -794,24 +798,21 @@ position: fixed;
   }
 }
 .progress-step .circle {
-  transition: background-color 0.3s ease;
+  width: 20px; /* dimensione base mobile */
+  height: 20px;
+  border-radius: 50%;
+  background-color: #222;  /* colore base cerchio */
+  border: 2px solid #FFD700;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+  margin-bottom: 6px;
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
 .progress-step.completed .circle {
-  background-color: #4CAF50 !important; /* verde completato */
+  background-color: #4CAF50 !important; /* verde per tappe completate */
+  border-color: #4CAF50 !important;
+  box-shadow: 0 0 10px #4CAF50;
+  transform: scale(1.1);
 }
 .progress-step.active .circle {
-  background-color: #2196F3 !important; /* blu attivo */
-}
-/* Mobile */
-@media (max-width: 768px) {
-  .progress-step .circle {
-    width: 20px;
-    height: 20px;
-  }
-  .progress-step.completed .circle {
-    background-color: #4CAF50 !important;
-  }
-  .progress-step.active .circle {
-    background-color: #2196F3 !important;
-  }
+  background-color: #2196F3 !important; /* blu tappa attiva */
 }
