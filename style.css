@@ -892,7 +892,7 @@ position: fixed;
   background: #e6c200;
 }
 .jolly-card {
-  background-image: url('cards/jolly.png');
+  background-image: url('jolly.png');
   background-size: cover;
   background-position: center;
   width: 110px;
