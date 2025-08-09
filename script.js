@@ -1,4 +1,7 @@
 let tappe = 0;
+let minigiocoAttivo = false;
+let minigiocoCallback = null;
+let moltiplicatoreBonus = 0;
 let currentCard = null;
 let nextCard = null;
 let correctCount = 0;
@@ -13,6 +16,66 @@ let moltiplicatori = [];
 const moltiplicatoriFacile = [1.1,1.2,1.3,1.5,1.8,2,2.2,2.5,3,5];
 const moltiplicatoriMedio = [1.2,1.5,2,2.5,3,3.5,4,5,7,10];
 const moltiplicatoriDifficile = [1.5,2,2.5,3,4,5,6,8,12,40];
+
+function showMinigiocoJolly(callback) {
+  if (minigiocoAttivo) return;
+  minigiocoAttivo = true;
+  minigiocoCallback = callback;
+  const popup = document.getElementById("minigiocoJolly");
+  popup.style.display = "block";
+  const cardElems = [document.getElementById("minicard1"), document.getElementById("minicard2")];
+  const jollyImgSrc = "cards/jolly.png";
+  const moltiplicatoriMinigioco = [1,2,3,4,5,6,7,8,9,10];
+  const moltiplicatoreScelto = moltiplicatoriMinigioco[Math.floor(Math.random() * moltiplicatoriMinigioco.length)];
+  const suitsLetters = ['C', 'P', 'F', 'Q'];
+  const index = Math.floor(Math.random() * 40) + 1;
+  const value = ((index - 1) % 10) + 1;
+  const suitIndex = Math.floor((index - 1) / 10);
+  const suitLetter = suitsLetters[suitIndex];
+  const moltiplicatoreImgSrc = `cards/card_${value}${suitLetter}.png`;
+  let carte = [
+    {type: "jolly", img: jollyImgSrc},
+    {type: "moltiplicatore", img: moltiplicatoreImgSrc, value: moltiplicatoreScelto}
+  ];
+  carte.sort(() => Math.random() - 0.5);
+  cardElems.forEach((el, i) => {
+    el.src = "cards/card_back.png";
+    el.classList.remove("revealed");
+    el.style.borderColor = "transparent";
+    el.style.cursor = "pointer";
+    el.dataset.type = carte[i].type;
+    el.dataset.img = carte[i].img;
+    if (carte[i].type === "moltiplicatore") el.dataset.value = carte[i].value;
+  });
+  cardElems.forEach(cardEl => {
+    cardEl.onclick = () => {
+      if (!minigiocoAttivo) return;
+      cardEl.src = cardEl.dataset.img;
+      cardEl.classList.add("revealed");
+      cardEl.style.cursor = "default";
+      cardElems.forEach(otherEl => {
+        if (otherEl !== cardEl) {
+          otherEl.src = otherEl.dataset.img;
+          otherEl.classList.add("revealed");
+          otherEl.style.cursor = "default";
+        }
+        otherEl.onclick = null; 
+      });
+      minigiocoAttivo = false;
+      setTimeout(() => {
+        if (minigiocoCallback) minigiocoCallback(cardEl.dataset.type, parseInt(cardEl.dataset.value || "0"));
+        minigiocoCallback = null;
+        document.getElementById("minigiocoJolly").style.display = "none";
+      }, 1200);
+    };
+  });
+  document.getElementById("minigiocoCloseBtn").onclick = () => {
+    if (!minigiocoAttivo) return;
+    minigiocoAttivo = false;
+    minigiocoCallback = null;
+    document.getElementById("minigiocoJolly").style.display = "none";
+  };
+}
 function aggiornaMoltiplicatori() {
   const livello = document.getElementById("risk").value;
   console.log("aggiornaMoltiplicatori chiamata, livello:", livello);
@@ -157,7 +220,6 @@ function startGame() {
   displayDrawnCard(null, true);
   generateChallenge();
 }
-
 function drawCard(avoidValue = null) {
   const suitsLetters = ['C', 'P', 'F', 'Q'];
   let index, value, suitLetter;
@@ -278,10 +340,20 @@ function addButton(text, checkFn) {
           correctCount++;
           correctStreak++;
   if (correctStreak === 3){
-  jollyCount++;
   correctStreak = 0;
-  updateJollyDisplay();
+    showMinigiocoJolly((scelta, valore) => {
+    if (scelta === "jolly") {
+      jollyCount++;
+      updateJollyDisplay();
+      alert("Hai vinto un Jolly!");
   document.getElementById("useJollyBtn").classList.remove("hidden");
+} else if (scelta === "moltiplicatore") {
+      alert(`Hai vinto un moltiplicatore bonus x${valore}! Sarà sommato al guadagno.`);
+      moltiplicatoreBonus += valore;
+    }
+    updateScore();
+    updateJollyButton();
+  });
 }
            tappe++;
           setTimeout(updateProgress, 100);
@@ -347,11 +419,10 @@ function addButton(text, checkFn) {
 function aggiornaGuadagno(corretti) {
   const label = document.getElementById("gainLabel");
   let guadagno = puntataIniziale;
-  console.log("aggiornaGuadagno: corretti =", corretti, "moltiplicatori =", moltiplicatori);
   for (let i = 0; i < corretti && i < moltiplicatori.length; i++) {
     guadagno *= moltiplicatori[i];
   }
-  console.log("Guadagno calcolato:", guadagno);
+ guadagno += moltiplicatoreBonus * puntataIniziale; 
   label.textContent = "+€" + guadagno.toFixed(2);
 }
 function updateLanguage() {
