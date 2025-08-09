@@ -87,7 +87,7 @@ img {
   text-decoration: underline;
   color: white;
 }
-#score-Panel {
+#pointsPanel {
   margin: 1.5rem 0;
   font-size: 2.5rem; /* era 2rem */
   color: white;
