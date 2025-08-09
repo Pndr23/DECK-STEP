@@ -35,14 +35,6 @@ body {
   box-shadow: 0 0 40px gold;
   overflow: visible;
 }
-/* Ingrandisce testo punteggio */
-#scorePanel {
-  font-size: 2rem !important; /* Cambia la misura come vuoi */
-}
-/* Ingrandisce testo regolamento */
-#rulesPanel, #rulesPanel * {
-  font-size: 1.3rem !important; /* Cambia la misura come vuoi */
-}
 select, button {
   margin: 10px;
   padding: 12px 20px;
@@ -88,8 +80,7 @@ img {
   height: auto;
   margin-top: 0.5rem;
 }
-
-#rulesToggle {
+#rulesLabel {
   font-size: 2.5rem; /* era 2rem */
   cursor: pointer;
   margin-bottom: 2rem;
