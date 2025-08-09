@@ -472,13 +472,6 @@ img {
   display: inline-block;
 }
 @media (min-width: 768px) {
-  .completed-step {
-  background-color:#1aff66 !important;
-  border: 2px solid #1aff66;
-  color: white;
-  transition: background-color 0.5s ease, border 0.5s ease, color 0.5s ease;
-  transform: scale(1.1);
-}
   .progress-step .circle {
   width: 24px;
   height: 24px;
