@@ -841,3 +841,11 @@ position: fixed;
     transform: scale(1);
   }
 }
+/* Ingrandisce testo punteggio */
+#scorePanel {
+  font-size: 2rem !important; /* Cambia la misura come vuoi */
+}
+/* Ingrandisce testo regolamento */
+#rulesPanel, #rulesPanel * {
+  font-size: 1.3rem !important; /* Cambia la misura come vuoi */
+}
