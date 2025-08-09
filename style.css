@@ -9,7 +9,6 @@ body {
 .hidden {
   display: none;
 }
-
 .pulse {
   animation: pulseAnimation 1.5s infinite;
   font-size: 2.5em;
@@ -18,7 +17,6 @@ body {
   text-align: center;
   margin: 20px 0;
 }
-
 @keyframes pulseAnimation {
   0%, 100% { transform: scale(1); opacity: 1; }
   50% { transform: scale(1.1); opacity: 0.7; }
@@ -51,30 +49,25 @@ button {
   color: #000;
   cursor: pointer;
 }
-
 button:hover {
   background: linear-gradient(to bottom, #ffd700, #daa520);
   box-shadow: 0 0 12px gold;
 }
-
 .button-maggiore,
 .button-dentro,
 .button-pari {
   background-color: #ff0000  !important;
   color: white  !important;
 }
-
 .button-minore,
 .button-fuori,
 .button-dispari {
   background-color: #14d928 !important;
   color: white  !important;
 }
-
 .hidden {
   display: none;
 }
-
 img {
   width: 400px;
   height: auto;
@@ -101,7 +94,6 @@ img {
   color: white;
   text-shadow: 0 0 3px gold;
 }
-
 #challengeText {
   font-size: 1.7rem;
   font-weight: bold;
@@ -109,7 +101,6 @@ img {
   text-shadow: 0 0 5px black, 0 0 8px gold;
   margin-top: 1rem;
 }
-
 #toggle-regolamento {
   position: fixed;
   top: 10px;
@@ -136,7 +127,6 @@ img {
   box-shadow: 0 0 15px gold;
   border-radius: 10px;
 }
-
 #useJollyBtn {
   background-color: gold;
   color: black;
@@ -149,7 +139,7 @@ img {
   animation: pulseJolly 1.5s infinite;
   box-shadow: 0 0 10px gold;
 }
-@keyframes pulseJolly {
+@keyframes pulseJolly {a
   0% {
     transform: scale(1);
     box-shadow: 0 0 10px gold;
@@ -172,14 +162,12 @@ img {
   margin-bottom: 6px;
   line-height: 1.1;
 }
-
 .jackpot {
   color: #ffdf00;
   font-size: 1.5rem;
   text-shadow: 0 0 8px red, 0 0 4px gold;
   font-weight: bold;
 }
-
 .green-button {
   background-color: #14d928 !important;
   background-image: none !important;
@@ -187,7 +175,6 @@ img {
   border: 2px solid white !important;
   font-weight: bold !important;
 }
-
 .red-button {
   background-color: #ff0000 !important;
   background-image: none !important;
@@ -195,7 +182,6 @@ img {
   border: 2px solid white !important;
   font-weight: bold !important;
 }
-
 #gameTitle {
   font-size: 3.2rem;
   text-transform: uppercase;
@@ -205,7 +191,6 @@ img {
   margin-bottom: 15px;
   text-shadow: 0 0 10px #ffcc00;
 }
-
 #withdrawBtn {
   padding: 12px 24px;
   font-size: 1rem;
@@ -217,13 +202,11 @@ img {
   cursor: pointer;
   transition: 0.3s ease;
 }
-
 #withdrawBtn:hover {
   background-color: crimson;
   color: #fff;
   box-shadow: 0 0 10px red;
 }
-
 .gain-label {
   display: inline-block;
   background-color: rgba(0, 0, 0, 0.85);
@@ -236,7 +219,6 @@ img {
   border: 2px solid gold;
   box-shadow: 0 0 8px gold;
 }
-
 .progress-path {
   display: flex;
   justify-content: center; /* o center */
@@ -248,7 +230,6 @@ img {
   min-height: 20px;       /* 🔹 Fa stare bene tutto anche su mobile */
   margin-top: 80px; 
 }
-
 .progress-step {
   flex: 1;
   display: flex;
@@ -297,7 +278,6 @@ img {
   z-index: 9999;
   pointer-events: none;
 }
-
 .fullscreen-shuffle.hidden {
   display: none;
 }
@@ -313,7 +293,6 @@ img {
   transform: scale(0.8);
   transition: opacity 1s ease, transform 1s ease;
 }
-
 .fullscreen-shuffle.visible img#shuffleGif {
   opacity: 1;
   transform: scale(1);
@@ -325,13 +304,11 @@ img {
     align-items: center;
     gap: 1rem;
   }
-
   #scorePanel .top-row {
     display: flex;
     justify-content: center;
     gap: 1rem;
   }
-
 #correctLabel,
 #errorLabel {
   margin: 0;
@@ -362,36 +339,30 @@ img {
     background-size: cover;
     background-position: center;
   }
-
   .container {
     padding: 1rem;
     margin: 0.5rem;
     border-radius: 12px;
     box-shadow: 0 0 20px gold;
   }
-
   #gameTitle {
     font-size: 2rem;
     margin-bottom: 1rem;
   }
-
   select, button {
     font-size: 0.9rem;
     padding: 10px 14px;
     margin: 6px;
   }
-
   #withdrawBtn,
   #useJollyBtn {
     font-size: 0.9rem;
     padding: 8px 14px;
   }
-
   img {
     width: 140px;
     margin: 0.5rem 0;
   }
-
   .progress-path {
    flex-wrap: nowrap;
   overflow-x: auto;
@@ -405,30 +376,25 @@ img {
     .progress-path::-webkit-scrollbar {
     height: 6px;
   }
-
   .progress-path::-webkit-scrollbar-thumb {
     background-color: gold;
     border-radius: 10px;
   }
-
   .progress-step {
   min-width: 50px;
     flex: 0 0 auto;
   }
-
   .gain-label {
     font-size: 0.9rem;
     padding: 4px 8px;
     margin: 4px 0;
   }
-
   #regolamento-popup {
     max-width: 90vw;
     right: 5px;
     top: 70px;
     font-size: 1.5rem;
      }
-
   .circle {
     width: 20px;
     height: 20px;
@@ -436,7 +402,6 @@ img {
    border: 2px solid #FFD700;
   box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
   }
-
 .multiplier-label {
   font-size: 0.9rem;
   font-weight: 700;
@@ -450,9 +415,8 @@ img {
   font-weight: 900;
 }
   #scorePanel {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
-
   #toggle-regolamento {
     font-size: 1rem;
     top: 6px;
@@ -463,7 +427,6 @@ img {
   50%  { transform: translateX(-6px); opacity: 0.5; }
   100% { transform: translateX(0); opacity: 1; }
 }
-
 .progress-path::after {
  content: '⬅️➡️';
   position: absolute;
@@ -487,7 +450,6 @@ img {
   75%  { transform: scale(1.05) rotate(-2deg); }
   100% { transform: scale(1) rotate(0deg); }
 }
-
 .card-shuffle {
   animation: cardShuffle 0.6s ease;
 }
@@ -497,7 +459,6 @@ img {
   51%  { transform: rotateY(90deg); } /* si mostra la nuova immagine a metà flip */
   100% { transform: rotateY(0); }
 }
-
 .card-flip {
   animation: cardFlip 0.6s ease;
   transform-style: preserve-3d;
@@ -511,6 +472,19 @@ img {
   display: inline-block;
 }
 @media (min-width: 768px) {
+  .progress-step .circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #ccc; /* colore di base */
+  transition: background-color 0.3s ease;
+}
+.progress-step.completed .circle {
+  background-color: #4CAF50; /* verde completato */
+}
+.progress-step.active .circle {
+  background-color: #2196F3; /* blu attivo */
+}
   #correctCount,
   #errorCount,
   #jollyCount {
@@ -525,7 +499,6 @@ img {
     overflow-x: hidden;            /* Nasconde eventuali barre laterali */
     overflow-y: visible;           /* Fa vedere ciò che c'è in basso */
   }
-
   html {
     overflow-x: hidden;
     overflow-y: visible;
@@ -544,7 +517,6 @@ img {
   transition: transform 0.6s ease;
   transform-style: preserve-3d;
 }
-
 .card.flip-animation {
   animation: flip 0.6s ease;
 }
@@ -578,7 +550,6 @@ position: fixed;
   text-align: center;
   z-index: 1000;
 }
-
 #gameOverScreen.hidden {
   display: none;
 }
@@ -593,7 +564,6 @@ position: fixed;
   font-weight: bold;
   animation: zoomIn 0.6s ease-out, glow 1.5s infinite alternate;
 }
-
 @keyframes glow {
   0% {
     text-shadow:
@@ -647,7 +617,6 @@ position: fixed;
   align-items: center;
   z-index: 1000;
 }
-/* Testo "HAI VINTO" */
 .victory-glow-text {
   font-size: 4rem;
   color: #FFD700;
@@ -661,7 +630,6 @@ position: fixed;
   text-align: center;
   margin-bottom: 30px;
 }
-/* Totale vincita */
 .victory-winnings-text {
   font-size: 1.5rem;
   color: #fff;
@@ -670,7 +638,6 @@ position: fixed;
   text-shadow: 0 0 5px #ffcc00;
   text-align: center;
 }
-/* Pulsazione dorata */
 @keyframes glowPulse {
   from {
     text-shadow:
@@ -689,7 +656,6 @@ position: fixed;
     transform: scale(1.05);
   }
 }
-/* Bottone Ricomincia */
 .restart-glow-btn {
   padding: 15px 30px;
   font-size: 1.5rem;
@@ -717,7 +683,6 @@ position: fixed;
   z-index: -1;
   overflow: hidden;
 }
-
 .firework {
   position: absolute;
   width: 6px;
@@ -730,25 +695,21 @@ position: fixed;
     0 0 #FF4500;
   animation: explode 1s ease-out infinite;
 }
-
 .firework1 {
   top: 40%;
   left: 30%;
   animation-delay: 0s;
 }
-
 .firework2 {
   top: 20%;
   left: 60%;
   animation-delay: 0.4s;
 }
-
 .firework3 {
   top: 50%;
   left: 75%;
   animation-delay: 0.8s;
 }
-
 @keyframes explode {
   0% {
     box-shadow: 
@@ -788,23 +749,19 @@ position: fixed;
   text-align: center;
   z-index: 10000;
 }
-
 #withdrawScreen.hidden {
   display: none;
 }
-
 #withdrawScreen h1 {
   font-size: 4rem;
   color: #FFD700;
   text-shadow: 0 0 10px gold;
   margin-bottom: 20px;
 }
-
 #withdrawScreen p {
   font-size: 2rem;
   margin-bottom: 30px;
 }
-
 #withdrawBtnWithdraw,
 #restartBtnWithdraw {
   font-size: 1.5rem;
@@ -822,7 +779,7 @@ position: fixed;
   box-shadow: 0 0 25px gold;
 }
 .completed-step {
-  background-color:#1aff66 !important; /* Verde brillante */
+  background-color:#1aff66 !important;
   border: 2px solid #1aff66;
   color: white;
   transition: background-color 0.5s ease, border 0.5s ease, color 0.5s ease;
@@ -839,12 +796,25 @@ position: fixed;
     transform: scale(1);
   }
 }
+.progress-step .circle {
+  transition: background-color 0.3s ease;
+}
+.progress-step.completed .circle {
+  background-color: #4CAF50 !important; /* verde completato */
+}
+.progress-step.active .circle {
+  background-color: #2196F3 !important; /* blu attivo */
+}
+/* Mobile */
 @media (max-width: 768px) {
-  .completed-step {
-    background-color: #1aff66 !important; /* Verde brillante */
-    border: 2px solid #1aff66 !important;
-    color: white !important;
-    transform: scale(1.1);
-    transition: background-color 0.5s ease, border 0.5s ease, color 0.5s ease;
+  .progress-step .circle {
+    width: 20px;
+    height: 20px;
+  }
+  .progress-step.completed .circle {
+    background-color: #4CAF50 !important;
+  }
+  .progress-step.active .circle {
+    background-color: #2196F3 !important;
   }
 }
