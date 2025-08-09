@@ -816,3 +816,9 @@ position: fixed;
 .progress-step.active-step .circle  {
   background-color: #2196F3 !important; /* blu tappa attiva */
 }
+#minigiocoJolly img.revealed {
+  border-color: gold !important;
+  box-shadow: 0 0 10px gold;
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
