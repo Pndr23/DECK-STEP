@@ -40,40 +40,43 @@ function showMinigiocoJolly(callback) {
   carte.sort(() => Math.random() - 0.5);
   cardElems.forEach((el, i) => {
     el.src = "cards/card_back.png";
-    el.classList.remove("revealed");
+    el.classList.remove("flipped", "selected");
+    el.classList.add("covered");
     el.style.borderColor = "transparent";
     el.style.cursor = "pointer";
     el.dataset.type = carte[i].type;
     el.dataset.img = carte[i].img;
     if (carte[i].type === "moltiplicatore") el.dataset.value = carte[i].value;
-  });
-  cardElems.forEach(cardEl => {
-    cardEl.onclick = () => {
+    el.onclick = () => {
       if (!minigiocoAttivo) return;
-      cardEl.src = cardEl.dataset.img;
-      cardEl.classList.add("revealed");
-      cardEl.style.cursor = "default";
+      minigiocoAttivo = false;
+      cardElems.forEach(c => c.classList.remove("covered"));
+      el.classList.add("flipped");
+      el.style.cursor = "default";
+      setTimeout(() => {
+        el.src = el.dataset.img;
+        el.classList.add("selected");
+      }, 300);
       cardElems.forEach(otherEl => {
-        if (otherEl !== cardEl) {
+        if (otherEl !== el) {
+          otherEl.classList.remove("covered");
           otherEl.src = otherEl.dataset.img;
-          otherEl.classList.add("revealed");
           otherEl.style.cursor = "default";
         }
-        otherEl.onclick = null; 
+        otherEl.onclick = null;
       });
-      minigiocoAttivo = false;
       setTimeout(() => {
-        if (minigiocoCallback) minigiocoCallback(cardEl.dataset.type, parseInt(cardEl.dataset.value || "0"));
+        if (minigiocoCallback) minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
         minigiocoCallback = null;
-        document.getElementById("minigiocoJolly").style.display = "none";
-      }, 1200);
+        popup.style.display = "none";
+      }, 1700);
     };
   });
   document.getElementById("minigiocoCloseBtn").onclick = () => {
     if (!minigiocoAttivo) return;
     minigiocoAttivo = false;
     minigiocoCallback = null;
-    document.getElementById("minigiocoJolly").style.display = "none";
+    popup.style.display = "none";
   };
 }
 function aggiornaMoltiplicatori() {
