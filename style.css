@@ -6,9 +6,11 @@ body {
   overflow-x: visible;
   overflow-y: visible;
 }
+
 .hidden {
   display: none;
 }
+
 #useJollyBtn {
   background-color: gold;
   color: black;
@@ -31,6 +33,7 @@ body {
     box-shadow: 0 0 20px gold;
   }
 }
+
 .pulse {
   animation: pulseAnimation 1.5s infinite;
   font-size: 2.5em;
@@ -43,6 +46,7 @@ body {
   0%, 100% { transform: scale(1); opacity: 1; }
   50% { transform: scale(1.1); opacity: 0.7; }
 }
+
 /* Container principale */
 .container {
   text-align: center;
@@ -55,6 +59,7 @@ body {
   box-shadow: 0 0 40px gold;
   overflow: visible;
 }
+
 /* Select e button base */
 select, button {
   margin: 10px;
@@ -66,6 +71,7 @@ select, button {
   text-transform: uppercase;
   box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
 }
+
 button {
   background: linear-gradient(to bottom, #d4af37, #b8860b);
   color: #000;
@@ -75,6 +81,7 @@ button:hover {
   background: linear-gradient(to bottom, #ffd700, #daa520);
   box-shadow: 0 0 12px gold;
 }
+
 /* Pulsanti colorati (override) */
 .button-maggiore,
 .button-dentro,
@@ -88,12 +95,14 @@ button:hover {
   background-color: #14d928 !important;
   color: white !important;
 }
+
 /* Immagini */
 img {
   width: 400px;
   height: auto;
   margin-top: 0.5rem;
 }
+
 /* Etichette e testi */
 #rulesLabel {
   font-size: 1.5rem;
@@ -123,6 +132,7 @@ img {
   text-shadow: 0 0 5px black, 0 0 8px gold;
   margin-top: 1rem;
 }
+
 /* Toggle regolamento */
 #toggle-regolamento {
   position: fixed;
@@ -135,6 +145,7 @@ img {
   z-index: 1001;
   color: gold;
 }
+
 /* Popup regolamento */
 #regolamento-popup {
   display: none;
@@ -150,6 +161,7 @@ img {
   box-shadow: 0 0 15px gold;
   border-radius: 10px;
 }
+
 /* Label moltiplicatore */
 .multiplier-label {
   font-size: 1.5em;
@@ -159,6 +171,7 @@ img {
   margin: 4px 0 6px;
   line-height: 1.1;
 }
+
 /* Jackpot */
 .jackpot {
   color: #ffdf00;
@@ -166,6 +179,7 @@ img {
   text-shadow: 0 0 8px red, 0 0 4px gold;
   font-weight: bold;
 }
+
 /* Bottoni verdi e rossi */
 .green-button {
   background-color: #14d928 !important;
@@ -181,6 +195,7 @@ img {
   border: 2px solid white !important;
   font-weight: bold !important;
 }
+
 /* Titolo */
 #gameTitle {
   font-size: 3.2rem;
@@ -191,6 +206,7 @@ img {
   margin-bottom: 15px;
   text-shadow: 0 0 10px #ffcc00;
 }
+
 /* Pulsante ritira */
 #withdrawBtn {
   padding: 12px 24px;
@@ -208,6 +224,7 @@ img {
   color: #fff;
   box-shadow: 0 0 10px red;
 }
+
 /* Label guadagni */
 .gain-label {
   display: inline-block;
@@ -221,6 +238,7 @@ img {
   border: 2px solid gold;
   box-shadow: 0 0 8px gold;
 }
+
 /* Barra progresso */
 .progress-path {
   display: flex;
@@ -233,6 +251,7 @@ img {
   min-height: 20px;
   margin-top: 80px;
 }
+
 .progress-path::after {
   content: '⬅️➡️';
   position: absolute;
@@ -248,11 +267,13 @@ img {
   border-radius: 6px;
   z-index: 999;
 }
+
 @keyframes bounceLR {
   0%   { transform: translateX(0); opacity: 1; }
   50%  { transform: translateX(-6px); opacity: 0.5; }
   100% { transform: translateX(0); opacity: 1; }
 }
+
 /* Singolo step progresso */
 .progress-step {
   flex: 1;
@@ -264,6 +285,7 @@ img {
   background-color: transparent !important; /* Fix per non colorare il blocco */
   transition: background-color 0.3s ease;
 }
+
 /* Cerchio */
 .circle {
   width: 30px;
@@ -275,6 +297,7 @@ img {
   margin-bottom: 6px;
   transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
+
 /* Solo cerchio cambia colore quando step completato o attivo */
 .progress-step.completed .circle {
   background-color: #4CAF50 !important;
@@ -288,6 +311,7 @@ img {
   box-shadow: 0 0 8px #2196F3;
   transform: scale(1.1);
 }
+
 /* Animazioni carte */
 @keyframes cardShuffle {
   0%   { transform: scale(1) rotate(0deg); }
@@ -309,6 +333,7 @@ img {
   animation: cardFlip 0.6s ease;
   transform-style: preserve-3d;
 }
+
 /* Immagini carte */
 #currentCardImg,
 #drawnCardImg {
@@ -334,6 +359,7 @@ img {
     transform: rotateY(180deg);
   }
 }
+
 /* Container carta per animazioni 3D */
 .card-container {
   perspective: 1000px;
@@ -409,6 +435,7 @@ img {
 #restartBtn:hover {
   transform: scale(1.05);
 }
+
 /* Schermata Vittoria */
 #victoryScreen {
   position: fixed;
@@ -479,6 +506,7 @@ img {
   transform: scale(1.05);
   box-shadow: 0 0 25px #ffcc00, 0 0 40px #ff9900;
 }
+
 /* Fuochi d'artificio */
 .fireworks-container {
   position: absolute;
@@ -531,6 +559,7 @@ img {
     opacity: 0;
   }
 }
+
 /* Schermata Ritiro */
 #withdrawScreen {
   position: fixed;
@@ -538,4 +567,5 @@ img {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0,0,0,0
+  background: rgba(0,0,0,0.85);
+ }
