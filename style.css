@@ -822,13 +822,13 @@ position: fixed;
   background-color: #2196F3 !important; /* blu tappa attiva */
 }
 #minigiocoJolly {
-  position: fixed;       /* copre tutta la finestra */
+  position: center;   
   top: 0;
   left: 0;
   width: 100vw;          /* tutta la larghezza viewport */
   height: 100vh;         /* tutta l'altezza viewport */
   background: url('sfondomini.png') center center / cover no-repeat;
-  background-color: #111; /* fallback scuro, opaco */
+  background-color: black; /* fallback scuro, opaco */
   display: none;         /* nascosto di default */
   justify-content: center;
   align-items: center;
