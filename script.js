@@ -22,7 +22,8 @@ function showMinigiocoJolly(callback) {
   minigiocoAttivo = true;
   minigiocoCallback = callback;
   const popup = document.getElementById("minigiocoJolly");
-  popup.style.display = "flex";    
+  popup.style.display = "flex"; 
+  document.getElementById("gameArea").style.display = "none"; 
   popup.style.width = "100%";
   popup.style.height = "100vh";    
   popup.style.background = "url('sfondomini.png') center center / cover no-repeat";
@@ -75,6 +76,7 @@ function showMinigiocoJolly(callback) {
         if (minigiocoCallback) minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
         minigiocoCallback = null;
         popup.style.display = "none";
+        document.getElementById("gameArea").style.display = "flex";
       }, 1700);
     };
   });
@@ -83,6 +85,7 @@ function showMinigiocoJolly(callback) {
     minigiocoAttivo = false;
     minigiocoCallback = null;
     popup.style.display = "none";
+   document.getElementById("gameArea").style.display = "flex";
   };
 }
 function aggiornaMoltiplicatori() {
