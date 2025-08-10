@@ -822,14 +822,15 @@ position: fixed;
   background-color: #2196F3 !important; /* blu tappa attiva */
 }
 #minigiocoJolly {
-  width: 100%;                /* prende tutta la larghezza disponibile */
-  aspect-ratio: 1/1;           /* mantiene forma quadrata */
+  width: min(90vw, 90vh); 
+  height: min(90vw, 90vh);              
+  aspect-ratio: 1/1;    
   margin-top: 30px;
   margin-bottom: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url(sfondomini.png) center/cover no-repeat;
+  background: url(sfondomini.jpg.jpg) center/cover no-repeat;
   border-radius: 14px;
   box-shadow: 0 0 20px 5px gold;
   position: relative;
