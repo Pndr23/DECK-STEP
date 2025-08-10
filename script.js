@@ -16,14 +16,18 @@ let moltiplicatori = [];
 const moltiplicatoriFacile = [1.1,1.2,1.3,1.5,1.8,2,2.2,2.5,3,5];
 const moltiplicatoriMedio = [1.2,1.5,2,2.5,3,3.5,4,5,7,10];
 const moltiplicatoriDifficile = [1.5,2,2.5,3,4,5,6,8,12,40];
-
+let gameAreaOriginalDisplay = null;
 function showMinigiocoJolly(callback) {
   if (minigiocoAttivo) return;
   minigiocoAttivo = true;
   minigiocoCallback = callback;
   const popup = document.getElementById("minigiocoJolly");
+  const gameArea = document.getElementById("gameArea");
+   if (gameAreaOriginalDisplay === null) {
+  gameAreaOriginalDisplay = getComputedStyle(gameArea).display;
+  }
+  gameArea.style.display = "none";
   popup.style.display = "flex"; 
-  document.getElementById("gameArea").style.display = "none"; 
   popup.style.width = "100%";
   popup.style.height = "100vh";    
   popup.style.background = "url('sfondomini.png') center center / cover no-repeat";
@@ -76,7 +80,7 @@ function showMinigiocoJolly(callback) {
         if (minigiocoCallback) minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
         minigiocoCallback = null;
         popup.style.display = "none";
-        document.getElementById("gameArea").style.display = "flex";
+       gameArea.style.display = gameAreaOriginalDisplay;
       }, 1700);
     };
   });
@@ -85,7 +89,7 @@ function showMinigiocoJolly(callback) {
     minigiocoAttivo = false;
     minigiocoCallback = null;
     popup.style.display = "none";
-   document.getElementById("gameArea").style.display = "flex";
+  gameArea.style.display = gameAreaOriginalDisplay;
   };
 }
 function aggiornaMoltiplicatori() {
