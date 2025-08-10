@@ -364,17 +364,18 @@ img {
     margin: 0.5rem 0;
   }
   .progress-path {
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: gold transparent;
-  padding-top: 10px;
-  padding-bottom: 40px;
-  min-height: 90px;
-  padding-left: 20px; 
-  box-sizing: border-box;
-}
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: gold transparent;
+    padding: 10px 20px 40px 20px;
+    box-sizing: border-box;
+    scroll-snap-type: x mandatory;
+    justify-content: flex-start;
+    gap: 15px; /* 🔹 spazio ridotto tra i cerchi */
+  }
     .progress-path::-webkit-scrollbar {
     height: 6px;
   }
@@ -382,9 +383,11 @@ img {
     background-color: gold;
     border-radius: 10px;
   }
-  .progress-step {
-  min-width: 60px;
+.progress-step {
     flex: 0 0 auto;
+    min-width: 60px;
+    scroll-snap-align: start;
+    margin-right: 0; /* 🔹 niente margine extra */
   }
   .gain-label {
     font-size: 0.9rem;
