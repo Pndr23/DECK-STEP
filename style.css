@@ -839,12 +839,13 @@ position: fixed;
   user-select: none;
 }
 #minigiocoJolly h2 {
+  font-size: 2.4rem; /* più grande */
   color: gold;
   font-weight: 800;
-  text-shadow: 0 0 8px gold;
-  margin-bottom: 20px;
+  text-shadow: 0 0 10px gold;
+  margin-bottom: 25px;
+  text-align: center;
 }
-
 #minigiocoJolly div.carte {
   display: flex;
   gap: 40px;             /* spazio tra le carte */
@@ -854,52 +855,39 @@ position: fixed;
   width: 100%;
 }
 #minigiocoJolly img {
-  width: 140px;
-  height: 200px;
-  border-radius: 12px;
+  width: 180px;    /* più grandi */
+  height: 260px;
+  border-radius: 14px;
   cursor: pointer;
-  box-shadow: 0 0 12px 3px rgba(255, 215, 0, 0.6);
-  filter: drop-shadow(0 0 3px gold);
-  backface-visibility: hidden;
-  transition: box-shadow 0.3s ease, transform 0.6s ease;
-  transform-style: preserve-3d;
-  position: relative;
-  perspective: 1000px;
+  box-shadow: 0 0 15px 5px rgba(255, 215, 0, 0.8);
+  filter: drop-shadow(0 0 5px gold);
 }
 #minigiocoJolly img.covered {
   animation: glowPulse 2.5s infinite;
   filter: drop-shadow(0 0 6px gold);
 }
-
 #minigiocoJolly img.flipped {
   transform: rotateY(180deg);
   box-shadow: 0 0 20px 8px gold;
   filter: drop-shadow(0 0 10px gold);
 }
-
 #minigiocoJolly img.selected {
   box-shadow: 0 0 30px 10px gold !important;
   filter: drop-shadow(0 0 20px gold) !important;
   transform: scale(1.1);
   transition: all 0.3s ease;
 }
-
 @keyframes glowPulse {
   0%, 100% { filter: drop-shadow(0 0 3px gold); }
   50% { filter: drop-shadow(0 0 12px gold); }
 }
-
 #minigiocoCloseBtn {
-  padding: 10px 18px;
-  font-weight: 700;
-  font-size: 1.1rem;
-  background: gold;
-  border: none;
-  border-radius: 8px;
-  color: #222;
-  cursor: pointer;
-  box-shadow: 0 0 15px 2px gold;
-  transition: background 0.3s ease;
+  font-size: 1.3rem;  /* più grande */
+  padding: 12px 20px;
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 #minigiocoCloseBtn:hover {
   background: #e6c200;
