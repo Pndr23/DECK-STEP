@@ -16,12 +16,19 @@ let moltiplicatori = [];
 const moltiplicatoriFacile = [1.1,1.2,1.3,1.5,1.8,2,2.2,2.5,3,5];
 const moltiplicatoriMedio = [1.2,1.5,2,2.5,3,3.5,4,5,7,10];
 const moltiplicatoriDifficile = [1.5,2,2.5,3,4,5,6,8,12,40];
+
 function showMinigiocoJolly(callback) {
   if (minigiocoAttivo) return;
   minigiocoAttivo = true;
   minigiocoCallback = callback;
   const popup = document.getElementById("minigiocoJolly");
-  popup.style.display = "block";
+  popup.style.display = "flex";    
+  popup.style.width = "100%";
+  popup.style.height = "100vh";    
+  popup.style.background = "url('sfondomini.png') center center / cover no-repeat";
+  popup.style.marginTop = "0";       
+  popup.style.marginBottom = "0";
+  
   const cardElems = [document.getElementById("minicard1"), document.getElementById("minicard2")];
   const jollyImgSrc = "jolly.png";
   const moltiplicatoriMinigioco = [1,2,3,4,5,6,7,8,9,10];
