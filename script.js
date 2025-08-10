@@ -16,7 +16,6 @@ let moltiplicatori = [];
 const moltiplicatoriFacile = [1.1,1.2,1.3,1.5,1.8,2,2.2,2.5,3,5];
 const moltiplicatoriMedio = [1.2,1.5,2,2.5,3,3.5,4,5,7,10];
 const moltiplicatoriDifficile = [1.5,2,2.5,3,4,5,6,8,12,40];
-
 function showMinigiocoJolly(callback) {
   if (minigiocoAttivo) return;
   minigiocoAttivo = true;
@@ -24,7 +23,7 @@ function showMinigiocoJolly(callback) {
   const popup = document.getElementById("minigiocoJolly");
   popup.style.display = "block";
   const cardElems = [document.getElementById("minicard1"), document.getElementById("minicard2")];
-  const jollyImgSrc = "cards/jolly.png";
+  const jollyImgSrc = "jolly.png";
   const moltiplicatoriMinigioco = [1,2,3,4,5,6,7,8,9,10];
   const moltiplicatoreScelto = moltiplicatoriMinigioco[Math.floor(Math.random() * moltiplicatoriMinigioco.length)];
   const suitsLetters = ['C', 'P', 'F', 'Q'];
@@ -183,16 +182,15 @@ function updateJollyDisplay() {
   } else {
     document.getElementById("useJollyBtn").classList.add("hidden");
   }
-}
+} 
 function updateScore() {
   document.getElementById("scoreValue").innerText = correctCount;
   correctCountSpan.textContent = correctCount;
   errorCountSpan.textContent = errorCount;
   jollyCountSpan.textContent = jollyCount;
-}
+} 
 function updateProgress() {
   const steps = progressPath.querySelectorAll(".progress-step");
-
   steps.forEach((step, i) => {
     step.classList.remove("completed-step");
     if (i < tappe) {
@@ -205,10 +203,10 @@ function updateProgress() {
   if (activeStep) {
  progressPath.scrollLeft = activeStep.offsetLeft - progressPath.offsetWidth / 2 + activeStep.offsetWidth / 2;
   }
-}
+} 
 function updateJollyButton() {
   useJollyBtn.classList.toggle("hidden", jollyCount === 0 || errorCount === 0);
-}
+} 
 function preloadCardImages() {
   for (let i = 1; i <= 40; i++) {
     const img = new Image();
@@ -216,7 +214,7 @@ function preloadCardImages() {
   }
   const back = new Image();
   back.src = "cards/card_back.png";
-}
+} 
 function startGame() {
   currentCard = drawCard();
   displayCurrentCard(currentCard);
@@ -231,12 +229,13 @@ function drawCard(avoidValue = null) {
     value = ((index - 1) % 10) + 1;
     const suitIndex = Math.floor((index - 1) / 10);
     suitLetter = suitsLetters[suitIndex];
-  } while (value === avoidValue);
+  }
+    while (value === avoidValue);
   return { value, suit: suitLetter };
-}
+} 
 function displayCurrentCard(card) {
    currentCardImg.src = `cards/card_${card.value}${card.suit}.png`;
-}
+} 
 function displayDrawnCard(card, covered = false) {
   const drawnCardImg = document.getElementById("drawnCardImg");
   if (covered || !card) {
@@ -247,7 +246,7 @@ function displayDrawnCard(card, covered = false) {
 }
 function isRed(suit) {
   return suit === "C" || suit === "Q";
-}
+} 
 function isBlack(suit) {
   return suit === "F" || suit === "P";
 }
@@ -260,7 +259,7 @@ function generateChallenge() {
     { key: "exactNumber", label: { it: "Numero Esatto", en: "Exact Number" } },
     { key: "color", label: { it: "Colore", en: "Color" } },
     { key: "suit", label: { it: "Seme", en: "Suit" } } // Nuova sfida
-  ];
+  ]; 
   if (currentLevel === "hard") {
     challenges = challenges.filter(ch => ch.key !== "color");
   } else {
@@ -284,7 +283,6 @@ function generateChallenge() {
     challengeText.textContent += ` (${a}-${b})`;
     addButton(translate("in"), (next) => next.value >= a && next.value <= b);
     addButton(translate("out"), (next) => next.value < a || next.value > b);
-
   } else if (selected.key === "exactNumber") {
     for (let i = 1; i <= 10; i++) {
       addButton(i.toString(), (next) => next.value === i);
@@ -298,7 +296,7 @@ function generateChallenge() {
     addButton(translate("clubs"), (next) => next.suit === "F");
     addButton(translate("spades"), (next) => next.suit === "P");
   }
-}
+}  
 document.addEventListener("DOMContentLoaded", () => {
   currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
   languageSelect.value = currentLanguage;
@@ -322,7 +320,7 @@ function showGameOverScreen() {
   }
   gameArea.classList.add("hidden");
   gameSetup.classList.add("hidden");
-}
+} 
 function addButton(text, checkFn) {
   const btn = document.createElement("button");
   btn.textContent = text;
@@ -357,8 +355,7 @@ function addButton(text, checkFn) {
     updateScore();
     updateJollyButton();
   });
-}
-           tappe++;
+  }     tappe++;
           setTimeout(updateProgress, 100);
         } else {
            correctStreak = 0; 
@@ -367,7 +364,6 @@ function addButton(text, checkFn) {
           } else {
             errorCount++;
             if (jollyCount > 0 && errorCount === 3 && !jollyUsedInThisTurn) {
-  // Uso automatico del jolly
   jollyCount--;
   errorCount--; // annulla l'errore che avrebbe causato il game over
   updateJollyDisplay();
@@ -398,7 +394,6 @@ function addButton(text, checkFn) {
         const isJackpot = tappe === 10;
         const isFirstTurn = correctCount === 1;
         const isUsingJolly = usedJolly;
-
         if (isFirstTurn || isUsingJolly || isJackpot) {
           setTimeout(() => {
             displayCurrentCard(currentCard);
@@ -598,7 +593,6 @@ function showWinScreen() {
   totalWinnings.textContent = `Hai vinto: €${vincitaFinale.toFixed(2)}`;
   screen.classList.remove("hidden");
   }
-
   document.getElementById("restartBtn").addEventListener("click", () => {
   location.reload();
 });
