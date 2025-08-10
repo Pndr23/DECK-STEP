@@ -829,9 +829,7 @@ position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: 
-   linear-gradient(135deg, rgba(26,26,26,0.6), rgba(34,34,34,0.6)),
-   url('sfondomini.png') center/cover no-repeat;
+  background:url(sfondomini.png);
   border-radius: 14px;
   box-shadow: 0 0 20px 5px gold;
   position: relative;
