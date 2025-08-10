@@ -822,14 +822,16 @@ position: fixed;
   background-color: #2196F3 !important; /* blu tappa attiva */
 }
 #minigiocoJolly {
-  width: 100%;           /* occupa tutta la larghezza del container gioco */
-  height: 100%;          /* occupa tutta l’altezza */
+  width: 100%;
+  height: 100%;
   margin-top: 30px;
-  margin-bottom:20px;
+  margin-bottom: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #1a1a1a, #222);
+  background: 
+   linear-gradient(135deg, rgba(26,26,26,0.6), rgba(34,34,34,0.6)),
+   url('sfondomini.jpg') center/cover no-repeat;
   border-radius: 14px;
   box-shadow: 0 0 20px 5px gold;
   position: relative;
