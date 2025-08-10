@@ -822,20 +822,21 @@ position: fixed;
   background-color: #2196F3 !important; /* blu tappa attiva */
 }
 #minigiocoJolly {
-  width: min(90vw, 90vh); 
-  height: min(90vw, 90vh);              
-  aspect-ratio: 1/1;    
-  margin-top: 30px;
-  margin-bottom: 20px;
-  display: flex;
+  position: fixed;       /* copre tutta la finestra */
+  top: 0;
+  left: 0;
+  width: 100vw;          /* tutta la larghezza viewport */
+  height: 100vh;         /* tutta l'altezza viewport */
+  background: url('sfondomini.png') center center / cover no-repeat;
+  background-color: #111; /* fallback scuro, opaco */
+  display: none;         /* nascosto di default */
   justify-content: center;
   align-items: center;
-  background: url(sfondomini.png) center/cover no-repeat;
-  border-radius: 14px;
-  box-shadow: 0 0 20px 5px gold;
-  position: relative;
-  padding: 1.8rem;
+  padding: 2rem;
   box-sizing: border-box;
+  border-radius: 0;      /* togli angoli arrotondati se vuoi */
+  box-shadow: none;      /* niente ombre fuori */
+  z-index: 9999;         /* sopra tutto */
   user-select: none;
 }
 #minigiocoJolly h2 {
