@@ -840,7 +840,8 @@ position: fixed;
   user-select: none;
 }
 #minigiocoJolly h2 {
-  font-size: 2.4rem; /* più grande */
+  position: center;
+  font-size: 8rem; /* più grande */
   color: gold;
   font-weight: 800;
   text-shadow: 0 0 10px gold;
@@ -883,6 +884,7 @@ position: fixed;
   50% { filter: drop-shadow(0 0 12px gold); }
 }
 #minigiocoCloseBtn {
+  position: center;
   font-size: 1.3rem;  /* più grande */
   padding: 12px 20px;
   margin-top: 20px;
