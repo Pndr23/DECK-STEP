@@ -32,7 +32,7 @@ function showMinigiocoJolly(callback) {
   popup.style.flexDirection = "column";
   popup.style.alignItems = "center";
   popup.style.justifyContent = "center";
-  popup.style.paddingTop = "0"; 
+  popup.style.paddingTop = "20"; 
   popup.style.width = "100%";
   popup.style.height = "100vh";    
   popup.style.backgroundColor = "black";
