@@ -31,8 +31,8 @@ function showMinigiocoJolly(callback) {
   popup.style.display = "flex"; 
   popup.style.flexDirection = "column";
   popup.style.alignItems = "center";
-  popup.style.justifyContent = "flex-start";
-  popup.style.paddingTop = "100px"; 
+  popup.style.justifyContent = "center";
+  popup.style.paddingTop = "0"; 
   popup.style.width = "100%";
   popup.style.height = "100vh";    
   popup.style.backgroundColor = "black";
@@ -42,27 +42,40 @@ function showMinigiocoJolly(callback) {
   popup.style.marginTop = "0";       
   popup.style.marginBottom = "0";
   
-    const title = document.getElementById("minigiocoTitle");
+  const title = document.getElementById("minigiocoTitle");
+  const cardElems = [document.getElementById("minicard1"), document.getElementById("minicard2")];
+  const closeBtn = document.getElementById("minigiocoCloseBtn");
+  
+  function resizeMinigioco() {
+  let screenWidth = window.innerWidth;
+    
   if (title) {
     title.style.order = "1";
-    title.style.fontSize = "2em";
+    title.style.fontSize = screenWidth < 600 ? "1.5em" : "2em";
     title.style.color = "white";
     title.style.marginBottom = "20px";
   }
-  const cardElems = [document.getElementById("minicard1"), document.getElementById("minicard2")];
-   cardElems.forEach(c => {
-    c.style.width = "180px";
-    c.style.height = "260px";
-    c.style.margin = "0 15px";
-    c.style.order = "2";
-  });
-   const closeBtn = document.getElementById("minigiocoCloseBtn");
+  cardElems.forEach(c => {
+      c.style.order = "2";
+      if (screenWidth < 600) { // mobile
+        c.style.width = "120px";
+        c.style.height = "180px";
+        c.style.margin = "0 10px";
+      } else { // desktop
+        c.style.width = "180px";
+        c.style.height = "260px";
+        c.style.margin = "0 15px";
+      }
+    });
   if (closeBtn) {
     closeBtn.style.order = "3";
     closeBtn.style.marginTop = "30px";
-    closeBtn.style.fontSize = "1.2em";
-    closeBtn.style.padding = "10px 20px";
+    closeBtn.style.fontSize = screenWidth < 600 ? "1em" : "1.2em";
+      closeBtn.style.padding = screenWidth < 600 ? "8px 16px" : "10px 20px";
+    }
   }
+   resizeMinigioco();
+  window.addEventListener("resize", resizeMinigioco);
   const jollyImgSrc = "jolly.png";
   const moltiplicatoriMinigioco = [1,2,3,4,5,6,7,8,9,10];
   const moltiplicatoreScelto = moltiplicatoriMinigioco[Math.floor(Math.random() * moltiplicatoriMinigioco.length)];
@@ -109,6 +122,7 @@ function showMinigiocoJolly(callback) {
         minigiocoCallback = null;
         popup.style.display = "none";
        gameArea.style.display = gameAreaOriginalDisplay;
+       window.removeEventListener("resize", resizeMinigioco);
       }, 1700);
     };
   });
@@ -117,7 +131,8 @@ function showMinigiocoJolly(callback) {
     minigiocoAttivo = false;
     minigiocoCallback = null;
     popup.style.display = "none";
-  gameArea.style.display = gameAreaOriginalDisplay;
+    gameArea.style.display = gameAreaOriginalDisplay;
+    window.removeEventListener("resize", resizeMinigioco);
   };
 }
 function aggiornaMoltiplicatori() {
@@ -320,7 +335,7 @@ function generateChallenge() {
     addButton(translate("even"), (next) => next.value % 2 === 0);
     addButton(translate("odd"), (next) => next.value % 2 !== 0);
   } else if (selected.key === "inOut") {
-    const a = Math.floor(Math.random() * 8) + 2;
+    const a = Math.floor(Math.random() * 7) + 2;
     const b = a + 2;
     challengeText.textContent += ` (${a}-${b})`;
     addButton(translate("in"), (next) => next.value >= a && next.value <= b);
