@@ -17,6 +17,7 @@ const moltiplicatoriFacile = [1.1,1.2,1.3,1.5,1.8,2,2.2,2.5,3,5];
 const moltiplicatoriMedio = [1.2,1.5,2,2.5,3,3.5,4,5,7,10];
 const moltiplicatoriDifficile = [1.5,2,2.5,3,4,5,6,8,12,40];
 let gameAreaOriginalDisplay = null;
+
 function showMinigiocoJolly(callback) {
   if (minigiocoAttivo) return;
   minigiocoAttivo = true;
@@ -28,13 +29,40 @@ function showMinigiocoJolly(callback) {
   }
   gameArea.style.display = "none";
   popup.style.display = "flex"; 
+  popup.style.flexDirection = "column";
+  popup.style.alignItems = "center";
+  popup.style.justifyContent = "flex-start";
+  popup.style.paddingTop = "100px"; 
   popup.style.width = "100%";
   popup.style.height = "100vh";    
-  popup.style.background = "url('sfondomini.png') center center / cover no-repeat";
+  popup.style.backgroundColor = "black";
+  popup.style.backgroundImage = "url('sfondomini.png')";
+  popup.style.backgroundPosition = "center";
+  popup.style.backgroundSize = "cover";
   popup.style.marginTop = "0";       
   popup.style.marginBottom = "0";
   
+    const title = document.getElementById("minigiocoTitle");
+  if (title) {
+    title.style.order = "1";
+    title.style.fontSize = "2em";
+    title.style.color = "white";
+    title.style.marginBottom = "20px";
+  }
   const cardElems = [document.getElementById("minicard1"), document.getElementById("minicard2")];
+   cardElems.forEach(c => {
+    c.style.width = "180px";
+    c.style.height = "260px";
+    c.style.margin = "0 15px";
+    c.style.order = "2";
+  });
+   const closeBtn = document.getElementById("minigiocoCloseBtn");
+  if (closeBtn) {
+    closeBtn.style.order = "3";
+    closeBtn.style.marginTop = "30px";
+    closeBtn.style.fontSize = "1.2em";
+    closeBtn.style.padding = "10px 20px";
+  }
   const jollyImgSrc = "jolly.png";
   const moltiplicatoriMinigioco = [1,2,3,4,5,6,7,8,9,10];
   const moltiplicatoreScelto = moltiplicatoriMinigioco[Math.floor(Math.random() * moltiplicatoriMinigioco.length)];
@@ -84,7 +112,7 @@ function showMinigiocoJolly(callback) {
       }, 1700);
     };
   });
-  document.getElementById("minigiocoCloseBtn").onclick = () => {
+   closeBtn.onclick = () => {
     if (!minigiocoAttivo) return;
     minigiocoAttivo = false;
     minigiocoCallback = null;
