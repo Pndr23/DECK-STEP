@@ -428,49 +428,61 @@ function addButton(text, checkFn) {
             errorCount++;
             if (jollyCount > 0 && errorCount === 3 && !jollyUsedInThisTurn) {
   jollyCount--;
-  errorCount--; // annulla l'errore che avrebbe causato il game over
+  errorCount--; 
   updateJollyDisplay();
   jollyUsedInThisTurn = true;
   alert("Jolly usato automaticamente!");
  }
    }
      }
-      const maxErrors = (currentLevel === "hard") ? 3 : 4;
-      if (errorCount >= maxErrors) {
-          challengeText.textContent = translate("lost");
-          challengeButtons.innerHTML = "";
-          restartBtn.classList.remove("hidden");
-          withdrawBtn.classList.add("hidden");
-          showGameOverScreen();
-          return;
-        }
-        if (tappe >= 10)  {
-          showWinScreen();
-          fineGioco();
-          return;
-        }
-        updateScore();
-        updateProgress();
-        updateJollyButton();
-        aggiornaGuadagno(correctCount);
-        currentCard = drawnCard;
-        const isJackpot = tappe === 10;
-        const isFirstTurn = correctCount === 1;
-        const isUsingJolly = usedJolly;
-        if (isFirstTurn || isUsingJolly || isJackpot) {
-          setTimeout(() => {
-            displayCurrentCard(currentCard);
-            displayDrawnCard(null, true);
-            showShuffleAnimation(() => {
-              generateChallenge();
-            });
-          }, 2000);
-        } else {
-          setTimeout(() => {
-            displayDrawnCard(null, true);
-            displayCurrentCard(currentCard);
-            generateChallenge();
-          }, 1500);
+    const maxErrors = (currentLevel === "hard") ? 3 : 4;
+if (tappe >= 10) {
+  if (errorCount >= maxErrors) {
+    showGameOverScreen();
+    return;
+  } else if (result) {
+    showWinScreen();
+    fineGioco();
+    return;
+  } else {
+    tappe = 10; 
+    generateChallenge();
+    return;
+  }
+}
+if (errorCount >= maxErrors) {
+  challengeText.textContent = translate("lost");
+  challengeButtons.innerHTML = "";
+  restartBtn.classList.remove("hidden");
+  withdrawBtn.classList.add("hidden");
+  showGameOverScreen();
+  return;
+}
+
+updateScore();
+updateProgress();
+updateJollyButton();
+aggiornaGuadagno(correctCount);
+currentCard = drawnCard;
+
+const isJackpot = tappe === 10;
+const isFirstTurn = correctCount === 1;
+const isUsingJolly = usedJolly;
+
+if (isFirstTurn || isUsingJolly || isJackpot) {
+  setTimeout(() => {
+    displayCurrentCard(currentCard);
+    displayDrawnCard(null, true);
+    showShuffleAnimation(() => {
+      generateChallenge();
+    });
+  }, 2000);
+} else {
+  setTimeout(() => {
+    displayDrawnCard(null, true);
+    displayCurrentCard(currentCard);
+    generateChallenge();
+     }, 1500);
         }
       }, { once: true });
     }, 700);
