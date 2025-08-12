@@ -616,7 +616,6 @@ position: fixed;
 #restartBtn:hover {
   transform: scale(1.05);
 }
-* Schermata vittoria */
 #victoryScreen {
   position: fixed;
   top: 0;
