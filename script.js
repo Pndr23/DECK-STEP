@@ -51,16 +51,16 @@ function showMinigiocoJolly(callback) {
     
   if (title) {
     title.style.order = "1";
-    title.style.fontSize = screenWidth < 600 ? "1.5em" : "2em";
+    title.style.fontSize = screenWidth < 600 ? "1.2em" : "2em";
     title.style.color = "white";
-    title.style.marginBottom = "20px";
+   title.style.marginBottom = screenWidth < 600 ? "10px" : "20px";
   }
   cardElems.forEach(c => {
       c.style.order = "2";
       if (screenWidth < 600) { // mobile
-        c.style.width = "120px";
-        c.style.height = "180px";
-        c.style.margin = "0 10px";
+        c.style.width = "110px";
+        c.style.height = "165px";
+        c.style.margin = "0 8px";
       } else { // desktop
         c.style.width = "180px";
         c.style.height = "260px";
@@ -69,11 +69,11 @@ function showMinigiocoJolly(callback) {
     });
   if (closeBtn) {
     closeBtn.style.order = "3";
-    closeBtn.style.marginTop = "30px";
-    closeBtn.style.fontSize = screenWidth < 600 ? "1em" : "1.2em";
-      closeBtn.style.padding = screenWidth < 600 ? "8px 16px" : "10px 20px";
-    }
+     closeBtn.style.marginTop = screenWidth < 600 ? "15px" : "30px";
+    closeBtn.style.fontSize = screenWidth < 600 ? "0.9em" : "1.2em";
+    closeBtn.style.padding = screenWidth < 600 ? "6px 12px" : "10px 20px";
   }
+      }
    resizeMinigioco();
   window.addEventListener("resize", resizeMinigioco);
   const jollyImgSrc = "jolly.png";
