@@ -474,7 +474,6 @@ setTimeout(() => {
   displayDrawnCard(null, true);
   generateChallenge();
 }, 1500);
-        }
       }, { once: true });
     }, 700);
   };
