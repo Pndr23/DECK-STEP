@@ -119,6 +119,12 @@ function showMinigiocoJolly(callback) {
       });
       setTimeout(() => {
         if (minigiocoCallback) minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
+         
+    if (el.dataset.type === "jolly") {
+     const jollyBtn = document.getElementById("jollyButton");
+     if (jollyBtn) jollyBtn.style.display = "block";
+     hasJolly = true;
+  }
         minigiocoCallback = null;
         popup.style.display = "none";
        gameArea.style.display = gameAreaOriginalDisplay;
