@@ -828,7 +828,7 @@ position: fixed;
   width: 100vw;          /* tutta la larghezza viewport */
   height: 100vh;         /* tutta l'altezza viewport */
   background: url('sfondomini.png') center center / cover no-repeat;
-  background-color: black; /* fallback scuro, opaco */
+  background-color: #800020; /* fallback scuro, opaco */
   display: none;         /* nascosto di default */
   justify-content: center;
   align-items: center;
