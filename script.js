@@ -468,21 +468,12 @@ currentCard = drawnCard;
 const isJackpot = tappe === 10;
 const isFirstTurn = correctCount === 1;
 const isUsingJolly = usedJolly;
-
-if (isFirstTurn || isUsingJolly || isJackpot) {
-  setTimeout(() => {
-    displayCurrentCard(currentCard);
-    displayDrawnCard(null, true);
-    showShuffleAnimation(() => {
-      generateChallenge();
-    });
-  }, 2000);
-} else {
-  setTimeout(() => {
-    displayDrawnCard(null, true);
-    displayCurrentCard(currentCard);
-    generateChallenge();
-     }, 1500);
+        
+setTimeout(() => {
+  displayCurrentCard(currentCard);
+  displayDrawnCard(null, true);
+  generateChallenge();
+}, 1500);
         }
       }, { once: true });
     }, 700);
@@ -516,19 +507,15 @@ function updateLanguage() {
   rulesPanel.innerHTML = translate("rulesText");
   document.getElementById("withdrawLabel").textContent = translate("withdraw");
 }
-function showShuffleAnimation(callback) {
-  const shuffleDiv = document.getElementById("shuffleAnimation");
-  shuffleDiv.classList.remove("hidden");
-  requestAnimationFrame(() => {
-    shuffleDiv.classList.add("visible");
-  });
+function showShuffle(callback) {
+  const shuffle = document.getElementById('shuffleContainer');
+  shuffle.classList.remove('hidden');
+  shuffle.style.pointerEvents = 'auto';
   setTimeout(() => {
-    shuffleDiv.classList.remove("visible");
-    setTimeout(() => {
-      shuffleDiv.classList.add("hidden");
-      if (callback) callback();
-    }, 500);
-  }, 1000);
+    shuffle.classList.add('hidden');
+    shuffle.style.pointerEvents = 'none';
+    if (callback) callback();
+  }, 2000);
 }
 function showWithdrawScreen() {
   const screen = document.getElementById("victoryScreen");
