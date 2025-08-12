@@ -903,3 +903,6 @@ position: fixed;
   width: 140px;
   height: 200px;
 }
+#gameArea, #victoryScreen, #gameOverScreen, #gameSetup, button, label, p, h1, h2, h3, span {
+  font-family: 'Poppins', sans-serif;
+}
