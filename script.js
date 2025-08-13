@@ -17,6 +17,7 @@ const moltiplicatoriFacile = [1.1,1.2,1.3,1.5,1.8,2,2.2,2.5,3,5];
 const moltiplicatoriMedio = [1.2,1.5,2,2.5,3,3.5,4,5,7,10];
 const moltiplicatoriDifficile = [1.5,2,2.5,3,4,5,6,8,12,40];
 let gameAreaOriginalDisplay = null;
+let gameEnded = false;
 
 function showMinigiocoJolly(callback) {
   if (minigiocoAttivo) return;
@@ -428,59 +429,59 @@ function addButton(text, checkFn) {
     updateScore();
     updateJollyButton();
   });
-  }     tappe++;
-          setTimeout(updateProgress, 100);
-        } else {
-           correctStreak = 0; 
+  }    
+            } else {
+          correctStreak = 0; 
           if (jollyCount > 0 && errorCount < 3) {
             jollyCount--;
           } else {
             errorCount++;
             if (jollyCount > 0 && errorCount === 3 && !jollyUsedInThisTurn) {
-  jollyCount--;
-  errorCount--; 
-  updateJollyDisplay();
-  jollyUsedInThisTurn = true;
-  alert("Jolly usato automaticamente!");
- }
-   }
-     }
-const maxErrors = (currentLevel === "hard") ? 3 : 4;
-if (!gameEnded) {
-    if (errorCount >= maxErrors) {
-        gameEnded = true;
-        challengeText.textContent = translate("lost");
-        challengeButtons.innerHTML = "";
-        restartBtn.classList.remove("hidden");
-        withdrawBtn.classList.add("hidden");
-        showGameOverScreen();
-        return;
-    }
-    if (tappe >= 10) {
-        gameEnded = true;
-        showWinScreen();
-        fineGioco();
-        return;
-    }
-    generateChallenge();
-}
-updateScore();
-updateProgress();
-updateJollyButton();
-aggiornaGuadagno(correctCount);
-currentCard = drawnCard;
-const isJackpot = tappe === 10;
-const isFirstTurn = correctCount === 1;
-const isUsingJolly = usedJolly; 
-setTimeout(() => {
-  displayCurrentCard(currentCard);
-  displayDrawnCard(null, true);
-  generateChallenge();
-}, 1500);
+              jollyCount--;
+              errorCount--; 
+              updateJollyDisplay();
+              jollyUsedInThisTurn = true;
+              alert("Jolly usato automaticamente!");
+            }
+          }
+        }
+        tappe++;
+        checkEndGame();
+        if (!gameEnded) generateChallenge();
+        updateScore();
+        updateProgress();
+        updateJollyButton();
+        aggiornaGuadagno(correctCount);
+        currentCard = drawnCard;
+        setTimeout(() => {
+          displayCurrentCard(currentCard);
+          displayDrawnCard(null, true);
+        }, 1500);
+
       }, { once: true });
     }, 700);
   };
   challengeButtons.appendChild(btn);
+}
+function checkEndGame() {
+    const maxErrors = (currentLevel === "hard") ? 3 : 4;
+    if (!gameEnded) {
+        if (errorCount >= maxErrors) {
+            gameEnded = true;
+            challengeText.textContent = translate("lost");
+            challengeButtons.innerHTML = "";
+            restartBtn.classList.remove("hidden");
+            withdrawBtn.classList.add("hidden");
+            showGameOverScreen();
+            return;
+        }
+        if (tappe >= 10) {
+            gameEnded = true;
+            showWinScreen();
+            fineGioco();
+            return;
+        }
+    }
 }
 function aggiornaGuadagno(corretti) {
   const label = document.getElementById("gainLabel");
