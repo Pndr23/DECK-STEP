@@ -18,6 +18,7 @@ const moltiplicatoriMedio = [1.2,1.5,2,2.5,3,3.5,4,5,7,10];
 const moltiplicatoriDifficile = [1.5,2,2.5,3,4,5,6,8,12,40];
 let gameAreaOriginalDisplay = null;
 let gameEnded = false;
+let partitaIniziata = false;
 
 function showMinigiocoJolly(callback) {
   if (minigiocoAttivo) return;
@@ -231,6 +232,7 @@ function resetGame() {
   document.getElementById("gameOverScreen").classList.add("hidden");
   document.getElementById("victoryScreen").classList.add("hidden");
   document.getElementById("drawnCardImg").src = "";
+  partitaIniziata = false
   gameEnded = false;
   correctCount = 0;
   errorCount = 0;
@@ -284,6 +286,7 @@ function preloadCardImages() {
   back.src = "cards/card_back.png";
 } 
 function startGame() {
+  partitaIniziata = true;
   gameEnded = false;
   tappe = 0;
   errorCount = 0; 
@@ -466,8 +469,9 @@ function addButton(text, checkFn) {
   challengeButtons.appendChild(btn);
 }
 function checkEndGame() {
+   if (!partitaIniziata) return; 
     const maxErrors = (currentLevel === "hard") ? 3 : 4;
-    if (!gameEnded) {
+  if (!gameEnded) {
         if (errorCount >= maxErrors) {
             gameEnded = true;
             challengeText.textContent = translate("lost");
