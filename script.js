@@ -19,7 +19,6 @@ const moltiplicatoriDifficile = [1.5,2,2.5,3,4,5,6,8,12,40];
 let gameAreaOriginalDisplay = null;
 let gameEnded = false;
 let partitaIniziata = false;
-
 function showMinigiocoJolly(callback) {
   if (minigiocoAttivo) return;
   minigiocoAttivo = true;
@@ -47,10 +46,8 @@ function showMinigiocoJolly(callback) {
   const title = document.getElementById("minigiocoTitle");
   const cardElems = [document.getElementById("minicard1"), document.getElementById("minicard2")];
   const closeBtn = document.getElementById("minigiocoCloseBtn");
-  
   function resizeMinigioco() {
   let screenWidth = window.innerWidth;
-    
   if (title) {
     title.style.order = "1";
     title.style.fontSize = screenWidth < 600 ? "1.2em" : "2em";
@@ -438,7 +435,7 @@ function addButton(text, checkFn) {
     updateJollyButton();
   });
   }    
-            } else {
+   } else {
           correctStreak = 0; 
           if (jollyCount > 0 && errorCount < 3) {
             jollyCount--;
