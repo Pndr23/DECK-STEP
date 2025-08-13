@@ -231,6 +231,7 @@ function resetGame() {
   document.getElementById("gameOverScreen").classList.add("hidden");
   document.getElementById("victoryScreen").classList.add("hidden");
   document.getElementById("drawnCardImg").src = "";
+  gameEnded = false;
   correctCount = 0;
   errorCount = 0;
   jollyCount = 0;
@@ -283,6 +284,7 @@ function preloadCardImages() {
   back.src = "cards/card_back.png";
 } 
 function startGame() {
+  gameEnded = false;
   tappe = 0;
   errorCount = 0; 
   correctCount = 0;
