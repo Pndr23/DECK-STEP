@@ -469,7 +469,7 @@ function addButton(text, checkFn) {
         setTimeout(() => {
           displayCurrentCard(currentCard);
           displayDrawnCard(null, true);
-        }, 1500);
+        }, 3000);
       }, { once: true });
     }, 700);
   };
