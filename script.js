@@ -458,7 +458,7 @@ function addButton(text, checkFn) {
             restartBtn.classList.remove("hidden");
             withdrawBtn.classList.add("hidden");
             showGameOverScreen();
-          } else if (tappe >= 10) {
+            } else if (tappe >= 10 && !gameEnded) {
             gameEnded = true;
             showWinScreen();
             fineGioco();
