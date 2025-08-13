@@ -445,28 +445,24 @@ function addButton(text, checkFn) {
  }
    }
      }
-    const maxErrors = (currentLevel === "hard") ? 3 : 4;
-if (tappe >= 10) {
-  if (errorCount >= maxErrors) {
-    showGameOverScreen();
-    return;
-  } else if (result) {
-    showWinScreen();
-    fineGioco();
-    return;
-  } else {
-    tappe = 10; 
+const maxErrors = (currentLevel === "hard") ? 3 : 4;
+if (!gameEnded) {
+    if (errorCount >= maxErrors) {
+        gameEnded = true;
+        challengeText.textContent = translate("lost");
+        challengeButtons.innerHTML = "";
+        restartBtn.classList.remove("hidden");
+        withdrawBtn.classList.add("hidden");
+        showGameOverScreen();
+        return;
+    }
+    if (tappe >= 10) {
+        gameEnded = true;
+        showWinScreen();
+        fineGioco();
+        return;
+    }
     generateChallenge();
-    return;
-  }
-}
-if (errorCount >= maxErrors) {
-  challengeText.textContent = translate("lost");
-  challengeButtons.innerHTML = "";
-  restartBtn.classList.remove("hidden");
-  withdrawBtn.classList.add("hidden");
-  showGameOverScreen();
-  return;
 }
 updateScore();
 updateProgress();
@@ -475,8 +471,7 @@ aggiornaGuadagno(correctCount);
 currentCard = drawnCard;
 const isJackpot = tappe === 10;
 const isFirstTurn = correctCount === 1;
-const isUsingJolly = usedJolly;
-        
+const isUsingJolly = usedJolly; 
 setTimeout(() => {
   displayCurrentCard(currentCard);
   displayDrawnCard(null, true);
