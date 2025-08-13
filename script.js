@@ -42,7 +42,6 @@ function showMinigiocoJolly(callback) {
   popup.style.backgroundSize = "cover";
   popup.style.marginTop = "0";       
   popup.style.marginBottom = "0";
-  
   const title = document.getElementById("minigiocoTitle");
   const cardElems = [document.getElementById("minicard1"), document.getElementById("minicard2")];
   const closeBtn = document.getElementById("minigiocoCloseBtn");
@@ -56,7 +55,7 @@ function showMinigiocoJolly(callback) {
   }
   cardElems.forEach(c => {
       c.style.order = "2";
-      if (screenWidth < 600) { // mobile
+      if (screenWidth < 600) { 
         c.style.width = "110px";
         c.style.height = "165px";
         c.style.margin = "0 8px";
@@ -450,8 +449,21 @@ function addButton(text, checkFn) {
             }
           }
         }
-        tappe++;
-        checkEndGame();
+        if (!gameEnded) {
+          const maxErrors = (currentLevel === "hard") ? 3 : 4;
+          if (errorCount >= maxErrors) {
+            gameEnded = true;
+            challengeText.textContent = translate("lost");
+            challengeButtons.innerHTML = "";
+            restartBtn.classList.remove("hidden");
+            withdrawBtn.classList.add("hidden");
+            showGameOverScreen();
+          } else if (tappe >= 10) {
+            gameEnded = true;
+            showWinScreen();
+            fineGioco();
+          }
+        }
         if (!gameEnded) generateChallenge();
         updateScore();
         updateProgress();
@@ -462,32 +474,10 @@ function addButton(text, checkFn) {
           displayCurrentCard(currentCard);
           displayDrawnCard(null, true);
         }, 1500);
-
       }, { once: true });
     }, 700);
   };
   challengeButtons.appendChild(btn);
-}
-function checkEndGame() {
-   if (!partitaIniziata) return; 
-    const maxErrors = (currentLevel === "hard") ? 3 : 4;
-  if (!gameEnded) {
-        if (errorCount >= maxErrors) {
-            gameEnded = true;
-            challengeText.textContent = translate("lost");
-            challengeButtons.innerHTML = "";
-            restartBtn.classList.remove("hidden");
-            withdrawBtn.classList.add("hidden");
-            showGameOverScreen();
-            return;
-        }
-        if (tappe >= 10) {
-            gameEnded = true;
-            showWinScreen();
-            fineGioco();
-            return;
-        }
-    }
 }
 function aggiornaGuadagno(corretti) {
   const label = document.getElementById("gainLabel");
