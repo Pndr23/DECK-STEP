@@ -1,16 +1,3 @@
-console.log("Script caricato, pronto a startGame");
-document.addEventListener("DOMContentLoaded", () => {
-    const startButton = document.getElementById("startButton");
-    if (startButton) {
-        console.log("Start button trovato, aggiungo listener");
-        startButton.addEventListener("click", () => {
-            console.log("Start button cliccato");
-            startGame();
-        });
-    } else {
-        console.log("Start button NON trovato!");
-    }
-});
 let tappe = 0;
 let minigiocoAttivo = false;
 let minigiocoCallback = null;
