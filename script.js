@@ -218,7 +218,6 @@ languageSelect.addEventListener("change", () => {
 withdrawBtn.addEventListener("click", () => {
   document.querySelector(".container").classList.add("hidden");
   document.getElementById("gameOverScreen")?.classList.add("hidden");
-  document.getElementById("victoryScreen")?.classList.add("hidden");
   document.getElementById("withdrawText").textContent = "Hai ritirato!";
   document.getElementById("withdrawWinnings").textContent =
     `Hai incassato: €${calcolaGuadagno(correctCount).toFixed(2)}`;
@@ -226,7 +225,6 @@ withdrawBtn.addEventListener("click", () => {
 });
 function resetGame() {
   document.getElementById("gameOverScreen").classList.add("hidden");
-  document.getElementById("victoryScreen").classList.add("hidden");
   document.getElementById("drawnCardImg").src = "";
   partitaIniziata = false
   gameEnded = false;
@@ -283,8 +281,7 @@ function preloadCardImages() {
 } 
 function startGame() {
    console.log("startGame chiamato");  // Controlla se la funzione viene eseguita
-    console.log("Stato schermata vittoria:", victoryScreen.hidden); // Se usi hidden
-    console.log("Stato schermata gioco:", gameScreen.hidden);
+   console.log("Stato schermata gioco:", gameScreen.hidden);
   partitaIniziata = true;
   gameEnded = false;
   tappe = 0;
@@ -460,7 +457,6 @@ function addButton(text, checkFn) {
             showGameOverScreen();
             } else if (tappe >= 10 && !gameEnded) {
             gameEnded = true;
-            showWinScreen();
             fineGioco();
           }
         }
@@ -515,17 +511,6 @@ function showShuffle(callback) {
     shuffle.style.pointerEvents = 'none';
     if (callback) callback();
   }, 2000);
-}
-function showWithdrawScreen() {
-  const screen = document.getElementById("victoryScreen");
-  const winText = document.getElementById("winText");
-  const totalWinnings = document.getElementById("totalWinnings");
-  const gameOverScreen = document.getElementById("gameOverScreen");
-  if (gameOverScreen) gameOverScreen.classList.add("hidden");
-  winText.textContent = "Hai ritirato!";
-  totalWinnings.textContent = `Hai incassato: €${calcolaGuadagno(correctCount).toFixed(2)}`;
-  screen.classList.remove("hidden");
-  restartBtn.classList.remove("hidden");
 }
 function translate(key) {
   const t = {
@@ -630,9 +615,10 @@ function calcolaGuadagno(corretti) {
   }
   return guadagno;
 }
-  document.getElementById("restartBtn").addEventListener("click", () => {
+document.getElementById("restartBtn").addEventListener("click", () => {
   location.reload();
 });
+
 document.getElementById("useJollyBtn").addEventListener("click", () => {
   if (jollyCount > 0 && !jollyUsedInThisTurn) {
     jollyCount--;
@@ -644,4 +630,3 @@ document.getElementById("useJollyBtn").addEventListener("click", () => {
 document.getElementById("restartBtnWithdraw").addEventListener("click", () => {
   location.reload(); 
 });
-
