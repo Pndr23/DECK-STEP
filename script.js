@@ -280,8 +280,8 @@ function preloadCardImages() {
   back.src = "cards/card_back.png";
 } 
 function startGame() {
-   console.log("startGame chiamato");  // Controlla se la funzione viene eseguita
-   console.log("Stato schermata gioco:", gameArea.hidden);
+ console.log("startGame chiamato");  // Controlla se la funzione viene eseguita
+  console.log("Stato schermata gioco:", gameArea.hidden);
   partitaIniziata = true;
   gameEnded = false;
   tappe = 0;
@@ -415,6 +415,7 @@ function addButton(text, checkFn) {
         if (result) {
           correctCount++;
           correctStreak++;
+         tappe++;
   if (correctStreak === 3){
   correctStreak = 0;
     showMinigiocoJolly((scelta, valore) => {
