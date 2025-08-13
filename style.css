@@ -65,9 +65,6 @@ button:hover {
   background-color: #14d928 !important;
   color: white  !important;
 }
-.hidden {
-  display: none;
-}
 img {
   width: 400px;
   height: auto;
@@ -139,7 +136,7 @@ img {
   animation: pulseJolly 1.5s infinite;
   box-shadow: 0 0 10px gold;
 }
-@keyframes pulseJolly {a
+@keyframes pulseJolly {
   0% {
     transform: scale(1);
     box-shadow: 0 0 10px gold;
