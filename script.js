@@ -281,7 +281,7 @@ function preloadCardImages() {
 } 
 function startGame() {
    console.log("startGame chiamato");  // Controlla se la funzione viene eseguita
-   console.log("Stato schermata gioco:", gameScreen.hidden);
+   console.log("Stato schermata gioco:", gameArea.hidden);
   partitaIniziata = true;
   gameEnded = false;
   tappe = 0;
