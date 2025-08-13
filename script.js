@@ -623,16 +623,6 @@ document.addEventListener("DOMContentLoaded", () => {
     startGame(); 
   });
    });
-function fineGioco() {
-  console.log("🎉 Fine del gioco!");
-  gameArea.classList.add("hidden");
-  gameSetup.classList.add("hidden");
-  const victoryScreen = document.getElementById("victoryScreen");
-  victoryScreen.classList.remove("hidden");
-  const vincitaFinale = calcolaGuadagno(correctCount);
-  const totalWinnings = document.getElementById("totalWinnings");
-  totalWinnings.textContent = `Hai vinto: € ${vincitaFinale.toFixed(2)}`;
-}
 function calcolaGuadagno(corretti) {
   let guadagno = puntataIniziale;
   for (let i = 0; i < corretti && i < moltiplicatori.length; i++) {
@@ -640,20 +630,6 @@ function calcolaGuadagno(corretti) {
   }
   return guadagno;
 }
-function showWinScreen() {
-  const screen = document.getElementById("victoryScreen");
-  const winText = document.getElementById("winText");
-  const victoryText = document.getElementById("victoryText");
-  const totalWinnings = document.getElementById("totalWinnings");
-  const gameOverText = document.getElementById("gameOverText"); 
-  const gameOverScreen = document.getElementById("gameOverScreen");
-  const vincitaFinale = calcolaGuadagno(correctCount);
-  winText.classList.remove("hidden");
-  if(gameOverText) gameOverText.classList.add("hidden");
-  if(gameOverScreen) gameOverScreen.classList.add("hidden");
-  totalWinnings.textContent = `Hai vinto: €${vincitaFinale.toFixed(2)}`;
-  screen.classList.remove("hidden");
-  }
   document.getElementById("restartBtn").addEventListener("click", () => {
   location.reload();
 });
