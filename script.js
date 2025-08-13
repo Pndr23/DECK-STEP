@@ -165,7 +165,7 @@ function aggiornaMoltiplicatori() {
   aggiornaGuadagno(correctCount);
 }
 document.getElementById("risk").addEventListener("change", () => {
-  currentLevel = document.getElementById("risk").value;  // aggiornamento qui
+  currentLevel = document.getElementById("risk").value;  
   console.log("Difficoltà cambiata a:", currentLevel);
   aggiornaMoltiplicatori();
 });
