@@ -228,12 +228,15 @@ withdrawBtn.addEventListener("click", () => {
 });
 function resetGame() {
   document.getElementById("gameOverScreen").classList.add("hidden");
+  document.getElementById("victoryScreen").classList.add("hidden");
   document.getElementById("drawnCardImg").src = "";
   correctCount = 0;
   errorCount = 0;
   jollyCount = 0;
   tappe = 0;
-  usedJolly = false;
+  correctStreak = 0;
+  moltiplicatoreBonus = 0;
+  jollyUsedInThisTurn = false;
   updateScore();
   updateProgress();
   updateJollyButton();
@@ -458,13 +461,11 @@ if (errorCount >= maxErrors) {
   showGameOverScreen();
   return;
 }
-
 updateScore();
 updateProgress();
 updateJollyButton();
 aggiornaGuadagno(correctCount);
 currentCard = drawnCard;
-
 const isJackpot = tappe === 10;
 const isFirstTurn = correctCount === 1;
 const isUsingJolly = usedJolly;
@@ -666,6 +667,6 @@ document.getElementById("useJollyBtn").addEventListener("click", () => {
   }
 });
 document.getElementById("restartBtnWithdraw").addEventListener("click", () => {
-  location.reload(); // ricarica il gioco da zero
+  location.reload(); 
 });
 
