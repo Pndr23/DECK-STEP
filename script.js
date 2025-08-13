@@ -282,6 +282,13 @@ function preloadCardImages() {
   back.src = "cards/card_back.png";
 } 
 function startGame() {
+  tappe = 0;
+  errorCount = 0; 
+  correctCount = 0;
+  correctStreak = 0;
+  jollyCount = 0;
+  moltiplicatoreBonus = 0;
+  jollyUsedInThisTurn = false;
   currentCard = drawCard();
   displayCurrentCard(currentCard);
   displayDrawnCard(null, true);
