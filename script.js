@@ -503,7 +503,7 @@ function updateLanguage() {
   rulesPanel.innerHTML = translate("rulesText");
   document.getElementById("withdrawLabel").textContent = translate("withdraw");
 }
-ffunction showShuffle(callback) {
+function showShuffle(callback) {
   const shuffle = document.getElementById('shuffleContainer');
   shuffle.classList.remove('hidden');
   shuffle.querySelectorAll('.card').forEach(card => {
