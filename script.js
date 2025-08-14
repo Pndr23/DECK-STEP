@@ -472,7 +472,7 @@ function addButton(text, checkFn) {
           displayDrawnCard(null, true);
         }, 2000);
       }, { once: true });
-    }, 1000);
+    }, 1500);
   };
   challengeButtons.appendChild(btn);
 }
