@@ -503,13 +503,17 @@ function updateLanguage() {
   rulesPanel.innerHTML = translate("rulesText");
   document.getElementById("withdrawLabel").textContent = translate("withdraw");
 }
-function showShuffle(callback) {
+ffunction showShuffle(callback) {
   const shuffle = document.getElementById('shuffleContainer');
   shuffle.classList.remove('hidden');
-  shuffle.style.pointerEvents = 'auto';
+  shuffle.querySelectorAll('.card').forEach(card => {
+    card.classList.add('shuffle-card');
+  });
   setTimeout(() => {
+    shuffle.querySelectorAll('.card').forEach(card => {
+      card.classList.remove('shuffle-card');
+    });
     shuffle.classList.add('hidden');
-    shuffle.style.pointerEvents = 'none';
     if (callback) callback();
   }, 2000);
 }
