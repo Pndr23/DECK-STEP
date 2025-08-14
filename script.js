@@ -375,7 +375,7 @@ function generateChallenge() {
 document.addEventListener("DOMContentLoaded", () => {
   currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
   languageSelect.value = currentLanguage;
-  currentLevel = document.getElementById("risk").value; // inizializza currentLevel all'avvio
+  currentLevel = document.getElementById("risk").value; 
   updateLanguage();
   aggiornaMoltiplicatori();
   document.getElementById("restartBtn").addEventListener("click", () => {
@@ -470,9 +470,9 @@ function addButton(text, checkFn) {
         setTimeout(() => {
           displayCurrentCard(currentCard);
           displayDrawnCard(null, true);
-        }, 2000);
+        }, 1500);
       }, { once: true });
-    }, 1500);
+    }, 2000);
   };
   challengeButtons.appendChild(btn);
 }
