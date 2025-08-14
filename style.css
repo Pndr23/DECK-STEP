@@ -500,7 +500,7 @@ img {
   transform-style: preserve-3d;
 }
 .card {
-  transition: transform 1s ease;
+  transition: transform 0.6s ease;
   transform-style: preserve-3d;
 }
 .card.flip-animation {
