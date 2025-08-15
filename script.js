@@ -515,7 +515,7 @@ function showShuffle(callback) {
     });
     shuffle.classList.add('hidden');
     if (callback) callback();
-  }, 2000);
+  }, 3000);
 }
 function translate(key) {
   const t = {
