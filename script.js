@@ -470,9 +470,9 @@ function addButton(text, checkFn) {
         setTimeout(() => {
           displayCurrentCard(currentCard);
           displayDrawnCard(null, true);
-        }, 2500);
+        }, 1500);
       }, { once: true });
-    }, 2000);
+    }, 700);
   };
   challengeButtons.appendChild(btn);
 }
@@ -502,20 +502,6 @@ function updateLanguage() {
   updateProgress();
   rulesPanel.innerHTML = translate("rulesText");
   document.getElementById("withdrawLabel").textContent = translate("withdraw");
-}
-function showShuffle(callback) {
-  const shuffle = document.getElementById('shuffleContainer');
-  shuffle.classList.remove('hidden');
-  shuffle.querySelectorAll('.card').forEach(card => {
-    card.classList.add('shuffle-card');
-  });
-  setTimeout(() => {
-    shuffle.querySelectorAll('.card').forEach(card => {
-      card.classList.remove('shuffle-card');
-    });
-    shuffle.classList.add('hidden');
-    if (callback) callback();
-  }, 2000);
 }
 function translate(key) {
   const t = {
