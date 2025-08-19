@@ -36,7 +36,7 @@ function showMinigiocoJolly(callback) {
   popup.style.paddingTop = "20"; 
   popup.style.width = "100%";
   popup.style.height = "100vh";    
-  popup.style.backgroundColor = "black";
+  popup.style.backgroundColor = "#800020";
   popup.style.backgroundImage = "url('sfondomini.png')";
   popup.style.backgroundPosition = "center";
   popup.style.backgroundSize = "cover";
