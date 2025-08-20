@@ -470,9 +470,9 @@ function addButton(text, checkFn) {
         setTimeout(() => {
           displayCurrentCard(currentCard);
           displayDrawnCard(null, true);
-        }, 5000);
+        }, 1500);
       }, { once: true });
-    }, 700);
+    }, 1000);
   };
   challengeButtons.appendChild(btn);
 }
