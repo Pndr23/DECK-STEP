@@ -255,8 +255,6 @@ function updateScore() {
   jollyCountSpan.textContent = jollyCount;
 } 
 function updateProgress() {
-  progressCounter.style.fontSize = "1.5em";
-progressCounter.style.fontWeight = "bol
   const steps = progressPath.querySelectorAll(".progress-step");
   steps.forEach((step, i) => {
     step.classList.remove("completed-step");
