@@ -405,20 +405,16 @@ function addButton(text, checkFn) {
     console.log("clicked", text);
     const drawnCard = drawCard(currentCard.value);
     const drawnImg = document.getElementById("drawnCardImg");
-    // Copri subito la carta precedente
-    displayDrawnCard(null, true);
-    // Parametri tempi
-    const flipAnimationTime = 500; // durata flip JS
-    const extraVisibleTime = 1500; // tempo extra di visibilità carta girata
-    // Mostra la carta pescata con effetto flip leggero
+    // Effetto flip: ruota la carta a 90° per nasconderla
+    drawnImg.style.transition = `transform 0.5s ease`;
+    drawnImg.style.transform = "rotateY(90deg) scale(1.05)";
     setTimeout(() => {
+      // Cambia l'immagine mentre la carta è invisibile
       displayDrawnCard(drawnCard, false);
-      // Effetto flip leggero
-      drawnImg.style.transition = `transform ${flipAnimationTime}ms ease`;
-      drawnImg.style.transform = "rotateY(180deg) scale(1.05)";
-      // Dopo il tempo di visibilità, torna normale e sostituisci la carta attuale
+      // Completa il flip riportando la carta a 0°
+      drawnImg.style.transform = "rotateY(0deg) scale(1)";
+      // Dopo il flip, aggiorna la carta corrente e la UI
       setTimeout(() => {
-        drawnImg.style.transform = "rotateY(0deg) scale(1)";
         currentCard = drawnCard;
         displayCurrentCard(currentCard);
         displayDrawnCard(null, true);
@@ -459,6 +455,7 @@ function addButton(text, checkFn) {
             }
           }
         }
+        // Controllo fine partita
         if (!gameEnded) {
           const maxErrors = currentLevel === "hard" ? 3 : 4;
           if (errorCount >= maxErrors) {
@@ -478,8 +475,8 @@ function addButton(text, checkFn) {
         updateProgress();
         updateJollyButton();
         aggiornaGuadagno(correctCount);
-      }, extraVisibleTime);
-    }, 1000); // ritardo prima di girare la carta
+      }, 500); // tempo flip completato
+    }, 500); // tempo per ruotare a 90°
   };
   challengeButtons.appendChild(btn);
 }
