@@ -270,7 +270,7 @@ function updateProgress() {
   }
 } 
 function updateJollyButton() {
-  useJollyBtn.classList.toggle("hidden", jollyCount === 0 || errorCount === 0);
+   useJollyBtn.classList.toggle("hidden", jollyCount === 0);
 } 
 function preloadCardImages() {
   for (let i = 1; i <= 40; i++) {
