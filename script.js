@@ -405,20 +405,22 @@ function addButton(text, checkFn) {
     console.log("clicked", text);
     const drawnCard = drawCard(currentCard.value);
     const drawnImg = document.getElementById("drawnCardImg");
-    // Effetto flip: ruota la carta a 90° per nasconderla
-    drawnImg.style.transition = `transform 0.5s ease`;
+    // Imposta transition
+    drawnImg.style.transition = "transform 0.6s ease";
+    // Primo passo: ruota Y 90° (flip a metà)
     drawnImg.style.transform = "rotateY(90deg) scale(1.05)";
+    // Cambia immagine a metà flip e mostra la carta pescata
     setTimeout(() => {
-      // Cambia l'immagine mentre la carta è invisibile
-      displayDrawnCard(drawnCard, false);
-      // Completa il flip riportando la carta a 0°
+      displayDrawnCard(drawnCard, false); // mostra la carta pescata
+      // Completa il flip riportando a 0°
       drawnImg.style.transform = "rotateY(0deg) scale(1)";
-      // Dopo il flip, aggiorna la carta corrente e la UI
+      // Mantieni la carta visibile per 1,5 secondi prima di sostituire
       setTimeout(() => {
+        // Diventa carta attuale
         currentCard = drawnCard;
         displayCurrentCard(currentCard);
         displayDrawnCard(null, true);
-        // Calcolo risultato della scelta
+        // CONTINUA con il calcolo risultato
         const result = checkFn(drawnCard);
         if (result) {
           correctCount++;
@@ -455,7 +457,6 @@ function addButton(text, checkFn) {
             }
           }
         }
-        // Controllo fine partita
         if (!gameEnded) {
           const maxErrors = currentLevel === "hard" ? 3 : 4;
           if (errorCount >= maxErrors) {
@@ -475,8 +476,9 @@ function addButton(text, checkFn) {
         updateProgress();
         updateJollyButton();
         aggiornaGuadagno(correctCount);
-      }, 500); // tempo flip completato
-    }, 500); // tempo per ruotare a 90°
+      }, 1500); // tempo in cui la carta pescata resta visibile
+
+    }, 300); // metà animazione flip
   };
   challengeButtons.appendChild(btn);
 }
