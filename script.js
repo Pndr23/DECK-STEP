@@ -409,7 +409,7 @@ function addButton(text, checkFn) {
     displayDrawnCard(null, true);
     // Parametri tempi
     const flipAnimationTime = 700; // durata flip CSS
-    const extraVisibleTime = 1000; // tempo extra di visibilità carta girata
+    const extraVisibleTime = 2000; // tempo extra di visibilità carta girata
     // Mostra la carta pescata e parti animazione flip
     setTimeout(() => {
       displayDrawnCard(drawnCard, false);
