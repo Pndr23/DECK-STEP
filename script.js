@@ -467,10 +467,11 @@ function addButton(text, checkFn) {
         updateJollyButton();
         aggiornaGuadagno(correctCount);
         currentCard = drawnCard;
-        setTimeout(() => {
-          displayCurrentCard(currentCard);
-          displayDrawnCard(null, true);
-        }, 1500);
+       const visibleDuration = 1000; // 1 secondo extra per visibilità carta pescata
+       setTimeout(() => {
+       displayCurrentCard(currentCard);
+        displayDrawnCard(null, true);
+       }, 1500 + visibleDuration);
       }, { once: true });
     }, 1000);
   };
