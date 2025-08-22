@@ -407,78 +407,79 @@ function addButton(text, checkFn) {
     const drawnImg = document.getElementById("drawnCardImg");
     // Copri subito la carta precedente
     displayDrawnCard(null, true);
-    // Tempi gestiti dal JS
-    const flipDelay = 300;     // ritardo prima di mostrare la carta pescata
-    const visibleTime = 1200;  // tempo carta visibile prima di aggiornare carta attuale
-    // Mostra la carta pescata
+    // Parametri tempi
+    const flipAnimationTime = 500; // durata flip JS
+    const extraVisibleTime = 1500; // tempo extra di visibilità carta girata
+    // Mostra la carta pescata con effetto flip leggero
     setTimeout(() => {
       displayDrawnCard(drawnCard, false);
-      // Dopo tempo di visibilità, aggiorna carta attuale e ricopri la carta pescata
+      // Effetto flip leggero
+      drawnImg.style.transition = `transform ${flipAnimationTime}ms ease`;
+      drawnImg.style.transform = "rotateY(180deg) scale(1.05)";
+      // Dopo il tempo di visibilità, torna normale e sostituisci la carta attuale
       setTimeout(() => {
+        drawnImg.style.transform = "rotateY(0deg) scale(1)";
         currentCard = drawnCard;
         displayCurrentCard(currentCard);
         displayDrawnCard(null, true);
-      }, visibleTime);
-
-    }, flipDelay);
-
-    // Logica del risultato
-    const result = checkFn(drawnCard);
-    if (result) {
-      correctCount++;
-      correctStreak++;
-      tappe++;
-      if (correctStreak === 3) {
-        correctStreak = 0;
-        showMinigiocoJolly((scelta, valore) => {
-          if (scelta === "jolly") {
-            jollyCount++;
-            updateJollyDisplay();
-            alert("Hai vinto un Jolly!");
-            document.getElementById("useJollyBtn").classList.remove("hidden");
-          } else if (scelta === "moltiplicatore") {
-            alert(`Hai vinto un moltiplicatore bonus x${valore}! Sarà sommato al guadagno.`);
-            moltiplicatoreBonus += valore;
+        // Calcolo risultato della scelta
+        const result = checkFn(drawnCard);
+        if (result) {
+          correctCount++;
+          correctStreak++;
+          tappe++;
+          if (correctStreak === 3) {
+            correctStreak = 0;
+            showMinigiocoJolly((scelta, valore) => {
+              if (scelta === "jolly") {
+                jollyCount++;
+                updateJollyDisplay();
+                alert("Hai vinto un Jolly!");
+                document.getElementById("useJollyBtn").classList.remove("hidden");
+              } else if (scelta === "moltiplicatore") {
+                alert(`Hai vinto un moltiplicatore bonus x${valore}! Sarà sommato al guadagno.`);
+                moltiplicatoreBonus += valore;
+              }
+              updateScore();
+              updateJollyButton();
+            });
           }
-          updateScore();
-          updateJollyButton();
-        });
-      }
-    } else {
-      correctStreak = 0;
-      if (jollyCount > 0 && errorCount < 3) {
-        jollyCount--;
-      } else {
-        errorCount++;
-        if (jollyCount > 0 && errorCount === 3 && !jollyUsedInThisTurn) {
-          jollyCount--;
-          errorCount--;
-          updateJollyDisplay();
-          jollyUsedInThisTurn = true;
-          alert("Jolly usato automaticamente!");
+        } else {
+          correctStreak = 0;
+          if (jollyCount > 0 && errorCount < 3) {
+            jollyCount--;
+          } else {
+            errorCount++;
+            if (jollyCount > 0 && errorCount === 3 && !jollyUsedInThisTurn) {
+              jollyCount--;
+              errorCount--;
+              updateJollyDisplay();
+              jollyUsedInThisTurn = true;
+              alert("Jolly usato automaticamente!");
+            }
+          }
         }
-      }
-    }
-    // Controllo fine gioco
-    if (!gameEnded) {
-      const maxErrors = currentLevel === "hard" ? 3 : 4;
-      if (errorCount >= maxErrors) {
-        gameEnded = true;
-        challengeText.textContent = translate("lost");
-        challengeButtons.innerHTML = "";
-        restartBtn.classList.remove("hidden");
-        withdrawBtn.classList.add("hidden");
-        showGameOverScreen();
-      } else if (tappe >= 10) {
-        gameEnded = true;
-        fineGioco();
-      }
-    }
-    if (!gameEnded) generateChallenge();
-    updateScore();
-    updateProgress();
-    updateJollyButton();
-    aggiornaGuadagno(correctCount);
+        if (!gameEnded) {
+          const maxErrors = currentLevel === "hard" ? 3 : 4;
+          if (errorCount >= maxErrors) {
+            gameEnded = true;
+            challengeText.textContent = translate("lost");
+            challengeButtons.innerHTML = "";
+            restartBtn.classList.remove("hidden");
+            withdrawBtn.classList.add("hidden");
+            showGameOverScreen();
+          } else if (tappe >= 10) {
+            gameEnded = true;
+            fineGioco();
+          }
+        }
+        if (!gameEnded) generateChallenge();
+        updateScore();
+        updateProgress();
+        updateJollyButton();
+        aggiornaGuadagno(correctCount);
+      }, extraVisibleTime);
+    }, 1000); // ritardo prima di girare la carta
   };
   challengeButtons.appendChild(btn);
 }
