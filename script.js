@@ -467,7 +467,7 @@ function addButton(text, checkFn) {
         updateJollyButton();
         aggiornaGuadagno(correctCount);
         currentCard = drawnCard;
-       const visibleDuration = 1500; // 1 secondo extra per visibilità carta pescata
+       const visibleDuration = 1000; // 1 secondo extra per visibilità carta pescata
        setTimeout(() => {
        displayCurrentCard(currentCard);
         displayDrawnCard(null, true);
