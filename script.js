@@ -19,6 +19,7 @@ const moltiplicatoriDifficile = [1.5,2,2.5,3,4,5,6,8,12,40];
 let gameAreaOriginalDisplay = null;
 let gameEnded = false;
 let partitaIniziata = false;
+
 function showMinigiocoJolly(callback) {
   if (minigiocoAttivo) return;
   minigiocoAttivo = true;
@@ -119,9 +120,9 @@ function showMinigiocoJolly(callback) {
         if (minigiocoCallback) minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
          
     if (el.dataset.type === "jolly") {
-     const jollyBtn = document.getElementById("jollyButton");
-     if (jollyBtn) jollyBtn.style.display = "block";
-     hasJolly = true;
+    jollyCount++;
+    updateJollyDisplay();
+}
   }
         minigiocoCallback = null;
         popup.style.display = "none";
@@ -204,12 +205,14 @@ restartBtn.addEventListener("click", () => {
   gameArea.classList.add("hidden");
 });
 useJollyBtn.addEventListener("click", () => {
-  if (jollyCount > 0 && errorCount > 0) {
-    jollyCount--;
-    errorCount--;
-    updateScore();
-    updateJollyButton();
-  }
+    if (jollyCount > 0 && !jollyUsedInThisTurn && errorCount < (currentLevel === "hard" ? 3 : 4)) {
+        jollyCount--;
+        errorCount--;
+        jollyUsedInThisTurn = true;
+        updateScore();
+        updateJollyDisplay();
+        alert("Hai usato il Jolly manualmente!");
+    }
 });
 languageSelect.addEventListener("change", () => {
   currentLanguage = languageSelect.value;
@@ -445,16 +448,16 @@ function addButton(text, checkFn) {
         } else {
           correctStreak = 0;
           if (jollyCount > 0 && errorCount < 3) {
-            jollyCount--;
-          } else {
-            errorCount++;
-            if (jollyCount > 0 && errorCount === 3 && !jollyUsedInThisTurn) {
-              jollyCount--;
-              errorCount--;
-              updateJollyDisplay();
-              jollyUsedInThisTurn = true;
-              alert("Jolly usato automaticamente!");
-            }
+    jollyCount--;
+ } else {
+   errorCount++;
+    if (jollyCount > 0 && errorCount >= (currentLevel === "hard" ? 3 : 4) && !jollyUsedInThisTurn) {
+    jollyCount--;
+    errorCount--;
+    jollyUsedInThisTurn = true;
+    updateJollyDisplay();
+    alert("Jolly usato automaticamente!");
+}
           }
         }
         if (!gameEnded) {
