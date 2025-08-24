@@ -407,7 +407,6 @@ function addButton(text, checkFn) {
     const drawnCard = drawCard(currentCard.value);
     const drawnImg = document.getElementById("drawnCardImg");
     const maxErrors = currentLevel === "hard" ? 3 : 4;
-     jollyUsedInThisTurn = false;
     
     drawnImg.style.transition = "transform 0.6s ease";
     drawnImg.style.transform = "rotateY(90deg) scale(1.05)";
