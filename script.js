@@ -50,16 +50,17 @@ function showMinigiocoJolly(callback) {
   let screenWidth = window.innerWidth;
   if (title) {
     title.style.order = "1";
-    title.style.fontSize = screenWidth < 600 ? "1.2em" : "2em";
+    title.style.fontSize = screenWidth < 600 ? "0.9em" : "2em";
     title.style.color = "white";
-   title.style.marginBottom = screenWidth < 600 ? "10px" : "20px";
+   title.style.marginBottom = screenWidth < 600 ? "8px" : "20px";
+   title.style.textAlign = "center";
   }
   cardElems.forEach(c => {
       c.style.order = "2";
       if (screenWidth < 600) { 
-        c.style.width = "110px";
+        c.style.width = "100px";
         c.style.height = "165px";
-        c.style.margin = "0 8px";
+        c.style.margin = "0 6px";
       } else { // desktop
         c.style.width = "180px";
         c.style.height = "260px";
@@ -68,10 +69,13 @@ function showMinigiocoJolly(callback) {
     });
   if (closeBtn) {
     closeBtn.style.order = "3";
-     closeBtn.style.marginTop = screenWidth < 600 ? "15px" : "30px";
-    closeBtn.style.fontSize = screenWidth < 600 ? "0.9em" : "1.2em";
-    closeBtn.style.padding = screenWidth < 600 ? "6px 12px" : "10px 20px";
+     closeBtn.style.marginTop = screenWidth < 600 ? "12px" : "30px";
+    closeBtn.style.fontSize = screenWidth < 600 ? "0.8em" : "1.2em";
+    closeBtn.style.padding = screenWidth < 600 ?"5px 10px" : "10px 20px";
   }
+    popup.style.justifyContent = screenWidth < 600 ? "flex-start" : "center";
+  popup.style.paddingTop = screenWidth < 600 ? "10px" : "20px";
+}
       }
    resizeMinigioco();
   window.addEventListener("resize", resizeMinigioco);
