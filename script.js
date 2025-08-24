@@ -406,14 +406,14 @@ function addButton(text, checkFn) {
     console.log("clicked", text);
     const drawnCard = drawCard(currentCard.value);
     const drawnImg = document.getElementById("drawnCardImg");
-    // Imposta transition
+    const maxErrors = currentLevel === "hard" ? 3 : 4;
+     jollyUsedInThisTurn = false;
+    
     drawnImg.style.transition = "transform 0.6s ease";
-    // Primo passo: ruota Y 90° (flip a metà)
     drawnImg.style.transform = "rotateY(90deg) scale(1.05)";
-    // Cambia immagine a metà flip e mostra la carta pescata
+    
     setTimeout(() => {
       displayDrawnCard(drawnCard, false); // mostra la carta pescata
-      // Completa il flip riportando a 0°
       drawnImg.style.transform = "rotateY(0deg) scale(1)";
       // Mantieni la carta visibile per 1,5 secondi prima di sostituire
       setTimeout(() => {
@@ -421,7 +421,6 @@ function addButton(text, checkFn) {
         currentCard = drawnCard;
         displayCurrentCard(currentCard);
         displayDrawnCard(null, true);
-        // CONTINUA con il calcolo risultato
         const result = checkFn(drawnCard);
         if (result) {
           correctCount++;
@@ -443,21 +442,17 @@ function addButton(text, checkFn) {
               updateJollyButton();
             });
           }
-        } else {
-          correctStreak = 0;
-          if (jollyCount > 0 && errorCount < 3) {
-    jollyCount--;
- } else {
-   errorCount++;
-    if (jollyCount > 0 && errorCount >= (currentLevel === "hard" ? 3 : 4) && !jollyUsedInThisTurn) {
+       } else {
+  correctStreak = 0;
+  errorCount++;
+  if (jollyCount > 0 && errorCount === maxErrors && !jollyUsedInThisTurn) {
     jollyCount--;
     errorCount--;
-    jollyUsedInThisTurn = true;
     updateJollyDisplay();
+    jollyUsedInThisTurn = true;
     alert("Jolly usato automaticamente!");
+  }
 }
-          }
-        }
         if (!gameEnded) {
           const maxErrors = currentLevel === "hard" ? 3 : 4;
           if (errorCount >= maxErrors) {
