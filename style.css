@@ -647,7 +647,7 @@ position: fixed;
   background-color: #2196F3 !important;
 }
 #minigiocoJolly {
-  position: center;   
+  position: fixed;   
   top: 0;
   left: 0;
   width: 100vw;         
@@ -663,16 +663,18 @@ position: fixed;
   box-shadow: none;    
   z-index: 9999;         
   user-select: none;
+  flex-direction: column;
 }
+
 #minigiocoJolly h2 {
-  position: center;
-  font-size: 8rem;
+  font-size: 8rem; /* desktop */
   color: gold;
   font-weight: 800;
   text-shadow: 0 0 10px gold;
   margin-bottom: 25px;
   text-align: center;
 }
+
 #minigiocoJolly div.carte {
   display: flex;
   gap: 40px;             
@@ -681,6 +683,7 @@ position: fixed;
   flex-grow: 1;
   width: 100%;
 }
+
 #minigiocoJolly img {
   width: 180px;    
   height: 260px;
@@ -689,27 +692,31 @@ position: fixed;
   box-shadow: 0 0 15px 5px rgba(255, 215, 0, 0.8);
   filter: drop-shadow(0 0 5px gold);
 }
+
 #minigiocoJolly img.covered {
   animation: glowPulse 2.5s infinite;
   filter: drop-shadow(0 0 6px gold);
 }
+
 #minigiocoJolly img.flipped {
   transform: rotateY(180deg);
   box-shadow: 0 0 20px 8px gold;
   filter: drop-shadow(0 0 10px gold);
 }
+
 #minigiocoJolly img.selected {
   box-shadow: 0 0 30px 10px gold !important;
   filter: drop-shadow(0 0 20px gold) !important;
   transform: scale(1.1);
   transition: all 0.3s ease;
 }
+
 @keyframes glowPulse {
   0%, 100% { filter: drop-shadow(0 0 3px gold); }
   50% { filter: drop-shadow(0 0 12px gold); }
 }
+
 #minigiocoCloseBtn {
-  position: center;
   font-size: 1.3rem;  
   padding: 12px 20px;
   margin-top: 20px;
@@ -720,6 +727,7 @@ position: fixed;
 #minigiocoCloseBtn:hover {
   background: #e6c200;
 }
+
 .jolly-card {
   background-image: url('path/to/jolly.png');
   background-size: cover;
@@ -728,6 +736,7 @@ position: fixed;
   width: 140px;
   height: 200px;
 }
+
 body,
 .container,
 #gameSetup,
@@ -743,5 +752,32 @@ span,
 select,
 option,
 #minigiocoJolly {
-font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif;
+}
+
+@media (max-width: 768px) {
+  #minigiocoJolly h2 {
+    font-size: 3rem; 
+    margin-bottom: 15px;
+  }
+  
+  #minigiocoJolly {
+    align-items: flex-start; 
+    padding-top: 30px; /* sposta il minigioco più in alto */
+  }
+
+  #minigiocoJolly div.carte {
+    gap: 15px; /* meno spazio tra le carte */
+  }
+
+  #minigiocoJolly img {
+    width: 120px;    
+    height: 180px;
+  }
+
+  #minigiocoCloseBtn {
+    font-size: 1rem;
+    padding: 8px 16px;
+    margin-top: 10px;
+  }
 }
