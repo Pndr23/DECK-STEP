@@ -25,7 +25,6 @@ function showMinigiocoJolly(callback) {
   minigiocoAttivo = true;
   minigiocoCallback = callback;
   const popup = document.getElementById("minigiocoJolly");
-  const gameArea = document.getElementById("gameArea");
    if (gameAreaOriginalDisplay === null) {
   gameAreaOriginalDisplay = getComputedStyle(gameArea).display;
   }
