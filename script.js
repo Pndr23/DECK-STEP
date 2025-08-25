@@ -139,6 +139,7 @@ function showMinigiocoJolly(callback) {
     gameArea.style.display = gameAreaOriginalDisplay;
     window.removeEventListener("resize", resizeMinigioco);
   };
+  } 
 function aggiornaMoltiplicatori() {
   const livello = document.getElementById("risk").value;
   console.log("aggiornaMoltiplicatori chiamata, livello:", livello);
