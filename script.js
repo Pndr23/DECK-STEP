@@ -76,7 +76,6 @@ function showMinigiocoJolly(callback) {
     popup.style.justifyContent = screenWidth < 600 ? "flex-start" : "center";
   popup.style.paddingTop = screenWidth < 600 ? "10px" : "20px";
 }
-      }
    resizeMinigioco();
   window.addEventListener("resize", resizeMinigioco);
   const jollyImgSrc = "jolly.png";
