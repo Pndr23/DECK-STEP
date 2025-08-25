@@ -122,12 +122,9 @@ function showMinigiocoJolly(callback) {
       });
       setTimeout(() => {
         if (minigiocoCallback) minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
-    if (el.dataset.type === "jolly") {
-   jollyCount++;
-  updateJollyDisplay();
+if (el.dataset.type === "jolly") {
   alert("Hai vinto 1 Jolly!");
-}
-        
+}       
         minigiocoCallback = null;
         popup.style.display = "none";
        gameArea.style.display = gameAreaOriginalDisplay;
@@ -435,17 +432,16 @@ function addButton(text, checkFn) {
           if (correctStreak === 3) {
             correctStreak = 0;
             showMinigiocoJolly((scelta, valore) => {
-              if (scelta === "jolly") {
-                jollyCount++;
-                updateJollyDisplay();
-                alert("Hai vinto 1 Jolly!");
-                document.getElementById("useJollyBtn").classList.remove("hidden");
-              } else if (scelta === "moltiplicatore") {
-                alert(`Hai vinto un moltiplicatore bonus x${valore}! Sarà sommato al guadagno.`);
-                moltiplicatoreBonus += valore;
-              }
-              updateScore();
-              updateJollyButton();
+            if (scelta === "jolly") {
+              jollyCount++;          // Incrementa qui solo
+              updateJollyDisplay();  // Aggiorna contatore
+             alert("Hai vinto 1 Jolly!");
+             } else if (scelta === "moltiplicatore") {
+              moltiplicatoreBonus += valore;
+            alert(`Hai vinto un moltiplicatore bonus x${valore}! Sarà sommato al guadagno.`);
+           }
+          updateScore();
+        updateJollyButton();
             });
           }
         } else {
