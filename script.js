@@ -100,6 +100,7 @@ function showMinigiocoJolly(callback) {
     el.dataset.type = carte[i].type;
     el.dataset.img = carte[i].img;
     if (carte[i].type === "moltiplicatore") el.dataset.value = carte[i].value;
+    
     el.onclick = () => {
       if (!minigiocoAttivo) return;
       minigiocoAttivo = false;
@@ -122,8 +123,10 @@ function showMinigiocoJolly(callback) {
         if (minigiocoCallback) minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
     if (el.dataset.type === "jolly") {
     jollyCount++;
-    updateJollyDisplay();
-}
+     updateJollyDisplay();
+    alert(`Hai vinto ${jollyCount} Jolly${jollyCount > 1 ? 's' : ''}!`);
+        }
+        
         minigiocoCallback = null;
         popup.style.display = "none";
        gameArea.style.display = gameAreaOriginalDisplay;
@@ -206,14 +209,14 @@ restartBtn.addEventListener("click", () => {
   gameArea.classList.add("hidden");
 });
 useJollyBtn.addEventListener("click", () => {
-    if (jollyCount > 0 && !jollyUsedInThisTurn && errorCount < (currentLevel === "hard" ? 3 : 4)) {
-        jollyCount--;
-        errorCount--;
-        jollyUsedInThisTurn = true;
-        updateScore();
-        updateJollyDisplay();
-        alert("Hai usato il Jolly manualmente!");
-    }
+  if (jollyCount > 0 && !jollyUsedInThisTurn && errorCount < (currentLevel === "hard" ? 3 : 4)) {
+    jollyCount--;
+    errorCount--;
+    jollyUsedInThisTurn = true;
+    updateScore();
+    updateJollyDisplay();
+    alert("Hai usato un Jolly manualmente!");
+  }
 });
 languageSelect.addEventListener("change", () => {
   currentLanguage = languageSelect.value;
@@ -244,13 +247,13 @@ function resetGame() {
   updateJollyButton();
 }
 function updateJollyDisplay() {
-  document.getElementById("jollyCount").textContent = jollyCount;
+  jollyCountSpan.textContent = jollyCount;
   if (jollyCount > 0) {
-    document.getElementById("useJollyBtn").classList.remove("hidden");
+    useJollyBtn.classList.remove("hidden");
   } else {
-    document.getElementById("useJollyBtn").classList.add("hidden");
+    useJollyBtn.classList.add("hidden");
   }
-} 
+}
 function updateScore() {
   document.getElementById("scoreValue").innerText = correctCount;
   correctCountSpan.textContent = correctCount;
@@ -444,19 +447,12 @@ function addButton(text, checkFn) {
               updateJollyButton();
             });
           }
-       } else {
-  correctStreak = 0;
-  errorCount++;
-  if (jollyCount > 0 && errorCount === maxErrors && !jollyUsedInThisTurn) {
-    jollyCount--;
-    errorCount--;
-    updateJollyDisplay();
-    jollyUsedInThisTurn = true;
-    alert("Jolly usato automaticamente!");
-  }
-}
+        } else {
+          correctStreak = 0;
+          errorCount++;
+          tryAutoJolly(maxErrors);
+        }
         if (!gameEnded) {
-          const maxErrors = currentLevel === "hard" ? 3 : 4;
           if (errorCount >= maxErrors) {
             gameEnded = true;
             challengeText.textContent = translate("lost");
@@ -479,6 +475,15 @@ function addButton(text, checkFn) {
     }, 300); // metà animazione flip
   };
   challengeButtons.appendChild(btn);
+}
+function tryAutoJolly(maxErrors) {
+  if (jollyCount > 0 && errorCount >= maxErrors && !jollyUsedInThisTurn) {
+    jollyCount--;
+    errorCount--;
+    jollyUsedInThisTurn = true;
+    updateJollyDisplay();
+    alert("Jolly usato automaticamente!");
+  }
 }
 function aggiornaGuadagno(corretti) {
   const label = document.getElementById("gainLabel");
