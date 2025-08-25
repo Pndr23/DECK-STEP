@@ -19,6 +19,7 @@ const moltiplicatoriDifficile = [1.5,2,2.5,3,4,5,6,8,12,40];
 let gameAreaOriginalDisplay = null;
 let gameEnded = false;
 let partitaIniziata = false;
+let jollyFromMinigioco = false;
 
 function showMinigiocoJolly(callback) {
   if (minigiocoAttivo) return;
@@ -122,10 +123,10 @@ function showMinigiocoJolly(callback) {
       setTimeout(() => {
         if (minigiocoCallback) minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
     if (el.dataset.type === "jolly") {
-    jollyCount++;
-     updateJollyDisplay();
-    alert(`Hai vinto ${jollyCount} Jolly${jollyCount > 1 ? 's' : ''}!`);
-        }
+   jollyCount++;
+  updateJollyDisplay();
+  alert("Hai vinto 1 Jolly!");
+}
         
         minigiocoCallback = null;
         popup.style.display = "none";
@@ -477,6 +478,10 @@ function addButton(text, checkFn) {
   challengeButtons.appendChild(btn);
 }
 function tryAutoJolly(maxErrors) {
+  if (jollyFromMinigioco) {
+    jollyFromMinigioco = false;
+    return;
+  }
   if (jollyCount > 0 && errorCount >= maxErrors && !jollyUsedInThisTurn) {
     jollyCount--;
     errorCount--;
