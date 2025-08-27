@@ -26,28 +26,33 @@ function createBetBadge() {
         badge = document.createElement("div");
         badge.id = "betBadge";
         badge.style.position = "absolute";
-        badge.style.top = "10px";
-        badge.style.right = "10px";
-        badge.style.padding = "8px 14px";
+        badge.style.padding = "6px 12px";
         badge.style.background = "#ffcc00";
         badge.style.color = "#222";
         badge.style.fontWeight = "700";
-        badge.style.fontSize = "1.2rem";
-        badge.style.borderRadius = "12px";
+        badge.style.fontSize = "1.1rem";
+        badge.style.borderRadius = "10px";
         badge.style.boxShadow = "0 2px 6px rgba(0,0,0,0.3)";
-        badge.style.zIndex = "9999";
         badge.style.userSelect = "none";
-        document.body.appendChild(badge);
+        badge.style.zIndex = "9999";
+ const stageLabel = document.getElementById("stageLabel"); 
+ if (stageLabel) {
+stageLabel.parentNode.insertBefore(badge, stageLabel.nextSibling);
+ } else {
+document.body.appendChild(badge);
+        }
     }
-    badge.textContent = `Puntata: €${puntataIniziale.toFixed(2)}`;
+puntataIniziale = parseFloat(document.getElementById("bet").value);
+badge.textContent = `Puntata: €${puntataIniziale.toFixed(2)}`;
 }
 function updateBetBadge() {
 const badge = document.getElementById("betBadge");
 if (badge) {
+ puntataIniziale = parseFloat(document.getElementById("bet").value);
 badge.textContent = `Puntata: €${puntataIniziale.toFixed(2)}`;
     }
 }
-document.addEventListener("DOMContentLoaded", () => {
+document.getElementById("startButton").addEventListener("click", () => {
 createBetBadge();
 });
 function showMinigiocoJolly(callback) {
