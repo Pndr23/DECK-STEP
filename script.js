@@ -20,7 +20,6 @@ let gameAreaOriginalDisplay = null;
 let gameEnded = false;
 let partitaIniziata = false;
 let jollyFromMinigioco = false;
-
 function showMinigiocoJolly(callback) {
   if (minigiocoAttivo) return;
   minigiocoAttivo = true;
@@ -101,7 +100,6 @@ function showMinigiocoJolly(callback) {
     el.dataset.type = carte[i].type;
     el.dataset.img = carte[i].img;
     if (carte[i].type === "moltiplicatore") el.dataset.value = carte[i].value;
-    
     el.onclick = () => {
       if (!minigiocoAttivo) return;
       minigiocoAttivo = false;
@@ -411,10 +409,8 @@ function addButton(text, checkFn) {
     const drawnCard = drawCard(currentCard.value);
     const drawnImg = document.getElementById("drawnCardImg");
     const maxErrors = currentLevel === "hard" ? 3 : 4;
-    
     drawnImg.style.transition = "transform 0.6s ease";
     drawnImg.style.transform = "rotateY(90deg) scale(1.05)";
-    
     setTimeout(() => {
       displayDrawnCard(drawnCard, false); // mostra la carta pescata
       drawnImg.style.transform = "rotateY(0deg) scale(1)";
@@ -433,8 +429,8 @@ function addButton(text, checkFn) {
             correctStreak = 0;
             showMinigiocoJolly((scelta, valore) => {
             if (scelta === "jolly") {
-              jollyCount++;          // Incrementa qui solo
-              updateJollyDisplay();  // Aggiorna contatore
+              jollyCount++;         
+              updateJollyDisplay();  
              alert("Hai vinto 1 Jolly!");
              } else if (scelta === "moltiplicatore") {
               moltiplicatoreBonus += valore;
@@ -457,9 +453,9 @@ function addButton(text, checkFn) {
             restartBtn.classList.remove("hidden");
             withdrawBtn.classList.add("hidden");
             showGameOverScreen();
-          } else if (tappe >= 10) {
+           } else if (tappe === 10 && result) {
             gameEnded = true;
-            fineGioco();
+            showVictoryScreen();
           }
         }
         if (!gameEnded) generateChallenge();
@@ -468,11 +464,71 @@ function addButton(text, checkFn) {
         updateJollyButton();
         aggiornaGuadagno(correctCount);
       }, 1500); // tempo in cui la carta pescata resta visibile
-
     }, 300); // metà animazione flip
   };
   challengeButtons.appendChild(btn);
 }
+function showVictoryScreen() {
+    document.getElementById("gameArea").classList.add("hidden");
+    const victoryScreen = document.createElement("div");
+    victoryScreen.style.position = "fixed";
+    victoryScreen.style.top = "0";
+    victoryScreen.style.left = "0";
+    victoryScreen.style.width = "100vw";
+    victoryScreen.style.height = "100vh";
+    victoryScreen.style.background = "#222";
+    victoryScreen.style.color = "white";
+    victoryScreen.style.display = "flex";
+    victoryScreen.style.flexDirection = "column";
+    victoryScreen.style.justifyContent = "center";
+    victoryScreen.style.alignItems = "center";
+    victoryScreen.style.zIndex = "9999";
+    const title = document.createElement("h1");
+    title.textContent = "🎉 VITTORIA! 🎉";
+    title.style.fontSize = "4rem";
+    title.style.marginBottom = "20px";
+    const prize = document.createElement("p");
+    prize.textContent = `Hai vinto ${currentPrize} crediti!`;
+    prize.style.fontSize = "1.8rem";
+    prize.style.marginBottom = "40px";
+    const restartBtn = document.createElement("button");
+    restartBtn.textContent = "Ricomincia";
+    restartBtn.style.fontSize = "1.5rem";
+    restartBtn.style.padding = "10px 20px";
+    restartBtn.style.background = "#28a745";
+    restartBtn.style.color = "white";
+    restartBtn.style.border = "none";
+    restartBtn.style.borderRadius = "10px";
+    restartBtn.style.cursor = "pointer";
+    restartBtn.onclick = () => {
+        location.reload();
+    };
+    victoryScreen.appendChild(title);
+    victoryScreen.appendChild(prize);
+    victoryScreen.appendChild(restartBtn);
+    document.body.appendChild(victoryScreen);
+    for (let i = 0; i < 40; i++) {
+        const confetto = document.createElement("div");
+        confetto.style.position = "fixed";
+        confetto.style.width = "10px";
+        confetto.style.height = "10px";
+        confetto.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        confetto.style.top = "-10px";
+        confetto.style.left = Math.random() * 100 + "vw";
+        confetto.style.opacity = "0.9";
+        confetto.style.borderRadius = "50%";
+        confetto.style.transition = "transform 2s linear, top 2s linear";
+        document.body.appendChild(confetto);
+        setTimeout(() => {
+            confetto.style.top = "100vh";
+            confetto.style.transform = `rotate(${Math.random() * 360}deg)`;
+        }, 50);
+        setTimeout(() => {
+            confetto.remove();
+        }, 2500);
+    }
+}
+
 function tryAutoJolly(maxErrors) {
   if (jollyFromMinigioco) {
     jollyFromMinigioco = false;
