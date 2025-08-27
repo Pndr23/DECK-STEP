@@ -79,12 +79,12 @@ function showMinigiocoJolly(callback) {
   window.addEventListener("resize", resizeMinigioco);
   const jollyImgSrc = "jolly.png";
   const moltiplicatoriMinigioco = [1,2,3,4,5,6,7,8,9,10];
-  const moltiplicatoreScelto = moltiplicatoriMinigioco[Math.floor(Math.random() * moltiplicatoriMinigioco.length)];
+  const moltiplicatoreScelto = Math.floor(Math.random() * 10) + 1;
   const suitsLetters = ['C', 'P', 'F', 'Q'];
   const index = Math.floor(Math.random() * 40) + 1;
-  const value = ((index - 1) % 10) + 1;
+  const value =  moltiplicatoreScelto;
   const suitIndex = Math.floor((index - 1) / 10);
-  const suitLetter = suitsLetters[suitIndex];
+  const suitLetter =  suitsLetters[Math.floor(Math.random() * suitsLetters.length)];
   const moltiplicatoreImgSrc = `cards/card_${value}${suitLetter}.png`;
   let carte = [
     {type: "jolly", img: jollyImgSrc},
