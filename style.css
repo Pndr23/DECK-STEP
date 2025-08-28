@@ -28,7 +28,7 @@ body {
   color: white;
   padding: 0.8rem; /* diminuito ancora */
   margin-top: 10px; /* meno spazio sopra */
-  margin-bottom: 10px; /* meno spazio sotto */
+  margin-bottom: 5px; /* meno spazio sotto */
   border-radius: 40px;
   box-shadow: 0 0 40px gold;
   overflow: visible;
