@@ -719,3 +719,6 @@ document.getElementById("useJollyBtn").addEventListener("click", () => {
 document.getElementById("restartBtnWithdraw").addEventListener("click", () => {
   location.reload(); 
 });
+const gameArea = document.getElementById("gameArea");
+gameArea.style.transform = "scale(0.85)"; // riduce tutto al 85%
+gameArea.style.transformOrigin = "top center";
