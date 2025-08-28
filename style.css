@@ -26,9 +26,9 @@ body {
   background: url(sfondo.jpg.jpg);
   border: 2px solid gold;
   color: white;
-  padding: 1.8rem;
-  margin-top: 30px;    
-  margin-bottom: 20px; 
+  padding: 1rem; 
+  margin-top: 20px;
+  margin-bottom: 15px; 
   border-radius: 40px;
   box-shadow: 0 0 40px gold;
   overflow: visible;
