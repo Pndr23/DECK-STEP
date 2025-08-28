@@ -781,23 +781,61 @@ option,
     margin-top: 10px;
   }
 }
-#gameArea {
-  padding: 5px 0; /* riduce il padding */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; /* niente scroll */
 }
 
-#tappaCounter,
-#betDisplay {
-  margin-bottom: 4px; /* meno spazio sotto */
+#gameArea {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px 0;
+  overflow: hidden; /* assicura che non ci sia scorrimento interno */
+}
+
+#tappaCounter, #betDisplay {
+  margin-bottom: 4px;
+  font-size: 1rem;
 }
 
 #tappe {
-  margin: 5px 0; /* meno spazio tra le tappe */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 5px 0;
 }
-
-#challengeButtons {
-  margin-top: 8px; /* meno spazio sopra i pulsanti */
+.card {
+  width: 14vw;      /* proporzionale alla larghezza schermo */
+  max-width: 90px;  /* limite massimo per desktop */
+  height: auto;
 }
-
-button {
-  margin: 4px; /* meno spazio tra pulsanti */
+@media (max-width: 768px) {
+  #tappaCounter, #betDisplay {
+    font-size: 0.9rem;
+  }
+  .card {
+    width: 18vw;     /* più grandi in proporzione su mobile */
+    max-width: 70px; /* ma con un limite per non occupare troppo */
+  }
+  #challengeButtons button {
+    font-size: 0.85rem;
+    padding: 6px 8px;
+  }
+}
+@media (max-height: 600px) {
+  /* Se l’altezza è molto bassa (tipo landscape su mobile) */
+  #gameArea {
+    padding: 2px 0;
+  }
+  .card {
+    width: 12vw;
+    max-width: 60px;
+  }
 }
