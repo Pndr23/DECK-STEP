@@ -781,3 +781,23 @@ option,
     margin-top: 10px;
   }
 }
+#gameArea {
+  padding: 5px 0; /* riduce il padding */
+}
+
+#tappaCounter,
+#betDisplay {
+  margin-bottom: 4px; /* meno spazio sotto */
+}
+
+#tappe {
+  margin: 5px 0; /* meno spazio tra le tappe */
+}
+
+#challengeButtons {
+  margin-top: 8px; /* meno spazio sopra i pulsanti */
+}
+
+button {
+  margin: 4px; /* meno spazio tra pulsanti */
+}
