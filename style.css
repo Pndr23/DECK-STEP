@@ -26,13 +26,23 @@ body {
   background: url(sfondo.jpg.jpg);
   border: 2px solid gold;
   color: white;
-  padding: 0.8rem; /* diminuito ancora */
-  margin-top: 10px; /* meno spazio sopra */
-  margin-bottom: 5px; /* meno spazio sotto */
+  padding: 1rem;           /* spazio interno ridotto */
+  margin: 0 auto;          /* centrato orizzontalmente */
   border-radius: 40px;
   box-shadow: 0 0 40px gold;
-  overflow: visible;
+  width: 90vw;             /* 90% della larghezza dello schermo */
+  max-width: 600px;        /* limite massimo su desktop */
+  height: 70vh;            /* 70% dell’altezza visibile */
+  overflow: hidden;        /* niente scroll interno */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* distribuisce contenuto verticale */
 }
+@media (max-width: 600px) {
+  .container {
+    padding: 0.5rem;
+    height: 75vh;
+  }
 select, button {
   margin: 10px;
   padding: 12px 20px;
