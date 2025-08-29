@@ -394,6 +394,8 @@ function updateProgress() {
   const progressPath = document.getElementById("progressPath");
   progressPath.innerHTML = ""; 
   const numeroTappe = tappeMassime[currentLevel] || 10;
+  const livelloKey = String(currentLevel).toLowerCase();
+  const moltiplicatoriLivello = moltiplicatori[livelloKey] || [];
   for (let i = 0; i < numeroTappe; i++) {
     const step = document.createElement("div");
     step.classList.add("progress-step");
@@ -402,8 +404,7 @@ function updateProgress() {
     step.appendChild(circle);
     const multiplier = document.createElement("div");
     multiplier.classList.add("multiplier-label");
-    const multiplierValue = moltiplicatori[currentLevel]?.[i];
-    multiplier.textContent = multiplierValue ? multiplierValue : "";
+    multiplier.textContent = moltiplicatoriLivello[i] !== undefined ? "x" + moltiplicatoriLivello[i] : "";
     step.appendChild(multiplier);
     progressPath.appendChild(step);
   }
