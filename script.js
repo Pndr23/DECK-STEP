@@ -12,14 +12,14 @@ let jollyUsedInThisTurn = false;
 let currentLanguage = "it";
 let currentLevel = "easy";
 let puntataIniziale = parseFloat(document.getElementById("bet").value);
+const moltiplicatoriFacile = [1.1,1.2,1.3,1.5,1.8,2,2.2,2.5,3,5];
+const moltiplicatoriMedio = [1.2,1.3,1.5,1.7,2,2.2,2.5,3,3.5,4,4.5,5,6,7,10];
+const moltiplicatoriDifficile = [1.5,1.6,1.8,2,2.2,2.5,3,3.5,4,5,6,7,8,9,10,12,15,20,30,40];
 let moltiplicatori = {
   easy: moltiplicatoriFacile,
   medium: moltiplicatoriMedio,
   hard: moltiplicatoriDifficile
 };
-const moltiplicatoriFacile = [1.1,1.2,1.3,1.5,1.8,2,2.2,2.5,3,5];
-const moltiplicatoriMedio = [1.2,1.3,1.5,1.7,2,2.2,2.5,3,3.5,4,4.5,5,6,7,10];
-const moltiplicatoriDifficile = [1.5,1.6,1.8,2,2.2,2.5,3,3.5,4,5,6,7,8,9,10,12,15,20,30,40];
 const tappeMassime = {
   easy: 10,
   medium: 15,
