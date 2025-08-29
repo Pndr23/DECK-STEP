@@ -12,7 +12,11 @@ let jollyUsedInThisTurn = false;
 let currentLanguage = "it";
 let currentLevel = "easy";
 let puntataIniziale = parseFloat(document.getElementById("bet").value);
-let moltiplicatori = []; 
+let moltiplicatori = {
+  easy: moltiplicatoriFacile,
+  medium: moltiplicatoriMedio,
+  hard: moltiplicatoriDifficile
+};
 const moltiplicatoriFacile = [1.1,1.2,1.3,1.5,1.8,2,2.2,2.5,3,5];
 const moltiplicatoriMedio = [1.2,1.3,1.5,1.7,2,2.2,2.5,3,3.5,4,4.5,5,6,7,10];
 const moltiplicatoriDifficile = [1.5,1.6,1.8,2,2.2,2.5,3,3.5,4,5,6,7,8,9,10,12,15,20,30,40];
@@ -267,10 +271,7 @@ if (el.dataset.type === "jolly") {
 function aggiornaMoltiplicatori() {
   const livello = document.getElementById("risk").value;
   currentLevel = livello; 
-  if (livello === "easy") moltiplicatori = moltiplicatoriFacile;
-  else if (livello === "medium") moltiplicatori = moltiplicatoriMedio;
-  else if (livello === "hard") moltiplicatori = moltiplicatoriDifficile;
-  creaProgressSteps(); // ✅ aggiunto: crea i cerchi per il livello scelto
+  creaProgressSteps(); 
   const multiplierLabels = document.querySelectorAll(".multiplier-label");
   multiplierLabels.forEach((label, index) => {
     if (moltiplicatori[index]) {
@@ -404,7 +405,7 @@ function updateProgress() {
     step.appendChild(circle);
     const multiplier = document.createElement("div");
     multiplier.classList.add("multiplier-label");
-    multiplier.textContent = moltiplicatoriLivello[i] !== undefined ? "x" + moltiplicatoriLivello[i] : "";
+  multiplier.textContent = moltiplicatoriLivello[i] !== undefined ? "x" + moltiplicatoriLivello[i] : "";
     step.appendChild(multiplier);
     progressPath.appendChild(step);
   }
