@@ -266,16 +266,11 @@ if (el.dataset.type === "jolly") {
   }
 function aggiornaMoltiplicatori() {
   const livello = document.getElementById("risk").value;
-  console.log("aggiornaMoltiplicatori chiamata, livello:", livello);
-   currentLevel = livello; 
-  if (livello === "easy") {
-    moltiplicatori = moltiplicatoriFacile;
-  } else if (livello === "medium") {
-    moltiplicatori = moltiplicatoriMedio;
-  } else if (livello === "hard") {
-    moltiplicatori = moltiplicatoriDifficile;
-  }
-  console.log("Moltiplicatori aggiornati a:", moltiplicatori);
+  currentLevel = livello; 
+  if (livello === "easy") moltiplicatori = moltiplicatoriFacile;
+  else if (livello === "medium") moltiplicatori = moltiplicatoriMedio;
+  else if (livello === "hard") moltiplicatori = moltiplicatoriDifficile;
+  creaProgressSteps(); // ✅ aggiunto: crea i cerchi per il livello scelto
   const multiplierLabels = document.querySelectorAll(".multiplier-label");
   multiplierLabels.forEach((label, index) => {
     if (moltiplicatori[index]) {
@@ -395,6 +390,16 @@ function updateProgress() {
  progressPath.scrollLeft = activeStep.offsetLeft - progressPath.offsetWidth / 2 + activeStep.offsetWidth / 2;
   }
 } 
+  function creaProgressSteps() {
+  const progressPath = document.getElementById("progressPath");
+  progressPath.innerHTML = ""; // svuota
+  const numeroTappe = tappeMassime[currentLevel] || 10;
+  for (let i = 0; i < numeroTappe; i++) {
+    const step = document.createElement("div");
+    step.classList.add("progress-step");
+    progressPath.appendChild(step);
+  }
+}
 function updateJollyButton() {
    useJollyBtn.classList.toggle("hidden", jollyCount === 0);
 } 
@@ -412,6 +417,7 @@ function startGame() {
   partitaIniziata = true;
   gameEnded = false;
   tappe = 0;
+  creaProgressSteps(); 
   errorCount = 0; 
   correctCount = 0;
   correctStreak = 0;
