@@ -20,6 +20,92 @@ let gameAreaOriginalDisplay = null;
 let gameEnded = false;
 let partitaIniziata = false;
 let jollyFromMinigioco = false;
+const HISTORY_KEY = 'deckstep_history_v1';
+let activeSession = null;
+function loadHistory() {
+  try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; }
+  catch { return []; }
+}
+function saveHistory(list) {
+  localStorage.setItem(HISTORY_KEY, JSON.stringify(list));
+}
+function startHistorySession() {
+  const list = loadHistory();
+  activeSession = {
+    id: Date.now(),
+    startedAt: new Date().toISOString(),
+    events: [],
+    outcome: null,
+    winnings: 0
+  };
+  list.push(activeSession);
+  saveHistory(list);
+  renderHistory();
+}
+function logHistoryEvent(eventText) {
+  if (!activeSession) return;
+  const list = loadHistory();
+  const s = list.find(x => x.id === activeSession.id);
+  if (!s) return;
+  s.events.push({ at: new Date().toISOString(), text: eventText });
+  saveHistory(list);
+  renderHistory();
+}
+function finalizeHistorySession(outcome, winnings=0) {
+  if (!activeSession) return;
+  const list = loadHistory();
+  const s = list.find(x => x.id === activeSession.id);
+  if (!s) return;
+  s.outcome = outcome;
+  s.winnings = winnings;
+  s.endedAt = new Date().toISOString();
+  saveHistory(list);
+  activeSession = null;
+  renderHistory();
+}
+function initHistoryUI() {
+  const panel = document.getElementById('historyPanel');
+  const openBtn = document.getElementById('historyButton');
+  const closeBtn = document.getElementById('historyClose');
+  const clearBtn = document.getElementById('historyClear');
+  const backdrop = document.getElementById('historyBackdrop');
+
+  if (openBtn) openBtn.addEventListener('click', () => { panel.classList.remove('hidden'); renderHistory(); });
+  if (closeBtn) closeBtn.addEventListener('click', () => panel.classList.add('hidden'));
+  if (backdrop) backdrop.addEventListener('click', () => panel.classList.add('hidden'));
+  if (clearBtn) clearBtn.addEventListener('click', () => {
+    if (confirm('Sicuro di cancellare la cronologia?')) {
+      localStorage.removeItem(HISTORY_KEY);
+      activeSession = null;
+      renderHistory();
+    }
+  });
+}
+function renderHistory() {
+  const listEl = document.getElementById('historyList');
+  if (!listEl) return;
+  const items = loadHistory().slice().reverse();
+  if (items.length === 0) {
+    listEl.innerHTML = '<p style="opacity:.7">Nessuna partita salvata.</p>';
+    return;
+  }
+  listEl.innerHTML = items.map(s => `
+    <div class="history-card">
+      <div class="history-row">
+        <strong>${new Date(s.startedAt).toLocaleString()}</strong>
+        <span>${s.outcome||'In corso'} • €${s.winnings||0}</span>
+      </div>
+      <details>
+        <summary>Eventi</summary>
+        <ol class="turns">
+          ${s.events.map(e => `<li>${e.at}: ${e.text}</li>`).join('')}
+        </ol>
+      </details>
+    </div>
+  `).join('');
+}
+initHistoryUI();
+renderHistory();
 function createBetBadge() {
     const gameArea = document.getElementById("gameArea");
     let badge = document.getElementById("betBadge");
@@ -222,6 +308,7 @@ rulesToggle.addEventListener("click", () => {
   rulesPanel.classList.toggle("hidden");
 });
 startButton.addEventListener("click", () => {
+ startHistorySession(); 
  aggiornaMoltiplicatori();
   preloadCardImages();
   gameSetup.classList.add("hidden");
@@ -438,20 +525,25 @@ function addButton(text, checkFn) {
   btn.onclick = () => {
     console.log("clicked", text);
     const drawnCard = drawCard(currentCard.value);
+    
+    // 🔹 Log carta giocata nella cronologia
+    const cardName = `${drawnCard.value}${drawnCard.suit}`;
+    logHistoryEvent(`Hai giocato la carta: ${cardName}`);
+
     const drawnImg = document.getElementById("drawnCardImg");
     const maxErrors = currentLevel === "hard" ? 3 : 4;
     drawnImg.style.transition = "transform 0.6s ease";
     drawnImg.style.transform = "rotateY(90deg) scale(1.05)";
+    
     setTimeout(() => {
-      displayDrawnCard(drawnCard, false); // mostra la carta pescata
+      displayDrawnCard(drawnCard, false);
       drawnImg.style.transform = "rotateY(0deg) scale(1)";
-      // Mantieni la carta visibile per 1,5 secondi prima di sostituire
       setTimeout(() => {
-        // Diventa carta attuale
         currentCard = drawnCard;
         displayCurrentCard(currentCard);
         displayDrawnCard(null, true);
         const result = checkFn(drawnCard);
+
         if (result) {
           correctCount++;
           correctStreak++;
@@ -459,16 +551,16 @@ function addButton(text, checkFn) {
           if (correctStreak === 3) {
             correctStreak = 0;
             showMinigiocoJolly((scelta, valore) => {
-            if (scelta === "jolly") {
-              jollyCount++;         
-              updateJollyDisplay();  
-             alert("Hai vinto 1 Jolly!");
-             } else if (scelta === "moltiplicatore") {
-              moltiplicatoreBonus += valore;
-            alert(`Hai vinto un moltiplicatore bonus x${valore}! Sarà sommato al guadagno.`);
-           }
-          updateScore();
-        updateJollyButton();
+              if (scelta === "jolly") {
+                jollyCount++;         
+                updateJollyDisplay();  
+                alert("Hai vinto 1 Jolly!");
+              } else if (scelta === "moltiplicatore") {
+                moltiplicatoreBonus += valore;
+                alert(`Hai vinto un moltiplicatore bonus x${valore}! Sarà sommato al guadagno.`);
+              }
+              updateScore();
+              updateJollyButton();
             });
           }
         } else {
@@ -483,9 +575,11 @@ function addButton(text, checkFn) {
             challengeButtons.innerHTML = "";
             restartBtn.classList.remove("hidden");
             withdrawBtn.classList.add("hidden");
+            finalizeHistorySession('Perso', 0);
             showGameOverScreen();
-           } else if (tappe === 10 && result) {
+          } else if (tappe === 10 && result) {
             gameEnded = true;
+            finalizeHistorySession('Vinto', calcolaGuadagno(correctCount));
             showVictoryScreen();
           }
         }
@@ -494,8 +588,8 @@ function addButton(text, checkFn) {
         updateProgress();
         updateJollyButton();
         aggiornaGuadagno(correctCount);
-      }, 1500); // tempo in cui la carta pescata resta visibile
-    }, 300); // metà animazione flip
+      }, 1500);
+    }, 300);
   };
   challengeButtons.appendChild(btn);
 }
@@ -571,6 +665,7 @@ function tryAutoJolly(maxErrors) {
     jollyUsedInThisTurn = true;
     updateJollyDisplay();
     alert("Jolly usato automaticamente!");
+    logHistoryEvent("Jolly usato automaticamente!");
   }
 }
 function aggiornaGuadagno(corretti) {
@@ -722,98 +817,3 @@ const gameArea = document.getElementById("gameArea");
 gameArea.style.transform = "scale(0.90)"; 
 gameArea.style.transformOrigin = "top center";
 
-const HISTORY_KEY = 'deckstep_history_v1';
-let activeSession = null;
-
-function loadHistory() {
-  try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; }
-  catch { return []; }
-}
-
-function saveHistory(list) {
-  localStorage.setItem(HISTORY_KEY, JSON.stringify(list));
-}
-
-function startHistorySession() {
-  const list = loadHistory();
-  activeSession = {
-    id: Date.now(),
-    startedAt: new Date().toISOString(),
-    events: [],
-    outcome: null,
-    winnings: 0
-  };
-  list.push(activeSession);
-  saveHistory(list);
-  renderHistory();
-}
-
-function logHistoryEvent(eventText) {
-  if (!activeSession) return;
-  const list = loadHistory();
-  const s = list.find(x => x.id === activeSession.id);
-  if (!s) return;
-  s.events.push({ at: new Date().toISOString(), text: eventText });
-  saveHistory(list);
-  renderHistory();
-}
-
-function finalizeHistorySession(outcome, winnings=0) {
-  if (!activeSession) return;
-  const list = loadHistory();
-  const s = list.find(x => x.id === activeSession.id);
-  if (!s) return;
-  s.outcome = outcome;
-  s.winnings = winnings;
-  s.endedAt = new Date().toISOString();
-  saveHistory(list);
-  activeSession = null;
-  renderHistory();
-}
-
-function initHistoryUI() {
-  const panel = document.getElementById('historyPanel');
-  const openBtn = document.getElementById('historyButton');
-  const closeBtn = document.getElementById('historyClose');
-  const clearBtn = document.getElementById('historyClear');
-  const backdrop = document.getElementById('historyBackdrop');
-
-  if (openBtn) openBtn.addEventListener('click', () => { panel.classList.remove('hidden'); renderHistory(); });
-  if (closeBtn) closeBtn.addEventListener('click', () => panel.classList.add('hidden'));
-  if (backdrop) backdrop.addEventListener('click', () => panel.classList.add('hidden'));
-  if (clearBtn) clearBtn.addEventListener('click', () => {
-    if (confirm('Sicuro di cancellare la cronologia?')) {
-      localStorage.removeItem(HISTORY_KEY);
-      activeSession = null;
-      renderHistory();
-    }
-  });
-}
-
-function renderHistory() {
-  const listEl = document.getElementById('historyList');
-  if (!listEl) return;
-  const items = loadHistory().slice().reverse();
-  if (items.length === 0) {
-    listEl.innerHTML = '<p style="opacity:.7">Nessuna partita salvata.</p>';
-    return;
-  }
-  listEl.innerHTML = items.map(s => `
-    <div class="history-card">
-      <div class="history-row">
-        <strong>${new Date(s.startedAt).toLocaleString()}</strong>
-        <span>${s.outcome||'In corso'} • €${s.winnings||0}</span>
-      </div>
-      <details>
-        <summary>Eventi</summary>
-        <ol class="turns">
-          ${s.events.map(e => `<li>${e.at}: ${e.text}</li>`).join('')}
-        </ol>
-      </details>
-    </div>
-  `).join('');
-}
-
-// Inizializza subito il pannello
-initHistoryUI();
-renderHistory();
