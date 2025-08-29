@@ -390,13 +390,20 @@ function updateProgress() {
  progressPath.scrollLeft = activeStep.offsetLeft - progressPath.offsetWidth / 2 + activeStep.offsetWidth / 2;
   }
 } 
-  function creaProgressSteps() {
+ function creaProgressSteps() {
   const progressPath = document.getElementById("progressPath");
-  progressPath.innerHTML = ""; // svuota
+  progressPath.innerHTML = ""; 
   const numeroTappe = tappeMassime[currentLevel] || 10;
   for (let i = 0; i < numeroTappe; i++) {
     const step = document.createElement("div");
     step.classList.add("progress-step");
+    const circle = document.createElement("div");
+    circle.classList.add("circle");
+    step.appendChild(circle);
+    const multiplier = document.createElement("div");
+    multiplier.classList.add("multiplier-label");
+    multiplier.textContent = moltiplicatori[currentLevel]?.[i] || "x1"; 
+    step.appendChild(multiplier);
     progressPath.appendChild(step);
   }
 }
