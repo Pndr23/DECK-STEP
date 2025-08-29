@@ -726,26 +726,24 @@ function translate(key) {
       bet: "Puntata:",
       risk: "Modalità rischio:",
       lost: "Hai perso!",
-      rulesText: `<p>Benvenuto in <strong>Deck Step</strong>! Il tuo obiettivo è superare una serie di sfide casuali indovinando correttamente il risultato della carta successiva.</p>
+      rulesText: `<p>Benvenuto in <strong>Deck Step</strong>! Il tuo obiettivo è completare 10 tappe indovinando le carte successive e accumulando vincite.</p>
         <ul>
-          <li>Puoi scegliere la <strong>puntata iniziale</strong> tra €0.10, €0.20, €0.50, €1, €2 e €5.</li>
-          <li>Puoi anche scegliere la <strong>difficoltà</strong>: Facile, Media o Difficile (più sfide, meno jolly).</li>
-          <li>Ogni turno una carta viene pescata e ti viene proposta una sfida.</li>
-          <li>Ogni risposta corretta ti fa avanzare di una <strong>tappa</strong>.</li>
-          <li>Dopo 3 risposte corrette consecutive, ricevi un <strong>jolly</strong>.</li>
-          <li>3 errori terminano la partita. Puoi ricominciare con il pulsante 🔁.</li>
+          <li>Scegli la <strong>puntata iniziale</strong> (€0,10–€5) e la difficoltà (Facile, Media, Difficile).</li>
+          <li>Ogni turno pesca una carta e affronta una sfida: Maggiore/Minore, Colore, Seme, Pari/Dispari, Intervallo o Numero Esatto (solo Difficile).</li>
+          <li>Dopo 3 risposte corrette consecutive, ottieni un <strong>Jolly</strong> o un <strong>Moltiplicatore Bonus</strong>.</li>
+          <li>Puoi riscattare le vincite in qualsiasi momento, oppure continuare fino alla 10ª tappa.</li>
+          <li>Il numero massimo di errori: Facile/Medio = 4, Difficile = 3. Senza Jolly disponibili, la partita termina.</li>
         </ul>`,
       withdrawn: "Hai ritirato! Hai totalizzato {points} punti.",
       withdraw: "RITIRA"
     },
     en: {
-     red: "Red",
-     black: "Black",
-     hearts: "Hearts",
-     diamonds: "Diamonds",
-     clubs: "Clubs",
-     spades: "Spades",
-      withdrawn: "You withdrew! You earned {points} points.",
+      red: "Red",
+      black: "Black",
+      hearts: "Hearts",
+      diamonds: "Diamonds",
+      clubs: "Clubs",
+      spades: "Spades",
       title: "Deck Step",
       start: "🎮 Start Game",
       restart: "🔁 Restart",
@@ -767,16 +765,16 @@ function translate(key) {
       bet: "Bet:",
       risk: "Risk mode:",
       lost: "You lost!",
-      withdraw: "WITHDRAW",
-      rulesText: `<p>Welcome to <strong>Deck Step</strong>! Your goal is to complete a series of random challenges by correctly guessing the next card.</p>
+      rulesText: `<p>Welcome to <strong>Deck Step</strong>! Your goal is to complete 10 stages by guessing the next cards and accumulating winnings.</p>
         <ul>
-          <li>You can choose your <strong>starting bet</strong> from €0.10 to €5.</li>
-          <li>Select a <strong>difficulty</strong>: Easy, Medium, or Hard (more challenges, fewer jokers).</li>
-          <li>Each turn draws a card and gives you a challenge.</li>
-          <li>Correct answers advance you a <strong>stage</strong>.</li>
-          <li>After 3 correct answers in a row, you earn a <strong>joker</strong>.</li>
-          <li>3 mistakes end the game. Use 🔁 to restart.</li>
-        </ul>`
+          <li>Choose your <strong>starting bet</strong> (€0.10–€5) and difficulty (Easy, Medium, Hard).</li>
+          <li>Each turn draws a card and gives a challenge: Higher/Lower, Color, Suit, Even/Odd, Range, or Exact Number (Hard only).</li>
+          <li>After 3 correct answers in a row, earn a <strong>Joker</strong> or a <strong>Bonus Multiplier</strong>.</li>
+          <li>You can withdraw winnings anytime or continue until stage 10.</li>
+          <li>Maximum mistakes allowed: Easy/Medium = 4, Hard = 3. Without Jokers, the game ends.</li>
+        </ul>`,
+      withdrawn: "You withdrew! You earned {points} points.",
+      withdraw: "WITHDRAW"
     }
   };
   return t[currentLanguage][key];
@@ -786,12 +784,13 @@ document.addEventListener("DOMContentLoaded", () => {
   languageSelect.value = currentLanguage;
   updateLanguage(); 
   aggiornaMoltiplicatori();
-    document.getElementById("restartBtn").addEventListener("click", () => {
+
+  document.getElementById("restartBtn").addEventListener("click", () => {
     document.getElementById("gameOverScreen").classList.add("hidden");
     document.getElementById("gameArea").classList.remove("hidden");
     startGame(); 
   });
-   });
+});
 function calcolaGuadagno(corretti) {
   let guadagno = puntataIniziale;
   for (let i = 0; i < corretti && i < moltiplicatori.length; i++) {
