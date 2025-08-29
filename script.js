@@ -14,8 +14,13 @@ let currentLevel = "easy";
 let puntataIniziale = parseFloat(document.getElementById("bet").value);
 let moltiplicatori = []; 
 const moltiplicatoriFacile = [1.1,1.2,1.3,1.5,1.8,2,2.2,2.5,3,5];
-const moltiplicatoriMedio = [1.2,1.5,2,2.5,3,3.5,4,5,7,10];
-const moltiplicatoriDifficile = [1.5,2,2.5,3,4,5,6,8,12,40];
+const moltiplicatoriMedio = [1.2,1.3,1.5,1.7,2,2.2,2.5,3,3.5,4,4.5,5,6,7,10];
+const moltiplicatoriDifficile = [1.5,1.6,1.8,2,2.2,2.5,3,3.5,4,5,6,7,8,9,10,12,15,20,30,40];
+const tappeMassime = {
+  easy: 10,
+  medium: 15,
+  hard: 20
+};
 let gameAreaOriginalDisplay = null;
 let gameEnded = false;
 let partitaIniziata = false;
@@ -526,16 +531,12 @@ function addButton(text, checkFn) {
   btn.onclick = () => {
     console.log("clicked", text);
     const drawnCard = drawCard(currentCard.value);
-    
-    // 🔹 Log carta giocata nella cronologia
     const cardName = `${drawnCard.value}${drawnCard.suit}`;
     logHistoryEvent(`Hai giocato la carta: ${cardName}`);
-
     const drawnImg = document.getElementById("drawnCardImg");
     const maxErrors = currentLevel === "hard" ? 3 : 4;
     drawnImg.style.transition = "transform 0.6s ease";
     drawnImg.style.transform = "rotateY(90deg) scale(1.05)";
-    
     setTimeout(() => {
       displayDrawnCard(drawnCard, false);
       drawnImg.style.transform = "rotateY(0deg) scale(1)";
@@ -544,7 +545,6 @@ function addButton(text, checkFn) {
         displayCurrentCard(currentCard);
         displayDrawnCard(null, true);
         const result = checkFn(drawnCard);
-
         if (result) {
           correctCount++;
           correctStreak++;
@@ -578,7 +578,7 @@ function addButton(text, checkFn) {
             withdrawBtn.classList.add("hidden");
             finalizeHistorySession('Perso', 0);
             showGameOverScreen();
-          } else if (tappe === 10 && result) {
+          } else if (tappe === tappeMassime[currentLevel] && result) {
             gameEnded = true;
             finalizeHistorySession('Vinto', calcolaGuadagno(correctCount));
             showVictoryScreen();
