@@ -402,7 +402,8 @@ function updateProgress() {
     step.appendChild(circle);
     const multiplier = document.createElement("div");
     multiplier.classList.add("multiplier-label");
-    multiplier.textContent = moltiplicatori[currentLevel]?.[i] || "x1"; 
+    const multiplierValue = moltiplicatori[currentLevel]?.[i];
+    multiplier.textContent = multiplierValue ? multiplierValue : "";
     step.appendChild(multiplier);
     progressPath.appendChild(step);
   }
