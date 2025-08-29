@@ -686,10 +686,11 @@ function tryAutoJolly(maxErrors) {
   }
 }
 function aggiornaGuadagno(corretti) {
-  const label = document.getElementById("gainLabel");
+ const label = document.getElementById("gainLabel");
   let guadagno = puntataIniziale;
-  for (let i = 0; i < corretti && i < moltiplicatori.length; i++) {
-    guadagno *= moltiplicatori[i];
+  const moltiplicatoriLivello = moltiplicatori[currentLevel]; 
+  for (let i = 0; i < corretti && i < moltiplicatoriLivello.length; i++) {
+    guadagno *= moltiplicatoriLivello[i];
   }
  guadagno += moltiplicatoreBonus * puntataIniziale; 
   label.textContent = "+€" + guadagno.toFixed(2);
@@ -809,9 +810,11 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 function calcolaGuadagno(corretti) {
   let guadagno = puntataIniziale;
-  for (let i = 0; i < corretti && i < moltiplicatori.length; i++) {
-    guadagno *= moltiplicatori[i];
+    const moltiplicatoriLivello = moltiplicatori[currentLevel];
+  for (let i = 0; i < corretti && i < moltiplicatoriLivello.length; i++) {
+    guadagno *=  moltiplicatoriLivello[i];
   }
+   guadagno += moltiplicatoreBonus * puntataIniziale; 
   return guadagno;
 }
 document.getElementById("restartBtn").addEventListener("click", () => {
