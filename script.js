@@ -20,7 +20,7 @@ let gameAreaOriginalDisplay = null;
 let gameEnded = false;
 let partitaIniziata = false;
 let jollyFromMinigioco = false;
-const HISTORY_KEY = 'deckstep_history_v1';
+let HISTORY_KEY = 'deckstep_history_v1';
 let activeSession = null;
 function loadHistory() {
   try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; }
@@ -104,6 +104,7 @@ function renderHistory() {
     </div>
   `).join('');
 }
+document.addEventListener('DOMContentLoaded', () => {
 initHistoryUI();
 renderHistory();
 function createBetBadge() {
