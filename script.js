@@ -567,6 +567,7 @@ function addButton(text, checkFn) {
   btn.classList.add("green-button");
   btn.style.color = "white";
   btn.onclick = () => {
+     playSound(soundClick); 
     console.log("clicked", text);
     const drawnCard = drawCard(currentCard.value);
     const cardName = `${drawnCard.value}${drawnCard.suit}`;
