@@ -322,6 +322,8 @@ rulesToggle.addEventListener("click", () => {
   rulesPanel.classList.toggle("hidden");
 });
 startButton.addEventListener("click", () => {
+  const dummy = new Audio('click.mp3');
+  dummy.play().catch(() => {});
  startHistorySession(); 
  aggiornaMoltiplicatori();
   preloadCardImages();
@@ -331,6 +333,12 @@ startButton.addEventListener("click", () => {
   withdrawBtn.classList.remove("hidden");
   resetGame();
   startGame();
+  document.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("click", () => playSound(soundClick));
+  });
+  document.querySelectorAll("select").forEach(sel => {
+    sel.addEventListener("change", () => playSound(soundClick));
+  });
 });
 restartBtn.addEventListener("click", () => {
   gameSetup.classList.remove("hidden");
@@ -821,13 +829,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("gameArea").classList.remove("hidden");
     startGame(); 
   });
-  document.querySelectorAll("button").forEach(btn => {
-    btn.addEventListener("click", () => playSound(soundClick));
-  });
-  document.querySelectorAll("select").forEach(sel => {
-    sel.addEventListener("change", () => playSound(soundClick));
-  });
-});
 function calcolaGuadagno(corretti) {
   let guadagno = puntataIniziale;
     const moltiplicatoriLivello = moltiplicatori[currentLevel];
