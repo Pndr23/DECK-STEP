@@ -854,3 +854,4 @@ document.getElementById("restartBtnWithdraw").addEventListener("click", () => {
 const gameArea = document.getElementById("gameArea");
 gameArea.style.transform = "scale(0.90)"; 
 gameArea.style.transformOrigin = "top center";
+});
