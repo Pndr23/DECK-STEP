@@ -159,7 +159,6 @@ function updateBetBadge() {
 document.getElementById("startButton").addEventListener("click", () => {
 createBetBadge(); 
 });
-  });
 function showMinigiocoJolly(callback) {
   if (minigiocoAttivo) return;
   minigiocoAttivo = true;
@@ -829,6 +828,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("gameOverScreen").classList.add("hidden");
     document.getElementById("gameArea").classList.remove("hidden");
     startGame(); 
+  });
   });
 function calcolaGuadagno(corretti) {
   let guadagno = puntataIniziale;
