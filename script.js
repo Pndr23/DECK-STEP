@@ -159,6 +159,7 @@ function updateBetBadge() {
 document.getElementById("startButton").addEventListener("click", () => {
 createBetBadge(); 
 });
+  });
 function showMinigiocoJolly(callback) {
   if (minigiocoAttivo) return;
   minigiocoAttivo = true;
