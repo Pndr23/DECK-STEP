@@ -821,6 +821,12 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("gameArea").classList.remove("hidden");
     startGame(); 
   });
+  document.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("click", () => playSound(soundClick));
+  });
+  document.querySelectorAll("select").forEach(sel => {
+    sel.addEventListener("change", () => playSound(soundClick));
+  });
 });
 function calcolaGuadagno(corretti) {
   let guadagno = puntataIniziale;
@@ -834,7 +840,6 @@ function calcolaGuadagno(corretti) {
 document.getElementById("restartBtn").addEventListener("click", () => {
   location.reload();
 });
-
 document.getElementById("useJollyBtn").addEventListener("click", () => {
   if (jollyCount > 0 && !jollyUsedInThisTurn) {
     jollyCount--;
@@ -849,11 +854,3 @@ document.getElementById("restartBtnWithdraw").addEventListener("click", () => {
 const gameArea = document.getElementById("gameArea");
 gameArea.style.transform = "scale(0.90)"; 
 gameArea.style.transformOrigin = "top center";
-});
-document.querySelectorAll("button").forEach(btn => {
-    btn.addEventListener("click", () => playSound(soundClick));
-  });
-  document.querySelectorAll("select").forEach(sel => {
-    sel.addEventListener("change", () => playSound(soundClick));
-  });
-});
