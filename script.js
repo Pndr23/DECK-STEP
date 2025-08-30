@@ -30,6 +30,12 @@ const tappeMassime = {
   medium: 15,
   hard: 20
 };
+function playSound(sound) {
+  if (audioOn) { 
+    sound.currentTime = 0;
+    sound.play();
+  }
+}
 let gameAreaOriginalDisplay = null;
 let gameEnded = false;
 let partitaIniziata = false;
@@ -234,6 +240,7 @@ function showMinigiocoJolly(callback) {
     el.dataset.img = carte[i].img;
     if (carte[i].type === "moltiplicatore") el.dataset.value = carte[i].value;
     el.onclick = () => {
+       playSound(soundClick);
       if (!minigiocoAttivo) return;
       minigiocoAttivo = false;
       cardElems.forEach(c => c.classList.remove("covered"));
@@ -344,6 +351,7 @@ languageSelect.addEventListener("change", () => {
   updateLanguage();
 });
 withdrawBtn.addEventListener("click", () => {
+    playSound(soundWithdraw);
   document.querySelector(".container").classList.add("hidden");
   document.getElementById("gameOverScreen")?.classList.add("hidden");
   document.getElementById("withdrawText").textContent = "Hai ritirato!";
@@ -533,6 +541,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 function showGameOverScreen() {
+  playSound(soundLose);
   const screen = document.getElementById("gameOverScreen");
   const gameOverText = document.getElementById("gameOverText");
   if (screen) {
@@ -616,6 +625,7 @@ function addButton(text, checkFn) {
   challengeButtons.appendChild(btn);
 }
 function showVictoryScreen() {
+    soundWin.play();
     document.getElementById("gameArea").classList.add("hidden");
     const victoryScreen = document.createElement("div");
     victoryScreen.style.position = "fixed";
@@ -675,7 +685,6 @@ function showVictoryScreen() {
         }, 2500);
     }
 }
-
 function tryAutoJolly(maxErrors) {
   if (jollyFromMinigioco) {
     jollyFromMinigioco = false;
@@ -840,4 +849,11 @@ document.getElementById("restartBtnWithdraw").addEventListener("click", () => {
 const gameArea = document.getElementById("gameArea");
 gameArea.style.transform = "scale(0.90)"; 
 gameArea.style.transformOrigin = "top center";
+});
+document.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("click", () => playSound(soundClick));
+  });
+  document.querySelectorAll("select").forEach(sel => {
+    sel.addEventListener("change", () => playSound(soundClick));
+  });
 });
