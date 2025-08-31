@@ -766,12 +766,12 @@ function translate(key) {
       bet: "Puntata:",
       risk: "Modalità rischio:",
       lost: "Hai perso!",
-      rulesText: `<p>Benvenuto in <strong>Deck Step</strong>! Il tuo obiettivo è completare 10 tappe indovinando le carte successive e accumulando vincite.</p>
+      rulesText: `<p>Benvenuto in <strong>Deck Step</strong>! Il tuo obiettivo è completare 10-15-20 tappe indovinando le carte successive e accumulando vincite.</p>
         <ul>
           <li>Scegli la <strong>puntata iniziale</strong> (€0,10–€5) e la difficoltà (Facile, Media, Difficile).</li>
           <li>Ogni turno pesca una carta e affronta una sfida: Maggiore/Minore, Colore, Seme, Pari/Dispari, Intervallo o Numero Esatto (solo Difficile).</li>
           <li>Dopo 3 risposte corrette consecutive, ottieni un <strong>Jolly</strong> o un <strong>Moltiplicatore Bonus</strong>.</li>
-          <li>Puoi riscattare le vincite in qualsiasi momento, oppure continuare fino alla 10ª tappa.</li>
+          <li>Puoi riscattare le vincite in qualsiasi momento, oppure continuare fino all'ultima tappa.</li>
           <li>Il numero massimo di errori: Facile/Medio = 4, Difficile = 3. Senza Jolly disponibili, la partita termina.</li>
         </ul>`,
       withdrawn: "Hai ritirato! Hai totalizzato {points} punti.",
@@ -805,12 +805,12 @@ function translate(key) {
       bet: "Bet:",
       risk: "Risk mode:",
       lost: "You lost!",
-      rulesText: `<p>Welcome to <strong>Deck Step</strong>! Your goal is to complete 10 stages by guessing the next cards and accumulating winnings.</p>
+      rulesText: `<p>Welcome to <strong>Deck Step</strong>! Your goal is to complete 10-15-20 stages by guessing the next cards and accumulating winnings.</p>
         <ul>
           <li>Choose your <strong>starting bet</strong> (€0.10–€5) and difficulty (Easy, Medium, Hard).</li>
           <li>Each turn draws a card and gives a challenge: Higher/Lower, Color, Suit, Even/Odd, Range, or Exact Number (Hard only).</li>
           <li>After 3 correct answers in a row, earn a <strong>Joker</strong> or a <strong>Bonus Multiplier</strong>.</li>
-          <li>You can withdraw winnings anytime or continue until stage 10.</li>
+          <li>You can withdraw winnings anytime or continue until the last stage.</li>
           <li>Maximum mistakes allowed: Easy/Medium = 4, Hard = 3. Without Jokers, the game ends.</li>
         </ul>`,
       withdrawn: "You withdrew! You earned {points} points.",
