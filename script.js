@@ -259,10 +259,9 @@ function showMinigiocoJolly(callback) {
       });
       setTimeout(() => {
         if (minigiocoCallback) minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
-if (el.dataset.type === "jolly" && !el.dataset.alertShown) {
-  el.dataset.alertShown = "true"; 
+if (el.dataset.type === "jolly") {
   alert("Hai vinto 1 Jolly!");
-}       
+}   
         minigiocoCallback = null;
         popup.style.display = "none";
        gameArea.style.display = gameAreaOriginalDisplay;
