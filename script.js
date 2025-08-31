@@ -89,7 +89,6 @@ function initHistoryUI() {
   const closeBtn = document.getElementById('historyClose');
   const clearBtn = document.getElementById('historyClear');
   const backdrop = document.getElementById('historyBackdrop');
-
   if (openBtn) openBtn.addEventListener('click', () => { panel.classList.remove('hidden'); renderHistory(); });
   if (closeBtn) closeBtn.addEventListener('click', () => panel.classList.add('hidden'));
   if (backdrop) backdrop.addEventListener('click', () => panel.classList.add('hidden'));
@@ -278,7 +277,6 @@ if (el.dataset.type === "jolly") {
     gameArea.style.display = gameAreaOriginalDisplay;
     window.removeEventListener("resize", resizeMinigioco);
   };
-  
   }
 function aggiornaMoltiplicatori() {
   const livello = document.getElementById("risk").value;
@@ -824,7 +822,6 @@ document.addEventListener("DOMContentLoaded", () => {
   languageSelect.value = currentLanguage;
   updateLanguage(); 
   aggiornaMoltiplicatori();
-
   document.getElementById("restartBtn").addEventListener("click", () => {
     document.getElementById("gameOverScreen").classList.add("hidden");
     document.getElementById("gameArea").classList.remove("hidden");
