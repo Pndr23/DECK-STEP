@@ -592,7 +592,6 @@ function addButton(text, checkFn) {
     if (scelta === "jolly") {
     jollyCount++;
     updateJollyDisplay();
-    alert("Hai vinto 1 Jolly!");
     } else if (scelta === "moltiplicatore") {
           moltiplicatoreBonus += valore;
      alert(Hai vinto un moltiplicatore bonus x${valore}! Sarà sommato al guadagno.);
