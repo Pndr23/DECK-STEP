@@ -577,49 +577,47 @@ function addButton(text, checkFn) {
     setTimeout(() => {
       displayDrawnCard(drawnCard, false);
       drawnImg.style.transform = "rotateY(0deg) scale(1)";
-     setTimeout(() => {
-  currentCard = drawnCard;
-  displayCurrentCard(currentCard);
-  displayDrawnCard(null, true);
-
-  const result = checkFn(drawnCard);
-
-  if (result) {
+    setTimeout(() => {
+    currentCard = drawnCard;
+    displayCurrentCard(currentCard);
+    displayDrawnCard(null, true);
+    const result = checkFn(drawnCard);
+    if (result) {
     correctCount++;
     correctStreak++;
     tappe++;
-
-    // ✅ Controlla subito se abbiamo raggiunto l'ultima tappa
-    if (tappe === tappeMassime[currentLevel]) {
-      gameEnded = true;
-      finalizeHistorySession('Vinto', calcolaGuadagno(correctCount));
-      showVictoryScreen();
-      return; // ❗ Evita che generi un'altra sfida
-    }
-
     if (correctStreak === 3) {
-      correctStreak = 0;
-      showMinigiocoJolly((esito) => {
-        if (esito) {
-          moltiplicatore = Math.min(moltiplicatore + 1, 5);
-          aggiornaMoltiplicatori(moltiplicatore);
-        }
-      });
-    }
-  } else {
     correctStreak = 0;
-    errorCount++;
-    tryAutoJolly(maxErrors);
-
+    showMinigiocoJolly((scelta, valore) => {
+    if (scelta === "jolly") {
+    jollyCount++;
+    updateJollyDisplay();
+    alert("Hai vinto 1 Jolly!");
+    } else if (scelta === "moltiplicatore") {
+          moltiplicatoreBonus += valore;
+     alert(Hai vinto un moltiplicatore bonus x${valore}! Sarà sommato al guadagno.);
+        updateScore();
+        updateJollyButton();
+      });
+      }
+     } else {
+      correctStreak = 0;
+      errorCount++;
+      tryAutoJolly(maxErrors);
+    }
+    if (!gameEnded) {
     if (errorCount >= maxErrors) {
       gameEnded = true;
-      challengeText.textContent = translate("lost");
+     challengeText.textContent = translate("lost");
       challengeButtons.innerHTML = "";
       restartBtn.classList.remove("hidden");
       withdrawBtn.classList.add("hidden");
-      finalizeHistorySession('Perso', 0);
+    finalizeHistorySession('Perso', 0);
+    showGameOverScreen();
+      } else if (tappe === tappeMassime[currentLevel] && result)
+      gameEnded = true;
+      finalizeHistorySession('Vinto', calcolaGuadagno(correctCount));
       showGameOverScreen();
-      return; // ❗ Evita altro codice
     }
   }
   if (!gameEnded) generateChallenge();
@@ -627,7 +625,6 @@ function addButton(text, checkFn) {
   updateProgress();
   updateJollyButton();
   aggiornaGuadagno(correctCount);
-
 }, 1500);
     }, 300);
   };
