@@ -572,6 +572,7 @@ function addButton(text, checkFn) {
     logHistoryEvent(`Hai giocato la carta: ${cardName}`);
     const drawnImg = document.getElementById("drawnCardImg");
     const maxErrors = currentLevel === "hard" ? 3 : 4;
+     playSound("flip.mp3");
     drawnImg.style.transition = "transform 0.6s ease";
     drawnImg.style.transform = "rotateY(90deg) scale(1.05)";
   setTimeout(() => {
@@ -586,6 +587,7 @@ function addButton(text, checkFn) {
       correctCount++;
       correctStreak++;
       tappe++;
+        playSound("correct.mp3");
       if (correctStreak === 3) {
         correctStreak = 0;
         showMinigiocoJolly((scelta, valore) => {
@@ -604,6 +606,7 @@ function addButton(text, checkFn) {
       correctStreak = 0;
       errorCount++;
       tryAutoJolly(maxErrors);
+       playSound("wrong.mp3");
     }
     if (!gameEnded) {
       if (errorCount >= maxErrors) {
