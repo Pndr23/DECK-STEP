@@ -49,7 +49,7 @@ function positionMuteBtn() {
   const muteBtn = document.getElementById("soundToggle"); 
   if (!historyBtn || !muteBtn) return;
   muteBtn.style.position = "fixed";
-  muteBtn.style.top = (historyBtn.offsetTop + historyBtn.offsetHeight + 15) + "px"; 
+  muteBtn.style.top = (historyBtn.offsetTop + historyBtn.offsetHeight + 50) + "px"; 
   muteBtn.style.right = "20px";  
 }
 window.addEventListener("load", positionMuteBtn);
