@@ -39,22 +39,6 @@ function playSound(sound) {
     sound.play();
   }
 }
-window.addEventListener("DOMContentLoaded", () => {
-  const soundToggle = document.getElementById("soundToggle");
-  if (!soundToggle) return; // se non esiste, esco subito
-  soundToggle.addEventListener("click", (event) => {
-    event.stopPropagation(); // blocca il click dall'arrivare al resto della pagina
-    audioOn = !audioOn;
-    soundToggle.textContent = audioOn ? "🔊" : "🔇";
-  });
-  function positionMuteBtn() {
-    soundToggle.style.position = "fixed";
-    soundToggle.style.bottom = "20px";
-    soundToggle.style.left = "20px";
-  }
-  positionMuteBtn();
-  window.addEventListener("resize", positionMuteBtn);
-});
 let gameAreaOriginalDisplay = null;
 let gameEnded = false;
 let partitaIniziata = false;
