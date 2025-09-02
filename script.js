@@ -44,6 +44,16 @@ soundToggle.addEventListener("click", () => {
   audioOn = !audioOn;
   soundToggle.textContent = audioOn ? "🔊" : "🔇";
 });
+function positionMuteBtn() {
+  const historyBtn = document.getElementById("historyBtn");
+  const muteBtn = document.getElementById("soundToggle"); 
+  if (!historyBtn || !muteBtn) return;
+  muteBtn.style.position = "fixed";
+  muteBtn.style.top = (historyBtn.offsetTop + historyBtn.offsetHeight + 15) + "px"; 
+  muteBtn.style.right = "20px";  
+}
+window.addEventListener("load", positionMuteBtn);
+window.addEventListener("resize", positionMuteBtn);
 let gameAreaOriginalDisplay = null;
 let gameEnded = false;
 let partitaIniziata = false;
