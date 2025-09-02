@@ -825,4 +825,15 @@ button {
 .history-card{ border:1px solid rgba(255,255,255,.12); border-radius:12px; padding:10px; background:#262626; }
 .history-row{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; }
 .history-row.small{ font-size:.9em; opacity:.9 }
-.turns{ margin:8px 0 0 18px; }
+.turns{ margin:8px 0 0 18px; 
+}
+#muteBtn {
+  position: fixed;   /* la tieni sempre visibile */
+  top: 70px;         /* abbassa l’icona, puoi aumentare il valore */
+  right: 20px;       /* distanza dal bordo destro */
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  z-index: 2000;     /* così sta sopra agli altri elementi */
+}
