@@ -617,8 +617,8 @@ function addButton(text, checkFn) {
       if (errorCount < maxErrors) {
        playSound(soundWrong);
     }
-    if (!gameEnded) {
-      if (errorCount >= maxErrors) {
+if (!gameEnded) {
+    if (errorCount >= maxErrors) {
         gameEnded = true;
         challengeText.textContent = translate("lost");
         challengeButtons.innerHTML = "";
@@ -626,23 +626,25 @@ function addButton(text, checkFn) {
         withdrawBtn.classList.add("hidden");
         finalizeHistorySession('Perso', 0);
         showGameOverScreen();
-      } else if (tappe === tappeMassime[currentLevel] && result) {
+    } else if (tappe === tappeMassime[currentLevel] && result) {
         gameEnded = true;
-        finalizeHistorySession('Vinto', calcolaGuadagno(correctCount));
-       showVictoryScreen(vincita);
-      }
+        const totale = calcolaGuadagno(correctCount);   
+        finalizeHistorySession('Vinto', totale);       
+        showVictoryScreen(totale);                     
     }
-    if (!gameEnded) generateChallenge();
-    updateScore();
-    updateProgress();
-    updateJollyButton();
-    aggiornaGuadagno(correctCount);
+}
+
+if (!gameEnded) generateChallenge();
+updateScore();
+updateProgress();
+updateJollyButton();
+aggiornaGuadagno(correctCount);
   }, 1500);
 }, 300);
   };
   challengeButtons.appendChild(btn);
 }
-function showVictoryScreen() {
+function showVictoryScreen(vincitaTotale) {
     soundWin.play();
     document.getElementById("gameArea").classList.add("hidden");
     const victoryScreen = document.createElement("div");
@@ -663,7 +665,7 @@ function showVictoryScreen() {
     title.style.fontSize = "4rem";
     title.style.marginBottom = "20px";
     const prize = document.createElement("p");
-    prize.textContent = `Hai vinto ${currentPrize} crediti!`;
+    prize.textContent = `Hai vinto ${vincitaTotale} crediti!`; 
     prize.style.fontSize = "1.8rem";
     prize.style.marginBottom = "40px";
     const restartBtn = document.createElement("button");
