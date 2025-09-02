@@ -39,6 +39,11 @@ function playSound(sound) {
     sound.play();
   }
 }
+const soundToggle = document.getElementById("soundToggle");
+soundToggle.addEventListener("click", () => {
+  audioOn = !audioOn;
+  soundToggle.textContent = audioOn ? "🔊" : "🔇";
+});
 let gameAreaOriginalDisplay = null;
 let gameEnded = false;
 let partitaIniziata = false;
