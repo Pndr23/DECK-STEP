@@ -45,12 +45,11 @@ soundToggle.addEventListener("click", () => {
   soundToggle.textContent = audioOn ? "🔊" : "🔇";
 });
 function positionMuteBtn() {
-  const historyBtn = document.getElementById("historyBtn");
   const muteBtn = document.getElementById("soundToggle"); 
-  if (!historyBtn || !muteBtn) return;
+  if (!muteBtn) return;
   muteBtn.style.position = "fixed";
-  muteBtn.style.top = (historyBtn.offsetTop + historyBtn.offsetHeight + 100) + "px"; 
-  muteBtn.style.right = "20px";  
+  muteBtn.style.bottom = "20px";  
+  muteBtn.style.left = "20px";    
 }
 window.addEventListener("load", positionMuteBtn);
 window.addEventListener("resize", positionMuteBtn);
