@@ -19,8 +19,8 @@ const soundClick = new Audio('click.mp3');
 const soundWithdraw = new Audio('withdraw.mp3');
 const soundWin = new Audio('win.mp3');
 const soundLose = new Audio('lose.mp3');
-const soundCorrect = new Audio("correct.mp3");
-const soundWrong = new Audio("wrong.mp3");
+const soundCorrect = new Audio('correct.mp3');
+const soundWrong = new Audio('wrong.mp3');
 const soundFlip = new Audio("flip.mp3");
 let audioOn = true;
 let moltiplicatori = {
@@ -575,7 +575,7 @@ function addButton(text, checkFn) {
     logHistoryEvent(`Hai giocato la carta: ${cardName}`);
     const drawnImg = document.getElementById("drawnCardImg");
     const maxErrors = currentLevel === "hard" ? 3 : 4;
-     playSound("flip.mp3");
+     playSound(soundFlip);
     drawnImg.style.transition = "transform 0.6s ease";
     drawnImg.style.transform = "rotateY(90deg) scale(1.05)";
   setTimeout(() => {
@@ -590,7 +590,7 @@ function addButton(text, checkFn) {
       correctCount++;
       correctStreak++;
       tappe++;
-        playSound("correct.mp3");
+        playSound(soundCorrect);
       if (correctStreak === 3) {
         correctStreak = 0;
         showMinigiocoJolly((scelta, valore) => {
@@ -609,7 +609,7 @@ function addButton(text, checkFn) {
       correctStreak = 0;
       errorCount++;
       tryAutoJolly(maxErrors);
-       playSound("wrong.mp3");
+       playSound(soundWrong);
     }
     if (!gameEnded) {
       if (errorCount >= maxErrors) {
