@@ -617,7 +617,7 @@ function addButton(text, checkFn) {
       } else if (tappe === tappeMassime[currentLevel] && result) {
         gameEnded = true;
         finalizeHistorySession('Vinto', calcolaGuadagno(correctCount));
-        showGameOverScreen();
+       showVictoryScreen(vincita);
       }
     }
     if (!gameEnded) generateChallenge();
