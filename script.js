@@ -609,6 +609,7 @@ function addButton(text, checkFn) {
       correctStreak = 0;
       errorCount++;
       tryAutoJolly(maxErrors);
+      if (errorCount < maxErrors) {
        playSound(soundWrong);
     }
     if (!gameEnded) {
