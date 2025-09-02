@@ -39,20 +39,22 @@ function playSound(sound) {
     sound.play();
   }
 }
-const soundToggle = document.getElementById("soundToggle");
-soundToggle.addEventListener("click", () => {
-  audioOn = !audioOn;
-  soundToggle.textContent = audioOn ? "🔊" : "🔇";
+window.addEventListener("DOMContentLoaded", () => {
+  const soundToggle = document.getElementById("soundToggle");
+  if (!soundToggle) return; // se non esiste, esco subito
+  soundToggle.addEventListener("click", (event) => {
+    event.stopPropagation(); // blocca il click dall'arrivare al resto della pagina
+    audioOn = !audioOn;
+    soundToggle.textContent = audioOn ? "🔊" : "🔇";
+  });
+  function positionMuteBtn() {
+    soundToggle.style.position = "fixed";
+    soundToggle.style.bottom = "20px";
+    soundToggle.style.left = "20px";
+  }
+  positionMuteBtn();
+  window.addEventListener("resize", positionMuteBtn);
 });
-function positionMuteBtn() {
-  const muteBtn = document.getElementById("soundToggle"); 
-  if (!muteBtn) return;
-  muteBtn.style.position = "fixed";
-  muteBtn.style.bottom = "20px";  
-  muteBtn.style.left = "20px";    
-}
-window.addEventListener("load", positionMuteBtn);
-window.addEventListener("resize", positionMuteBtn);
 let gameAreaOriginalDisplay = null;
 let gameEnded = false;
 let partitaIniziata = false;
