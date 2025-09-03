@@ -39,6 +39,15 @@ function playSound(sound) {
     sound.play();
   }
     }
+ window.addEventListener("DOMContentLoaded", () => {
+  const soundToggle = document.getElementById("soundToggle");
+  if (!soundToggle) return;
+
+  soundToggle.addEventListener("click", (event) => {
+    event.stopPropagation();
+    audioOn = !audioOn;
+    soundToggle.textContent = audioOn ? "🔊" : "🔇";
+  });
   function positionMuteBtn() {
     soundToggle.style.position = "fixed";
     soundToggle.style.bottom = "20px";
@@ -46,6 +55,7 @@ function playSound(sound) {
   }
   positionMuteBtn();
   window.addEventListener("resize", positionMuteBtn);
+});
 let gameAreaOriginalDisplay = null;
 let gameEnded = false;
 let partitaIniziata = false;
