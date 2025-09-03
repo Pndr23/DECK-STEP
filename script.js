@@ -38,6 +38,7 @@ function playSound(sound) {
     sound.currentTime = 0;
     sound.play();
   }
+    }
   function positionMuteBtn() {
     soundToggle.style.position = "fixed";
     soundToggle.style.bottom = "20px";
