@@ -755,7 +755,6 @@ function aggiornaGuadagno(corretti) {
   label.textContent = "+€" + guadagno.toFixed(2);
 }
 function updateLanguage() {
-   playSound(soundClick);
   document.querySelector("html").lang = currentLanguage;
   document.getElementById("gameTitle").textContent = translate("title");
   document.getElementById("startButton").textContent = translate("start");
@@ -893,5 +892,4 @@ document.getElementById("restartBtnWithdraw").addEventListener("click", () => {
 const gameArea = document.getElementById("gameArea");
 gameArea.style.transform = "scale(0.90)"; 
 gameArea.style.transformOrigin = "top center";
-}
 });
