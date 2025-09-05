@@ -8,13 +8,6 @@
  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <div id="soundToggle" 
-     style="position:fixed; bottom:20px; left:20px; width:40px; height:40px; 
-            display:flex; align-items:center; justify-content:center; 
-            cursor:pointer; font-size:28px; background:#333; color:white; 
-            border-radius:50%; z-index:9999;">
-  🔊
-</div>
  <div class="top-controls" style="position: absolute; top: 10px; right: 10px; display: flex; gap: 8px; z-index: 1000;">
   <select id="languageSelect" onchange="changeLanguage()">
     <option value="it">🇮🇹 Italiano</option>
@@ -109,12 +102,23 @@
           <span id="jollyLabel">🃏 Jolly:</span> <span id="jollyCount">0</span>
         </div>
       </div>
-
       <div id="gainLabel" class="gain-label"></div>
       <button id="useJollyBtn" class="hidden">🃏 Usa Jolly</button>
       <button id="withdrawBtn" class="hidden" type="button">
         🏁 <span id="withdrawLabel">RITIRA</span>
       </button>
+       <div id="soundToggle" class="icon-button" 
+       style="width:40px; height:40px; display:flex; align-items:center; justify-content:center; font-size:24px; border-radius:50%; background:#333; color:#fff; cursor:pointer;">
+    🔊
+  </div>
+</div>
+    
+      <div id="cardDisplay" style="display: flex; justify-content: center; gap: 20px; align-items: center;">
+        <div>
+          <p id="currentCardLabel">Carta attuale:</p>
+          <img id="currentCardImg" src="" alt="Carta attuale" />
+        </div>
+        <div>
       <div id="cardDisplay" style="display: flex; justify-content: center; gap: 20px; align-items: center;">
         <div>
           <p id="currentCardLabel">Carta attuale:</p>
