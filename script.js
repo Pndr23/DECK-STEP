@@ -279,7 +279,10 @@ function showMinigiocoJolly(callback) {
 if (el.dataset.type === "jolly") {
    playSound(soundJolly);  
   alert("Hai vinto 1 Jolly!");
+   } else if (el.dataset.type === "moltiplicatore") {
+    playSound(soundMultiplier);
  } 
+        
         minigiocoCallback = null;
         popup.style.display = "none";
        gameArea.style.display = gameAreaOriginalDisplay;
@@ -295,6 +298,7 @@ if (el.dataset.type === "jolly") {
     gameArea.style.display = gameAreaOriginalDisplay;
     window.removeEventListener("resize", resizeMinigioco);
   };
+   }
 function aggiornaMoltiplicatori() {
   const livello = document.getElementById("risk").value;
   currentLevel = livello; 
@@ -887,9 +891,8 @@ document.getElementById("useJollyBtn").addEventListener("click", () => {
 document.getElementById("restartBtnWithdraw").addEventListener("click", () => {
   location.reload(); 
 });
-  
 const gameArea = document.getElementById("gameArea");
 gameArea.style.transform = "scale(0.90)"; 
 gameArea.style.transformOrigin = "top center";
-
+});
   
