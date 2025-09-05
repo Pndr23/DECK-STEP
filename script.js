@@ -22,6 +22,8 @@ const soundLose = new Audio('lose.mp3');
 const soundCorrect = new Audio('correct.mp3');
 const soundWrong = new Audio('wrong.mp3');
 const soundFlip = new Audio("flip.mp3");
+const soundMinigame = new Audio('minigame.mp3');
+const soundJolly = new Audio('jolly.mp3');
 let audioOn = true;
 let moltiplicatori = {
   easy: moltiplicatoriFacile,
@@ -172,6 +174,7 @@ document.getElementById("startButton").addEventListener("click", () => {
 createBetBadge(); 
 });
 function showMinigiocoJolly(callback) {
+  playSound(soundMinigame);
   if (minigiocoAttivo) return;
   minigiocoAttivo = true;
   minigiocoCallback = callback;
@@ -273,6 +276,7 @@ function showMinigiocoJolly(callback) {
       setTimeout(() => {
         if (minigiocoCallback) minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
 if (el.dataset.type === "jolly") {
+   playSound(soundJolly);  
   alert("Hai vinto 1 Jolly!");
 }   
         minigiocoCallback = null;
