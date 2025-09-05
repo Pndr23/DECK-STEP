@@ -25,7 +25,7 @@ const soundFlip = new Audio("flip.mp3");
 const soundMinigame = new Audio('minigame.mp3');
 const soundJolly = new Audio('jolly.mp3');
 const soundMultiplier = new Audio("multiplier.mp3");
-let audioOn = true;
+let audioOn = localStorage.getItem("audioOn") !== "false";
 let moltiplicatori = {
   easy: moltiplicatoriFacile,
   medium: moltiplicatoriMedio,
@@ -42,16 +42,17 @@ function playSound(sound) {
     sound.play();
   }
     }
- window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded", () => {
   const soundToggle = document.getElementById("soundToggle");
   if (!soundToggle) return;
-
+  soundToggle.textContent = audioOn ? "🔊" : "🔇";
   soundToggle.addEventListener("click", (event) => {
     event.stopPropagation();
     audioOn = !audioOn;
     soundToggle.textContent = audioOn ? "🔊" : "🔇";
+    localStorage.setItem("audioOn", audioOn); // ✅ salvo scelta
   });
-   });
+});
 let gameAreaOriginalDisplay = null;
 let gameEnded = false;
 let partitaIniziata = false;
@@ -262,32 +263,26 @@ function showMinigiocoJolly(callback) {
       cardElems.forEach(c => c.classList.remove("covered"));
       el.classList.add("flipped");
       el.style.cursor = "default";
-      setTimeout(() => {
-        el.src = el.dataset.img;
-        el.classList.add("selected");
-      }, 300);
-      cardElems.forEach(otherEl => {
-        if (otherEl !== el) {
-          otherEl.classList.remove("covered");
-          otherEl.src = otherEl.dataset.img;
-          otherEl.style.cursor = "default";
-        }
-        otherEl.onclick = null;
-      });
-      setTimeout(() => {
-        if (minigiocoCallback) minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
-if (el.dataset.type === "jolly") {
-   playSound(soundJolly);  
-  alert("Hai vinto 1 Jolly!");
-   } else if (el.dataset.type === "moltiplicatore") {
+     setTimeout(() => {
+  el.src = el.dataset.img;
+  el.classList.add("selected");
+  if (el.dataset.type === "jolly") {
+    playSound(soundJolly);  
+    alert("Hai vinto 1 Jolly!");
+  } else if (el.dataset.type === "moltiplicatore") {
     playSound(soundMultiplier);
- } 
-        
-        minigiocoCallback = null;
-        popup.style.display = "none";
-       gameArea.style.display = gameAreaOriginalDisplay;
-       window.removeEventListener("resize", resizeMinigioco);
-      }, 1700);
+  }
+}, 300);
+
+setTimeout(() => {
+  if (minigiocoCallback) 
+    minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
+
+  minigiocoCallback = null;
+  popup.style.display = "none";
+  gameArea.style.display = gameAreaOriginalDisplay;
+  window.removeEventListener("resize", resizeMinigioco);
+}, 1700);
     };
   });
    closeBtn.onclick = () => {
