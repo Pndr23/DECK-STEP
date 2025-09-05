@@ -24,6 +24,7 @@ const soundWrong = new Audio('wrong.mp3');
 const soundFlip = new Audio("flip.mp3");
 const soundMinigame = new Audio('minigame.mp3');
 const soundJolly = new Audio('jolly.mp3');
+const soundMultiplier = new Audio("multiplier.mp3");
 let audioOn = true;
 let moltiplicatori = {
   easy: moltiplicatoriFacile,
@@ -65,6 +66,7 @@ function saveHistory(list) {
   localStorage.setItem(HISTORY_KEY, JSON.stringify(list));
 }
 function startHistorySession() {
+   playSound(soundClick);
   const list = loadHistory();
   activeSession = {
     id: Date.now(),
@@ -255,7 +257,6 @@ function showMinigiocoJolly(callback) {
     el.dataset.img = carte[i].img;
     if (carte[i].type === "moltiplicatore") el.dataset.value = carte[i].value;
     el.onclick = () => {
-       playSound(soundClick);
       if (!minigiocoAttivo) return;
       minigiocoAttivo = false;
       cardElems.forEach(c => c.classList.remove("covered"));
@@ -279,6 +280,9 @@ if (el.dataset.type === "jolly") {
    playSound(soundJolly);  
   alert("Hai vinto 1 Jolly!");
 }   
+      } else if (el.dataset.type === "moltiplicatore") {
+  playSound(soundMultiplier);
+ }        
         minigiocoCallback = null;
         popup.style.display = "none";
        gameArea.style.display = gameAreaOriginalDisplay;
@@ -753,6 +757,7 @@ function aggiornaGuadagno(corretti) {
   label.textContent = "+€" + guadagno.toFixed(2);
 }
 function updateLanguage() {
+   playSound(soundClick);
   document.querySelector("html").lang = currentLanguage;
   document.getElementById("gameTitle").textContent = translate("title");
   document.getElementById("startButton").textContent = translate("start");
