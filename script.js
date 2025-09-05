@@ -48,14 +48,7 @@ function playSound(sound) {
     audioOn = !audioOn;
     soundToggle.textContent = audioOn ? "🔊" : "🔇";
   });
-  function positionMuteBtn() {
-    soundToggle.style.position = "fixed";
-    soundToggle.style.bottom = "20px";
-    soundToggle.style.left = "20px";
-  }
-  positionMuteBtn();
-  window.addEventListener("resize", positionMuteBtn);
-});
+   });
 let gameAreaOriginalDisplay = null;
 let gameEnded = false;
 let partitaIniziata = false;
