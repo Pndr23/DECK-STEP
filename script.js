@@ -281,8 +281,7 @@ if (el.dataset.type === "jolly") {
   alert("Hai vinto 1 Jolly!");
       } else if (el.dataset.type === "moltiplicatore") {
   playSound(soundMultiplier);
- }     
-         }  
+ } 
         minigiocoCallback = null;
         popup.style.display = "none";
        gameArea.style.display = gameAreaOriginalDisplay;
