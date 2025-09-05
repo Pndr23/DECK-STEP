@@ -279,8 +279,6 @@ function showMinigiocoJolly(callback) {
 if (el.dataset.type === "jolly") {
    playSound(soundJolly);  
   alert("Hai vinto 1 Jolly!");
-      } else if (el.dataset.type === "moltiplicatore") {
-  playSound(soundMultiplier);
  } 
         minigiocoCallback = null;
         popup.style.display = "none";
