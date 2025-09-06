@@ -26,6 +26,23 @@ const soundMinigame = new Audio('minigame.mp3');
 const soundJolly = new Audio('jolly.mp3');
 const soundMultiplier = new Audio("multiplier.mp3");
 let audioOn = localStorage.getItem("audioOn") !== "false";
+function unlockAudio() {
+  const sounds = [
+    soundClick, soundWithdraw, soundWin, soundLose,
+    soundCorrect, soundWrong, soundFlip,
+    soundMinigame, soundJolly, soundMultiplier
+  ];
+  sounds.forEach(snd => {
+    snd.play().then(() => {
+      snd.pause();
+      snd.currentTime = 0;
+    }).catch(() => {});
+  });
+  document.removeEventListener("click", unlockAudio);
+  document.removeEventListener("touchstart", unlockAudio);
+}
+document.addEventListener("click", unlockAudio);
+document.addEventListener("touchstart", unlockAudio);
 let moltiplicatori = {
   easy: moltiplicatoriFacile,
   medium: moltiplicatoriMedio,
@@ -41,7 +58,7 @@ function playSound(sound) {
     sound.currentTime = 0;
     sound.play();
   }
-    }
+ }
 window.addEventListener("DOMContentLoaded", () => {
   const soundToggle = document.getElementById("soundToggle");
   if (!soundToggle) return;
