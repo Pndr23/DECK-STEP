@@ -353,8 +353,6 @@ rulesToggle.addEventListener("click", () => {
   rulesPanel.classList.toggle("hidden");
 });
 startButton.addEventListener("click", () => {
-  const dummy = new Audio('click.mp3');
-  dummy.play().catch(() => {});
  startHistorySession(); 
  aggiornaMoltiplicatori();
   preloadCardImages();
