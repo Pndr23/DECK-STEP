@@ -376,13 +376,12 @@ restartBtn.addEventListener("click", () => {
   gameArea.classList.add("hidden");
 });
 useJollyBtn.addEventListener("click", () => {
-  if (jollyCount > 0 && !jollyUsedInThisTurn && errorCount < (currentLevel === "hard" ? 3 : 4)) {
-    jollyCount--;
-    errorCount--;
-    jollyUsedInThisTurn = true;
+  if (jollyCount > 0 && errorCount > 0) {
+    jollyCount--;     
+    errorCount--;      
     updateScore();
     updateJollyDisplay();
-    alert("Hai usato un Jolly manualmente!");
+    alert("Hai usato un Jolly!");
   }
 });
 languageSelect.addEventListener("change", () => {
@@ -737,11 +736,11 @@ function tryAutoJolly(maxErrors) {
     jollyFromMinigioco = false;
     return;
   }
-  if (jollyCount > 0 && errorCount >= maxErrors && !jollyUsedInThisTurn) {
-    jollyCount--;
-    errorCount--;
-    jollyUsedInThisTurn = true;
+  if (jollyCount > 0 && errorCount >= maxErrors) {
+    jollyCount--;    
+    errorCount--;        
     updateJollyDisplay();
+    updateScore();
     alert("Jolly usato automaticamente!");
     logHistoryEvent("Jolly usato automaticamente!");
   }
