@@ -25,6 +25,14 @@ const soundFlip = new Audio("flip.mp3");
 const soundMinigame = new Audio('minigame.mp3');
 const soundJolly = new Audio('jolly.mp3');
 const soundMultiplier = new Audio("multiplier.mp3");
+const backgroundMusic = new Audio("background.mp3");
+backgroundMusic.loop = true;  
+backgroundMusic.volume = 0.5;
+window.addEventListener("DOMContentLoaded", () => {
+  backgroundMusic.play().catch(() => {
+    console.log("⚠️ Autoplay bloccato, partirà al primo click dell’utente.");
+  });
+});
 let audioOn = localStorage.getItem("audioOn") !== "false";
 function unlockAudio() {
   const sounds = [
@@ -58,7 +66,12 @@ function playSound(sound) {
     sound.currentTime = 0;
     sound.play();
   }
- }
+  if (!audioOn) {
+    backgroundMusic.pause();
+  } else {
+    if (backgroundMusic.paused) backgroundMusic.play();
+  }
+}
 window.addEventListener("DOMContentLoaded", () => {
   const soundToggle = document.getElementById("soundToggle");
   if (!soundToggle) return;
@@ -677,7 +690,7 @@ function showVictoryScreen(vincitaTotale) {
     victoryScreen.style.left = "0";
     victoryScreen.style.width = "100vw";
     victoryScreen.style.height = "100vh";
-    victoryScreen.style.background = "#222";
+    victoryScreen.style.background = "url('sfondomini.png') center/cover";
     victoryScreen.style.color = "white";
     victoryScreen.style.display = "flex";
     victoryScreen.style.flexDirection = "column";
@@ -685,15 +698,22 @@ function showVictoryScreen(vincitaTotale) {
     victoryScreen.style.alignItems = "center";
     victoryScreen.style.zIndex = "9999";
     const title = document.createElement("h1");
-    title.textContent = "🎉 VITTORIA! 🎉";
+    title.textContent = "🎆 VITTORIA! 🎆";
     title.style.fontSize = "4rem";
     title.style.marginBottom = "20px";
+    title.style.fontFamily = "'Baloo 2', cursive, sans-serif";
+    title.style.textShadow = "0 0 10px gold, 0 0 20px orange, 0 0 30px red";
     const prize = document.createElement("p");
     prize.textContent = `Hai vinto ${vincitaTotale} crediti!`; 
-    prize.style.fontSize = "1.8rem";
+    prize.style.fontSize = "2rem";
     prize.style.marginBottom = "40px";
+    prize.style.fontFamily = "'Baloo 2', cursive, sans-serif";
+    prize.style.padding = "12px 24px";
+    prize.style.background = "rgba(0,0,0,0.5)";
+    prize.style.borderRadius = "25px";
+    prize.style.textShadow = "0 0 8px yellow";
     const restartBtn = document.createElement("button");
-    restartBtn.textContent = "Ricomincia";
+    restartBtn.textContent = "🔁 Ricomincia";
     restartBtn.style.fontSize = "1.5rem";
     restartBtn.style.padding = "10px 20px";
     restartBtn.style.background = "#28a745";
@@ -708,25 +728,24 @@ function showVictoryScreen(vincitaTotale) {
     victoryScreen.appendChild(prize);
     victoryScreen.appendChild(restartBtn);
     document.body.appendChild(victoryScreen);
-    for (let i = 0; i < 40; i++) {
-        const confetto = document.createElement("div");
-        confetto.style.position = "fixed";
-        confetto.style.width = "10px";
-        confetto.style.height = "10px";
-        confetto.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
-        confetto.style.top = "-10px";
-        confetto.style.left = Math.random() * 100 + "vw";
-        confetto.style.opacity = "0.9";
-        confetto.style.borderRadius = "50%";
-        confetto.style.transition = "transform 2s linear, top 2s linear";
-        document.body.appendChild(confetto);
+    for (let i = 0; i < 30; i++) {
+        const spark = document.createElement("div");
+        spark.style.position = "fixed";
+        spark.style.width = "6px";
+        spark.style.height = "6px";
+        spark.style.background = `hsl(${Math.random() * 360}, 100%, 60%)`;
+        spark.style.borderRadius = "50%";
+        spark.style.top = (Math.random() * window.innerHeight) + "px";
+        spark.style.left = (Math.random() * window.innerWidth) + "px";
+        spark.style.opacity = "0.8";
+        spark.style.transform = "scale(0)";
+        spark.style.transition = "transform 1.2s ease-out, opacity 1.2s ease-out";
+        document.body.appendChild(spark);
         setTimeout(() => {
-            confetto.style.top = "100vh";
-            confetto.style.transform = `rotate(${Math.random() * 360}deg)`;
-        }, 50);
-        setTimeout(() => {
-            confetto.remove();
-        }, 2500);
+            spark.style.transform = "scale(5)";
+            spark.style.opacity = "0";
+        }, 50 + i * 100);
+        setTimeout(() => spark.remove(), 2000);
     }
 }
 function tryAutoJolly(maxErrors) {
