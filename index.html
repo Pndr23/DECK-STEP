@@ -1,181 +1,181 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DECK STEP</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DECK STEP</title>
+<link rel="stylesheet" href="style.css" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
 </head>
 <body>
- <div class="container">
- <div class="top-controls" 
-     style="position: absolute; top: 10px; right: 10px; display: flex; flex-direction: row; align-items: center; gap: 12px; z-index: 1000;">
-  <select id="languageSelect">
-    <option value="it">🇮🇹 Italiano</option>
-    <option value="en">🇬🇧 English</option>
-  </select>
-  <div style="display:flex; flex-direction: column; gap:6px;">
-    <button id="historyButton" class="icon-button" title="Cronologia" aria-label="Cronologia">🕒</button>
-    <div id="soundToggle" class="icon-button"
-         style="width:40px; height:40px; display:flex; align-items:center; 
-                justify-content:center; font-size:24px; border-radius:50%; 
-                background:#333; color:#fff; cursor:pointer;">
-      🔊
-    </div>
-  </div>
+<div class="container">
+<div class="top-controls"
+style="position: absolute; top: 10px; right: 10px; display: flex; flex-direction: row; align-items: center; gap: 12px; z-index: 1000;">
+<select id="languageSelect">
+<option value="it">🇮🇹 Italiano</option>
+<option value="en">🇬🇧 English</option>
+</select>
+<div style="display:flex; flex-direction: column; gap:6px;">
+<button id="historyButton" class="icon-button" title="Cronologia" aria-label="Cronologia">🕒</button>
+<div id="soundToggle" class="icon-button"
+style="width:40px; height:40px; display:flex; align-items:center;
+justify-content:center; font-size:24px; border-radius:50%;
+background:#333; color:#fff; cursor:pointer;">
+🔊
 </div>
-  <h1 id="gameTitle">Deck Step</h1>
-  <div id="rulesLabel" class="rules-toggle">📜 Regole</div>
-  <div id="rulesPanel" class="hidden">
-  <p>Benvenuto in <strong>Deck Step</strong>! Il tuo obiettivo è completare 10-15-20 tappe indovinando le carte successive e accumulando vincite.</p>
-  <ul>
-    <li>Scegli la <strong>puntata iniziale</strong> (€0,10–€5) e la difficoltà (Facile, Media, Difficile).</li>
-    <li>Ogni turno pesca una carta e affronta una sfida: Maggiore/Minore, Colore, Seme, Pari/Dispari, Intervallo o Numero Esatto (solo Difficile).</li>
-    <li>Dopo 3 risposte corrette consecutive, ottieni un <strong>Jolly</strong> o un <strong>Moltiplicatore Bonus</strong>.</li>
-    <li>Puoi riscattare le vincite in qualsiasi momento, oppure continuare fino all'ultima tappa.</li>
-    <li>Il numero massimo di errori: Facile/Medio = 4, Difficile = 3. Senza Jolly disponibili, la partita termina.</li>
-  </ul>
 </div>
-    <div id="gameSetup" class="setup">
-      <label for="bet" id="betLabel">Puntata:</label>
-      <select id="bet">
-        <option value="0.1">€0.10</option>
-        <option value="0.2">€0.20</option>
-        <option value="0.5">€0.50</option>
-        <option value="1">€1</option>
-        <option value="2">€2</option>
-        <option value="5">€5</option>
-      </select>
-      <label for="risk" id="riskLabel">Modalità rischio:</label>
-      <select id="risk">
-        <option value="easy">Facile</option>
-        <option value="medium">Media</option>
-        <option value="hard">Difficile</option>
-      </select>
-      <button id="startButton">🎮 Inizia la partita</button>
-      <div style="margin-top: 10px;">
-        <span id="pointsLabel">🏆 Punti:</span> <span id="scoreValue">0</span>
-      </div>
-    </div>
-    <div id="gameArea" class="hidden">
-      <p id="progressCounter">Tappa: 0</p>
-      <div id="progressPath" class="progress-path">
-        <div class="progress-step active">
-          <div class="circle"></div>
-          <div class="multiplier-label">x1</div>
-        </div>
-        <div class="progress-step current">
-          <div class="circle"></div>
-          <div class="multiplier-label">x1.2</div>
-        </div>
-        <div class="progress-step future">
-          <div class="circle"></div>
-          <div class="multiplier-label">x1.5</div>
-        </div>
-        <div class="progress-step future">
-          <div class="circle"></div>
-          <div class="multiplier-label">x2</div>
-        </div>
-        <div class="progress-step future">
-          <div class="circle"></div>
-          <div class="multiplier-label">x3</div>
-        </div>
-        <div class="progress-step future">
-          <div class="circle"></div>
-          <div class="multiplier-label">x5</div>
-        </div>
-        <div class="progress-step future">
-          <div class="circle"></div>
-          <div class="multiplier-label">x8</div>
-        </div>
-        <div class="progress-step future">
-          <div class="circle"></div>
-          <div class="multiplier-label">x12</div>
-        </div>
-        <div class="progress-step future">
-          <div class="circle"></div>
-          <div class="multiplier-label jackpot">x100</div>
-        </div>
-        <div class="progress-step future">
-        <div class="circle"></div>
-        <div class="multiplier-label">x200</div>
 </div>
-      </div>
-      <div id="scorePanel">
-        <div class="top-row">
-          <span id="correctLabel">✅ Corrette:</span> <span id="correctCount">0</span>
-          <span id="errorLabel">❌ Errori:</span> <span id="errorCount">0</span>
-        </div>
-        <div class="jolly-row">
-          <span id="jollyLabel">🃏 Jolly:</span> <span id="jollyCount">0</span>
-        </div>
-      </div>
-      <div id="gainLabel" class="gain-label"></div>
-      <button id="useJollyBtn" class="hidden">🃏 Usa Jolly</button>
-      <button id="withdrawBtn" class="hidden" type="button">
-        🏁 <span id="withdrawLabel">RITIRA</span>
-      </button>
-      <div id="cardDisplay" style="display: flex; justify-content: center; gap: 20px; align-items: center;">
-        <div>
-          <p id="currentCardLabel">Carta attuale:</p>
-          <img id="currentCardImg" src="" alt="Carta attuale" />
-        </div>
-        <div>
-          <p id="drawnCardLabel">Carta pescata:</p>
-          <div class="card-container">
-            <img id="drawnCardImg" src="cards/card_back.png" alt="Carta coperta" />
-          </div>
-        </div>
-      </div>
-      <div id="shuffleAnimation" class="fullscreen-shuffle hidden">
-        <img src="shuffle_cards.gif" alt="Shuffle Animation" id="shuffleGif" />
-      </div>
+<h1 id="gameTitle">Deck Step</h1>
+<div id="rulesLabel" class="rules-toggle">📜 Regole</div>
+<div id="rulesPanel" class="hidden">
+<p>Benvenuto in <strong>Deck Step</strong>! Il tuo obiettivo è completare 10-15-20 tappe indovinando le carte successive e accumulando vincite.</p>
+<ul>
+<li>Scegli la <strong>puntata iniziale</strong> (€0,10–€5) e la difficoltà (Facile, Media, Difficile).</li>
+<li>Ogni turno pesca una carta e affronta una sfida: Maggiore/Minore, Colore, Seme, Pari/Dispari, Intervallo o Numero Esatto (solo Difficile).</li>
+<li>Dopo 3 risposte corrette consecutive, ottieni un <strong>Jolly</strong> o un <strong>Moltiplicatore Bonus</strong>.</li>
+<li>Puoi riscattare le vincite in qualsiasi momento, oppure continuare fino all'ultima tappa.</li>
+<li>Il numero massimo di errori: Facile/Medio = 4, Difficile = 3. Senza Jolly disponibili, la partita termina.</li>
+</ul>
+</div>
+<div id="gameSetup" class="setup">
+<label for="bet" id="betLabel">Puntata:</label>
+<select id="bet">
+<option value="0.1">€0.10</option>
+<option value="0.2">€0.20</option>
+<option value="0.5">€0.50</option>
+<option value="1">€1</option>
+<option value="2">€2</option>
+<option value="5">€5</option>
+</select>
+<label for="risk" id="riskLabel">Modalità rischio:</label>
+<select id="risk">
+<option value="easy">Facile</option>
+<option value="medium">Media</option>
+<option value="hard">Difficile</option>
+</select>
+<button id="startButton">🎮 Inizia la partita</button>
+<div style="margin-top: 10px;">
+<span id="pointsLabel">🏆 Punti:</span> <span id="scoreValue">0</span>
+</div>
+</div>
+<div id="gameArea" class="hidden">
+<p id="progressCounter">Tappa: 0</p>
+<div id="progressPath" class="progress-path">
+<div class="progress-step active">
+<div class="circle"></div>
+<div class="multiplier-label">x1</div>
+</div>
+<div class="progress-step current">
+<div class="circle"></div>
+<div class="multiplier-label">x1.2</div>
+</div>
+<div class="progress-step future">
+<div class="circle"></div>
+<div class="multiplier-label">x1.5</div>
+</div>
+<div class="progress-step future">
+<div class="circle"></div>
+<div class="multiplier-label">x2</div>
+</div>
+<div class="progress-step future">
+<div class="circle"></div>
+<div class="multiplier-label">x3</div>
+</div>
+<div class="progress-step future">
+<div class="circle"></div>
+<div class="multiplier-label">x5</div>
+</div>
+<div class="progress-step future">
+<div class="circle"></div>
+<div class="multiplier-label">x8</div>
+</div>
+<div class="progress-step future">
+<div class="circle"></div>
+<div class="multiplier-label">x12</div>
+</div>
+<div class="progress-step future">
+<div class="circle"></div>
+<div class="multiplier-label jackpot">x100</div>
+</div>
+<div class="progress-step future">
+<div class="circle"></div>
+<div class="multiplier-label">x200</div>
+</div>
+</div>
+<div id="scorePanel">
+<div class="top-row">
+<span id="correctLabel">✅ Corrette:</span> <span id="correctCount">0</span>
+<span id="errorLabel">❌ Errori:</span> <span id="errorCount">0</span>
+</div>
+<div class="jolly-row">
+<span id="jollyLabel">🃏 Jolly:</span> <span id="jollyCount">0</span>
+</div>
+</div>
+<div id="gainLabel" class="gain-label"></div>
+<button id="useJollyBtn" class="hidden">🃏 Usa Jolly</button>
+<button id="withdrawBtn" class="hidden" type="button">
+🏁 <span id="withdrawLabel">RITIRA</span>
+</button>
+<div id="cardDisplay" style="display: flex; justify-content: center; gap: 20px; align-items: center;">
+<div>
+<p id="currentCardLabel">Carta attuale:</p>
+<img id="currentCardImg" src="" alt="Carta attuale" />
+</div>
+<div>
+<p id="drawnCardLabel">Carta pescata:</p>
+<div class="card-container">
+<img id="drawnCardImg" src="cards/card_back.png" alt="Carta coperta" />
+</div>
+</div>
+</div>
+<div id="shuffleAnimation" class="fullscreen-shuffle hidden">
+<img src="shuffle_cards.gif" alt="Shuffle Animation" id="shuffleGif" />
+</div>
 
-      <div id="challengeArea">
-        <p id="challengeText">Sfida in corso...</p>
-        <div id="challengeButtons"></div>
-      </div>
-    </div> <!-- fine #gameArea -->
-  </div> <!-- fine .container -->
-    <div id="withdrawScreen" class="hidden end-screen">
-    <h1 id="withdrawText">Hai ritirato!</h1>
-    <p id="withdrawWinnings">Hai incassato: €0.00</p>
-    <button id="restartBtnWithdraw">🔁 RICOMINCIA</button>
-  </div>
+<div id="challengeArea">
+<p id="challengeText">Sfida in corso...</p>
+<div id="challengeButtons"></div>
+</div>
+</div> <!-- fine #gameArea -->
+</div> <!-- fine .container -->
+<div id="withdrawScreen" class="hidden end-screen">
+<h1 id="withdrawText">Hai ritirato!</h1>
+<p id="withdrawWinnings">Hai incassato: €0.00</p>
+<button id="restartBtnWithdraw">🔁 RICOMINCIA</button>
+</div>
 <div id="gameOverScreen" class="hidden">
- <h1 id="gameOverText">GAME OVER</h1>
- <button id="restartBtn"> ⏯RICOMINCIA </button>
+<h1 id="gameOverText">GAME OVER</h1>
+<button id="restartBtn"> ⏯RICOMINCIA </button>
 </div>
-  <div id="minigiocoJolly" style="display:none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  background: #222; padding: 20px; border-radius: 12px; box-shadow: 0 0 15px gold; z-index: 10000; text-align:center; width: 280px;">
-  <h2 style="color: gold; margin-bottom: 15px;">Scegli una carta</h2>
-  <div style="display:flex; justify-content: space-around; margin-bottom: 15px;">
-    <img id="minicard1" src="cards/card_back.png" style="width: 100px; height: 140px; cursor:pointer; border: 2px solid transparent; border-radius: 8px;" />
-    <img id="minicard2" src="cards/card_back.png" style="width: 100px; height: 140px; cursor:pointer; border: 2px solid transparent; border-radius: 8px;" />
-  </div>
-  <button id="minigiocoCloseBtn" style="padding: 8px 14px; font-size: 1rem; cursor:pointer; border-radius:6px; background: gold; border:none; font-weight: 700;">Annulla</button>
+<div id="minigiocoJolly" style="display:none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+background: #222; padding: 20px; border-radius: 12px; box-shadow: 0 0 15px gold; z-index: 10000; text-align:center; width: 280px;">
+<h2 style="color: gold; margin-bottom: 15px;">Scegli una carta</h2>
+<div style="display:flex; justify-content: space-around; margin-bottom: 15px;">
+<img id="minicard1" src="cards/card_back.png" style="width: 100px; height: 140px; cursor:pointer; border: 2px solid transparent; border-radius: 8px;" />
+<img id="minicard2" src="cards/card_back.png" style="width: 100px; height: 140px; cursor:pointer; border: 2px solid transparent; border-radius: 8px;" />
 </div>
-  <div id="shuffleContainer" class="fullscreen-shuffle hidden">
-  <div class="shuffle-card" style="top: 0; left: 0;"></div>
-  <div class="shuffle-card" style="top: 0; left: 20px;"></div>
-  <div class="shuffle-card" style="top: 0; left: 40px;"></div>
-  <div class="shuffle-card" style="top: 0; left: 60px;"></div>
-  <div class="shuffle-card" style="top: 0; left: 80px;"></div>
+<button id="minigiocoCloseBtn" style="padding: 8px 14px; font-size: 1rem; cursor:pointer; border-radius:6px; background: gold; border:none; font-weight: 700;">Annulla</button>
 </div>
-  <div id="historyPanel" class="hidden">
-  <div class="history-backdrop" id="historyBackdrop"></div>
-  <div class="history-modal">
-    <div class="history-header">
-      <h3 id="historyTitle">Cronologia</h3>
-      <div class="history-actions">
-        <button id="historyClear" class="small-button">Svuota</button>
-        <button id="historyClose" class="small-button">Chiudi</button>
-      </div>
-    </div>
-    <div id="historyList" class="history-list"></div>
-  </div>
+<div id="shuffleContainer" class="fullscreen-shuffle hidden">
+<div class="shuffle-card" style="top: 0; left: 0;"></div>
+<div class="shuffle-card" style="top: 0; left: 20px;"></div>
+<div class="shuffle-card" style="top: 0; left: 40px;"></div>
+<div class="shuffle-card" style="top: 0; left: 60px;"></div>
+<div class="shuffle-card" style="top: 0; left: 80px;"></div>
 </div>
-      <script src="script.js"></script>
+<div id="historyPanel" class="hidden">
+<div class="history-backdrop" id="historyBackdrop"></div>
+<div class="history-modal">
+<div class="history-header">
+<h3 id="historyTitle">Cronologia</h3>
+<div class="history-actions">
+<button id="historyClear" class="small-button">Svuota</button>
+<button id="historyClose" class="small-button">Chiudi</button>
+</div>
+</div>
+<div id="historyList" class="history-list"></div>
+</div>
+</div>
+<script src="script.js"></script>
 </body>
 </html>
