@@ -611,69 +611,75 @@ function addButton(text, checkFn) {
     const drawnImg = document.getElementById("drawnCardImg");
     const maxErrors = currentLevel === "hard" ? 3 : 4;
     playSound(soundFlip);
-    drawnImg.style.transition = "transform 0.6s ease";
-    drawnImg.style.transform = "rotateY(90deg) scale(1.05)";
+    drawnImg.classList.add("card-flip");
     setTimeout(() => {
       displayDrawnCard(drawnCard, false);
-      drawnImg.style.transform = "rotateY(0deg) scale(1)";
-      setTimeout(() => {
-        currentCard = drawnCard;
-        displayCurrentCard(currentCard);
-        displayDrawnCard(null, true);
-        const result = checkFn(drawnCard);
-        if (result) {
-          correctCount++;
-          correctStreak++;
-          playSound(soundCorrect);
-          if (tappe === tappeMassime[currentLevel]) {
-            gameEnded = true;
-            const totale = calcolaGuadagno(correctCount);
-            finalizeHistorySession('Vinto', totale);
-            showVictoryScreen(totale);
-          } else {
-            tappe++;
-            if (correctStreak === 3) {
-              correctStreak = 0;
-              showMinigiocoJolly((scelta, valore) => {
-                if (scelta === "jolly") {
-                  jollyCount++;
-                  updateJollyDisplay();
-                } else if (scelta === "moltiplicatore") {
-                  moltiplicatoreBonus += valore;
-                  alert(`Hai vinto un moltiplicatore bonus x${valore}! Sarà sommato al guadagno.`);
-                  updateScore();
-                  updateJollyButton();
-                }
-              });
-            }
-          }
-        } else {
-          correctStreak = 0;
-          errorCount++;
-          tryAutoJolly(maxErrors);
-          if (errorCount < maxErrors) {
-            playSound(soundWrong);
-          }
-          if (errorCount >= maxErrors) {
-            gameEnded = true;
-            challengeText.textContent = translate("lost");
-            challengeButtons.innerHTML = "";
-            restartBtn.classList.remove("hidden");
-            withdrawBtn.classList.add("hidden");
-            finalizeHistorySession('Perso', 0);
-            showGameOverScreen();
-          }
-        }
-        if (!gameEnded) {
-          generateChallenge();
-        }
-        updateScore();
-        updateProgress();
-        updateJollyButton();
-        aggiornaGuadagno(correctCount);
-      }, 1500);
     }, 300);
+    setTimeout(() => {
+      drawnImg.classList.remove("card-flip");
+
+      currentCard = drawnCard;
+      displayCurrentCard(currentCard);
+      displayDrawnCard(null, true);
+
+      const result = checkFn(drawnCard);
+      if (result) {
+        correctCount++;
+        correctStreak++;
+        playSound(soundCorrect);
+
+        if (tappe === tappeMassime[currentLevel]) {
+          gameEnded = true;
+          const totale = calcolaGuadagno(correctCount);
+          finalizeHistorySession("Vinto", totale);
+          showVictoryScreen(totale);
+        } else {
+          tappe++;
+          if (correctStreak === 3) {
+            correctStreak = 0;
+            showMinigiocoJolly((scelta, valore) => {
+              if (scelta === "jolly") {
+                jollyCount++;
+                updateJollyDisplay();
+              } else if (scelta === "moltiplicatore") {
+                moltiplicatoreBonus += valore;
+                alert(
+                  `Hai vinto un moltiplicatore bonus x${valore}! Sarà sommato al guadagno.`
+                );
+                updateScore();
+                updateJollyButton();
+              }
+            });
+          }
+        }
+      } else {
+        correctStreak = 0;
+        errorCount++;
+        tryAutoJolly(maxErrors);
+
+        if (errorCount < maxErrors) {
+          playSound(soundWrong);
+        }
+        if (errorCount >= maxErrors) {
+          gameEnded = true;
+          challengeText.textContent = translate("lost");
+          challengeButtons.innerHTML = "";
+          restartBtn.classList.remove("hidden");
+          withdrawBtn.classList.add("hidden");
+          finalizeHistorySession("Perso", 0);
+          showGameOverScreen();
+        }
+      }
+      if (!gameEnded) {
+        generateChallenge();
+      }
+      updateScore();
+      updateProgress();
+      updateJollyButton();
+      aggiornaGuadagno(correctCount);
+    }, 600); 
   };
+
   challengeButtons.appendChild(btn);
 }
 function showVictoryScreen(vincitaTotale) {
