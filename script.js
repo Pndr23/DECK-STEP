@@ -26,62 +26,62 @@ const soundMinigame = new Audio('minigame.mp3');
 const soundJolly = new Audio('jolly.mp3');
 const soundMultiplier = new Audio("multiplier.mp3");
 const backgroundMusic = new Audio("background.mp3");
-backgroundMusic.loop = true;  
+backgroundMusic.loop = true;
 backgroundMusic.volume = 0.5;
 window.addEventListener("DOMContentLoaded", () => {
-  backgroundMusic.play().catch(() => {
-    console.log("⚠️ Autoplay bloccato, partirà al primo click dell’utente.");
-  });
+backgroundMusic.play().catch(() => {
+console.log("⚠️ Autoplay bloccato, partirà al primo click dell’utente.");
+});
 });
 let audioOn = localStorage.getItem("audioOn") !== "false";
 function unlockAudio() {
-  const sounds = [
-    soundClick, soundWithdraw, soundWin, soundLose,
-    soundCorrect, soundWrong, soundFlip,
-    soundMinigame, soundJolly, soundMultiplier
-  ];
-  sounds.forEach(snd => {
-    snd.play().then(() => {
-      snd.pause();
-      snd.currentTime = 0;
-    }).catch(() => {});
-  });
-  document.removeEventListener("click", unlockAudio);
-  document.removeEventListener("touchstart", unlockAudio);
+const sounds = [
+soundClick, soundWithdraw, soundWin, soundLose,
+soundCorrect, soundWrong, soundFlip,
+soundMinigame, soundJolly, soundMultiplier
+];
+sounds.forEach(snd => {
+snd.play().then(() => {
+snd.pause();
+snd.currentTime = 0;
+}).catch(() => {});
+});
+document.removeEventListener("click", unlockAudio);
+document.removeEventListener("touchstart", unlockAudio);
 }
 document.addEventListener("click", unlockAudio);
 document.addEventListener("touchstart", unlockAudio);
 let moltiplicatori = {
-  easy: moltiplicatoriFacile,
-  medium: moltiplicatoriMedio,
-  hard: moltiplicatoriDifficile
+easy: moltiplicatoriFacile,
+medium: moltiplicatoriMedio,
+hard: moltiplicatoriDifficile
 };
 const tappeMassime = {
-  easy: 10,
-  medium: 15,
-  hard: 20
+easy: 10,
+medium: 15,
+hard: 20
 };
 function playSound(sound) {
-  if (audioOn) { 
-    sound.currentTime = 0;
-    sound.play();
-  }
-  if (!audioOn) {
-    backgroundMusic.pause();
-  } else {
-    if (backgroundMusic.paused) backgroundMusic.play();
-  }
+if (audioOn) {
+sound.currentTime = 0;
+sound.play();
+}
 }
 window.addEventListener("DOMContentLoaded", () => {
-  const soundToggle = document.getElementById("soundToggle");
-  if (!soundToggle) return;
-  soundToggle.textContent = audioOn ? "🔊" : "🔇";
-  soundToggle.addEventListener("click", (event) => {
-    event.stopPropagation();
-    audioOn = !audioOn;
-    soundToggle.textContent = audioOn ? "🔊" : "🔇";
-    localStorage.setItem("audioOn", audioOn); // ✅ salvo scelta
-  });
+const soundToggle = document.getElementById("soundToggle");
+if (!soundToggle) return;
+soundToggle.textContent = audioOn ? "🔊" : "🔇";
+soundToggle.addEventListener("click", (event) => {
+event.stopPropagation();
+audioOn = !audioOn;
+soundToggle.textContent = audioOn ? "🔊" : "🔇";
+localStorage.setItem("audioOn", audioOn);
+if (!audioOn) {
+backgroundMusic.pause();
+} else {
+backgroundMusic.play().catch(() => {});
+}
+});
 });
 let gameAreaOriginalDisplay = null;
 let gameEnded = false;
@@ -90,257 +90,256 @@ let jollyFromMinigioco = false;
 let HISTORY_KEY = 'deckstep_history_v1';
 let activeSession = null;
 function loadHistory() {
-  try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; }
-  catch { return []; }
+try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; }
+catch { return []; }
 }
 function saveHistory(list) {
-  localStorage.setItem(HISTORY_KEY, JSON.stringify(list));
+localStorage.setItem(HISTORY_KEY, JSON.stringify(list));
 }
 function startHistorySession() {
-   playSound(soundClick);
-  const list = loadHistory();
-  activeSession = {
-    id: Date.now(),
-    startedAt: new Date().toISOString(),
-    events: [],
-    outcome: null,
-    winnings: 0
-  };
-  list.push(activeSession);
-  saveHistory(list);
-  renderHistory();
+playSound(soundClick);
+const list = loadHistory();
+activeSession = {
+id: Date.now(),
+startedAt: new Date().toISOString(),
+events: [],
+outcome: null,
+winnings: 0
+};
+list.push(activeSession);
+saveHistory(list);
+renderHistory();
 }
 function logHistoryEvent(eventText) {
-  if (!activeSession) return;
-  const list = loadHistory();
-  const s = list.find(x => x.id === activeSession.id);
-  if (!s) return;
-  s.events.push({ at: new Date().toISOString(), text: eventText });
-  saveHistory(list);
-  renderHistory();
+if (!activeSession) return;
+const list = loadHistory();
+const s = list.find(x => x.id === activeSession.id);
+if (!s) return;
+s.events.push({ at: new Date().toISOString(), text: eventText });
+saveHistory(list);
+renderHistory();
 }
 function finalizeHistorySession(outcome, winnings=0) {
-  if (!activeSession) return;
-  const list = loadHistory();
-  const s = list.find(x => x.id === activeSession.id);
-  if (!s) return;
-  s.outcome = outcome;
-  s.winnings = winnings;
-  s.endedAt = new Date().toISOString();
-  saveHistory(list);
-  activeSession = null;
-  renderHistory();
+if (!activeSession) return;
+const list = loadHistory();
+const s = list.find(x => x.id === activeSession.id);
+if (!s) return;
+s.outcome = outcome;
+s.winnings = winnings;
+s.endedAt = new Date().toISOString();
+saveHistory(list);
+activeSession = null;
+renderHistory();
 }
 function initHistoryUI() {
-  const panel = document.getElementById('historyPanel');
-  const openBtn = document.getElementById('historyButton');
-  const closeBtn = document.getElementById('historyClose');
-  const clearBtn = document.getElementById('historyClear');
-  const backdrop = document.getElementById('historyBackdrop');
-  if (openBtn) openBtn.addEventListener('click', () => { panel.classList.remove('hidden'); renderHistory(); });
-  if (closeBtn) closeBtn.addEventListener('click', () => panel.classList.add('hidden'));
-  if (backdrop) backdrop.addEventListener('click', () => panel.classList.add('hidden'));
-  if (clearBtn) clearBtn.addEventListener('click', () => {
-    if (confirm('Sicuro di cancellare la cronologia?')) {
-      localStorage.removeItem(HISTORY_KEY);
-      activeSession = null;
-      renderHistory();
-    }
-  });
+const panel = document.getElementById('historyPanel');
+const openBtn = document.getElementById('historyButton');
+const closeBtn = document.getElementById('historyClose');
+const clearBtn = document.getElementById('historyClear');
+const backdrop = document.getElementById('historyBackdrop');
+if (openBtn) openBtn.addEventListener('click', () => { panel.classList.remove('hidden'); renderHistory(); });
+if (closeBtn) closeBtn.addEventListener('click', () => panel.classList.add('hidden'));
+if (backdrop) backdrop.addEventListener('click', () => panel.classList.add('hidden'));
+if (clearBtn) clearBtn.addEventListener('click', () => {
+if (confirm('Sicuro di cancellare la cronologia?')) {
+localStorage.removeItem(HISTORY_KEY);
+activeSession = null;
+renderHistory();
+}
+});
 }
 function renderHistory() {
-  const listEl = document.getElementById('historyList');
-  if (!listEl) return;
-  const items = loadHistory().slice().reverse();
-  if (items.length === 0) {
-    listEl.innerHTML = '<p style="opacity:.7">Nessuna partita salvata.</p>';
-    return;
-  }
-  listEl.innerHTML = items.map(s => `
-    <div class="history-card">
-      <div class="history-row">
-        <strong>${new Date(s.startedAt).toLocaleString()}</strong>
-        <span>${s.outcome||'In corso'} • €${s.winnings||0}</span>
-      </div>
-      <details>
-        <summary>Eventi</summary>
-        <ol class="turns">
-          ${s.events.map(e => `<li>${e.at}: ${e.text}</li>`).join('')}
-        </ol>
-      </details>
-    </div>
-  `).join('');
+const listEl = document.getElementById('historyList');
+if (!listEl) return;
+const items = loadHistory().slice().reverse();
+if (items.length === 0) {
+listEl.innerHTML = '<p style="opacity:.7">Nessuna partita salvata.</p>';
+return;
+}
+listEl.innerHTML = items.map(s => `
+<div class="history-card">
+<div class="history-row">
+<strong>${new Date(s.startedAt).toLocaleString()}</strong>
+<span>${s.outcome||'In corso'} • €${s.winnings||0}</span>
+</div>
+<details>
+<summary>Eventi</summary>
+<ol class="turns">
+${s.events.map(e => `<li>${e.at}: ${e.text}</li>`).join('')}
+</ol>
+</details>
+</div>
+`).join('');
 }
 document.addEventListener('DOMContentLoaded', () => {
 initHistoryUI();
 renderHistory();
 function createBetBadge() {
-    const gameArea = document.getElementById("gameArea");
-    let badge = document.getElementById("betBadge");
-    if (!badge) {
-        badge = document.createElement("div");
-        badge.id = "betBadge";
-        badge.style.padding = "6px 12px";
-        badge.style.background = "#ffcc00";
-        badge.style.color = "#222";
-        badge.style.fontWeight = "700";
-        badge.style.fontSize = "1.1rem";
-        badge.style.borderRadius = "10px";
-        badge.style.boxShadow = "0 2px 6px rgba(0,0,0,0.3)";
-        badge.style.userSelect = "none";
-        badge.style.marginBottom = "8px"; 
-        badge.style.textAlign = "center";
-        gameArea.insertBefore(badge, gameArea.firstChild);
-    }
-    puntataIniziale = parseFloat(document.getElementById("bet").value);
-    badge.textContent = `Puntata: €${puntataIniziale.toFixed(2)}`;
+const gameArea = document.getElementById("gameArea");
+let badge = document.getElementById("betBadge");
+if (!badge) {
+badge = document.createElement("div");
+badge.id = "betBadge";
+badge.style.padding = "6px 12px";
+badge.style.background = "#ffcc00";
+badge.style.color = "#222";
+badge.style.fontWeight = "700";
+badge.style.fontSize = "1.1rem";
+badge.style.borderRadius = "10px";
+badge.style.boxShadow = "0 2px 6px rgba(0,0,0,0.3)";
+badge.style.userSelect = "none";
+badge.style.marginBottom = "8px";
+badge.style.textAlign = "center";
+gameArea.insertBefore(badge, gameArea.firstChild);
 }
-
+puntataIniziale = parseFloat(document.getElementById("bet").value);
+badge.textContent = `Puntata: €${puntataIniziale.toFixed(2)}`;
+}
 function updateBetBadge() {
-    const badge = document.getElementById("betBadge");
-    if (badge) {
-        puntataIniziale = parseFloat(document.getElementById("bet").value);
-        badge.textContent = `Puntata: €${puntataIniziale.toFixed(2)}`;
-    }
+const badge = document.getElementById("betBadge");
+if (badge) {
+puntataIniziale = parseFloat(document.getElementById("bet").value);
+badge.textContent = `Puntata: €${puntataIniziale.toFixed(2)}`;
+}
 }
 document.getElementById("startButton").addEventListener("click", () => {
-createBetBadge(); 
+createBetBadge();
 });
 function showMinigiocoJolly(callback) {
-  playSound(soundMinigame);
-  if (minigiocoAttivo) return;
-  minigiocoAttivo = true;
-  minigiocoCallback = callback;
-  const popup = document.getElementById("minigiocoJolly");
-   if (gameAreaOriginalDisplay === null) {
-  gameAreaOriginalDisplay = getComputedStyle(gameArea).display;
-  }
-  gameArea.style.display = "none";
-  popup.style.display = "flex"; 
-  popup.style.flexDirection = "column";
-  popup.style.alignItems = "center";
-  popup.style.justifyContent = "center";
-  popup.style.paddingTop = "20"; 
-  popup.style.width = "100%";
-  popup.style.height = "100vh";    
-  popup.style.backgroundColor = "#800020";
-  popup.style.backgroundImage = "url('sfondomini.png')";
-  popup.style.backgroundPosition = "center";
-  popup.style.backgroundSize = "cover";
-  popup.style.marginTop = "0";       
-  popup.style.marginBottom = "0";
-  const title = document.getElementById("minigiocoTitle");
-  const cardElems = [document.getElementById("minicard1"), document.getElementById("minicard2")];
-  const closeBtn = document.getElementById("minigiocoCloseBtn");
-  function resizeMinigioco() {
-  let screenWidth = window.innerWidth;
-  if (title) {
-    title.style.order = "1";
-    title.style.fontSize = screenWidth < 600 ? "0.8em" : "1.8em";
-    title.style.color = "white";
-   title.style.marginBottom = screenWidth < 600 ? "6px" : "15px";
-   title.style.textAlign = "center";
-  }
-  cardElems.forEach(c => {
-      c.style.order = "2";
-      if (screenWidth < 600) { 
-        c.style.width = "90px";
-        c.style.height = "150px";
-        c.style.margin = "0 4px";
-      } else { // desktop
-        c.style.width = "160px";
-        c.style.height = "230px";
-        c.style.margin = "0 12px";
-      }
-    });
-  if (closeBtn) {
-    closeBtn.style.order = "3";
-     closeBtn.style.marginTop = screenWidth < 600 ? "10px" : "25px";
-    closeBtn.style.fontSize = screenWidth < 600 ? "0.75em" : "1.1em";
-    closeBtn.style.padding = screenWidth < 600 ?"4px 8px" : "8px 16px";
-  }
-    popup.style.justifyContent = screenWidth < 600 ? "flex-start" : "center";
-  popup.style.paddingTop = screenWidth < 600 ? "10px" : "20px";
+playSound(soundMinigame);
+if (minigiocoAttivo) return;
+minigiocoAttivo = true;
+minigiocoCallback = callback;
+const popup = document.getElementById("minigiocoJolly");
+if (gameAreaOriginalDisplay === null) {
+gameAreaOriginalDisplay = getComputedStyle(gameArea).display;
 }
-   resizeMinigioco();
-  window.addEventListener("resize", resizeMinigioco);
-  const jollyImgSrc = "jolly.png";
-  const moltiplicatoriMinigioco = [1,2,3,4,5,6,7,8,9,10];
-  const moltiplicatoreScelto = Math.floor(Math.random() * 10) + 1;
-  const suitsLetters = ['C', 'P', 'F', 'Q'];
-  const index = Math.floor(Math.random() * 40) + 1;
-  const value =  moltiplicatoreScelto;
-  const suitIndex = Math.floor((index - 1) / 10);
-  const suitLetter =  suitsLetters[Math.floor(Math.random() * suitsLetters.length)];
-  const moltiplicatoreImgSrc = `cards/card_${value}${suitLetter}.png`;
-  let carte = [
-    {type: "jolly", img: jollyImgSrc},
-    {type: "moltiplicatore", img: moltiplicatoreImgSrc, value: moltiplicatoreScelto}
-  ];
-  carte.sort(() => Math.random() - 0.5);
-  cardElems.forEach((el, i) => {
-    el.src = "cards/card_back.png";
-    el.classList.remove("flipped", "selected");
-    el.classList.add("covered");
-    el.style.borderColor = "transparent";
-    el.style.cursor = "pointer";
-    el.dataset.type = carte[i].type;
-    el.dataset.img = carte[i].img;
-    if (carte[i].type === "moltiplicatore") el.dataset.value = carte[i].value;
-    el.onclick = () => {
-      if (!minigiocoAttivo) return;
-      minigiocoAttivo = false;
-      cardElems.forEach(c => c.classList.remove("covered"));
-      el.classList.add("flipped");
-      el.style.cursor = "default";
-     setTimeout(() => {
-  el.src = el.dataset.img;
-  el.classList.add("selected");
-  if (el.dataset.type === "jolly") {
-    playSound(soundJolly);  
-    alert("Hai vinto 1 Jolly!");
-  } else if (el.dataset.type === "moltiplicatore") {
-    playSound(soundMultiplier);
-  }
+gameArea.style.display = "none";
+popup.style.display = "flex";
+popup.style.flexDirection = "column";
+popup.style.alignItems = "center";
+popup.style.justifyContent = "center";
+popup.style.paddingTop = "20";
+popup.style.width = "100%";
+popup.style.height = "100vh";
+popup.style.backgroundColor = "#800020";
+popup.style.backgroundImage = "url('sfondomini.png')";
+popup.style.backgroundPosition = "center";
+popup.style.backgroundSize = "cover";
+popup.style.marginTop = "0";
+popup.style.marginBottom = "0";
+const title = document.getElementById("minigiocoTitle");
+const cardElems = [document.getElementById("minicard1"), document.getElementById("minicard2")];
+const closeBtn = document.getElementById("minigiocoCloseBtn");
+function resizeMinigioco() {
+let screenWidth = window.innerWidth;
+if (title) {
+title.style.order = "1";
+title.style.fontSize = screenWidth < 600 ? "0.8em" : "1.8em";
+title.style.color = "white";
+title.style.marginBottom = screenWidth < 600 ? "6px" : "15px";
+title.style.textAlign = "center";
+}
+cardElems.forEach(c => {
+c.style.order = "2";
+if (screenWidth < 600) {
+c.style.width = "90px";
+c.style.height = "150px";
+c.style.margin = "0 4px";
+} else { // desktop
+c.style.width = "160px";
+c.style.height = "230px";
+c.style.margin = "0 12px";
+}
+});
+if (closeBtn) {
+closeBtn.style.order = "3";
+closeBtn.style.marginTop = screenWidth < 600 ? "10px" : "25px";
+closeBtn.style.fontSize = screenWidth < 600 ? "0.75em" : "1.1em";
+closeBtn.style.padding = screenWidth < 600 ?"4px 8px" : "8px 16px";
+}
+popup.style.justifyContent = screenWidth < 600 ? "flex-start" : "center";
+popup.style.paddingTop = screenWidth < 600 ? "10px" : "20px";
+}
+resizeMinigioco();
+window.addEventListener("resize", resizeMinigioco);
+const jollyImgSrc = "jolly.png";
+const moltiplicatoriMinigioco = [1,2,3,4,5,6,7,8,9,10];
+const moltiplicatoreScelto = Math.floor(Math.random() * 10) + 1;
+const suitsLetters = ['C', 'P', 'F', 'Q'];
+const index = Math.floor(Math.random() * 40) + 1;
+const value =  moltiplicatoreScelto;
+const suitIndex = Math.floor((index - 1) / 10);
+const suitLetter =  suitsLetters[Math.floor(Math.random() * suitsLetters.length)];
+const moltiplicatoreImgSrc = `cards/card_${value}${suitLetter}.png`;
+let carte = [
+{type: "jolly", img: jollyImgSrc},
+{type: "moltiplicatore", img: moltiplicatoreImgSrc, value: moltiplicatoreScelto}
+];
+carte.sort(() => Math.random() - 0.5);
+cardElems.forEach((el, i) => {
+el.src = "cards/card_back.png";
+el.classList.remove("flipped", "selected");
+el.classList.add("covered");
+el.style.borderColor = "transparent";
+el.style.cursor = "pointer";
+el.dataset.type = carte[i].type;
+el.dataset.img = carte[i].img;
+if (carte[i].type === "moltiplicatore") el.dataset.value = carte[i].value;
+el.onclick = () => {
+if (!minigiocoAttivo) return;
+minigiocoAttivo = false;
+cardElems.forEach(c => c.classList.remove("covered"));
+el.classList.add("flipped");
+el.style.cursor = "default";
+setTimeout(() => {
+el.src = el.dataset.img;
+el.classList.add("selected");
+if (el.dataset.type === "jolly") {
+playSound(soundJolly);
+alert("Hai vinto 1 Jolly!");
+} else if (el.dataset.type === "moltiplicatore") {
+playSound(soundMultiplier);
+}
 }, 300);
 
 setTimeout(() => {
-  if (minigiocoCallback) 
-    minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
+if (minigiocoCallback)
+minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
 
-  minigiocoCallback = null;
-  popup.style.display = "none";
-  gameArea.style.display = gameAreaOriginalDisplay;
-  window.removeEventListener("resize", resizeMinigioco);
+minigiocoCallback = null;
+popup.style.display = "none";
+gameArea.style.display = gameAreaOriginalDisplay;
+window.removeEventListener("resize", resizeMinigioco);
 }, 1700);
-    };
-  });
-   closeBtn.onclick = () => {
-    if (!minigiocoAttivo) return;
-    minigiocoAttivo = false;
-    minigiocoCallback = null;
-    popup.style.display = "none";
-    gameArea.style.display = gameAreaOriginalDisplay;
-    window.removeEventListener("resize", resizeMinigioco);
-  };
-   }
+};
+});
+closeBtn.onclick = () => {
+if (!minigiocoAttivo) return;
+minigiocoAttivo = false;
+minigiocoCallback = null;
+popup.style.display = "none";
+gameArea.style.display = gameAreaOriginalDisplay;
+window.removeEventListener("resize", resizeMinigioco);
+};
+}
 function aggiornaMoltiplicatori() {
-  const livello = document.getElementById("risk").value;
-  currentLevel = livello; 
-  creaProgressSteps(); 
-  const multiplierLabels = document.querySelectorAll(".multiplier-label");
-  multiplierLabels.forEach((label, index) => {
-    if (moltiplicatori[index]) {
-      label.textContent = "x" + moltiplicatori[index];
-      label.classList.remove("jackpot");
-    }
-  });
-  aggiornaGuadagno(correctCount);
+const livello = document.getElementById("risk").value;
+currentLevel = livello;
+creaProgressSteps();
+const multiplierLabels = document.querySelectorAll(".multiplier-label");
+multiplierLabels.forEach((label, index) => {
+if (moltiplicatori[index]) {
+label.textContent = "x" + moltiplicatori[index];
+label.classList.remove("jackpot");
+}
+});
+aggiornaGuadagno(correctCount);
 }
 document.getElementById("risk").addEventListener("change", () => {
-  currentLevel = document.getElementById("risk").value;  
-  console.log("Difficoltà cambiata a:", currentLevel);
-  aggiornaMoltiplicatori();
+currentLevel = document.getElementById("risk").value;
+console.log("Difficoltà cambiata a:", currentLevel);
+aggiornaMoltiplicatori();
 });
 const withdrawBtn = document.getElementById("withdrawBtn");
 const startButton = document.getElementById("startButton");
@@ -360,553 +359,548 @@ const useJollyBtn = document.getElementById("useJollyBtn");
 const languageSelect = document.getElementById("languageSelect");
 const selectBet = document.getElementById("bet");
 selectBet.addEventListener("change", () => {
-  puntataIniziale = parseFloat(selectBet.value);
+puntataIniziale = parseFloat(selectBet.value);
 });
 rulesToggle.addEventListener("click", () => {
-  rulesPanel.classList.toggle("hidden");
+rulesPanel.classList.toggle("hidden");
 });
 startButton.addEventListener("click", () => {
- playSound(soundClick); 
- startHistorySession(); 
- aggiornaMoltiplicatori();
-  preloadCardImages();
-  gameSetup.classList.add("hidden");
-  gameArea.classList.remove("hidden");
-  restartBtn.classList.add("hidden");
-  withdrawBtn.classList.remove("hidden");
-  resetGame();
-  startGame();
+playSound(soundClick);  
+startHistorySession();
+aggiornaMoltiplicatori();
+preloadCardImages();
+gameSetup.classList.add("hidden");
+gameArea.classList.remove("hidden");
+restartBtn.classList.add("hidden");
+withdrawBtn.classList.remove("hidden");
+resetGame();
+startGame();
 });
 restartBtn.addEventListener("click", () => {
-  gameSetup.classList.remove("hidden");
-  gameArea.classList.add("hidden");
+gameSetup.classList.remove("hidden");
+gameArea.classList.add("hidden");
 });
 useJollyBtn.addEventListener("click", () => {
-  if (jollyCount > 0 && errorCount > 0) {
-    jollyCount--;     
-    errorCount--;      
-    updateScore();
-    updateJollyDisplay();
-    alert("Hai usato un Jolly!");
-  }
+if (jollyCount > 0 && errorCount > 0) {
+jollyCount--;
+errorCount--;
+updateScore();
+updateJollyDisplay();
+alert("Hai usato un Jolly!");
+}
 });
 languageSelect.addEventListener("change", () => {
-  currentLanguage = languageSelect.value;
-  updateLanguage();
+currentLanguage = languageSelect.value;
+updateLanguage();
 });
 withdrawBtn.addEventListener("click", () => {
-    playSound(soundWithdraw);
-  document.querySelector(".container").classList.add("hidden");
-  document.getElementById("gameOverScreen")?.classList.add("hidden");
-  document.getElementById("withdrawText").textContent = "Hai ritirato!";
-  document.getElementById("withdrawWinnings").textContent =
-    `Hai incassato: €${calcolaGuadagno(correctCount).toFixed(2)}`;
-  document.getElementById("withdrawScreen").classList.remove("hidden");
+playSound(soundWithdraw);
+document.querySelector(".container").classList.add("hidden");
+document.getElementById("gameOverScreen")?.classList.add("hidden");
+document.getElementById("withdrawText").textContent = "Hai ritirato!";
+document.getElementById("withdrawWinnings").textContent =
+`Hai incassato: €${calcolaGuadagno(correctCount).toFixed(2)}`;
+document.getElementById("withdrawScreen").classList.remove("hidden");
 });
 function resetGame() {
-  document.getElementById("gameOverScreen").classList.add("hidden");
-  document.getElementById("drawnCardImg").src = "";
-  partitaIniziata = false
-  gameEnded = false;
-  correctCount = 0;
-  errorCount = 0;
-  jollyCount = 0;
-  tappe = 0;
-  correctStreak = 0;
-  moltiplicatoreBonus = 0;
-  jollyUsedInThisTurn = false;
-  updateScore();
-  updateProgress();
-  updateJollyButton();
+document.getElementById("gameOverScreen").classList.add("hidden");
+document.getElementById("drawnCardImg").src = "";
+partitaIniziata = false
+gameEnded = false;
+correctCount = 0;
+errorCount = 0;
+jollyCount = 0;
+tappe = 0;
+correctStreak = 0;
+moltiplicatoreBonus = 0;
+jollyUsedInThisTurn = false;
+updateScore();
+updateProgress();
+updateJollyButton();
 }
 function updateJollyDisplay() {
-  jollyCountSpan.textContent = jollyCount;
-  if (jollyCount > 0) {
-    useJollyBtn.classList.remove("hidden");
-  } else {
-    useJollyBtn.classList.add("hidden");
-  }
+jollyCountSpan.textContent = jollyCount;
+if (jollyCount > 0) {
+useJollyBtn.classList.remove("hidden");
+} else {
+useJollyBtn.classList.add("hidden");
+}
 }
 function updateScore() {
-  document.getElementById("scoreValue").innerText = correctCount;
-  correctCountSpan.textContent = correctCount;
-  errorCountSpan.textContent = errorCount;
-  jollyCountSpan.textContent = jollyCount;
-} 
+document.getElementById("scoreValue").innerText = correctCount;
+correctCountSpan.textContent = correctCount;
+errorCountSpan.textContent = errorCount;
+jollyCountSpan.textContent = jollyCount;
+}
 function updateProgress() {
-  const steps = progressPath.querySelectorAll(".progress-step");
-  steps.forEach((step, i) => {
-    step.classList.remove("completed-step");
-    if (i < tappe) {
-      void step.offsetWidth;
-      step.classList.add("completed-step");
-    }
-  });
-  progressCounter.textContent = `${translate("stage")}: ${tappe}`;
-    const activeStep = steps[tappe - 1];
-  if (activeStep) {
- progressPath.scrollLeft = activeStep.offsetLeft - progressPath.offsetWidth / 2 + activeStep.offsetWidth / 2;
-  }
-} 
- function creaProgressSteps() {
-  const progressPath = document.getElementById("progressPath");
-  progressPath.innerHTML = ""; 
-  const numeroTappe = tappeMassime[currentLevel] || 10;
-  const livelloKey = String(currentLevel).toLowerCase();
-  const moltiplicatoriLivello = moltiplicatori[livelloKey] || [];
-  for (let i = 0; i < numeroTappe; i++) {
-    const step = document.createElement("div");
-    step.classList.add("progress-step");
-    const circle = document.createElement("div");
-    circle.classList.add("circle");
-    step.appendChild(circle);
-    const multiplier = document.createElement("div");
-    multiplier.classList.add("multiplier-label");
-  multiplier.textContent = moltiplicatoriLivello[i] !== undefined ? "x" + moltiplicatoriLivello[i] : "";
-    step.appendChild(multiplier);
-    progressPath.appendChild(step);
-  }
+const steps = progressPath.querySelectorAll(".progress-step");
+steps.forEach((step, i) => {
+step.classList.remove("completed-step");
+if (i < tappe) {
+void step.offsetWidth;
+step.classList.add("completed-step");
+}
+});
+progressCounter.textContent = `${translate("stage")}: ${tappe}`;
+const activeStep = steps[tappe - 1];
+if (activeStep) {
+progressPath.scrollLeft = activeStep.offsetLeft - progressPath.offsetWidth / 2 + activeStep.offsetWidth / 2;
+}
+}
+function creaProgressSteps() {
+const progressPath = document.getElementById("progressPath");
+progressPath.innerHTML = "";
+const numeroTappe = tappeMassime[currentLevel] || 10;
+const livelloKey = String(currentLevel).toLowerCase();
+const moltiplicatoriLivello = moltiplicatori[livelloKey] || [];
+for (let i = 0; i < numeroTappe; i++) {
+const step = document.createElement("div");
+step.classList.add("progress-step");
+const circle = document.createElement("div");
+circle.classList.add("circle");
+step.appendChild(circle);
+const multiplier = document.createElement("div");
+multiplier.classList.add("multiplier-label");
+multiplier.textContent = moltiplicatoriLivello[i] !== undefined ? "x" + moltiplicatoriLivello[i] : "";
+step.appendChild(multiplier);
+progressPath.appendChild(step);
+}
 }
 function updateJollyButton() {
-   useJollyBtn.classList.toggle("hidden", jollyCount === 0);
-} 
+useJollyBtn.classList.toggle("hidden", jollyCount === 0);
+}
 function preloadCardImages() {
-  for (let i = 1; i <= 40; i++) {
-    const img = new Image();
-    img.src = `cards/card_${i}.png`;
-  }
-  const back = new Image();
-  back.src = "cards/card_back.png";
-} 
+for (let i = 1; i <= 40; i++) {
+const img = new Image();
+img.src = `cards/card_${i}.png`;
+}
+const back = new Image();
+back.src = "cards/card_back.png";
+}
 function startGame() {
- console.log("startGame chiamato");  // Controlla se la funzione viene eseguita
-  console.log("Stato schermata gioco:", gameArea.hidden);
-  partitaIniziata = true;
-  gameEnded = false;
-  tappe = 0;
-  creaProgressSteps(); 
-  errorCount = 0; 
-  correctCount = 0;
-  correctStreak = 0;
-  jollyCount = 0;
-  moltiplicatoreBonus = 0;
-  jollyUsedInThisTurn = false;
-  currentCard = drawCard();
-  displayCurrentCard(currentCard);
-  displayDrawnCard(null, true);
-  generateChallenge();
+console.log("startGame chiamato");  // Controlla se la funzione viene eseguita
+console.log("Stato schermata gioco:", gameArea.hidden);
+partitaIniziata = true;
+gameEnded = false;
+tappe = 0;
+creaProgressSteps();
+errorCount = 0;
+correctCount = 0;
+correctStreak = 0;
+jollyCount = 0;
+moltiplicatoreBonus = 0;
+jollyUsedInThisTurn = false;
+currentCard = drawCard();
+displayCurrentCard(currentCard);
+displayDrawnCard(null, true);
+generateChallenge();
 }
 function drawCard(avoidValue = null) {
-  const suitsLetters = ['C', 'P', 'F', 'Q'];
-  let index, value, suitLetter;
-  do {
-    index = Math.floor(Math.random() * 40) + 1;
-    value = ((index - 1) % 10) + 1;
-    const suitIndex = Math.floor((index - 1) / 10);
-    suitLetter = suitsLetters[suitIndex];
-  }
-    while (value === avoidValue);
-  return { value, suit: suitLetter };
-} 
+const suitsLetters = ['C', 'P', 'F', 'Q'];
+let index, value, suitLetter;
+do {
+index = Math.floor(Math.random() * 40) + 1;
+value = ((index - 1) % 10) + 1;
+const suitIndex = Math.floor((index - 1) / 10);
+suitLetter = suitsLetters[suitIndex];
+}
+while (value === avoidValue);
+return { value, suit: suitLetter };
+}
 function displayCurrentCard(card) {
-   currentCardImg.src = `cards/card_${card.value}${card.suit}.png`;
-} 
+currentCardImg.src = `cards/card_${card.value}${card.suit}.png`;
+}
 function displayDrawnCard(card, covered = false) {
-  const drawnCardImg = document.getElementById("drawnCardImg");
-  if (covered || !card) {
-    drawnCardImg.src = "cards/card_back.png";
-  } else {
-    drawnCardImg.src = `cards/card_${card.value}${card.suit}.png`;
-  }
+const drawnCardImg = document.getElementById("drawnCardImg");
+if (covered || !card) {
+drawnCardImg.src = "cards/card_back.png";
+} else {
+drawnCardImg.src = `cards/card_${card.value}${card.suit}.png`;
+}
 }
 function isRed(suit) {
-  return suit === "C" || suit === "Q";
-} 
+return suit === "C" || suit === "Q";
+}
 function isBlack(suit) {
-  return suit === "F" || suit === "P";
+return suit === "F" || suit === "P";
 }
 function generateChallenge() {
-  displayDrawnCard(null, true);
-  let challenges = [
-    { key: "higherLower", label: { it: "Maggiore o Minore", en: "Higher or Lower" } },
-    { key: "evenOdd", label: { it: "Pari o Dispari", en: "Even or Odd" } },
-    { key: "inOut", label: { it: "Dentro o Fuori", en: "In or Out" } },
-    { key: "exactNumber", label: { it: "Numero Esatto", en: "Exact Number" } },
-    { key: "color", label: { it: "Colore", en: "Color" } },
-    { key: "suit", label: { it: "Seme", en: "Suit" } } // Nuova sfida
-  ]; 
-  if (currentLevel === "hard") {
-    challenges = challenges.filter(ch => ch.key !== "color");
-  } else {
-    challenges = challenges.filter(ch => ch.key !== "exactNumber");
-  }
-  const selected = challenges[Math.floor(Math.random() * challenges.length)];
-  const label = selected.label[currentLanguage];
-  challengeText.textContent = `${translate("challenge")}: ${label}`;
-  challengeButtons.innerHTML = "";
-  const lockedValue = currentCard.value;
-  const lockedSuit = currentCard.suit;
-  if (selected.key === "higherLower") {
-    addButton(translate("higher"), (next) => next.value > lockedValue);
-    addButton(translate("lower"), (next) => next.value < lockedValue);
-  } else if (selected.key === "evenOdd") {
-    addButton(translate("even"), (next) => next.value % 2 === 0);
-    addButton(translate("odd"), (next) => next.value % 2 !== 0);
-  } else if (selected.key === "inOut") {
-    const a = Math.floor(Math.random() * 7) + 2;
-    const b = a + 2;
-    challengeText.textContent += ` (${a}-${b})`;
-    addButton(translate("in"), (next) => next.value >= a && next.value <= b);
-    addButton(translate("out"), (next) => next.value < a || next.value > b);
-  } else if (selected.key === "exactNumber") {
-    for (let i = 1; i <= 10; i++) {
-      addButton(i.toString(), (next) => next.value === i);
-    }
-  } else if (selected.key === "color") {
-    addButton(translate("red"), (next) => next.suit === "C" || next.suit === "Q");
-    addButton(translate("black"), (next) => next.suit === "F" || next.suit === "P");
-  } else if (selected.key === "suit") {
-    addButton(translate("hearts"), (next) => next.suit === "C");
-    addButton(translate("diamonds"), (next) => next.suit === "Q");
-    addButton(translate("clubs"), (next) => next.suit === "F");
-    addButton(translate("spades"), (next) => next.suit === "P");
-  }
-}  
+displayDrawnCard(null, true);
+let challenges = [
+{ key: "higherLower", label: { it: "Maggiore o Minore", en: "Higher or Lower" } },
+{ key: "evenOdd", label: { it: "Pari o Dispari", en: "Even or Odd" } },
+{ key: "inOut", label: { it: "Dentro o Fuori", en: "In or Out" } },
+{ key: "exactNumber", label: { it: "Numero Esatto", en: "Exact Number" } },
+{ key: "color", label: { it: "Colore", en: "Color" } },
+{ key: "suit", label: { it: "Seme", en: "Suit" } } // Nuova sfida
+];
+if (currentLevel === "hard") {
+challenges = challenges.filter(ch => ch.key !== "color");
+} else {
+challenges = challenges.filter(ch => ch.key !== "exactNumber");
+}
+const selected = challenges[Math.floor(Math.random() * challenges.length)];
+const label = selected.label[currentLanguage];
+challengeText.textContent = `${translate("challenge")}: ${label}`;
+challengeButtons.innerHTML = "";
+const lockedValue = currentCard.value;
+const lockedSuit = currentCard.suit;
+if (selected.key === "higherLower") {
+addButton(translate("higher"), (next) => next.value > lockedValue);
+addButton(translate("lower"), (next) => next.value < lockedValue);
+} else if (selected.key === "evenOdd") {
+addButton(translate("even"), (next) => next.value % 2 === 0);
+addButton(translate("odd"), (next) => next.value % 2 !== 0);
+} else if (selected.key === "inOut") {
+const a = Math.floor(Math.random() * 7) + 2;
+const b = a + 2;
+challengeText.textContent += ` (${a}-${b})`;
+addButton(translate("in"), (next) => next.value >= a && next.value <= b);
+addButton(translate("out"), (next) => next.value < a || next.value > b);
+} else if (selected.key === "exactNumber") {
+for (let i = 1; i <= 10; i++) {
+addButton(i.toString(), (next) => next.value === i);
+}
+} else if (selected.key === "color") {
+addButton(translate("red"), (next) => next.suit === "C" || next.suit === "Q");
+addButton(translate("black"), (next) => next.suit === "F" || next.suit === "P");
+} else if (selected.key === "suit") {
+addButton(translate("hearts"), (next) => next.suit === "C");
+addButton(translate("diamonds"), (next) => next.suit === "Q");
+addButton(translate("clubs"), (next) => next.suit === "F");
+addButton(translate("spades"), (next) => next.suit === "P");
+}
+}
 document.addEventListener("DOMContentLoaded", () => {
-  currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
-  languageSelect.value = currentLanguage;
-  currentLevel = document.getElementById("risk").value; 
-  updateLanguage();
-  aggiornaMoltiplicatori();
-  document.getElementById("restartBtn").addEventListener("click", () => {
-    document.getElementById("gameOverScreen").classList.add("hidden");
-    document.getElementById("gameArea").classList.remove("hidden");
-    startGame();
-  });
+currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
+languageSelect.value = currentLanguage;
+currentLevel = document.getElementById("risk").value;
+updateLanguage();
+aggiornaMoltiplicatori();
+document.getElementById("restartBtn").addEventListener("click", () => {
+document.getElementById("gameOverScreen").classList.add("hidden");
+document.getElementById("gameArea").classList.remove("hidden");
+startGame();
+});
 });
 function showGameOverScreen() {
-  playSound(soundLose);
-  const screen = document.getElementById("gameOverScreen");
-  const gameOverText = document.getElementById("gameOverText");
-  if (screen) {
-    screen.classList.remove("hidden");
-  }
-  if (gameOverText) {
-    gameOverText.textContent = translate("lost") || "Hai perso!";
-  }
-  gameArea.classList.add("hidden");
-  gameSetup.classList.add("hidden");
+playSound(soundLose);
+const screen = document.getElementById("gameOverScreen");
+const gameOverText = document.getElementById("gameOverText");
+if (screen) {
+screen.classList.remove("hidden");
+}
+if (gameOverText) {
+gameOverText.textContent = translate("lost") || "Hai perso!";
+}
+gameArea.classList.add("hidden");
+gameSetup.classList.add("hidden");
 }
 function addButton(text, checkFn) {
-  const btn = document.createElement("button");
-  btn.textContent = text;
-  btn.classList.add("green-button");
-  btn.style.color = "white";
-  btn.onclick = () => {
-    playSound(soundClick);
-    console.log("clicked", text);
-    const drawnCard = drawCard(currentCard.value);
-    const cardName = `${drawnCard.value}${drawnCard.suit}`;
-    logHistoryEvent(`Hai giocato la carta: ${cardName}`);
-    const drawnImg = document.getElementById("drawnCardImg");
-    const maxErrors = currentLevel === "hard" ? 3 : 4;
-    playSound(soundFlip);
-    drawnImg.classList.add("card-flip");
-    setTimeout(() => {
-      displayDrawnCard(drawnCard, false);
-    }, 300);
-    setTimeout(() => {
-      drawnImg.classList.remove("card-flip");
-
-      currentCard = drawnCard;
-      displayCurrentCard(currentCard);
-      displayDrawnCard(null, true);
-
-      const result = checkFn(drawnCard);
-      if (result) {
-        correctCount++;
-        correctStreak++;
-        playSound(soundCorrect);
-
-        if (tappe === tappeMassime[currentLevel]) {
-          gameEnded = true;
-          const totale = calcolaGuadagno(correctCount);
-          finalizeHistorySession("Vinto", totale);
-          showVictoryScreen(totale);
-        } else {
-          tappe++;
-          if (correctStreak === 3) {
-            correctStreak = 0;
-            showMinigiocoJolly((scelta, valore) => {
-              if (scelta === "jolly") {
-                jollyCount++;
-                updateJollyDisplay();
-              } else if (scelta === "moltiplicatore") {
-                moltiplicatoreBonus += valore;
-                alert(
-                  `Hai vinto un moltiplicatore bonus x${valore}! Sarà sommato al guadagno.`
-                );
-                updateScore();
-                updateJollyButton();
-              }
-            });
-          }
-        }
-      } else {
-        correctStreak = 0;
-        errorCount++;
-        tryAutoJolly(maxErrors);
-
-        if (errorCount < maxErrors) {
-          playSound(soundWrong);
-        }
-        if (errorCount >= maxErrors) {
-          gameEnded = true;
-          challengeText.textContent = translate("lost");
-          challengeButtons.innerHTML = "";
-          restartBtn.classList.remove("hidden");
-          withdrawBtn.classList.add("hidden");
-          finalizeHistorySession("Perso", 0);
-          showGameOverScreen();
-        }
-      }
-      if (!gameEnded) {
-        generateChallenge();
-      }
-      updateScore();
-      updateProgress();
-      updateJollyButton();
-      aggiornaGuadagno(correctCount);
-    }, 600); 
-  };
-
-  challengeButtons.appendChild(btn);
+const btn = document.createElement("button");
+btn.textContent = text;
+btn.classList.add("green-button");
+btn.style.color = "white";
+btn.onclick = () => {
+playSound(soundClick);
+console.log("clicked", text);
+const drawnCard = drawCard(currentCard.value);
+const cardName = `${drawnCard.value}${drawnCard.suit}`;
+logHistoryEvent(`Hai giocato la carta: ${cardName}`);
+const drawnImg = document.getElementById("drawnCardImg");
+const maxErrors = currentLevel === "hard" ? 3 : 4;
+playSound(soundFlip);
+drawnImg.classList.add("card-flip");
+setTimeout(() => {
+displayDrawnCard(drawnCard, false);
+}, 300);
+setTimeout(() => {
+drawnImg.classList.remove("card-flip");
+currentCard = drawnCard;
+displayCurrentCard(currentCard);
+displayDrawnCard(null, true);
+const result = checkFn(drawnCard);
+if (result) {
+correctCount++;
+correctStreak++;
+playSound(soundCorrect);
+if (tappe === tappeMassime[currentLevel]) {
+gameEnded = true;
+const totale = calcolaGuadagno(correctCount);
+finalizeHistorySession("Vinto", totale);
+showVictoryScreen(totale);
+} else {
+tappe++;
+if (correctStreak === 3) {
+correctStreak = 0;
+showMinigiocoJolly((scelta, valore) => {
+if (scelta === "jolly") {
+jollyCount++;
+updateJollyDisplay();
+} else if (scelta === "moltiplicatore") {
+moltiplicatoreBonus += valore;
+alert(
+`Hai vinto un moltiplicatore bonus x${valore}! Sarà sommato al guadagno.`
+);
+updateScore();
+updateJollyButton();
+}
+});
+}
+}
+} else {
+correctStreak = 0;
+errorCount++;
+tryAutoJolly(maxErrors);
+if (errorCount < maxErrors) {
+playSound(soundWrong);
+}
+if (errorCount >= maxErrors) {
+gameEnded = true;
+challengeText.textContent = translate("lost");
+challengeButtons.innerHTML = "";
+restartBtn.classList.remove("hidden");
+withdrawBtn.classList.add("hidden");
+finalizeHistorySession("Perso", 0);
+showGameOverScreen();
+}
+}
+if (!gameEnded) {
+generateChallenge();
+}
+updateScore();
+updateProgress();
+updateJollyButton();
+aggiornaGuadagno(correctCount);
+}, 600);
+};
+challengeButtons.appendChild(btn);
 }
 function showVictoryScreen(vincitaTotale) {
-    soundWin.play();
-    document.getElementById("gameArea").classList.add("hidden");
-    const victoryScreen = document.createElement("div");
-    victoryScreen.style.position = "fixed";
-    victoryScreen.style.top = "0";
-    victoryScreen.style.left = "0";
-    victoryScreen.style.width = "100vw";
-    victoryScreen.style.height = "100vh";
-    victoryScreen.style.background = "url('sfondomini.png') center/cover";
-    victoryScreen.style.color = "white";
-    victoryScreen.style.display = "flex";
-    victoryScreen.style.flexDirection = "column";
-    victoryScreen.style.justifyContent = "center";
-    victoryScreen.style.alignItems = "center";
-    victoryScreen.style.zIndex = "9999";
-    const title = document.createElement("h1");
-    title.textContent = "🎆 VITTORIA! 🎆";
-    title.style.fontSize = "4rem";
-    title.style.marginBottom = "20px";
-    title.style.fontFamily = "'Baloo 2', cursive, sans-serif";
-    title.style.textShadow = "0 0 10px gold, 0 0 20px orange, 0 0 30px red";
-    const prize = document.createElement("p");
-    prize.textContent = `Hai vinto ${vincitaTotale} crediti!`; 
-    prize.style.fontSize = "2rem";
-    prize.style.marginBottom = "40px";
-    prize.style.fontFamily = "'Baloo 2', cursive, sans-serif";
-    prize.style.padding = "12px 24px";
-    prize.style.background = "rgba(0,0,0,0.5)";
-    prize.style.borderRadius = "25px";
-    prize.style.textShadow = "0 0 8px yellow";
-    const restartBtn = document.createElement("button");
-    restartBtn.textContent = "🔁 Ricomincia";
-    restartBtn.style.fontSize = "1.5rem";
-    restartBtn.style.padding = "10px 20px";
-    restartBtn.style.background = "#28a745";
-    restartBtn.style.color = "white";
-    restartBtn.style.border = "none";
-    restartBtn.style.borderRadius = "10px";
-    restartBtn.style.cursor = "pointer";
-    restartBtn.onclick = () => {
-        location.reload();
-    };
-    victoryScreen.appendChild(title);
-    victoryScreen.appendChild(prize);
-    victoryScreen.appendChild(restartBtn);
-    document.body.appendChild(victoryScreen);
-    for (let i = 0; i < 30; i++) {
-        const spark = document.createElement("div");
-        spark.style.position = "fixed";
-        spark.style.width = "6px";
-        spark.style.height = "6px";
-        spark.style.background = `hsl(${Math.random() * 360}, 100%, 60%)`;
-        spark.style.borderRadius = "50%";
-        spark.style.top = (Math.random() * window.innerHeight) + "px";
-        spark.style.left = (Math.random() * window.innerWidth) + "px";
-        spark.style.opacity = "0.8";
-        spark.style.transform = "scale(0)";
-        spark.style.transition = "transform 1.2s ease-out, opacity 1.2s ease-out";
-        document.body.appendChild(spark);
-        setTimeout(() => {
-            spark.style.transform = "scale(5)";
-            spark.style.opacity = "0";
-        }, 50 + i * 100);
-        setTimeout(() => spark.remove(), 2000);
-    }
+soundWin.play();
+document.getElementById("gameArea").classList.add("hidden");
+const victoryScreen = document.createElement("div");
+victoryScreen.style.position = "fixed";
+victoryScreen.style.top = "0";
+victoryScreen.style.left = "0";
+victoryScreen.style.width = "100vw";
+victoryScreen.style.height = "100vh";
+victoryScreen.style.background = "url('sfondomini.png') center/cover";
+victoryScreen.style.color = "white";
+victoryScreen.style.display = "flex";
+victoryScreen.style.flexDirection = "column";
+victoryScreen.style.justifyContent = "center";
+victoryScreen.style.alignItems = "center";
+victoryScreen.style.zIndex = "9999";
+const title = document.createElement("h1");
+title.textContent = "🎆 VITTORIA! 🎆";
+title.style.fontSize = "4rem";
+title.style.marginBottom = "20px";
+title.style.fontFamily = "'Baloo 2', cursive, sans-serif";
+title.style.textShadow = "0 0 10px gold, 0 0 20px orange, 0 0 30px red";
+const prize = document.createElement("p");
+prize.textContent = `Hai vinto ${vincitaTotale} crediti!`;
+prize.style.fontSize = "2rem";
+prize.style.marginBottom = "40px";
+prize.style.fontFamily = "'Baloo 2', cursive, sans-serif";
+prize.style.padding = "12px 24px";
+prize.style.background = "rgba(0,0,0,0.5)";
+prize.style.borderRadius = "25px";
+prize.style.textShadow = "0 0 8px yellow";
+const restartBtn = document.createElement("button");
+restartBtn.textContent = "🔁 Ricomincia";
+restartBtn.style.fontSize = "1.5rem";
+restartBtn.style.padding = "10px 20px";
+restartBtn.style.background = "#28a745";
+restartBtn.style.color = "white";
+restartBtn.style.border = "none";
+restartBtn.style.borderRadius = "10px";
+restartBtn.style.cursor = "pointer";
+restartBtn.onclick = () => {
+location.reload();
+};
+victoryScreen.appendChild(title);
+victoryScreen.appendChild(prize);
+victoryScreen.appendChild(restartBtn);
+document.body.appendChild(victoryScreen);
+for (let i = 0; i < 30; i++) {
+const spark = document.createElement("div");
+spark.style.position = "fixed";
+spark.style.width = "6px";
+spark.style.height = "6px";
+spark.style.background = `hsl(${Math.random() * 360}, 100%, 60%)`;
+spark.style.borderRadius = "50%";
+spark.style.top = (Math.random() * window.innerHeight) + "px";
+spark.style.left = (Math.random() * window.innerWidth) + "px";
+spark.style.opacity = "0.8";
+spark.style.transform = "scale(0)";
+spark.style.transition = "transform 1.2s ease-out, opacity 1.2s ease-out";
+document.body.appendChild(spark);
+setTimeout(() => {
+spark.style.transform = "scale(5)";
+spark.style.opacity = "0";
+}, 50 + i * 100);
+setTimeout(() => spark.remove(), 2000);
+}
 }
 function tryAutoJolly(maxErrors) {
-  if (jollyFromMinigioco) {
-    jollyFromMinigioco = false;
-    return;
-  }
-  if (jollyCount > 0 && errorCount >= maxErrors) {
-    jollyCount--;    
-    errorCount--;        
-    updateJollyDisplay();
-    updateScore();
-    alert("Jolly usato automaticamente!");
-    logHistoryEvent("Jolly usato automaticamente!");
+if (jollyFromMinigioco) {
+jollyFromMinigioco = false;
+return;
+}
+if (jollyCount > 0 && errorCount >= maxErrors) {
+jollyCount--;    
+errorCount--;        
+updateJollyDisplay();
+updateScore();
+alert("Jolly usato automaticamente!");
+logHistoryEvent("Jolly usato automaticamente!");
   }
 }
 function aggiornaGuadagno(corretti) {
- const label = document.getElementById("gainLabel");
-  let guadagno = puntataIniziale;
-  const moltiplicatoriLivello = moltiplicatori[currentLevel]; 
-  for (let i = 0; i < corretti && i < moltiplicatoriLivello.length; i++) {
-    guadagno *= moltiplicatoriLivello[i];
+const label = document.getElementById("gainLabel");
+let guadagno = puntataIniziale;
+const moltiplicatoriLivello = moltiplicatori[currentLevel]; 
+for (let i = 0; i < corretti && i < moltiplicatoriLivello.length; i++) {
+guadagno *= moltiplicatoriLivello[i];
   }
- guadagno += moltiplicatoreBonus * puntataIniziale; 
-  label.textContent = "+€" + guadagno.toFixed(2);
+guadagno += moltiplicatoreBonus * puntataIniziale; 
+label.textContent = "+€" + guadagno.toFixed(2);
 }
 function updateLanguage() {
-  document.querySelector("html").lang = currentLanguage;
-  document.getElementById("gameTitle").textContent = translate("title");
-  document.getElementById("startButton").textContent = translate("start");
-  document.getElementById("restartBtn").textContent = translate("restart");
-  document.getElementById("rulesLabel").textContent = translate("rules");
-  document.getElementById("currentCardLabel").textContent = translate("currentCard");
-  document.getElementById("betLabel").textContent = translate("bet");
-  document.getElementById("riskLabel").textContent = translate("risk");
-  document.getElementById("pointsLabel").textContent = translate("points");
-  document.getElementById("correctLabel").textContent = "✅ " + translate("correct");
-  document.getElementById("errorLabel").textContent = "❌ " + translate("error");
-  document.getElementById("jollyLabel").textContent = "🃏 " + translate("jolly");
-  useJollyBtn.textContent = "🃏 " + translate("useJolly");
-  updateProgress();
-  rulesPanel.innerHTML = translate("rulesText");
-  document.getElementById("withdrawLabel").textContent = translate("withdraw");
+document.querySelector("html").lang = currentLanguage;
+document.getElementById("gameTitle").textContent = translate("title");
+document.getElementById("startButton").textContent = translate("start");
+document.getElementById("restartBtn").textContent = translate("restart");
+document.getElementById("rulesLabel").textContent = translate("rules");
+document.getElementById("currentCardLabel").textContent = translate("currentCard");
+document.getElementById("betLabel").textContent = translate("bet");
+document.getElementById("riskLabel").textContent = translate("risk");
+document.getElementById("pointsLabel").textContent = translate("points");
+document.getElementById("correctLabel").textContent = "✅ " + translate("correct");
+document.getElementById("errorLabel").textContent = "❌ " + translate("error");
+document.getElementById("jollyLabel").textContent = "🃏 " + translate("jolly");
+useJollyBtn.textContent = "🃏 " + translate("useJolly");
+updateProgress();
+rulesPanel.innerHTML = translate("rulesText");
+document.getElementById("withdrawLabel").textContent = translate("withdraw");
 }
 function translate(key) {
-  const t = {
-    it: {
-      red: "Rosso",
-      black: "Nero",
-      hearts: "Cuori",
-      diamonds: "Quadri",
-      clubs: "Fiori",
-      spades: "Picche",
-      title: "Deck Step",
-      start: "🎮 Inizia la partita",
-      restart: "🔁 Ricomincia",
-      rules: "📜 Regole",
-      currentCard: "Carta attuale:",
-      challenge: "Sfida",
-      higher: "Maggiore",
-      lower: "Minore",
-      even: "Pari",
-      odd: "Dispari",
-      in: "Dentro",
-      out: "Fuori",
-      correct: "Corrette",
-      error: "Errori",
-      jolly: "Jolly",
-      useJolly: "Usa Jolly",
-      stage: "Tappa",
-      points: "Punti:",
-      bet: "Puntata:",
-      risk: "Modalità rischio:",
-      lost: "Hai perso!",
-      rulesText: `<p>Benvenuto in <strong>Deck Step</strong>! Il tuo obiettivo è completare 10-15-20 tappe indovinando le carte successive e accumulando vincite.</p>
-        <ul>
-          <li>Scegli la <strong>puntata iniziale</strong> (€0,10–€5) e la difficoltà (Facile, Media, Difficile).</li>
-          <li>Ogni turno pesca una carta e affronta una sfida: Maggiore/Minore, Colore, Seme, Pari/Dispari, Intervallo o Numero Esatto (solo Difficile).</li>
-          <li>Dopo 3 risposte corrette consecutive, ottieni un <strong>Jolly</strong> o un <strong>Moltiplicatore Bonus</strong>.</li>
-          <li>Puoi riscattare le vincite in qualsiasi momento, oppure continuare fino all'ultima tappa.</li>
-          <li>Il numero massimo di errori: Facile/Medio = 4, Difficile = 3. Senza Jolly disponibili, la partita termina.</li>
-        </ul>`,
-      withdrawn: "Hai ritirato! Hai totalizzato {points} punti.",
-      withdraw: "RITIRA"
+const t = {
+it: {
+red: "Rosso",
+black: "Nero",
+hearts: "Cuori",
+diamonds: "Quadri",
+clubs: "Fiori",
+spades: "Picche",
+title: "Deck Step",
+start: "🎮 Inizia la partita",
+restart: "🔁 Ricomincia",
+rules: "📜 Regole",
+currentCard: "Carta attuale:",
+challenge: "Sfida",
+higher: "Maggiore",
+lower: "Minore",
+even: "Pari",
+odd: "Dispari",
+in: "Dentro",
+out: "Fuori",
+correct: "Corrette",
+error: "Errori",
+jolly: "Jolly",
+useJolly: "Usa Jolly",
+stage: "Tappa",
+points: "Punti:",
+bet: "Puntata:",
+risk: "Modalità rischio:",
+lost: "Hai perso!",
+rulesText: `<p>Benvenuto in <strong>Deck Step</strong>! Il tuo obiettivo è completare 10-15-20 tappe indovinando le carte successive e accumulando vincite.</p>
+<ul>
+<li>Scegli la <strong>puntata iniziale</strong> (€0,10–€5) e la difficoltà (Facile, Media, Difficile).</li>
+<li>Ogni turno pesca una carta e affronta una sfida: Maggiore/Minore, Colore, Seme, Pari/Dispari, Intervallo o Numero Esatto (solo Difficile).</li>
+<li>Dopo 3 risposte corrette consecutive, ottieni un <strong>Jolly</strong> o un <strong>Moltiplicatore Bonus</strong>.</li>
+<li>Puoi riscattare le vincite in qualsiasi momento, oppure continuare fino all'ultima tappa.</li>
+<li>Il numero massimo di errori: Facile/Medio = 4, Difficile = 3. Senza Jolly disponibili, la partita termina.</li>
+</ul>`,
+withdrawn: "Hai ritirato! Hai totalizzato {points} punti.",
+withdraw: "RITIRA"
     },
-    en: {
-      red: "Red",
-      black: "Black",
-      hearts: "Hearts",
-      diamonds: "Diamonds",
-      clubs: "Clubs",
-      spades: "Spades",
-      title: "Deck Step",
-      start: "🎮 Start Game",
-      restart: "🔁 Restart",
-      rules: "📜 Rules",
-      currentCard: "Current card:",
-      challenge: "Challenge",
-      higher: "Higher",
-      lower: "Lower",
-      even: "Even",
-      odd: "Odd",
-      in: "In",
-      out: "Out",
-      correct: "Correct",
-      error: "Errors",
-      jolly: "Joker",
-      useJolly: "Use Joker",
-      stage: "Stage",
-      points: "Points:",
-      bet: "Bet:",
-      risk: "Risk mode:",
-      lost: "You lost!",
-      rulesText: `<p>Welcome to <strong>Deck Step</strong>! Your goal is to complete 10-15-20 stages by guessing the next cards and accumulating winnings.</p>
-        <ul>
-          <li>Choose your <strong>starting bet</strong> (€0.10–€5) and difficulty (Easy, Medium, Hard).</li>
-          <li>Each turn draws a card and gives a challenge: Higher/Lower, Color, Suit, Even/Odd, Range, or Exact Number (Hard only).</li>
-          <li>After 3 correct answers in a row, earn a <strong>Joker</strong> or a <strong>Bonus Multiplier</strong>.</li>
-          <li>You can withdraw winnings anytime or continue until the last stage.</li>
-          <li>Maximum mistakes allowed: Easy/Medium = 4, Hard = 3. Without Jokers, the game ends.</li>
-        </ul>`,
-      withdrawn: "You withdrew! You earned {points} points.",
-      withdraw: "WITHDRAW"
+en: {
+red: "Red",
+black: "Black",
+hearts: "Hearts",
+diamonds: "Diamonds",
+clubs: "Clubs",
+spades: "Spades",
+title: "Deck Step",
+start: "🎮 Start Game",
+restart: "🔁 Restart",
+rules: "📜 Rules",
+currentCard: "Current card:",
+challenge: "Challenge",
+higher: "Higher",
+lower: "Lower",
+even: "Even",
+odd: "Odd",
+in: "In",
+out: "Out",
+correct: "Correct",
+error: "Errors",
+jolly: "Joker",
+useJolly: "Use Joker",
+stage: "Stage",
+points: "Points:",
+bet: "Bet:",
+risk: "Risk mode:",
+lost: "You lost!",
+rulesText: `<p>Welcome to <strong>Deck Step</strong>! Your goal is to complete 10-15-20 stages by guessing the next cards and accumulating winnings.</p>
+<ul>
+<li>Choose your <strong>starting bet</strong> (€0.10–€5) and difficulty (Easy, Medium, Hard).</li>
+<li>Each turn draws a card and gives a challenge: Higher/Lower, Color, Suit, Even/Odd, Range, or Exact Number (Hard only).</li>
+<li>After 3 correct answers in a row, earn a <strong>Joker</strong> or a <strong>Bonus Multiplier</strong>.</li>
+<li>You can withdraw winnings anytime or continue until the last stage.</li>
+<li>Maximum mistakes allowed: Easy/Medium = 4, Hard = 3. Without Jokers, the game ends.</li>
+</ul>`,
+withdrawn: "You withdrew! You earned {points} points.",
+withdraw: "WITHDRAW"
     }
   };
-  return t[currentLanguage][key];
+return t[currentLanguage][key];
 }
 document.addEventListener("DOMContentLoaded", () => {
-  currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
-  languageSelect.value = currentLanguage;
-  updateLanguage(); 
-  aggiornaMoltiplicatori();
-  document.getElementById("restartBtn").addEventListener("click", () => {
-    document.getElementById("gameOverScreen").classList.add("hidden");
-    document.getElementById("gameArea").classList.remove("hidden");
-    startGame(); 
+currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
+languageSelect.value = currentLanguage;
+updateLanguage(); 
+aggiornaMoltiplicatori();
+document.getElementById("restartBtn").addEventListener("click", () => {
+document.getElementById("gameOverScreen").classList.add("hidden");
+document.getElementById("gameArea").classList.remove("hidden");
+startGame(); 
   });
   });
 function calcolaGuadagno(corretti) {
-  let guadagno = puntataIniziale;
-    const moltiplicatoriLivello = moltiplicatori[currentLevel];
-  for (let i = 0; i < corretti && i < moltiplicatoriLivello.length; i++) {
-    guadagno *=  moltiplicatoriLivello[i];
-  }
-   guadagno += moltiplicatoreBonus * puntataIniziale; 
-  return guadagno;
+let guadagno = puntataIniziale;
+const moltiplicatoriLivello = moltiplicatori[currentLevel];
+for (let i = 0; i < corretti && i < moltiplicatoriLivello.length; i++) {
+guadagno *=  moltiplicatoriLivello[i];
+}
+guadagno += moltiplicatoreBonus * puntataIniziale; 
+return guadagno;
 }
 document.getElementById("restartBtn").addEventListener("click", () => {
-  location.reload();
+location.reload();
 });
 document.getElementById("useJollyBtn").addEventListener("click", () => {
-  if (jollyCount > 0 && !jollyUsedInThisTurn) {
-    jollyCount--;
-    updateJollyDisplay();
-    jollyUsedInThisTurn = true;
-    alert("Hai usato il Jolly manualmente!");
+if (jollyCount > 0 && !jollyUsedInThisTurn) {
+jollyCount--;
+updateJollyDisplay();
+jollyUsedInThisTurn = true;
+alert("Hai usato il Jolly manualmente!");
   }
 });
 document.getElementById("restartBtnWithdraw").addEventListener("click", () => {
-  location.reload(); 
+location.reload(); 
 });
 const gameArea = document.getElementById("gameArea");
 gameArea.style.transform = "scale(0.90)"; 
