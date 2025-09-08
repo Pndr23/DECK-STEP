@@ -362,7 +362,7 @@ rulesPanel.classList.toggle("hidden");
 startButton.addEventListener("click", () => {
 playSound(soundClick); 
 if (audioOn && backgroundMusic.paused) {
-backgroundMusic.play().catch(() => {
+backgroundMusic.play().catch(() => {});
 console.log("⚠️ Musica non avviata (blocco browser)");
 });
 }
