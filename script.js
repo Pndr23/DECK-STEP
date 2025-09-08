@@ -366,6 +366,7 @@ rulesToggle.addEventListener("click", () => {
   rulesPanel.classList.toggle("hidden");
 });
 startButton.addEventListener("click", () => {
+ playSound(soundClick); 
  startHistorySession(); 
  aggiornaMoltiplicatori();
   preloadCardImages();
@@ -375,12 +376,6 @@ startButton.addEventListener("click", () => {
   withdrawBtn.classList.remove("hidden");
   resetGame();
   startGame();
-  document.querySelectorAll("button").forEach(btn => {
-    btn.addEventListener("click", () => playSound(soundClick));
-  });
-  document.querySelectorAll("select").forEach(sel => {
-    sel.addEventListener("change", () => playSound(soundClick));
-  });
 });
 restartBtn.addEventListener("click", () => {
   gameSetup.classList.remove("hidden");
