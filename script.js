@@ -295,26 +295,26 @@ minigiocoAttivo = false;
 cardElems.forEach(c => c.classList.remove("covered"));
 el.classList.add("flipped");
 el.style.cursor = "default";
-setTimeout(() => {
-el.src = el.dataset.img;
-el.classList.add("selected");
-if (el.dataset.type === "jolly") {
-playSound(soundJolly);
-alert("Hai vinto 1 Jolly!");
-} else if (el.dataset.type === "moltiplicatore") {
-playSound(soundMultiplier);
-}
-}, 300);
-
-setTimeout(() => {
-if (minigiocoCallback)
-minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
-
-minigiocoCallback = null;
-popup.style.display = "none";
-gameArea.style.display = gameAreaOriginalDisplay;
-window.removeEventListener("resize", resizeMinigioco);
-}, 1700);
+ setTimeout(() => {
+ el.src = el.dataset.img;
+ el.classList.add("selected");
+ if (el.dataset.type === "jolly") {
+ playSound(soundJolly);
+ jollyCount++;           
+ updateJollyDisplay();
+ alert("Hai vinto 1 Jolly!");
+ } else if (el.dataset.type === "moltiplicatore") {
+ playSound(soundMultiplier);
+ }
+ }, 400);
+ setTimeout(() => {
+ if (minigiocoCallback)
+ minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
+ minigiocoCallback = null;
+ popup.style.display = "none";
+ gameArea.style.display = gameAreaOriginalDisplay;
+ window.removeEventListener("resize", resizeMinigioco);
+}, 1800);
 };
 });
 closeBtn.onclick = () => {
