@@ -83,6 +83,9 @@ backgroundMusic.play().catch(() => {});
 }
 });
 });
+window.addEventListener("DOMContentLoaded", () => {
+  preloadCardImages();
+});
 let gameAreaOriginalDisplay = null;
 let gameEnded = false;
 let partitaIniziata = false;
