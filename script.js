@@ -219,6 +219,13 @@ document.getElementById("startButton").addEventListener("click", () => {
 createBetBadge();
 });
 // Mostra il minigioco Jolly e gestisce la scelta
+function showMinigiocoMessage(text) {
+  const msg = document.getElementById("minigiocoMessage");
+  if (!msg) return;
+  msg.textContent = text;
+  msg.classList.add("show");
+  setTimeout(() => msg.classList.remove("show"), 2500);
+}
 function showMinigiocoJolly(callback) {
 playSound(soundMinigame);
 if (minigiocoAttivo) return;
@@ -240,8 +247,12 @@ popup.style.backgroundImage = "url('sfondomini.png')";
 popup.style.backgroundPosition = "center";
 popup.style.backgroundSize = "cover";
 const title = document.getElementById("minigiocoTitle");
-const cardElems = [document.getElementById("minicard1"), document.getElementById("minicard2")];
+const cardElems = [
+document.getElementById("minicard1"),
+document.getElementById("minicard2")
+];
 const closeBtn = document.getElementById("minigiocoCloseBtn");
+// 🔹 Resize dinamico
 function resizeMinigioco() {
 let screenWidth = window.innerWidth;
 if (title) {
@@ -273,9 +284,10 @@ popup.style.justifyContent = screenWidth < 600 ? "flex-start" : "center";
 }
 resizeMinigioco();
 window.addEventListener("resize", resizeMinigioco);
+// 🔹 Carte del minigioco
 const jollyImgSrc = "jolly.png";
 const moltiplicatoreScelto = Math.floor(Math.random() * 10) + 1;
-const suitsLetters = ['C', 'P', 'F', 'Q'];
+const suitsLetters = ["C", "P", "F", "Q"];
 const suitLetter = suitsLetters[Math.floor(Math.random() * suitsLetters.length)];
 const moltiplicatoreImgSrc = `cards/card_${moltiplicatoreScelto}${suitLetter}.png`;
 let carte = [
@@ -301,14 +313,21 @@ el.src = el.dataset.img;
 el.classList.add("selected");
 if (el.dataset.type === "jolly") {
 playSound(soundJolly);
-alert("Hai vinto 1 Jolly!");
+jollyCount++;
+updateJollyDisplay();
+showMinigiocoMessage("Hai vinto 1 Jolly!");
 } else if (el.dataset.type === "moltiplicatore") {
 playSound(soundMultiplier);
+showMinigiocoMessage(`Moltiplicatore x${el.dataset.value}!`);
 }
 }, 300);
-el.addEventListener("animationend", () => {
+el.addEventListener(
+"animationend",
+() => {
 el.classList.remove("card-flip");
-}, { once: true });
+},
+{ once: true }
+);
 setTimeout(() => {
 if (minigiocoCallback)
 minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
@@ -319,6 +338,7 @@ window.removeEventListener("resize", resizeMinigioco);
 }, 1800);
 };
 });
+// 🔹 Chiudi minigioco
 closeBtn.onclick = () => {
 if (!minigiocoAttivo) return;
 minigiocoAttivo = false;
