@@ -508,10 +508,17 @@ function updateJollyButton() {
 useJollyBtn.classList.toggle("hidden", jollyCount === 0);
 }
 function preloadCardImages() {
-for (let i = 1; i <= 40; i++) {
+const suits = ["C", "P", "F", "Q"]; // semi
+for (let i = 1; i <= 10; i++) {     // valori 1-10
+suits.forEach(suit => {
 const img = new Image();
-img.src = `cards/card_${i}.png`;
+img.src = `cards/card_${i}${suit}.png`;
+});
 }
+  // Jolly
+const jolly = new Image();
+jolly.src = "jolly.png";
+// Dorso
 const back = new Image();
 back.src = "cards/card_back.png";
 }
