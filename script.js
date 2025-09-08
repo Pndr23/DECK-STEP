@@ -621,6 +621,7 @@ displayDrawnCard(drawnCard, false);
 }, 400);
 setTimeout(() => {
 drawnImg.classList.remove("card-flip");
+setTimeout(() => { 
 currentCard = drawnCard;
 displayCurrentCard(currentCard);
 displayDrawnCard(null, true);
@@ -644,9 +645,7 @@ jollyCount++;
 updateJollyDisplay();
 } else if (scelta === "moltiplicatore") {
 moltiplicatoreBonus += valore;
-alert(
-`Hai vinto un moltiplicatore bonus x${valore}! Sarà sommato al guadagno.`
-);
+alert(`Hai vinto un moltiplicatore bonus x${valore}! Sarà sommato al guadagno.`);
 updateScore();
 updateJollyButton();
 }
@@ -677,7 +676,8 @@ updateScore();
 updateProgress();
 updateJollyButton();
 aggiornaGuadagno(correctCount);
-}, 1500);
+}, 1000);
+}, 800);
 };
 challengeButtons.appendChild(btn);
 }
