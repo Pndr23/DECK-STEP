@@ -399,13 +399,16 @@ currentLanguage = languageSelect.value;
 updateLanguage();
 });
 withdrawBtn.addEventListener("click", () => {
-playSound(soundWithdraw);
-document.querySelector(".container").classList.add("hidden");
-document.getElementById("gameOverScreen")?.classList.add("hidden");
-document.getElementById("withdrawText").textContent = "Hai ritirato!";
-document.getElementById("withdrawWinnings").textContent =
-`Hai incassato: €${calcolaGuadagno(correctCount).toFixed(2)}`;
-document.getElementById("withdrawScreen").classList.remove("hidden");
+  playSound(soundWithdraw);
+  const totale = calcolaGuadagno(correctCount);
+  logHistoryEvent(`Hai deciso di ritirarti con €${totale.toFixed(2)}`);
+  finalizeHistorySession("Ritirato", totale);
+  document.querySelector(".container").classList.add("hidden");
+  document.getElementById("gameOverScreen")?.classList.add("hidden");
+  document.getElementById("withdrawText").textContent = "Hai ritirato!";
+  document.getElementById("withdrawWinnings").textContent =
+    `Hai incassato: €${totale.toFixed(2)}`;
+  document.getElementById("withdrawScreen").classList.remove("hidden");
 });
 function resetGame() {
 document.getElementById("gameOverScreen").classList.add("hidden");
