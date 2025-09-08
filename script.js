@@ -613,7 +613,7 @@ playSound(soundFlip);
 drawnImg.classList.add("card-flip");
 setTimeout(() => {
 displayDrawnCard(drawnCard, false);
-}, 300);
+}, 400);
 setTimeout(() => {
 drawnImg.classList.remove("card-flip");
 currentCard = drawnCard;
@@ -672,7 +672,7 @@ updateScore();
 updateProgress();
 updateJollyButton();
 aggiornaGuadagno(correctCount);
-}, 600);
+}, 1500);
 };
 challengeButtons.appendChild(btn);
 }
