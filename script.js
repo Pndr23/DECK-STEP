@@ -281,29 +281,31 @@ el.dataset.type = carte[i].type;
 el.dataset.img = carte[i].img;
 if (carte[i].type === "moltiplicatore") el.dataset.value = carte[i].value;
 el.onclick = () => {
-if (!minigiocoAttivo) return;
-minigiocoAttivo = false;
-cardElems.forEach(c => c.classList.remove("covered"));
-el.classList.add("flipped");
-el.style.cursor = "default";
-setTimeout(() => {
-el.src = el.dataset.img;
-el.classList.add("selected");
-if (el.dataset.type === "jolly") {
-playSound(soundJolly);
-alert("Hai vinto 1 Jolly!");
-} else if (el.dataset.type === "moltiplicatore") {
-playSound(soundMultiplier);
-}
-}, 400); // metà del flip (se dura 0.8s)
-setTimeout(() => {
-if (minigiocoCallback)
-minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
-minigiocoCallback = null;
-popup.style.display = "none";
-gameArea.style.display = gameAreaOriginalDisplay;
-window.removeEventListener("resize", resizeMinigioco);
-}, 1800);
+  if (!minigiocoAttivo) return;
+  minigiocoAttivo = false;
+  cardElems.forEach(c => c.classList.remove("covered"));
+  el.classList.add("card-flip");
+  setTimeout(() => {
+    el.src = el.dataset.img;
+    el.classList.add("selected");
+    if (el.dataset.type === "jolly") {
+      playSound(soundJolly);
+      alert("Hai vinto 1 Jolly!");
+    } else if (el.dataset.type === "moltiplicatore") {
+      playSound(soundMultiplier);
+    }
+  }, 400);
+  el.addEventListener("animationend", () => {
+    el.classList.remove("card-flip");
+  }, { once: true });
+  setTimeout(() => {
+    if (minigiocoCallback)
+      minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
+    minigiocoCallback = null;
+    popup.style.display = "none";
+    gameArea.style.display = gameAreaOriginalDisplay;
+    window.removeEventListener("resize", resizeMinigioco);
+  }, 1800);
 };
 });
 closeBtn.onclick = () => {
