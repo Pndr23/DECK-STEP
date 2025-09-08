@@ -28,11 +28,6 @@ const soundMultiplier = new Audio('multiplier.mp3');
 const backgroundMusic = new Audio('background.mp3');
 backgroundMusic.loop = true;
 backgroundMusic.volume = 0.5;
-window.addEventListener("DOMContentLoaded", () => {
-backgroundMusic.play().catch(() => {
-console.log("⚠️ Autoplay bloccato, partirà al primo click dell’utente.");
-});
-});
 let audioOn = localStorage.getItem("audioOn") !== "false";
 function unlockAudio() {
 const sounds = [
