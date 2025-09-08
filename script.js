@@ -34,7 +34,7 @@ function unlockAudio() {
 const sounds = [
 soundClick, soundWithdraw, soundWin, soundLose,
 soundCorrect, soundWrong, soundFlip,
-soundMinigame, soundJolly, soundMultiplier,backgroundMusic
+soundMinigame, soundJolly, soundMultiplier
 ];
 sounds.forEach(snd => {
 snd.play().then(() => {
@@ -391,6 +391,7 @@ rulesPanel.classList.toggle("hidden");
 });
 startButton.addEventListener("click", () => {
 playSound(soundClick);
+  
 if (audioOn && backgroundMusic.paused) {
 backgroundMusic.play().catch(() => {});
 console.log("⚠️ Musica non avviata (blocco browser)");
