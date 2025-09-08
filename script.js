@@ -60,7 +60,7 @@ function playSound(sound) {
 if (audioOn) {
 sound.currentTime = 0;
 sound.play();
- }
+}
 }
 window.addEventListener("DOMContentLoaded", () => {
 const soundToggle = document.getElementById("soundToggle");
@@ -79,7 +79,7 @@ backgroundMusic.play().catch(() => {});
 });
 });
 window.addEventListener("DOMContentLoaded", () => {
-  preloadCardImages();
+preloadCardImages();
 });
 let gameAreaOriginalDisplay = null;
 let gameEnded = false;
@@ -118,22 +118,22 @@ saveHistory(list);
 renderHistory();
 }
 function finalizeHistorySession(outcome, winnings = 0) {
-  if (!activeSession) return;
-  const list = loadHistory();
-  const s = list.find(x => x.id === activeSession.id);
-  if (!s) return;
-  s.outcome = outcome;
-  s.winnings = winnings;
-  s.endedAt = new Date().toISOString();
-  if (outcome === "Ritirato") {
-    s.events.push({
-      at: new Date().toISOString(),
-      text: `Hai deciso di ritirarti con €${winnings}`
-    });
-  }
-  saveHistory(list);
-  activeSession = null;
-  renderHistory();
+if (!activeSession) return;
+const list = loadHistory();
+const s = list.find(x => x.id === activeSession.id);
+if (!s) return;
+s.outcome = outcome;
+s.winnings = winnings;
+s.endedAt = new Date().toISOString();
+if (outcome === "Ritirato") {
+s.events.push({
+at: new Date().toISOString(),
+text: `Hai deciso di ritirarti con €${winnings}`
+});
+}
+saveHistory(list);
+activeSession = null;
+renderHistory();
 }
 function initHistoryUI() {
 const panel = document.getElementById('historyPanel');
@@ -210,36 +210,36 @@ document.getElementById("startButton").addEventListener("click", () => {
 createBetBadge();
 });
 function showMinigiocoJolly(callback) {
-  playSound(soundMinigame);
-  if (minigiocoAttivo) return;
-  minigiocoAttivo = true;
-  minigiocoCallback = callback;
-  const popup = document.getElementById("minigiocoJolly");
-  if (gameAreaOriginalDisplay === null) {
-  gameAreaOriginalDisplay = getComputedStyle(gameArea).display;
-  }
-  gameArea.style.display = "none";
-  popup.style.display = "flex";
-  popup.style.flexDirection = "column";
-  popup.style.alignItems = "center";
-  popup.style.justifyContent = "center";
-  popup.style.width = "100%";
-  popup.style.height = "100vh";
-  popup.style.backgroundColor = "#800020";
-  popup.style.backgroundImage = "url('sfondomini.png')";
-  popup.style.backgroundPosition = "center";
-  popup.style.backgroundSize = "cover";
-  const title = document.getElementById("minigiocoTitle");
-  const cardElems = [document.getElementById("minicard1"), document.getElementById("minicard2")];
-  const closeBtn = document.getElementById("minigiocoCloseBtn");
-  function resizeMinigioco() {
-  let screenWidth = window.innerWidth;
-  if (title) {
-  title.style.order = "1";
-  title.style.fontSize = screenWidth < 600 ? "0.8em" : "1.8em";
-  title.style.color = "white";
-  title.style.marginBottom = screenWidth < 600 ? "6px" : "15px";
-  title.style.textAlign = "center";
+playSound(soundMinigame);
+if (minigiocoAttivo) return;
+minigiocoAttivo = true;
+minigiocoCallback = callback;
+const popup = document.getElementById("minigiocoJolly");
+if (gameAreaOriginalDisplay === null) {
+gameAreaOriginalDisplay = getComputedStyle(gameArea).display;
+}
+gameArea.style.display = "none";
+popup.style.display = "flex";
+popup.style.flexDirection = "column";
+popup.style.alignItems = "center";
+popup.style.justifyContent = "center";
+popup.style.width = "100%";
+popup.style.height = "100vh";
+popup.style.backgroundColor = "#800020";
+popup.style.backgroundImage = "url('sfondomini.png')";
+popup.style.backgroundPosition = "center";
+popup.style.backgroundSize = "cover";
+const title = document.getElementById("minigiocoTitle");
+const cardElems = [document.getElementById("minicard1"), document.getElementById("minicard2")];
+const closeBtn = document.getElementById("minigiocoCloseBtn");
+function resizeMinigioco() {
+let screenWidth = window.innerWidth;
+if (title) {
+title.style.order = "1";
+title.style.fontSize = screenWidth < 600 ? "0.8em" : "1.8em";
+title.style.color = "white";
+title.style.marginBottom = screenWidth < 600 ? "6px" : "15px";
+title.style.textAlign = "center";
 }
 cardElems.forEach(c => {
 c.style.order = "2";
@@ -282,31 +282,31 @@ el.dataset.type = carte[i].type;
 el.dataset.img = carte[i].img;
 if (carte[i].type === "moltiplicatore") el.dataset.value = carte[i].value;
 el.onclick = () => {
-  if (!minigiocoAttivo) return;
-  minigiocoAttivo = false;
-  cardElems.forEach(c => c.classList.remove("covered"));
-  el.classList.add("card-flip");
-  setTimeout(() => {
-    el.src = el.dataset.img;
-    el.classList.add("selected");
-    if (el.dataset.type === "jolly") {
-      playSound(soundJolly);
-      alert("Hai vinto 1 Jolly!");
-    } else if (el.dataset.type === "moltiplicatore") {
-      playSound(soundMultiplier);
-    }
-  }, 300);
-  el.addEventListener("animationend", () => {
-    el.classList.remove("card-flip");
-  }, { once: true });
-  setTimeout(() => {
-    if (minigiocoCallback)
-      minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
-    minigiocoCallback = null;
-    popup.style.display = "none";
-    gameArea.style.display = gameAreaOriginalDisplay;
-    window.removeEventListener("resize", resizeMinigioco);
-  }, 1800);
+if (!minigiocoAttivo) return;
+minigiocoAttivo = false;
+cardElems.forEach(c => c.classList.remove("covered"));
+el.classList.add("card-flip");
+setTimeout(() => {
+el.src = el.dataset.img;
+el.classList.add("selected");
+if (el.dataset.type === "jolly") {
+playSound(soundJolly);
+alert("Hai vinto 1 Jolly!");
+} else if (el.dataset.type === "moltiplicatore") {
+playSound(soundMultiplier);
+}
+}, 300);
+el.addEventListener("animationend", () => {
+el.classList.remove("card-flip");
+}, { once: true });
+setTimeout(() => {
+if (minigiocoCallback)
+minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
+minigiocoCallback = null;
+popup.style.display = "none";
+gameArea.style.display = gameAreaOriginalDisplay;
+window.removeEventListener("resize", resizeMinigioco);
+}, 1800);
 };
 });
 closeBtn.onclick = () => {
@@ -360,7 +360,7 @@ rulesToggle.addEventListener("click", () => {
 rulesPanel.classList.toggle("hidden");
 });
 startButton.addEventListener("click", () => {
-playSound(soundClick); 
+playSound(soundClick);
 if (audioOn && backgroundMusic.paused) {
 backgroundMusic.play().catch(() => {});
 console.log("⚠️ Musica non avviata (blocco browser)");
@@ -394,16 +394,16 @@ currentLanguage = languageSelect.value;
 updateLanguage();
 });
 withdrawBtn.addEventListener("click", () => {
-  playSound(soundWithdraw);
-  const totale = calcolaGuadagno(correctCount);
-  logHistoryEvent(`Hai deciso di ritirarti con €${totale.toFixed(2)}`);
-  finalizeHistorySession("Ritirato", totale);
-  document.querySelector(".container").classList.add("hidden");
-  document.getElementById("gameOverScreen")?.classList.add("hidden");
-  document.getElementById("withdrawText").textContent = "Hai ritirato!";
-  document.getElementById("withdrawWinnings").textContent =
-    `Hai incassato: €${totale.toFixed(2)}`;
-  document.getElementById("withdrawScreen").classList.remove("hidden");
+playSound(soundWithdraw);
+const totale = calcolaGuadagno(correctCount);
+logHistoryEvent(`Hai deciso di ritirarti con €${totale.toFixed(2)}`);
+finalizeHistorySession("Ritirato", totale);
+document.querySelector(".container").classList.add("hidden");
+document.getElementById("gameOverScreen")?.classList.add("hidden");
+document.getElementById("withdrawText").textContent = "Hai ritirato!";
+document.getElementById("withdrawWinnings").textContent =
+`Hai incassato: €${totale.toFixed(2)}`;
+document.getElementById("withdrawScreen").classList.remove("hidden");
 });
 function resetGame() {
 document.getElementById("gameOverScreen").classList.add("hidden");
@@ -619,7 +619,7 @@ displayDrawnCard(drawnCard, false);
 }, 400);
 setTimeout(() => {
 drawnImg.classList.remove("card-flip");
-setTimeout(() => { 
+setTimeout(() => {
 currentCard = drawnCard;
 displayCurrentCard(currentCard);
 displayDrawnCard(null, true);
@@ -752,22 +752,22 @@ jollyFromMinigioco = false;
 return;
 }
 if (jollyCount > 0 && errorCount >= maxErrors) {
-jollyCount--;    
-errorCount--;        
+jollyCount--;
+errorCount--;
 updateJollyDisplay();
 updateScore();
 alert("Jolly usato automaticamente!");
 logHistoryEvent("Jolly usato automaticamente!");
-  }
+}
 }
 function aggiornaGuadagno(corretti) {
 const label = document.getElementById("gainLabel");
 let guadagno = puntataIniziale;
-const moltiplicatoriLivello = moltiplicatori[currentLevel]; 
+const moltiplicatoriLivello = moltiplicatori[currentLevel];
 for (let i = 0; i < corretti && i < moltiplicatoriLivello.length; i++) {
 guadagno *= moltiplicatoriLivello[i];
-  }
-guadagno += moltiplicatoreBonus * puntataIniziale; 
+}
+guadagno += moltiplicatoreBonus * puntataIniziale;
 label.textContent = "+€" + guadagno.toFixed(2);
 }
 function updateLanguage() {
@@ -828,7 +828,7 @@ rulesText: `<p>Benvenuto in <strong>Deck Step</strong>! Il tuo obiettivo è comp
 </ul>`,
 withdrawn: "Hai ritirato! Hai totalizzato {points} punti.",
 withdraw: "RITIRA"
-    },
+},
 en: {
 red: "Red",
 black: "Black",
@@ -867,28 +867,28 @@ rulesText: `<p>Welcome to <strong>Deck Step</strong>! Your goal is to complete 1
 </ul>`,
 withdrawn: "You withdrew! You earned {points} points.",
 withdraw: "WITHDRAW"
-    }
-  };
+}
+};
 return t[currentLanguage][key];
 }
 document.addEventListener("DOMContentLoaded", () => {
 currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
 languageSelect.value = currentLanguage;
-updateLanguage(); 
+updateLanguage();
 aggiornaMoltiplicatori();
 document.getElementById("restartBtn").addEventListener("click", () => {
 document.getElementById("gameOverScreen").classList.add("hidden");
 document.getElementById("gameArea").classList.remove("hidden");
-startGame(); 
-  });
-  });
+startGame();
+});
+});
 function calcolaGuadagno(corretti) {
 let guadagno = puntataIniziale;
 const moltiplicatoriLivello = moltiplicatori[currentLevel];
 for (let i = 0; i < corretti && i < moltiplicatoriLivello.length; i++) {
 guadagno *=  moltiplicatoriLivello[i];
 }
-guadagno += moltiplicatoreBonus * puntataIniziale; 
+guadagno += moltiplicatoreBonus * puntataIniziale;
 return guadagno;
 }
 document.getElementById("restartBtn").addEventListener("click", () => {
@@ -900,13 +900,13 @@ jollyCount--;
 updateJollyDisplay();
 jollyUsedInThisTurn = true;
 alert("Hai usato il Jolly manualmente!");
-  }
+}
 });
 document.getElementById("restartBtnWithdraw").addEventListener("click", () => {
-location.reload(); 
+location.reload();
 });
 const gameArea = document.getElementById("gameArea");
-gameArea.style.transform = "scale(0.90)"; 
+gameArea.style.transform = "scale(0.90)";
 gameArea.style.transformOrigin = "top center";
 });
-  
+
