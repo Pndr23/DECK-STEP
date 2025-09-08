@@ -24,8 +24,8 @@ const soundWrong = new Audio('wrong.mp3');
 const soundFlip = new Audio("flip.mp3");
 const soundMinigame = new Audio('minigame.mp3');
 const soundJolly = new Audio('jolly.mp3');
-const soundMultiplier = new Audio("multiplier.mp3");
-const backgroundMusic = new Audio("background.mp3");
+const soundMultiplier = new Audio('multiplier.mp3');
+const backgroundMusic = new Audio('background.mp3');
 backgroundMusic.loop = true;
 backgroundMusic.volume = 0.5;
 window.addEventListener("DOMContentLoaded", () => {
@@ -38,7 +38,7 @@ function unlockAudio() {
 const sounds = [
 soundClick, soundWithdraw, soundWin, soundLose,
 soundCorrect, soundWrong, soundFlip,
-soundMinigame, soundJolly, soundMultiplier,soundBackground
+soundMinigame, soundJolly, soundMultiplier,backgroundMusic
 ];
 sounds.forEach(snd => {
 snd.play().then(() => {
