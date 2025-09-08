@@ -29,6 +29,7 @@ const backgroundMusic = new Audio('background.mp3');
 backgroundMusic.loop = true;
 backgroundMusic.volume = 0.5;
 let audioOn = localStorage.getItem("audioOn") !== "false";
+// Sblocca i suoni e la musica al primo click/tap (necessario per policy browser)
 function unlockAudio() {
 const sounds = [
 soundClick, soundWithdraw, soundWin, soundLose,
@@ -56,16 +57,19 @@ easy: 10,
 medium: 15,
 hard: 20
 };
+// Riproduce un effetto sonoro se l'audio è attivo
 function playSound(sound) {
 if (audioOn) {
 sound.currentTime = 0;
 sound.play();
 }
 }
+//bottoni per cronologia  e mutare i suoni
 window.addEventListener("DOMContentLoaded", () => {
 const soundToggle = document.getElementById("soundToggle");
 if (!soundToggle) return;
 soundToggle.textContent = audioOn ? "🔊" : "🔇";
+// Bottone per attivare/disattivare i suoni e la musica
 soundToggle.addEventListener("click", (event) => {
 event.stopPropagation();
 audioOn = !audioOn;
@@ -91,9 +95,11 @@ function loadHistory() {
 try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; }
 catch { return []; }
 }
+// Salva la cronologia nel localStorage
 function saveHistory(list) {
 localStorage.setItem(HISTORY_KEY, JSON.stringify(list));
 }
+// Avvia una nuova sessione di cronologia
 function startHistorySession() {
 playSound(soundClick);
 const list = loadHistory();
@@ -108,6 +114,7 @@ list.push(activeSession);
 saveHistory(list);
 renderHistory();
 }
+// Registra un evento nella cronologia
 function logHistoryEvent(eventText) {
 if (!activeSession) return;
 const list = loadHistory();
@@ -117,6 +124,7 @@ s.events.push({ at: new Date().toISOString(), text: eventText });
 saveHistory(list);
 renderHistory();
 }
+// Conclude e salva l'esito della sessione
 function finalizeHistorySession(outcome, winnings = 0) {
 if (!activeSession) return;
 const list = loadHistory();
@@ -199,6 +207,7 @@ gameArea.insertBefore(badge, gameArea.firstChild);
 puntataIniziale = parseFloat(document.getElementById("bet").value);
 badge.textContent = `Puntata: €${puntataIniziale.toFixed(2)}`;
 }
+//puntata
 function updateBetBadge() {
 const badge = document.getElementById("betBadge");
 if (badge) {
@@ -209,6 +218,7 @@ badge.textContent = `Puntata: €${puntataIniziale.toFixed(2)}`;
 document.getElementById("startButton").addEventListener("click", () => {
 createBetBadge();
 });
+// Mostra il minigioco Jolly e gestisce la scelta
 function showMinigiocoJolly(callback) {
 playSound(soundMinigame);
 if (minigiocoAttivo) return;
@@ -405,6 +415,7 @@ document.getElementById("withdrawWinnings").textContent =
 `Hai incassato: €${totale.toFixed(2)}`;
 document.getElementById("withdrawScreen").classList.remove("hidden");
 });
+// Resetta il gioco alla condizione iniziale
 function resetGame() {
 document.getElementById("gameOverScreen").classList.add("hidden");
 document.getElementById("drawnCardImg").src = "";
@@ -435,6 +446,7 @@ correctCountSpan.textContent = correctCount;
 errorCountSpan.textContent = errorCount;
 jollyCountSpan.textContent = jollyCount;
 }
+//tappe 
 function updateProgress() {
 const steps = progressPath.querySelectorAll(".progress-step");
 steps.forEach((step, i) => {
@@ -450,6 +462,7 @@ if (activeStep) {
 progressPath.scrollLeft = activeStep.offsetLeft - progressPath.offsetWidth / 2 + activeStep.offsetWidth / 2;
 }
 }
+//tappe colorazione
 function creaProgressSteps() {
 const progressPath = document.getElementById("progressPath");
 progressPath.innerHTML = "";
@@ -469,6 +482,7 @@ step.appendChild(multiplier);
 progressPath.appendChild(step);
 }
 }
+//bottone jolly
 function updateJollyButton() {
 useJollyBtn.classList.toggle("hidden", jollyCount === 0);
 }
@@ -480,6 +494,7 @@ img.src = `cards/card_${i}.png`;
 const back = new Image();
 back.src = "cards/card_back.png";
 }
+// Avvia una nuova partita
 function startGame() {
 console.log("startGame chiamato");  // Controlla se la funzione viene eseguita
 console.log("Stato schermata gioco:", gameArea.hidden);
@@ -599,6 +614,7 @@ gameOverText.textContent = translate("lost") || "Hai perso!";
 gameArea.classList.add("hidden");
 gameSetup.classList.add("hidden");
 }
+// Aggiunge un bottone con la logica associata (es. Maggiore/Minore)
 function addButton(text, checkFn) {
 const btn = document.createElement("button");
 btn.textContent = text;
@@ -679,6 +695,7 @@ aggiornaGuadagno(correctCount);
 };
 challengeButtons.appendChild(btn);
 }
+//Schermata vittoria
 function showVictoryScreen(vincitaTotale) {
 soundWin.play();
 document.getElementById("gameArea").classList.add("hidden");
@@ -746,6 +763,7 @@ spark.style.opacity = "0";
 setTimeout(() => spark.remove(), 2000);
 }
 }
+// jolly automatico
 function tryAutoJolly(maxErrors) {
 if (jollyFromMinigioco) {
 jollyFromMinigioco = false;
@@ -788,6 +806,7 @@ updateProgress();
 rulesPanel.innerHTML = translate("rulesText");
 document.getElementById("withdrawLabel").textContent = translate("withdraw");
 }
+//Traduzione per cambio lingua
 function translate(key) {
 const t = {
 it: {
