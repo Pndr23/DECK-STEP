@@ -34,7 +34,7 @@ function unlockAudio() {
 const sounds = [
 soundClick, soundWithdraw, soundWin, soundLose,
 soundCorrect, soundWrong, soundFlip,
-soundMinigame, soundJolly, soundMultiplier
+soundMinigame, soundJolly, soundMultiplier,backgroundMusic
 ];
 sounds.forEach(snd => {
 snd.play().then(() => {
@@ -75,11 +75,6 @@ event.stopPropagation();
 audioOn = !audioOn;
 soundToggle.textContent = audioOn ? "🔊" : "🔇";
 localStorage.setItem("audioOn", audioOn);
-if (!audioOn) {
-backgroundMusic.pause();
-} else {
-backgroundMusic.play().catch(() => {});
-}
 });
 });
 window.addEventListener("DOMContentLoaded", () => {
