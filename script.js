@@ -209,39 +209,36 @@ document.getElementById("startButton").addEventListener("click", () => {
 createBetBadge();
 });
 function showMinigiocoJolly(callback) {
-playSound(soundMinigame);
-if (minigiocoAttivo) return;
-minigiocoAttivo = true;
-minigiocoCallback = callback;
-const popup = document.getElementById("minigiocoJolly");
-if (gameAreaOriginalDisplay === null) {
-gameAreaOriginalDisplay = getComputedStyle(gameArea).display;
-}
-gameArea.style.display = "none";
-popup.style.display = "flex";
-popup.style.flexDirection = "column";
-popup.style.alignItems = "center";
-popup.style.justifyContent = "center";
-popup.style.paddingTop = "20";
-popup.style.width = "100%";
-popup.style.height = "100vh";
-popup.style.backgroundColor = "#800020";
-popup.style.backgroundImage = "url('sfondomini.png')";
-popup.style.backgroundPosition = "center";
-popup.style.backgroundSize = "cover";
-popup.style.marginTop = "0";
-popup.style.marginBottom = "0";
-const title = document.getElementById("minigiocoTitle");
-const cardElems = [document.getElementById("minicard1"), document.getElementById("minicard2")];
-const closeBtn = document.getElementById("minigiocoCloseBtn");
-function resizeMinigioco() {
-let screenWidth = window.innerWidth;
-if (title) {
-title.style.order = "1";
-title.style.fontSize = screenWidth < 600 ? "0.8em" : "1.8em";
-title.style.color = "white";
-title.style.marginBottom = screenWidth < 600 ? "6px" : "15px";
-title.style.textAlign = "center";
+  playSound(soundMinigame);
+  if (minigiocoAttivo) return;
+  minigiocoAttivo = true;
+  minigiocoCallback = callback;
+  const popup = document.getElementById("minigiocoJolly");
+  if (gameAreaOriginalDisplay === null) {
+  gameAreaOriginalDisplay = getComputedStyle(gameArea).display;
+  }
+  gameArea.style.display = "none";
+  popup.style.display = "flex";
+  popup.style.flexDirection = "column";
+  popup.style.alignItems = "center";
+  popup.style.justifyContent = "center";
+  popup.style.width = "100%";
+  popup.style.height = "100vh";
+  popup.style.backgroundColor = "#800020";
+  popup.style.backgroundImage = "url('sfondomini.png')";
+  popup.style.backgroundPosition = "center";
+  popup.style.backgroundSize = "cover";
+  const title = document.getElementById("minigiocoTitle");
+  const cardElems = [document.getElementById("minicard1"), document.getElementById("minicard2")];
+  const closeBtn = document.getElementById("minigiocoCloseBtn");
+  function resizeMinigioco() {
+  let screenWidth = window.innerWidth;
+  if (title) {
+  title.style.order = "1";
+  title.style.fontSize = screenWidth < 600 ? "0.8em" : "1.8em";
+  title.style.color = "white";
+  title.style.marginBottom = screenWidth < 600 ? "6px" : "15px";
+  title.style.textAlign = "center";
 }
 cardElems.forEach(c => {
 c.style.order = "2";
@@ -249,7 +246,7 @@ if (screenWidth < 600) {
 c.style.width = "90px";
 c.style.height = "150px";
 c.style.margin = "0 4px";
-} else { // desktop
+} else {
 c.style.width = "160px";
 c.style.height = "230px";
 c.style.margin = "0 12px";
@@ -259,32 +256,26 @@ if (closeBtn) {
 closeBtn.style.order = "3";
 closeBtn.style.marginTop = screenWidth < 600 ? "10px" : "25px";
 closeBtn.style.fontSize = screenWidth < 600 ? "0.75em" : "1.1em";
-closeBtn.style.padding = screenWidth < 600 ?"4px 8px" : "8px 16px";
+closeBtn.style.padding = screenWidth < 600 ? "4px 8px" : "8px 16px";
 }
 popup.style.justifyContent = screenWidth < 600 ? "flex-start" : "center";
-popup.style.paddingTop = screenWidth < 600 ? "10px" : "20px";
 }
 resizeMinigioco();
 window.addEventListener("resize", resizeMinigioco);
 const jollyImgSrc = "jolly.png";
-const moltiplicatoriMinigioco = [1,2,3,4,5,6,7,8,9,10];
 const moltiplicatoreScelto = Math.floor(Math.random() * 10) + 1;
 const suitsLetters = ['C', 'P', 'F', 'Q'];
-const index = Math.floor(Math.random() * 40) + 1;
-const value =  moltiplicatoreScelto;
-const suitIndex = Math.floor((index - 1) / 10);
-const suitLetter =  suitsLetters[Math.floor(Math.random() * suitsLetters.length)];
-const moltiplicatoreImgSrc = `cards/card_${value}${suitLetter}.png`;
+const suitLetter = suitsLetters[Math.floor(Math.random() * suitsLetters.length)];
+const moltiplicatoreImgSrc = `cards/card_${moltiplicatoreScelto}${suitLetter}.png`;
 let carte = [
-{type: "jolly", img: jollyImgSrc},
-{type: "moltiplicatore", img: moltiplicatoreImgSrc, value: moltiplicatoreScelto}
+{ type: "jolly", img: jollyImgSrc },
+{ type: "moltiplicatore", img: moltiplicatoreImgSrc, value: moltiplicatoreScelto }
 ];
 carte.sort(() => Math.random() - 0.5);
 cardElems.forEach((el, i) => {
 el.src = "cards/card_back.png";
 el.classList.remove("flipped", "selected");
 el.classList.add("covered");
-el.style.borderColor = "transparent";
 el.style.cursor = "pointer";
 el.dataset.type = carte[i].type;
 el.dataset.img = carte[i].img;
@@ -295,25 +286,23 @@ minigiocoAttivo = false;
 cardElems.forEach(c => c.classList.remove("covered"));
 el.classList.add("flipped");
 el.style.cursor = "default";
- setTimeout(() => {
- el.src = el.dataset.img;
- el.classList.add("selected");
- if (el.dataset.type === "jolly") {
- playSound(soundJolly);
- jollyCount++;           
- updateJollyDisplay();
- alert("Hai vinto 1 Jolly!");
- } else if (el.dataset.type === "moltiplicatore") {
- playSound(soundMultiplier);
- }
- }, 400);
- setTimeout(() => {
- if (minigiocoCallback)
- minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
- minigiocoCallback = null;
- popup.style.display = "none";
- gameArea.style.display = gameAreaOriginalDisplay;
- window.removeEventListener("resize", resizeMinigioco);
+setTimeout(() => {
+el.src = el.dataset.img;
+el.classList.add("selected");
+if (el.dataset.type === "jolly") {
+playSound(soundJolly);
+alert("Hai vinto 1 Jolly!");
+} else if (el.dataset.type === "moltiplicatore") {
+playSound(soundMultiplier);
+}
+}, 400); // metà del flip (se dura 0.8s)
+setTimeout(() => {
+if (minigiocoCallback)
+minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
+minigiocoCallback = null;
+popup.style.display = "none";
+gameArea.style.display = gameAreaOriginalDisplay;
+window.removeEventListener("resize", resizeMinigioco);
 }, 1800);
 };
 });
