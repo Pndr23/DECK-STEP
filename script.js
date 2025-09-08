@@ -122,17 +122,23 @@ s.events.push({ at: new Date().toISOString(), text: eventText });
 saveHistory(list);
 renderHistory();
 }
-function finalizeHistorySession(outcome, winnings=0) {
-if (!activeSession) return;
-const list = loadHistory();
-const s = list.find(x => x.id === activeSession.id);
-if (!s) return;
-s.outcome = outcome;
-s.winnings = winnings;
-s.endedAt = new Date().toISOString();
-saveHistory(list);
-activeSession = null;
-renderHistory();
+function finalizeHistorySession(outcome, winnings = 0) {
+  if (!activeSession) return;
+  const list = loadHistory();
+  const s = list.find(x => x.id === activeSession.id);
+  if (!s) return;
+  s.outcome = outcome;
+  s.winnings = winnings;
+  s.endedAt = new Date().toISOString();
+  if (outcome === "Ritirato") {
+    s.events.push({
+      at: new Date().toISOString(),
+      text: `Hai deciso di ritirarti con €${winnings}`
+    });
+  }
+  saveHistory(list);
+  activeSession = null;
+  renderHistory();
 }
 function initHistoryUI() {
 const panel = document.getElementById('historyPanel');
@@ -294,7 +300,7 @@ el.onclick = () => {
     } else if (el.dataset.type === "moltiplicatore") {
       playSound(soundMultiplier);
     }
-  }, 400);
+  }, 300);
   el.addEventListener("animationend", () => {
     el.classList.remove("card-flip");
   }, { once: true });
