@@ -394,8 +394,8 @@ playSound(soundClick);
 if (audioOn && backgroundMusic.paused) {
 backgroundMusic.play().catch(() => {});
 console.log("⚠️ Musica non avviata (blocco browser)");
-});
 }
+  
 startHistorySession();
 aggiornaMoltiplicatori();
 preloadCardImages();
