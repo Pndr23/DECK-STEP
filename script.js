@@ -38,7 +38,7 @@ function unlockAudio() {
 const sounds = [
 soundClick, soundWithdraw, soundWin, soundLose,
 soundCorrect, soundWrong, soundFlip,
-soundMinigame, soundJolly, soundMultiplier
+soundMinigame, soundJolly, soundMultiplier,soundBackground
 ];
 sounds.forEach(snd => {
 snd.play().then(() => {
@@ -65,7 +65,7 @@ function playSound(sound) {
 if (audioOn) {
 sound.currentTime = 0;
 sound.play();
-}
+ }
 }
 window.addEventListener("DOMContentLoaded", () => {
 const soundToggle = document.getElementById("soundToggle");
@@ -365,7 +365,12 @@ rulesToggle.addEventListener("click", () => {
 rulesPanel.classList.toggle("hidden");
 });
 startButton.addEventListener("click", () => {
-playSound(soundClick);  
+playSound(soundClick); 
+if (audioOn && backgroundMusic.paused) {
+backgroundMusic.play().catch(() => {
+console.log("⚠️ Musica non avviata (blocco browser)");
+});
+}
 startHistorySession();
 aggiornaMoltiplicatori();
 preloadCardImages();
