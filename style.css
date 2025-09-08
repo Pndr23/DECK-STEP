@@ -639,77 +639,80 @@ transform: scale(1.1);
 background-color: #2196F3 !important;
 }
 #minigiocoJolly {
-position: fixed;
-top: 0;
-left: 0;
-width: 100vw;
-height: 100vh;
-background: url('sfondomini.png') center center / cover no-repeat;
-background-color: #800020;
-display: none;
-justify-content: center;
-align-items: center;
-padding: 2rem;
-box-sizing: border-box;
-border-radius: 0;
-box-shadow: none;
-z-index: 9999;
-user-select: none;
-flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: url('sfondomini.png') center center / cover no-repeat;
+  background-color: #800020;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  border-radius: 0;
+  box-shadow: none;
+  z-index: 9999;
+  user-select: none;
+  flex-direction: column;
 }
 #minigiocoJolly h2 {
-font-size: 8rem;
-color: gold;
-font-weight: 800;
-text-shadow: 0 0 10px gold;
-margin-bottom: 25px;
-text-align: center;
+  font-size: 8rem;
+  color: gold;
+  font-weight: 800;
+  text-shadow: 0 0 10px gold;
+  margin-bottom: 25px;
+  text-align: center;
 }
 #minigiocoJolly div.carte {
-display: flex;
-gap: 40px;
-justify-content: center;
-align-items: center;
-flex-grow: 1;
-width: 100%;
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  width: 100%;
 }
 #minigiocoJolly img {
-width: 180px;
-height: 260px;
-border-radius: 14px;
-cursor: pointer;
-box-shadow: 0 0 15px 5px rgba(255, 215, 0, 0.8);
-filter: drop-shadow(0 0 5px gold);
+  width: 180px;
+  height: 260px;
+  border-radius: 14px;
+  cursor: pointer;
+  box-shadow: 0 0 15px 5px rgba(255, 215, 0, 0.8);
+  filter: drop-shadow(0 0 5px gold);
+  transition: transform 0.6s ease;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
 }
 #minigiocoJolly img.covered {
-animation: glowPulse 2.5s infinite;
-filter: drop-shadow(0 0 6px gold);
+  animation: glowPulse 2.5s infinite;
+  filter: drop-shadow(0 0 6px gold);
 }
 #minigiocoJolly img.flipped {
-transform: rotateY(180deg);
-box-shadow: 0 0 20px 8px gold;
-filter: drop-shadow(0 0 10px gold);
+  transform: rotateY(180deg);
+  box-shadow: 0 0 20px 8px gold;
+  filter: drop-shadow(0 0 10px gold);
 }
 #minigiocoJolly img.selected {
-box-shadow: 0 0 30px 10px gold !important;
-filter: drop-shadow(0 0 20px gold) !important;
-transform: scale(1.1);
-transition: all 0.3s ease;
+  box-shadow: 0 0 30px 10px gold !important;
+  filter: drop-shadow(0 0 20px gold) !important;
+  transform: scale(1.1);
+  transition: all 0.3s ease;
 }
 @keyframes glowPulse {
-0%, 100% { filter: drop-shadow(0 0 3px gold); }
-50% { filter: drop-shadow(0 0 12px gold); }
+  0%, 100% { filter: drop-shadow(0 0 3px gold); }
+  50% { filter: drop-shadow(0 0 12px gold); }
 }
 #minigiocoCloseBtn {
-font-size: 1.3rem;
-padding: 12px 20px;
-margin-top: 20px;
-display: block;
-margin-left: auto;
-margin-right: auto;
+  font-size: 1.3rem;
+  padding: 12px 20px;
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 #minigiocoCloseBtn:hover {
-background: #e6c200;
+  background: #e6c200;
 }
 .jolly-card {
 background-image: url('path/to/jolly.png');
