@@ -69,12 +69,14 @@ window.addEventListener("DOMContentLoaded", () => {
 const soundToggle = document.getElementById("soundToggle");
 if (!soundToggle) return;
 soundToggle.textContent = audioOn ? "🔊" : "🔇";
+backgroundMusic.muted = !audioOn;   
 // Bottone per attivare/disattivare i suoni e la musica
 soundToggle.addEventListener("click", (event) => {
 event.stopPropagation();
 audioOn = !audioOn;
 soundToggle.textContent = audioOn ? "🔊" : "🔇";
 localStorage.setItem("audioOn", audioOn);
+backgroundMusic.muted = !audioOn;
 });
 });
 window.addEventListener("DOMContentLoaded", () => {
@@ -387,9 +389,10 @@ rulesPanel.classList.toggle("hidden");
 startButton.addEventListener("click", () => {
 playSound(soundClick);
   
-if (audioOn && backgroundMusic.paused) {
-backgroundMusic.play().catch(() => {});
-console.log("⚠️ Musica non avviata (blocco browser)");
+if (audioOn) {
+backgroundMusic.play().catch(() => {
+console.warn("⚠️ Musica non avviata per policy browser");
+});
 }
   
 startHistorySession();
