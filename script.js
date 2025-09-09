@@ -223,6 +223,7 @@ gameArea.insertBefore(badge, gameArea.firstChild);
 puntataIniziale = parseFloat(document.getElementById("bet").value);
 badge.textContent = `Puntata: €${puntataIniziale.toFixed(2)}`;
 }
+  
 });
 //puntata
 function updateBetBadge() {
