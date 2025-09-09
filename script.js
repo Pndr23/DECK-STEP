@@ -81,10 +81,13 @@ event.stopPropagation();
 audioOn = !audioOn;
 soundToggle.textContent = audioOn ? "🔊" : "🔇";
 localStorage.setItem("audioOn", audioOn);
-if (audioOn) {
-backgroundMusic.play().catch(() => {});
-} else {
+if (!audioOn) {
 backgroundMusic.pause();
+} else {
+// NON far partire la musica qui
+if (!backgroundMusic.paused) {
+backgroundMusic.play().catch(() => {});
+}
 }
 });
 });
