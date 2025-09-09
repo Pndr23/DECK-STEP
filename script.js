@@ -336,6 +336,7 @@ if (el.dataset.type === "jolly") {
 playSound(soundJolly);
 jollyCount++;
 updateJollyDisplay();
+showMinigiocoMessage("Hai vinto 1 jolly!");
 } else if (el.dataset.type === "moltiplicatore") {
 playSound(soundMultiplier);
 showMinigiocoMessage(`Moltiplicatore x${el.dataset.value}!`);
