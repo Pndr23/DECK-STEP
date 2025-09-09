@@ -925,6 +925,7 @@ guadagno *=  moltiplicatoriLivello[i];
 guadagno += moltiplicatoreBonus * puntataIniziale;
 return guadagno;
 }
+  
 document.addEventListener("DOMContentLoaded", () => {
 currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
 languageSelect.value = currentLanguage;
@@ -936,6 +937,7 @@ document.getElementById("gameArea").classList.remove("hidden");
 resetGame();
 startGame();
 });
+  
 document.getElementById("useJollyBtn").addEventListener("click", () => {
 if (jollyCount > 0 && !jollyUsedInThisTurn) {
 jollyCount--;
@@ -944,11 +946,13 @@ jollyUsedInThisTurn = true;
 alert("Hai usato il Jolly manualmente!");
 }
 });
+  
 document.getElementById("restartBtnWithdraw").addEventListener("click", () => {
 document.getElementById("withdrawScreen").classList.add("hidden");
 document.getElementById("gameSetup").classList.remove("hidden");
 resetGame();
 });
+  
 const gameArea = document.getElementById("gameArea");
 gameArea.style.transform = "scale(0.90)";
 gameArea.style.transformOrigin = "top center";
