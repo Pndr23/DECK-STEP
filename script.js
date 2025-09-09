@@ -68,9 +68,10 @@ sound.play();
 window.addEventListener("DOMContentLoaded", () => {
 const soundToggle = document.getElementById("soundToggle");
 if (!soundToggle) return;
+
 soundToggle.textContent = audioOn ? "🔊" : "🔇";
-backgroundMusic.muted = !audioOn;   
-// Bottone per attivare/disattivare i suoni e la musica
+backgroundMusic.muted = !audioOn;
+
 soundToggle.addEventListener("click", (event) => {
 event.stopPropagation();
 audioOn = !audioOn;
@@ -79,6 +80,21 @@ localStorage.setItem("audioOn", audioOn);
 backgroundMusic.muted = !audioOn;
 });
 });
+function preloadCardImages() {
+const suits = ["C", "P", "F", "Q"]; // semi
+for (let i = 1; i <= 10; i++) {     // valori 1-10
+suits.forEach(suit => {
+const img = new Image();
+img.src = `cards/card_${i}${suit}.png`;
+});
+}
+  // Jolly
+const jolly = new Image();
+jolly.src = "jolly.png";
+// Dorso
+const back = new Image();
+back.src = "cards/card_back.png";
+}
 window.addEventListener("DOMContentLoaded", () => {
 preloadCardImages();
 });
@@ -217,11 +233,11 @@ createBetBadge();
 });
 // Mostra il minigioco Jolly e gestisce la scelta
 function showMinigiocoMessage(text) {
-  const msg = document.getElementById("minigiocoMessage");
-  if (!msg) return;
-  msg.textContent = text;
-  msg.classList.add("show");
-  setTimeout(() => msg.classList.remove("show"), 2500);
+const msg = document.getElementById("minigiocoMessage");
+if (!msg) return;
+msg.textContent = text;
+msg.classList.add("show");
+setTimeout(() => msg.classList.remove("show"), 2500);
 }
 function showMinigiocoJolly(callback) {
 playSound(soundMinigame);
@@ -389,7 +405,7 @@ rulesPanel.classList.toggle("hidden");
 startButton.addEventListener("click", () => {
 playSound(soundClick);
   
-if (audioOn) {
+if (audioOn && backgroundMusic.paused) {
 backgroundMusic.play().catch(() => {
 console.warn("⚠️ Musica non avviata per policy browser");
 });
@@ -504,21 +520,6 @@ progressPath.appendChild(step);
 //bottone jolly
 function updateJollyButton() {
 useJollyBtn.classList.toggle("hidden", jollyCount === 0);
-}
-function preloadCardImages() {
-const suits = ["C", "P", "F", "Q"]; // semi
-for (let i = 1; i <= 10; i++) {     // valori 1-10
-suits.forEach(suit => {
-const img = new Image();
-img.src = `cards/card_${i}${suit}.png`;
-});
-}
-  // Jolly
-const jolly = new Image();
-jolly.src = "jolly.png";
-// Dorso
-const back = new Image();
-back.src = "cards/card_back.png";
 }
 // Avvia una nuova partita
 function startGame() {
