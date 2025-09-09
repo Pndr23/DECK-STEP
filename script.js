@@ -85,9 +85,7 @@ if (!audioOn) {
 backgroundMusic.pause();
 } else {
 // NON far partire la musica qui
-if (!backgroundMusic.paused) {
 backgroundMusic.play().catch(() => {});
-}
 }
 });
 });
