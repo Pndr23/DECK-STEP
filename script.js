@@ -758,7 +758,12 @@ restartBtn.style.border = "none";
 restartBtn.style.borderRadius = "10px";
 restartBtn.style.cursor = "pointer";
 restartBtn.onclick = () => {
-location.reload();
+victoryScreen.remove();
+document.getElementById("gameSetup").classList.remove("hidden");
+document.getElementById("gameArea").classList.add("hidden");
+// Resetto lo stato e faccio ripartire
+resetGame();
+startGame();
 };
 victoryScreen.appendChild(title);
 victoryScreen.appendChild(prize);
@@ -911,17 +916,6 @@ withdraw: "WITHDRAW"
 };
 return t[currentLanguage][key];
 }
-document.addEventListener("DOMContentLoaded", () => {
-currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
-languageSelect.value = currentLanguage;
-updateLanguage();
-aggiornaMoltiplicatori();
-document.getElementById("restartBtn").addEventListener("click", () => {
-document.getElementById("gameOverScreen").classList.add("hidden");
-document.getElementById("gameArea").classList.remove("hidden");
-startGame();
-});
-});
 function calcolaGuadagno(corretti) {
 let guadagno = puntataIniziale;
 const moltiplicatoriLivello = moltiplicatori[currentLevel];
@@ -931,8 +925,16 @@ guadagno *=  moltiplicatoriLivello[i];
 guadagno += moltiplicatoreBonus * puntataIniziale;
 return guadagno;
 }
+document.addEventListener("DOMContentLoaded", () => {
+currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
+languageSelect.value = currentLanguage;
+updateLanguage();
+aggiornaMoltiplicatori();
 document.getElementById("restartBtn").addEventListener("click", () => {
-location.reload();
+document.getElementById("gameOverScreen").classList.add("hidden");
+document.getElementById("gameArea").classList.remove("hidden");
+resetGame();
+startGame();
 });
 document.getElementById("useJollyBtn").addEventListener("click", () => {
 if (jollyCount > 0 && !jollyUsedInThisTurn) {
@@ -943,7 +945,9 @@ alert("Hai usato il Jolly manualmente!");
 }
 });
 document.getElementById("restartBtnWithdraw").addEventListener("click", () => {
-location.reload();
+document.getElementById("withdrawScreen").classList.add("hidden");
+document.getElementById("gameSetup").classList.remove("hidden");
+resetGame();
 });
 const gameArea = document.getElementById("gameArea");
 gameArea.style.transform = "scale(0.90)";
