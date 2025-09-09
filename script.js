@@ -688,16 +688,12 @@ tappe++;
 if (correctStreak === 3) {
 correctStreak = 0;
 showMinigiocoJolly((scelta, valore) => {
-if (scelta === "jolly") {
-jollyCount++;
-updateJollyDisplay();
-} else if (scelta === "moltiplicatore") {
+if (scelta === "moltiplicatore") {
 moltiplicatoreBonus += valore;
 updateScore();
 updateJollyButton();
 }
 });
-}
 }
 } else {
 correctStreak = 0;
