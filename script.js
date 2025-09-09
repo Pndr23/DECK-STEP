@@ -87,7 +87,6 @@ backgroundMusic.play().catch(() => {});
 backgroundMusic.pause();
 }
 });
-}
 function preloadCardImages() {
 const suits = ["C", "P", "F", "Q"]; // semi
 for (let i = 1; i <= 10; i++) {     // valori 1-10
