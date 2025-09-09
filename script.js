@@ -936,8 +936,9 @@ aggiornaMoltiplicatori();
 document.getElementById("restartBtn").addEventListener("click", () => {
 document.getElementById("gameOverScreen").classList.add("hidden");
 document.getElementById("gameArea").classList.remove("hidden");
+const setup = document.getElementById("gameSetup");
+if (setup) setup.classList.remove("hidden"); // torno allo Start
 resetGame();
-startGame();
 });
   
 document.getElementById("useJollyBtn").addEventListener("click", () => {
@@ -951,7 +952,8 @@ alert("Hai usato il Jolly manualmente!");
   
 document.getElementById("restartBtnWithdraw").addEventListener("click", () => {
 document.getElementById("withdrawScreen").classList.add("hidden");
-document.getElementById("gameSetup").classList.remove("hidden");
+const setup = document.getElementById("gameSetup");
+if (setup) setup.classList.remove("hidden"); // torno allo Start
 resetGame();
 });
   
