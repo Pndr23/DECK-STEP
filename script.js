@@ -689,6 +689,8 @@ if (correctStreak === 3) {
 correctStreak = 0;
 showMinigiocoJolly();
 }
+} 
+  
 } else {
 correctStreak = 0;
 errorCount++;
