@@ -336,7 +336,6 @@ if (el.dataset.type === "jolly") {
 playSound(soundJolly);
 jollyCount++;
 updateJollyDisplay();
-showMinigiocoMessage("Hai vinto 1 Jolly!");
 } else if (el.dataset.type === "moltiplicatore") {
 playSound(soundMultiplier);
 showMinigiocoMessage(`Moltiplicatore x${el.dataset.value}!`);
@@ -694,7 +693,6 @@ jollyCount++;
 updateJollyDisplay();
 } else if (scelta === "moltiplicatore") {
 moltiplicatoreBonus += valore;
-alert(`Hai vinto un moltiplicatore bonus x${valore}! Sarà sommato al guadagno.`);
 updateScore();
 updateJollyButton();
 }
