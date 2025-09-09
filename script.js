@@ -439,7 +439,6 @@ jollyCount--;
 errorCount--;
 updateScore();
 updateJollyDisplay();
-alert("Hai usato un Jolly!");
 }
 });
 languageSelect.addEventListener("change", () => {
