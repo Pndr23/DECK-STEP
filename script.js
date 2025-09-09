@@ -34,7 +34,7 @@ function unlockAudio() {
 const sounds = [
 soundClick, soundWithdraw, soundWin, soundLose,
 soundCorrect, soundWrong, soundFlip,
-soundMinigame, soundJolly, soundMultiplier,backgroundMusic
+soundMinigame, soundJolly, soundMultiplier
 ];
 // Precarica i suoni normali
 sounds.forEach(snd => {
@@ -79,7 +79,6 @@ localStorage.setItem("audioOn", audioOn);
 if (!audioOn) {
 backgroundMusic.pause();
 } else {
-// NON far partire la musica qui
 backgroundMusic.play().catch(() => {});
 }
 });
@@ -409,12 +408,13 @@ rulesPanel.classList.toggle("hidden");
 startButton.addEventListener("click", () => {
 playSound(soundClick);
   
-if (audioOn && backgroundMusic.paused) {
-backgroundMusic.play().catch(() => {
-console.warn("⚠️ Musica non avviata per policy browser");
-});
+if (audioOn) {
+backgroundMusic.currentTime = 0;   // ricomincia dall'inizio se serve
+backgroundMusic.play()
+.then(() => console.log("Musica partita"))
+.catch(err => console.warn("Errore avvio musica:", err));
 }
-  
+
 startHistorySession();
 aggiornaMoltiplicatori();
 preloadCardImages();
