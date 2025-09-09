@@ -758,13 +758,7 @@ restartBtn.style.color = "white";
 restartBtn.style.border = "none";
 restartBtn.style.borderRadius = "10px";
 restartBtn.style.cursor = "pointer";
-restartBtn.onclick = () => {
-victoryScreen.remove();
-document.getElementById("gameSetup").classList.remove("hidden");
-document.getElementById("gameArea").classList.add("hidden");
-// Resetto lo stato e faccio ripartire
-resetGame();
-startGame();
+restartBtn.onclick = () {
 };
 victoryScreen.appendChild(title);
 victoryScreen.appendChild(prize);
