@@ -199,9 +199,6 @@ ${s.events.map(e => `<li>${e.at}: ${e.text}</li>`).join('')}
 </div>
 `).join('');
 }
-document.addEventListener('DOMContentLoaded', () => {
-initHistoryUI();
-renderHistory();
 function createBetBadge() {
 const gameArea = document.getElementById("gameArea");
 let badge = document.getElementById("betBadge");
@@ -223,7 +220,9 @@ gameArea.insertBefore(badge, gameArea.firstChild);
 puntataIniziale = parseFloat(document.getElementById("bet").value);
 badge.textContent = `Puntata: €${puntataIniziale.toFixed(2)}`;
 }
-  
+document.addEventListener('DOMContentLoaded', () => {
+initHistoryUI();
+renderHistory();
 });
 //puntata
 function updateBetBadge() {
@@ -933,14 +932,21 @@ currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
 languageSelect.value = currentLanguage;
 updateLanguage();
 aggiornaMoltiplicatori();
+  // 🔹 Ricomincia dopo Game Over  
 document.getElementById("restartBtn").addEventListener("click", () => {
 document.getElementById("gameOverScreen").classList.add("hidden");
 document.getElementById("gameArea").classList.remove("hidden");
-const setup = document.getElementById("gameSetup");
-if (setup) setup.classList.remove("hidden"); // torno allo Start
+document.getElementById("gameSetup").classList.remove("hidden"); // torno allo Start
 resetGame();
 });
-  
+// 🔹 Ricomincia dopo Withdraw
+document.getElementById("restartBtnWithdraw").addEventListener("click", () => {
+document.getElementById("withdrawScreen").classList.add("hidden");
+document.getElementById("gameArea").classList.add("hidden");
+document.getElementById("gameSetup").classList.remove("hidden"); // torno allo Start
+resetGame();
+});
+// 🔹 Usa Jolly manualmente
 document.getElementById("useJollyBtn").addEventListener("click", () => {
 if (jollyCount > 0 && !jollyUsedInThisTurn) {
 jollyCount--;
@@ -949,14 +955,7 @@ jollyUsedInThisTurn = true;
 alert("Hai usato il Jolly manualmente!");
 }
 });
-  
-document.getElementById("restartBtnWithdraw").addEventListener("click", () => {
-document.getElementById("withdrawScreen").classList.add("hidden");
-const setup = document.getElementById("gameSetup");
-if (setup) setup.classList.remove("hidden"); // torno allo Start
-resetGame();
-});
-  
+ // 🔹 Scala grafica area di gioco
 const gameArea = document.getElementById("gameArea");
 gameArea.style.transform = "scale(0.90)";
 gameArea.style.transformOrigin = "top center";
