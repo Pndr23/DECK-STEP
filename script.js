@@ -223,6 +223,7 @@ gameArea.insertBefore(badge, gameArea.firstChild);
 puntataIniziale = parseFloat(document.getElementById("bet").value);
 badge.textContent = `Puntata: €${puntataIniziale.toFixed(2)}`;
 }
+});
 //puntata
 function updateBetBadge() {
 const badge = document.getElementById("betBadge");
@@ -363,7 +364,6 @@ popup.style.display = "none";
 gameArea.style.display = gameAreaOriginalDisplay;
 window.removeEventListener("resize", resizeMinigioco);
 };
-});
 function aggiornaMoltiplicatori() {
 const livello = document.getElementById("risk").value;
 currentLevel = livello;
