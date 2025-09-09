@@ -36,12 +36,19 @@ soundClick, soundWithdraw, soundWin, soundLose,
 soundCorrect, soundWrong, soundFlip,
 soundMinigame, soundJolly, soundMultiplier,backgroundMusic
 ];
+// Precarica i suoni normali
 sounds.forEach(snd => {
 snd.play().then(() => {
 snd.pause();
 snd.currentTime = 0;
 }).catch(() => {});
 });
+// Prepara la musica, ma NON la fa partire subito
+backgroundMusic.play().then(() => {
+backgroundMusic.pause();
+backgroundMusic.currentTime = 0;
+}).catch(() => {});
+// Rimuove i listener dopo il primo sblocco
 document.removeEventListener("click", unlockAudio);
 document.removeEventListener("touchstart", unlockAudio);
 }
@@ -68,18 +75,19 @@ sound.play();
 window.addEventListener("DOMContentLoaded", () => {
 const soundToggle = document.getElementById("soundToggle");
 if (!soundToggle) return;
-
 soundToggle.textContent = audioOn ? "🔊" : "🔇";
-backgroundMusic.muted = !audioOn;
-
 soundToggle.addEventListener("click", (event) => {
 event.stopPropagation();
 audioOn = !audioOn;
 soundToggle.textContent = audioOn ? "🔊" : "🔇";
 localStorage.setItem("audioOn", audioOn);
-backgroundMusic.muted = !audioOn;
+if (audioOn) {
+backgroundMusic.play().catch(() => {});
+} else {
+backgroundMusic.pause();
+}
 });
-});
+}
 function preloadCardImages() {
 const suits = ["C", "P", "F", "Q"]; // semi
 for (let i = 1; i <= 10; i++) {     // valori 1-10
