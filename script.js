@@ -687,13 +687,7 @@ showVictoryScreen(totale);
 tappe++;
 if (correctStreak === 3) {
 correctStreak = 0;
-showMinigiocoJolly((scelta, valore) => {
-if (scelta === "moltiplicatore") {
-moltiplicatoreBonus += valore;
-updateScore();
-updateJollyButton();
-}
-});
+showMinigiocoJolly();
 }
 } else {
 correctStreak = 0;
