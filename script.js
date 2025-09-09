@@ -43,11 +43,6 @@ snd.pause();
 snd.currentTime = 0;
 }).catch(() => {});
 });
-// Prepara la musica, ma NON la fa partire subito
-backgroundMusic.play().then(() => {
-backgroundMusic.pause();
-backgroundMusic.currentTime = 0;
-}).catch(() => {});
 // Rimuove i listener dopo il primo sblocco
 document.removeEventListener("click", unlockAudio);
 document.removeEventListener("touchstart", unlockAudio);
