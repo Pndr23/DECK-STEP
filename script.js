@@ -921,28 +921,44 @@ function calcolaGuadagno(corretti) {
 let guadagno = puntataIniziale;
 const moltiplicatoriLivello = moltiplicatori[currentLevel];
 for (let i = 0; i < corretti && i < moltiplicatoriLivello.length; i++) {
-guadagno *=  moltiplicatoriLivello[i];
+guadagno *= moltiplicatoriLivello[i];
 }
 guadagno += moltiplicatoreBonus * puntataIniziale;
 return guadagno;
 }
-function tornaAlSetup() {
-document.getElementById("gameOverScreen")?.classList.add("hidden");
-document.getElementById("withdrawScreen")?.classList.add("hidden");
-document.getElementById("gameArea")?.classList.add("hidden");
-document.getElementById("gameSetup")?.classList.remove("hidden");
-resetGame();
+// 🔹 Salva stato musica prima di ricaricare
+function saveMusicState() {
+if (!backgroundMusic) return;
+localStorage.setItem("musicTime", backgroundMusic.currentTime);
+localStorage.setItem("musicPlaying", !backgroundMusic.paused);
 }
+// 🔹 Ripristina musica dopo reload
+function restoreMusicState() {
+const savedTime = parseFloat(localStorage.getItem("musicTime") || "0");
+const wasPlaying = localStorage.getItem("musicPlaying") === "true";
 
+if (savedTime > 0) {
+backgroundMusic.currentTime = savedTime;
+}
+if (wasPlaying) {
+backgroundMusic.play().catch(() => {});
+}
+}
 document.addEventListener("DOMContentLoaded", () => {
 currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
 languageSelect.value = currentLanguage;
 updateLanguage();
 aggiornaMoltiplicatori();
 // 🔹 Ricomincia dopo Game Over
-document.getElementById("restartBtn").addEventListener("click", tornaAlSetup);
-// 🔹 Ricomincia dopo Withdraw
-document.getElementById("restartBtnWithdraw").addEventListener("click", tornaAlSetup);
+document.getElementById("restartBtn").addEventListener("click", () => {
+saveMusicState();
+location.reload();
+});
+  // 🔹 Ricomincia dopo Withdraw
+document.getElementById("restartBtnWithdraw").addEventListener("click", () => {
+saveMusicState();
+location.reload();
+});
 // 🔹 Usa Jolly manualmente
 document.getElementById("useJollyBtn").addEventListener("click", () => {
 if (jollyCount > 0 && !jollyUsedInThisTurn) {
@@ -956,4 +972,6 @@ alert("Hai usato il Jolly manualmente!");
 const gameArea = document.getElementById("gameArea");
 gameArea.style.transform = "scale(0.90)";
 gameArea.style.transformOrigin = "top center";
+// 🔹 Ripristina musica dopo reload
+restoreMusicState();
 });
