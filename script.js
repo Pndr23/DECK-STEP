@@ -363,7 +363,7 @@ popup.style.display = "none";
 gameArea.style.display = gameAreaOriginalDisplay;
 window.removeEventListener("resize", resizeMinigioco);
 };
-}
+})
 function aggiornaMoltiplicatori() {
 const livello = document.getElementById("risk").value;
 currentLevel = livello;
