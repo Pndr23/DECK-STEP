@@ -926,26 +926,23 @@ guadagno *=  moltiplicatoriLivello[i];
 guadagno += moltiplicatoreBonus * puntataIniziale;
 return guadagno;
 }
-  
+function tornaAlSetup() {
+document.getElementById("gameOverScreen")?.classList.add("hidden");
+document.getElementById("withdrawScreen")?.classList.add("hidden");
+document.getElementById("gameArea")?.classList.add("hidden");
+document.getElementById("gameSetup")?.classList.remove("hidden");
+resetGame();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
 currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
 languageSelect.value = currentLanguage;
 updateLanguage();
 aggiornaMoltiplicatori();
-  // 🔹 Ricomincia dopo Game Over  
-document.getElementById("restartBtn").addEventListener("click", () => {
-document.getElementById("gameOverScreen").classList.add("hidden");
-document.getElementById("gameArea").classList.remove("hidden");
-document.getElementById("gameSetup").classList.remove("hidden"); // torno allo Start
-resetGame();
-});
+// 🔹 Ricomincia dopo Game Over
+document.getElementById("restartBtn").addEventListener("click", tornaAlSetup);
 // 🔹 Ricomincia dopo Withdraw
-document.getElementById("restartBtnWithdraw").addEventListener("click", () => {
-document.getElementById("withdrawScreen").classList.add("hidden");
-document.getElementById("gameArea").classList.add("hidden");
-document.getElementById("gameSetup").classList.remove("hidden"); // torno allo Start
-resetGame();
-});
+document.getElementById("restartBtnWithdraw").addEventListener("click", tornaAlSetup);
 // 🔹 Usa Jolly manualmente
 document.getElementById("useJollyBtn").addEventListener("click", () => {
 if (jollyCount > 0 && !jollyUsedInThisTurn) {
@@ -955,7 +952,7 @@ jollyUsedInThisTurn = true;
 alert("Hai usato il Jolly manualmente!");
 }
 });
- // 🔹 Scala grafica area di gioco
+// 🔹 Scala grafica area di gioco
 const gameArea = document.getElementById("gameArea");
 gameArea.style.transform = "scale(0.90)";
 gameArea.style.transformOrigin = "top center";
