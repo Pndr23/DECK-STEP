@@ -759,6 +759,7 @@ restartBtn.style.border = "none";
 restartBtn.style.borderRadius = "10px";
 restartBtn.style.cursor = "pointer";
 restartBtn.onclick = () {
+location.reload();
 };
 victoryScreen.appendChild(title);
 victoryScreen.appendChild(prize);
