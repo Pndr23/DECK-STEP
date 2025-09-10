@@ -91,7 +91,7 @@ const img = new Image();
 img.src = `cards/card_${i}${suit}.png`;
 });
 }
-  // Jolly
+// Jolly
 const jolly = new Image();
 jolly.src = "jolly.png";
 // Dorso
@@ -165,13 +165,13 @@ const openBtn = document.getElementById('historyButton');
 const closeBtn = document.getElementById('historyClose');
 const clearBtn = document.getElementById('historyClear');
 const backdrop = document.getElementById('historyBackdrop');
-if (openBtn) openBtn.addEventListener('click', () => { 
-panel.classList.remove('hidden'); 
+if (openBtn) openBtn.addEventListener('click', () => {
+panel.classList.remove('hidden');
 renderHistory();
 playSound(soundClick); // 🔊 Suono solo quando apri
 });
 if (closeBtn) closeBtn.addEventListener('click', () => {
-panel.classList.add('hidden'); 
+panel.classList.add('hidden');
 playSound(soundClick); // 🔊 Suono solo quando chiudi
 });
 if (backdrop) backdrop.addEventListener('click', () => panel.classList.add('hidden'));
@@ -371,7 +371,7 @@ popup.style.display = "none";
 gameArea.style.display = gameAreaOriginalDisplay;
 window.removeEventListener("resize", resizeMinigioco);
 };
-  }
+}
 function aggiornaMoltiplicatori() {
 const livello = document.getElementById("risk").value;
 currentLevel = livello;
@@ -389,7 +389,7 @@ document.getElementById("risk").addEventListener("change", () => {
 currentLevel = document.getElementById("risk").value;
 console.log("Difficoltà cambiata a:", currentLevel);
 aggiornaMoltiplicatori();
-playSound(soundClick); 
+playSound(soundClick);
 });
 const withdrawBtn = document.getElementById("withdrawBtn");
 const startButton = document.getElementById("startButton");
@@ -417,7 +417,7 @@ rulesPanel.classList.toggle("hidden");
 });
 startButton.addEventListener("click", () => {
 playSound(soundClick);
-  
+
 if (audioOn) {
 backgroundMusic.currentTime = 0;   // ricomincia dall'inizio se serve
 backgroundMusic.play()
@@ -456,13 +456,73 @@ playSound(soundWithdraw);
 const totale = calcolaGuadagno(correctCount);
 logHistoryEvent(`Hai deciso di ritirarti con €${totale.toFixed(2)}`);
 finalizeHistorySession("Ritirato", totale);
-document.querySelector(".container").classList.add("hidden");
-document.getElementById("gameOverScreen")?.classList.add("hidden");
-document.getElementById("withdrawText").textContent = "Hai ritirato!";
-document.getElementById("withdrawWinnings").textContent =
-`Hai incassato: €${totale.toFixed(2)}`;
-document.getElementById("withdrawScreen").classList.remove("hidden");
+
+// Nasconde tutto dietro
+gameArea.classList.add("hidden");
+gameSetup.classList.add("hidden");
+
+// Overlay fullscreen bordeaux
+const overlay = document.createElement("div");
+overlay.style.position = "fixed";
+overlay.style.top = "0";
+overlay.style.left = "0";
+overlay.style.width = "100vw";
+overlay.style.height = "100vh";
+overlay.style.background = "#800000"; // bordeaux
+overlay.style.display = "flex";
+overlay.style.justifyContent = "center";
+overlay.style.alignItems = "center";
+overlay.style.zIndex = "9999";
+
+// Container centrale con immagine di sfondo
+const container = document.createElement("div");
+container.style.width = "80%";
+container.style.maxWidth = "500px";
+container.style.padding = "30px";
+container.style.borderRadius = "15px";
+container.style.backgroundImage = "url('sfondofine.jpg')"; // la tua immagine
+container.style.backgroundSize = "cover";
+container.style.backgroundPosition = "center";
+container.style.boxShadow = "0 0 20px rgba(0,0,0,0.5)";
+container.style.textAlign = "center";
+
+// Testo ritirata
+const text = document.createElement("h1");
+text.textContent = "Hai ritirato!";
+text.style.fontSize = "3rem";
+text.style.color = "white";
+text.style.marginBottom = "20px";
+
+// Mostra vincita
+const winnings = document.createElement("p");
+winnings.textContent = `Hai incassato: €${totale.toFixed(2)}`;
+winnings.style.fontSize = "1.5rem";
+winnings.style.color = "white";
+winnings.style.marginBottom = "25px";
+
+// Bottone Ricomincia
+const restartBtn = document.createElement("button");
+restartBtn.textContent = "🔁 Ricomincia";
+restartBtn.style.fontSize = "1.2rem";
+restartBtn.style.padding = "10px 20px";
+restartBtn.style.background = "#28a745";
+restartBtn.style.color = "white";
+restartBtn.style.border = "none";
+restartBtn.style.borderRadius = "10px";
+restartBtn.style.cursor = "pointer";
+restartBtn.onclick = () => {
+playSound(soundClick);
+location.reload();
+};
+
+// Appendi elementi
+container.appendChild(text);
+container.appendChild(winnings);
+container.appendChild(restartBtn);
+overlay.appendChild(container);
+document.body.appendChild(overlay);
 });
+
 // Resetta il gioco alla condizione iniziale
 function resetGame() {
 document.getElementById("gameOverScreen").classList.add("hidden");
@@ -487,7 +547,7 @@ useJollyBtn.classList.remove("hidden");
 useJollyBtn.classList.add("hidden");
 }
 }
-//tappe 
+//tappe
 function updateProgress() {
 const steps = progressPath.querySelectorAll(".progress-step");
 steps.forEach((step, i) => {
@@ -636,9 +696,11 @@ startGame();
 });
 function showGameOverScreen() {
 playSound(soundLose);
+
 // Nasconde tutto dietro
 gameArea.classList.add("hidden");
 gameSetup.classList.add("hidden");
+
 // Overlay fullscreen bordeaux
 const overlay = document.createElement("div");
 overlay.style.position = "fixed";
@@ -648,21 +710,33 @@ overlay.style.width = "100vw";
 overlay.style.height = "100vh";
 overlay.style.background = "#800000"; // bordeaux
 overlay.style.display = "flex";
-overlay.style.flexDirection = "column";
 overlay.style.justifyContent = "center";
 overlay.style.alignItems = "center";
 overlay.style.zIndex = "9999";
+
+// Container centrale con immagine di sfondo
+const container = document.createElement("div");
+container.style.width = "80%";
+container.style.maxWidth = "500px";
+container.style.padding = "30px";
+container.style.borderRadius = "15px";
+container.style.backgroundImage = "url('sfondofine.jpg')"; // la tua immagine
+container.style.backgroundSize = "cover";
+container.style.backgroundPosition = "center";
+container.style.boxShadow = "0 0 20px rgba(0,0,0,0.5)";
+container.style.textAlign = "center";
+
 // Testo Game Over
 const text = document.createElement("h1");
 text.textContent = translate("lost") || "Hai perso!";
-text.style.fontSize = "4rem";
+text.style.fontSize = "3rem";
 text.style.color = "white";
-text.style.marginBottom = "30px";
-text.style.textAlign = "center";
+text.style.marginBottom = "20px";
+
 // Bottone Ricomincia
 const restartBtn = document.createElement("button");
 restartBtn.textContent = "🔁 Ricomincia";
-restartBtn.style.fontSize = "1.5rem";
+restartBtn.style.fontSize = "1.2rem";
 restartBtn.style.padding = "10px 20px";
 restartBtn.style.background = "#28a745";
 restartBtn.style.color = "white";
@@ -670,11 +744,14 @@ restartBtn.style.border = "none";
 restartBtn.style.borderRadius = "10px";
 restartBtn.style.cursor = "pointer";
 restartBtn.onclick = () => {
-playSound(soundClick); // suono al click
+playSound(soundClick);
 location.reload();
 };
-overlay.appendChild(text);
-overlay.appendChild(restartBtn);
+
+// Appendi elementi
+container.appendChild(text);
+container.appendChild(restartBtn);
+overlay.appendChild(container);
 document.body.appendChild(overlay);
 }
 // Aggiunge un bottone con la logica associata (es. Maggiore/Minore)
@@ -717,8 +794,8 @@ if (correctStreak === 3) {
 correctStreak = 0;
 showMinigiocoJolly();
 }
-} 
-  
+}
+
 } else {
 correctStreak = 0;
 errorCount++;
@@ -753,75 +830,72 @@ function showVictoryScreen(vincitaTotale) {
 soundWin.play();
 
 // Nascondi area di gioco
-document.getElementById("gameArea").classList.add("hidden");
+gameArea.classList.add("hidden");
+gameSetup.classList.add("hidden");
 
-// Schermata vittoria
-const victoryScreen = document.createElement("div");
-victoryScreen.style.position = "fixed";
-victoryScreen.style.top = "0";
-victoryScreen.style.left = "0";
-victoryScreen.style.width = "100vw";
-victoryScreen.style.height = "100vh";
-victoryScreen.style.background = "#800000";
-victoryScreen.style.display = "flex";
-victoryScreen.style.flexDirection = "column";
-victoryScreen.style.justifyContent = "center";
-victoryScreen.style.alignItems = "center";
-victoryScreen.style.zIndex = "9999";
+// Overlay fullscreen bordeaux
+const overlay = document.createElement("div");
+overlay.style.position = "fixed";
+overlay.style.top = "0";
+overlay.style.left = "0";
+overlay.style.width = "100vw";
+overlay.style.height = "100vh";
+overlay.style.background = "#800000"; // bordeaux
+overlay.style.display = "flex";
+overlay.style.justifyContent = "center";
+overlay.style.alignItems = "center";
+overlay.style.zIndex = "9999";
+
+// Container centrale con immagine di sfondo
+const container = document.createElement("div");
+container.style.width = "80%";
+container.style.maxWidth = "500px";
+container.style.padding = "30px";
+container.style.borderRadius = "15px";
+container.style.backgroundImage = "url('immagine_vittoria.jpg')"; // la tua immagine
+container.style.backgroundSize = "cover";
+container.style.backgroundPosition = "center";
+container.style.boxShadow = "0 0 20px rgba(0,0,0,0.5)";
+container.style.textAlign = "center";
 
 // Titolo
 const title = document.createElement("h1");
 title.textContent = "🎆 VITTORIA! 🎆";
-title.style.fontSize = "4rem";
-title.style.marginBottom = "20px";
-title.style.fontFamily = "'Baloo 2', cursive, sans-serif";
+title.style.fontSize = "3rem";
 title.style.color = "gold";
+title.style.marginBottom = "20px";
 title.style.textShadow = "0 0 10px gold, 0 0 20px orange, 0 0 30px red";
-title.style.animation = "heartbeat 1s infinite";
 
-// Definizione animazione heartbeat
-const style = document.createElement("style");
-style.textContent = `
-@keyframes heartbeat {
-0%, 100% { transform: scale(1); }
-25% { transform: scale(1.2); }
-50% { transform: scale(1); }
-75% { transform: scale(1.2); }
-}
-`;
-document.head.appendChild(style);
 // Premio
 const prize = document.createElement("p");
 prize.textContent = `Hai vinto ${vincitaTotale} crediti!`;
-prize.style.fontSize = "2rem";
-prize.style.marginBottom = "40px";
-prize.style.padding = "12px 24px";
-prize.style.borderRadius = "25px";
-prize.style.background = "rgba(0,0,0,0.5)";
+prize.style.fontSize = "1.5rem";
 prize.style.color = "white";
-prize.style.textAlign = "center";
+prize.style.marginBottom = "25px";
 
-  // Bottone ricomincia
+// Bottone Ricomincia
 const restartBtn = document.createElement("button");
 restartBtn.textContent = "🔁 Ricomincia";
-restartBtn.style.fontSize = "1.5rem";
+restartBtn.style.fontSize = "1.2rem";
 restartBtn.style.padding = "10px 20px";
 restartBtn.style.background = "#28a745";
 restartBtn.style.color = "white";
 restartBtn.style.border = "none";
 restartBtn.style.borderRadius = "10px";
 restartBtn.style.cursor = "pointer";
-restartBtn.style.cursor = "pointer";
 restartBtn.onclick = () => {
-playSound(soundClick);  // 🔊 Suono al click
+playSound(soundClick);
 location.reload();
 };
 
-victoryScreen.appendChild(title);
-victoryScreen.appendChild(prize);
-victoryScreen.appendChild(restartBtn);
-document.body.appendChild(victoryScreen);
-  // Brillantini animati
+// Appendi elementi
+container.appendChild(title);
+container.appendChild(prize);
+container.appendChild(restartBtn);
+overlay.appendChild(container);
+document.body.appendChild(overlay);
+
+// Brillantini animati
 for (let i = 0; i < 30; i++) {
 const spark = document.createElement("div");
 spark.style.position = "fixed";
@@ -844,6 +918,7 @@ spark.style.opacity = "0";
 setTimeout(() => spark.remove(), 2000);
 }
 }
+
 
 // jolly automatico
 function tryAutoJolly(maxErrors) {
@@ -870,34 +945,34 @@ guadagno += moltiplicatoreBonus * puntataIniziale;
 label.textContent = "+€" + guadagno.toFixed(2);
 }
 function updateLanguage() {
-  document.querySelector("html").lang = currentLanguage;
-  const gameTitle = document.getElementById("gameTitle");
-  if (gameTitle) gameTitle.textContent = translate("title");
-  const startButton = document.getElementById("startButton");
-  if (startButton) startButton.textContent = translate("start");
-  const restartBtn = document.getElementById("restartBtn");
-  if (restartBtn) restartBtn.textContent = translate("restart");
-  const rulesLabel = document.getElementById("rulesLabel");
-  if (rulesLabel) rulesLabel.textContent = translate("rules");
-  const currentCardLabel = document.getElementById("currentCardLabel");
-  if (currentCardLabel) currentCardLabel.textContent = translate("currentCard");
-  const betLabel = document.getElementById("betLabel");
-  if (betLabel) betLabel.textContent = translate("bet");
-  const riskLabel = document.getElementById("riskLabel");
-  if (riskLabel) riskLabel.textContent = translate("risk");
-  const pointsLabel = document.getElementById("pointsLabel");
-  if (pointsLabel) pointsLabel.textContent = translate("points");
-  const correctLabel = document.getElementById("correctLabel");
-  if (correctLabel) correctLabel.textContent = "✅ " + translate("correct");
-  const errorLabel = document.getElementById("errorLabel");
-  if (errorLabel) errorLabel.textContent = "❌ " + translate("error");
-  const jollyLabel = document.getElementById("jollyLabel");
-  if (jollyLabel) jollyLabel.textContent = "🃏 " + translate("jolly");
-  if (useJollyBtn) useJollyBtn.textContent = "🃏 " + translate("useJolly");
-  updateProgress();
-  if (rulesPanel) rulesPanel.innerHTML = translate("rulesText");
-  const withdrawLabel = document.getElementById("withdrawLabel");
-  if (withdrawLabel) withdrawLabel.textContent = translate("withdraw");
+document.querySelector("html").lang = currentLanguage;
+const gameTitle = document.getElementById("gameTitle");
+if (gameTitle) gameTitle.textContent = translate("title");
+const startButton = document.getElementById("startButton");
+if (startButton) startButton.textContent = translate("start");
+const restartBtn = document.getElementById("restartBtn");
+if (restartBtn) restartBtn.textContent = translate("restart");
+const rulesLabel = document.getElementById("rulesLabel");
+if (rulesLabel) rulesLabel.textContent = translate("rules");
+const currentCardLabel = document.getElementById("currentCardLabel");
+if (currentCardLabel) currentCardLabel.textContent = translate("currentCard");
+const betLabel = document.getElementById("betLabel");
+if (betLabel) betLabel.textContent = translate("bet");
+const riskLabel = document.getElementById("riskLabel");
+if (riskLabel) riskLabel.textContent = translate("risk");
+const pointsLabel = document.getElementById("pointsLabel");
+if (pointsLabel) pointsLabel.textContent = translate("points");
+const correctLabel = document.getElementById("correctLabel");
+if (correctLabel) correctLabel.textContent = "✅ " + translate("correct");
+const errorLabel = document.getElementById("errorLabel");
+if (errorLabel) errorLabel.textContent = "❌ " + translate("error");
+const jollyLabel = document.getElementById("jollyLabel");
+if (jollyLabel) jollyLabel.textContent = "🃏 " + translate("jolly");
+if (useJollyBtn) useJollyBtn.textContent = "🃏 " + translate("useJolly");
+updateProgress();
+if (rulesPanel) rulesPanel.innerHTML = translate("rulesText");
+const withdrawLabel = document.getElementById("withdrawLabel");
+if (withdrawLabel) withdrawLabel.textContent = translate("withdraw");
 }
 //Traduzione per cambio lingua
 function translate(key) {
@@ -1021,7 +1096,7 @@ saveMusicState();
 playSound(soundClick);
 location.reload();
 });
-  // 🔹 Ricomincia dopo Withdraw
+// 🔹 Ricomincia dopo Withdraw
 document.getElementById("restartBtnWithdraw").addEventListener("click", () => {
 saveMusicState();
 playSound(soundClick);
