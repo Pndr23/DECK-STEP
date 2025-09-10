@@ -12,6 +12,9 @@ let jollyUsedInThisTurn = false;
 let currentLanguage = "it";
 let currentLevel = "easy";
 let puntataIniziale = parseFloat(document.getElementById("bet").value);
+const correctCountSpan = document.getElementById("correctCount");
+const errorCountSpan = document.getElementById("errorCount");
+const jollyCountSpan = document.getElementById("jollyCount");
 const moltiplicatoriFacile = [1.1,1.2,1.3,1.5,1.8,2,2.2,2.5,3,5];
 const moltiplicatoriMedio = [1.2,1.3,1.5,1.7,2,2.2,2.5,3,3.5,4,4.5,5,6,7,10];
 const moltiplicatoriDifficile = [1.5,1.6,1.8,2,2.2,2.5,3,3.5,4,5,6,7,8,9,10,12,15,20,30,40];
@@ -552,7 +555,6 @@ useJollyBtn.classList.add("hidden");
 }
 }
 function updateScore() {
-document.getElementById("scoreValue").innerText = correctCount;
 correctCountSpan.textContent = correctCount;
 errorCountSpan.textContent = errorCount;
 jollyCountSpan.textContent = jollyCount;
