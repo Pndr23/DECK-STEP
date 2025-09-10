@@ -721,8 +721,10 @@ challengeButtons.appendChild(btn);
 function showVictoryScreen(vincitaTotale) {
 // Suono vittoria
 soundWin.play();
+
 // Nascondi area di gioco
 document.getElementById("gameArea").classList.add("hidden");
+
 // Schermata vittoria
 const victoryScreen = document.createElement("div");
 victoryScreen.style.position = "fixed";
@@ -730,32 +732,33 @@ victoryScreen.style.top = "0";
 victoryScreen.style.left = "0";
 victoryScreen.style.width = "100vw";
 victoryScreen.style.height = "100vh";
-victoryScreen.style.background ="#800000";
+victoryScreen.style.background = "#800000";
 victoryScreen.style.display = "flex";
 victoryScreen.style.flexDirection = "column";
 victoryScreen.style.justifyContent = "center";
 victoryScreen.style.alignItems = "center";
 victoryScreen.style.zIndex = "9999";
-  
+
 // Titolo
 const title = document.createElement("h1");
 title.textContent = "🎆 VITTORIA! 🎆";
 title.style.fontSize = "4rem";
 title.style.marginBottom = "20px";
 title.style.fontFamily = "'Baloo 2', cursive, sans-serif";
-title.style.color= "gold";
-title.style.textShadow= "0 0 10px gold, 0 0 20px orange,0 0 30px red";
+title.style.color = "gold";
+title.style.textShadow = "0 0 10px gold, 0 0 20px orange, 0 0 30px red";
+title.style.animation = "heartbeat 1s infinite";
 
-title.style.animation= "heartbeat 1s infinite";
-const style=document.createElement("style");
-style.textContent='
-@Keyframes heartbeat {
-0%, 100% {transform: scale(1); }
-    25%  {trasform: scale(1.2) }
-    50%  {trasform: scale(1) }
-    75%  {trasform: scale(1.2) }
+// Definizione animazione heartbeat
+const style = document.createElement("style");
+style.textContent = `
+@keyframes heartbeat {
+0%, 100% { transform: scale(1); }
+25% { transform: scale(1.2); }
+50% { transform: scale(1); }
+75% { transform: scale(1.2); }
 }
-':
+`;
 document.head.appendChild(style);
 // Premio
 const prize = document.createElement("p");
@@ -766,8 +769,9 @@ prize.style.padding = "12px 24px";
 prize.style.borderRadius = "25px";
 prize.style.background = "rgba(0,0,0,0.5)";
 prize.style.color = "white";
-prize.style.textAlign ="center";
-// Bottone ricomincia
+prize.style.textAlign = "center";
+
+  // Bottone ricomincia
 const restartBtn = document.createElement("button");
 restartBtn.textContent = "🔁 Ricomincia";
 restartBtn.style.fontSize = "1.5rem";
@@ -783,8 +787,7 @@ victoryScreen.appendChild(title);
 victoryScreen.appendChild(prize);
 victoryScreen.appendChild(restartBtn);
 document.body.appendChild(victoryScreen);
-
-// Brillantini animati
+  // Brillantini animati
 for (let i = 0; i < 30; i++) {
 const spark = document.createElement("div");
 spark.style.position = "fixed";
@@ -798,13 +801,16 @@ spark.style.opacity = "0.8";
 spark.style.transform = "scale(0)";
 spark.style.transition = "transform 1.2s ease-out, opacity 1.2s ease-out";
 document.body.appendChild(spark);
+
 setTimeout(() => {
 spark.style.transform = "scale(5)";
 spark.style.opacity = "0";
 }, 50 + i * 100);
+
 setTimeout(() => spark.remove(), 2000);
 }
 }
+
 // jolly automatico
 function tryAutoJolly(maxErrors) {
 if (jollyFromMinigioco) {
