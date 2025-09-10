@@ -644,16 +644,46 @@ startGame();
 });
 function showGameOverScreen() {
 playSound(soundLose);
-const screen = document.getElementById("gameOverScreen");
-const gameOverText = document.getElementById("gameOverText");
-if (screen) {
-screen.classList.remove("hidden");
-}
-if (gameOverText) {
-gameOverText.textContent = translate("lost") || "Hai perso!";
-}
+// Nasconde tutto dietro
 gameArea.classList.add("hidden");
 gameSetup.classList.add("hidden");
+// Overlay fullscreen bordeaux
+const overlay = document.createElement("div");
+overlay.style.position = "fixed";
+overlay.style.top = "0";
+overlay.style.left = "0";
+overlay.style.width = "100vw";
+overlay.style.height = "100vh";
+overlay.style.background = "#800000"; // bordeaux
+overlay.style.display = "flex";
+overlay.style.flexDirection = "column";
+overlay.style.justifyContent = "center";
+overlay.style.alignItems = "center";
+overlay.style.zIndex = "9999";
+// Testo Game Over
+const text = document.createElement("h1");
+text.textContent = translate("lost") || "Hai perso!";
+text.style.fontSize = "4rem";
+text.style.color = "white";
+text.style.marginBottom = "30px";
+text.style.textAlign = "center";
+// Bottone Ricomincia
+const restartBtn = document.createElement("button");
+restartBtn.textContent = "🔁 Ricomincia";
+restartBtn.style.fontSize = "1.5rem";
+restartBtn.style.padding = "10px 20px";
+restartBtn.style.background = "#28a745";
+restartBtn.style.color = "white";
+restartBtn.style.border = "none";
+restartBtn.style.borderRadius = "10px";
+restartBtn.style.cursor = "pointer";
+restartBtn.onclick = () => {
+playSound(soundClick); // suono al click
+location.reload();
+};
+overlay.appendChild(text);
+overlay.appendChild(restartBtn);
+document.body.appendChild(overlay);
 }
 // Aggiunge un bottone con la logica associata (es. Maggiore/Minore)
 function addButton(text, checkFn) {
