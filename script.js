@@ -730,50 +730,43 @@ victoryScreen.style.top = "0";
 victoryScreen.style.left = "0";
 victoryScreen.style.width = "100vw";
 victoryScreen.style.height = "100vh";
-victoryScreen.style.background = "url('sfondomini.png') center/cover";
+victoryScreen.style.background ="#800000";
 victoryScreen.style.display = "flex";
 victoryScreen.style.flexDirection = "column";
 victoryScreen.style.justifyContent = "center";
 victoryScreen.style.alignItems = "center";
 victoryScreen.style.zIndex = "9999";
-victoryScreen.style.overflow = "hidden";
-
-// Overlay semi-trasparente per leggibilità
-const overlay = document.createElement("div");
-overlay.style.position = "absolute";
-overlay.style.top = "0";
-overlay.style.left = "0";
-overlay.style.width = "100%";
-overlay.style.height = "100%";
-overlay.style.background = "rgba(0,0,0,0.5)";
-victoryScreen.appendChild(overlay);
-
+  
 // Titolo
 const title = document.createElement("h1");
 title.textContent = "🎆 VITTORIA! 🎆";
 title.style.fontSize = "4rem";
 title.style.marginBottom = "20px";
 title.style.fontFamily = "'Baloo 2', cursive, sans-serif";
-title.style.padding = "10px 20px";
-title.style.borderRadius = "15px";
-title.style.background = "rgba(0,0,0,0.6)";
-title.style.color = "white";
-title.style.textShadow = "0 0 15px black, 0 0 20px gold, 0 0 30px orange";
-victoryScreen.appendChild(title);
+title.style.color= "gold";
+title.style.textShadow= "0 0 10px gold, 0 0 20px orange,0 0 30px red";
 
+title.style.animation= "heartbeat 1s infinite";
+const style=document.createElement("style");
+style.textContent='
+@Keyframes heartbeat {
+0%, 100% {transform: scale(1); }
+    25%  {trasform: scale(1.2) }
+    50%  {trasform: scale(1) }
+    75%  {trasform: scale(1.2) }
+}
+':
+document.head.appendChild(style);
 // Premio
 const prize = document.createElement("p");
 prize.textContent = `Hai vinto ${vincitaTotale} crediti!`;
 prize.style.fontSize = "2rem";
 prize.style.marginBottom = "40px";
-prize.style.fontFamily = "'Baloo 2', cursive, sans-serif";
 prize.style.padding = "12px 24px";
 prize.style.borderRadius = "25px";
 prize.style.background = "rgba(0,0,0,0.5)";
 prize.style.color = "white";
-prize.style.textShadow = "0 0 10px black, 0 0 15px yellow";
-victoryScreen.appendChild(prize);
-
+prize.style.textAlign ="center";
 // Bottone ricomincia
 const restartBtn = document.createElement("button");
 restartBtn.textContent = "🔁 Ricomincia";
@@ -785,11 +778,14 @@ restartBtn.style.border = "none";
 restartBtn.style.borderRadius = "10px";
 restartBtn.style.cursor = "pointer";
 restartBtn.onclick = () => location.reload();
-victoryScreen.appendChild(restartBtn);
 
+victoryScreen.appendChild(title);
+victoryScreen.appendChild(prize);
+victoryScreen.appendChild(restartBtn);
 document.body.appendChild(victoryScreen);
+
 // Brillantini animati
-for (let i = 0; i < 40; i++) {
+for (let i = 0; i < 30; i++) {
 const spark = document.createElement("div");
 spark.style.position = "fixed";
 spark.style.width = "6px";
