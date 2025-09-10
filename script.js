@@ -456,11 +456,9 @@ playSound(soundWithdraw);
 const totale = calcolaGuadagno(correctCount);
 logHistoryEvent(`Hai deciso di ritirarti con €${totale.toFixed(2)}`);
 finalizeHistorySession("Ritirato", totale);
-
 // Nasconde tutto dietro
 gameArea.classList.add("hidden");
 gameSetup.classList.add("hidden");
-
 // Overlay fullscreen bordeaux
 const overlay = document.createElement("div");
 overlay.style.position = "fixed";
@@ -473,7 +471,6 @@ overlay.style.display = "flex";
 overlay.style.justifyContent = "center";
 overlay.style.alignItems = "center";
 overlay.style.zIndex = "9999";
-
 // Container centrale con immagine di sfondo
 const container = document.createElement("div");
 container.style.width = "80%";
@@ -485,21 +482,18 @@ container.style.backgroundSize = "cover";
 container.style.backgroundPosition = "center";
 container.style.boxShadow = "0 0 20px rgba(0,0,0,0.5)";
 container.style.textAlign = "center";
-
 // Testo ritirata
 const text = document.createElement("h1");
 text.textContent = "Hai ritirato!";
 text.style.fontSize = "3rem";
 text.style.color = "white";
 text.style.marginBottom = "20px";
-
 // Mostra vincita
 const winnings = document.createElement("p");
 winnings.textContent = `Hai incassato: €${totale.toFixed(2)}`;
 winnings.style.fontSize = "1.5rem";
 winnings.style.color = "white";
 winnings.style.marginBottom = "25px";
-
 // Bottone Ricomincia
 const restartBtn = document.createElement("button");
 restartBtn.textContent = "🔁 Ricomincia";
@@ -514,7 +508,6 @@ restartBtn.onclick = () => {
 playSound(soundClick);
 location.reload();
 };
-
 // Appendi elementi
 container.appendChild(text);
 container.appendChild(winnings);
@@ -522,7 +515,6 @@ container.appendChild(restartBtn);
 overlay.appendChild(container);
 document.body.appendChild(overlay);
 });
-
 // Resetta il gioco alla condizione iniziale
 function resetGame() {
 document.getElementById("gameOverScreen").classList.add("hidden");
@@ -714,16 +706,20 @@ overlay.style.justifyContent = "center";
 overlay.style.alignItems = "center";
 overlay.style.zIndex = "9999";
 
-// Container centrale con immagine di sfondo
+// Container grande come il gioco principale
 const container = document.createElement("div");
-container.style.width = "80%";
-container.style.maxWidth = "500px";
-container.style.padding = "30px";
+container.style.width = "90%";
+container.style.height = "90%";
+container.style.padding = "20px";
 container.style.borderRadius = "15px";
 container.style.backgroundImage = "url('sfondofine.jpg')"; // la tua immagine
 container.style.backgroundSize = "cover";
 container.style.backgroundPosition = "center";
 container.style.boxShadow = "0 0 20px rgba(0,0,0,0.5)";
+container.style.display = "flex";
+container.style.flexDirection = "column";
+container.style.justifyContent = "center";
+container.style.alignItems = "center";
 container.style.textAlign = "center";
 
 // Testo Game Over
@@ -731,12 +727,12 @@ const text = document.createElement("h1");
 text.textContent = translate("lost") || "Hai perso!";
 text.style.fontSize = "3rem";
 text.style.color = "white";
-text.style.marginBottom = "20px";
+text.style.marginBottom = "30px";
 
 // Bottone Ricomincia
 const restartBtn = document.createElement("button");
 restartBtn.textContent = "🔁 Ricomincia";
-restartBtn.style.fontSize = "1.2rem";
+restartBtn.style.fontSize = "1.5rem";
 restartBtn.style.padding = "10px 20px";
 restartBtn.style.background = "#28a745";
 restartBtn.style.color = "white";
@@ -754,6 +750,7 @@ container.appendChild(restartBtn);
 overlay.appendChild(container);
 document.body.appendChild(overlay);
 }
+
 // Aggiunge un bottone con la logica associata (es. Maggiore/Minore)
 function addButton(text, checkFn) {
 const btn = document.createElement("button");
@@ -846,16 +843,20 @@ overlay.style.justifyContent = "center";
 overlay.style.alignItems = "center";
 overlay.style.zIndex = "9999";
 
-// Container centrale con immagine di sfondo
+// Container grande come il gioco principale
 const container = document.createElement("div");
-container.style.width = "80%";
-container.style.maxWidth = "500px";
-container.style.padding = "30px";
+container.style.width = "90%";
+container.style.height = "90%";
+container.style.padding = "20px";
 container.style.borderRadius = "15px";
-container.style.backgroundImage = "url('immagine_vittoria.jpg')"; // la tua immagine
+container.style.backgroundImage = "url('immagine_vittoria.jpg')";
 container.style.backgroundSize = "cover";
 container.style.backgroundPosition = "center";
 container.style.boxShadow = "0 0 20px rgba(0,0,0,0.5)";
+container.style.display = "flex";
+container.style.flexDirection = "column";
+container.style.justifyContent = "center";
+container.style.alignItems = "center";
 container.style.textAlign = "center";
 
 // Titolo
@@ -876,7 +877,7 @@ prize.style.marginBottom = "25px";
 // Bottone Ricomincia
 const restartBtn = document.createElement("button");
 restartBtn.textContent = "🔁 Ricomincia";
-restartBtn.style.fontSize = "1.2rem";
+restartBtn.style.fontSize = "1.5rem";
 restartBtn.style.padding = "10px 20px";
 restartBtn.style.background = "#28a745";
 restartBtn.style.color = "white";
@@ -918,6 +919,7 @@ spark.style.opacity = "0";
 setTimeout(() => spark.remove(), 2000);
 }
 }
+
 
 
 // jolly automatico
