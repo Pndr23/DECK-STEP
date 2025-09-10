@@ -165,8 +165,15 @@ const openBtn = document.getElementById('historyButton');
 const closeBtn = document.getElementById('historyClose');
 const clearBtn = document.getElementById('historyClear');
 const backdrop = document.getElementById('historyBackdrop');
-if (openBtn) openBtn.addEventListener('click', () => { panel.classList.remove('hidden'); renderHistory(); });
-if (closeBtn) closeBtn.addEventListener('click', () => panel.classList.add('hidden'));
+if (openBtn) openBtn.addEventListener('click', () => { 
+panel.classList.remove('hidden'); 
+renderHistory();
+playSound(soundClick); // 🔊 Suono solo quando apri
+});
+if (closeBtn) closeBtn.addEventListener('click', () => {
+panel.classList.add('hidden'); 
+playSound(soundClick); // 🔊 Suono solo quando chiudi
+});
 if (backdrop) backdrop.addEventListener('click', () => panel.classList.add('hidden'));
 if (clearBtn) clearBtn.addEventListener('click', () => {
 if (confirm('Sicuro di cancellare la cronologia?')) {
@@ -382,6 +389,7 @@ document.getElementById("risk").addEventListener("change", () => {
 currentLevel = document.getElementById("risk").value;
 console.log("Difficoltà cambiata a:", currentLevel);
 aggiornaMoltiplicatori();
+playSound(soundClick); 
 });
 const withdrawBtn = document.getElementById("withdrawBtn");
 const startButton = document.getElementById("startButton");
@@ -402,6 +410,7 @@ const languageSelect = document.getElementById("languageSelect");
 const selectBet = document.getElementById("bet");
 selectBet.addEventListener("change", () => {
 puntataIniziale = parseFloat(selectBet.value);
+playSound(soundClick);
 });
 rulesToggle.addEventListener("click", () => {
 rulesPanel.classList.toggle("hidden");
@@ -441,6 +450,7 @@ updateJollyDisplay();
 languageSelect.addEventListener("change", () => {
 currentLanguage = languageSelect.value;
 updateLanguage();
+playSound(soundClick);
 });
 withdrawBtn.addEventListener("click", () => {
 playSound(soundWithdraw);
@@ -652,7 +662,6 @@ btn.textContent = text;
 btn.classList.add("green-button");
 btn.style.color = "white";
 btn.onclick = () => {
-playSound(soundClick);
 console.log("clicked", text);
 const drawnCard = drawCard(currentCard.value);
 const cardName = `${drawnCard.value}${drawnCard.suit}`;
