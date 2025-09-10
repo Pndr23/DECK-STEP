@@ -456,9 +456,11 @@ playSound(soundWithdraw);
 const totale = calcolaGuadagno(correctCount);
 logHistoryEvent(`Hai deciso di ritirarti con €${totale.toFixed(2)}`);
 finalizeHistorySession("Ritirato", totale);
+
 // Nasconde tutto dietro
 gameArea.classList.add("hidden");
 gameSetup.classList.add("hidden");
+
 // Overlay fullscreen bordeaux
 const overlay = document.createElement("div");
 overlay.style.position = "fixed";
@@ -471,33 +473,40 @@ overlay.style.display = "flex";
 overlay.style.justifyContent = "center";
 overlay.style.alignItems = "center";
 overlay.style.zIndex = "9999";
-// Container centrale con immagine di sfondo
+
+// Container grande come il gioco principale
 const container = document.createElement("div");
-container.style.width = "80%";
-container.style.maxWidth = "500px";
-container.style.padding = "30px";
+container.style.width = "90%";
+container.style.height = "90%";
+container.style.padding = "20px";
 container.style.borderRadius = "15px";
-container.style.backgroundImage = "url('sfondofine.jpg')"; // la tua immagine
+container.style.backgroundImage = "url('sfondofine.jpg')";
 container.style.backgroundSize = "cover";
 container.style.backgroundPosition = "center";
 container.style.boxShadow = "0 0 20px rgba(0,0,0,0.5)";
+container.style.display = "flex";
+container.style.flexDirection = "column";
+container.style.justifyContent = "center";
+container.style.alignItems = "center";
 container.style.textAlign = "center";
+
 // Testo ritirata
 const text = document.createElement("h1");
 text.textContent = "Hai ritirato!";
 text.style.fontSize = "3rem";
 text.style.color = "white";
 text.style.marginBottom = "20px";
+
 // Mostra vincita
 const winnings = document.createElement("p");
 winnings.textContent = `Hai incassato: €${totale.toFixed(2)}`;
 winnings.style.fontSize = "1.5rem";
 winnings.style.color = "white";
 winnings.style.marginBottom = "25px";
+
 // Bottone Ricomincia
-const restartBtn = document.createElement("button");
-restartBtn.textContent = "🔁 Ricomincia";
-restartBtn.style.fontSize = "1.2rem";
+const restartBtn = document.createElement("button");restartBtn.textContent = "🔁 Ricomincia";
+restartBtn.style.fontSize = "1.5rem";
 restartBtn.style.padding = "10px 20px";
 restartBtn.style.background = "#28a745";
 restartBtn.style.color = "white";
