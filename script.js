@@ -796,6 +796,7 @@ const result = checkFn(drawnCard);
 if (result) {
 correctCount++;
 correctStreak++;
+updateScore();
 playSound(soundCorrect);
 if (tappe === tappeMassime[currentLevel]) {
 gameEnded = true;
