@@ -443,7 +443,6 @@ useJollyBtn.addEventListener("click", () => {
 if (jollyCount > 0 && errorCount > 0) {
 jollyCount--;
 errorCount--;
-updateScore();
 updateJollyDisplay();
 }
 });
@@ -477,7 +476,6 @@ tappe = 0;
 correctStreak = 0;
 moltiplicatoreBonus = 0;
 jollyUsedInThisTurn = false;
-updateScore();
 updateProgress();
 updateJollyButton();
 }
@@ -488,12 +486,6 @@ useJollyBtn.classList.remove("hidden");
 } else {
 useJollyBtn.classList.add("hidden");
 }
-}
-function updateScore() {
-document.getElementById("scoreValue").innerText = correctCount;
-correctCountSpan.textContent = correctCount;
-errorCountSpan.textContent = errorCount;
-jollyCountSpan.textContent = jollyCount;
 }
 //tappe 
 function updateProgress() {
@@ -747,7 +739,6 @@ showGameOverScreen();
 if (!gameEnded) {
 generateChallenge();
 }
-updateScore();
 updateProgress();
 updateJollyButton();
 aggiornaGuadagno(correctCount);
@@ -864,7 +855,6 @@ if (jollyCount > 0 && errorCount >= maxErrors) {
 jollyCount--;
 errorCount--;
 updateJollyDisplay();
-updateScore();
 alert("Jolly usato automaticamente!");
 logHistoryEvent("Jolly usato automaticamente!");
 }
