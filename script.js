@@ -343,6 +343,7 @@ showMinigiocoMessage("Hai vinto 1 jolly!");
 } else if (el.dataset.type === "moltiplicatore") {
 playSound(soundMultiplier);
 showMinigiocoMessage(`Moltiplicatore x${el.dataset.value}!`);
+updateScore();
 }
 }, 300);
 el.addEventListener(
@@ -443,6 +444,7 @@ useJollyBtn.addEventListener("click", () => {
 if (jollyCount > 0 && errorCount > 0) {
 jollyCount--;
 errorCount--;
+updateScore();
 updateJollyDisplay();
 }
 });
@@ -547,6 +549,12 @@ useJollyBtn.classList.remove("hidden");
 } else {
 useJollyBtn.classList.add("hidden");
 }
+}
+function updateScore() {
+document.getElementById("scoreValue").innerText = correctCount;
+correctCountSpan.textContent = correctCount;
+errorCountSpan.textContent = errorCount;
+jollyCountSpan.textContent = jollyCount;
 }
 //tappe
 function updateProgress() {
@@ -822,6 +830,7 @@ showGameOverScreen();
 if (!gameEnded) {
 generateChallenge();
 }
+updateScore();
 updateProgress();
 updateJollyButton();
 aggiornaGuadagno(correctCount);
@@ -942,6 +951,7 @@ jollyCount--;
 errorCount--;
 updateJollyDisplay();
 alert("Jolly usato automaticamente!");
+updateScore();
 logHistoryEvent("Jolly usato automaticamente!");
 }
 }
