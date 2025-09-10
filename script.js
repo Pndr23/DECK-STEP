@@ -790,7 +790,11 @@ restartBtn.style.color = "white";
 restartBtn.style.border = "none";
 restartBtn.style.borderRadius = "10px";
 restartBtn.style.cursor = "pointer";
-restartBtn.onclick = () => location.reload();
+restartBtn.style.cursor = "pointer";
+restartBtn.onclick = () => {
+playSound(soundClick);  // 🔊 Suono al click
+location.reload();
+};
 
 victoryScreen.appendChild(title);
 victoryScreen.appendChild(prize);
@@ -994,11 +998,13 @@ aggiornaMoltiplicatori();
 // 🔹 Ricomincia dopo Game Over
 document.getElementById("restartBtn").addEventListener("click", () => {
 saveMusicState();
+playSound(soundClick);
 location.reload();
 });
   // 🔹 Ricomincia dopo Withdraw
 document.getElementById("restartBtnWithdraw").addEventListener("click", () => {
 saveMusicState();
+playSound(soundClick);
 location.reload();
 });
 // 🔹 Usa Jolly manualmente
