@@ -32,7 +32,7 @@ let audioOn = localStorage.getItem("audioOn") !== "false";
 // Sblocca i suoni e la musica al primo click/tap (necessario per policy browser)
 function unlockAudio() {
 const sounds = [
-soundClick, soundWithdraw, soundWin, soundLose,
+soundWithdraw, soundWin, soundLose,
 soundCorrect, soundWrong, soundFlip,
 soundMinigame, soundJolly, soundMultiplier
 ];
