@@ -339,6 +339,7 @@ if (el.dataset.type === "jolly") {
 playSound(soundJolly);
 jollyCount++;
 updateJollyDisplay();
+updateScore();
 showMinigiocoMessage("Hai vinto 1 jolly!");
 } else if (el.dataset.type === "moltiplicatore") {
 playSound(soundMultiplier);
