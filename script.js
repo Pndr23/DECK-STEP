@@ -1004,6 +1004,10 @@ updateProgress();
 if (rulesPanel) rulesPanel.innerHTML = translate("rulesText");
 const withdrawLabel = document.getElementById("withdrawLabel");
 if (withdrawLabel) withdrawLabel.textContent = translate("withdraw");
+const drawnCardLabel = document.getElementById("drawnCardLabel");
+if (drawnCardLabel) drawnCardLabel.textContent = translate("drawnCard");
+const betBadgeLabel = document.getElementById("betBadgeLabel");
+if (betBadgeLabel) betLabel.textContent = translate("bet");
 }
 //Traduzione per cambio lingua
 function translate(key) {
