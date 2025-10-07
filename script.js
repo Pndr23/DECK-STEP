@@ -1002,6 +1002,7 @@ if (betBadge) {
 const betValue = parseFloat(document.getElementById("bet").value).toFixed(2);
 betBadge.textContent = `${translate("bet")} €${betValue}`;
 }
+}
 //Traduzione per cambio lingua
 function translate(key) {
 const t = {
