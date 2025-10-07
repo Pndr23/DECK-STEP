@@ -498,20 +498,22 @@ container.style.textAlign = "center";
 
 // Testo ritirata
 const text = document.createElement("h1");
-text.textContent = "Hai ritirato!";
+text.textContent = translate("withdrawTitle") || "Hai ritirato!";
 text.style.fontSize = "3rem";
 text.style.color = "white";
 text.style.marginBottom = "20px";
 
 // Mostra vincita
 const winnings = document.createElement("p");
-winnings.textContent = `Hai incassato: €${totale.toFixed(2)}`;
+const msg = translate("withdrawMsg") || "Hai incassato: €{amount}";
+winnings.textContent = msg.replace("{amount}", totale.toFixed(2));
 winnings.style.fontSize = "1.5rem";
 winnings.style.color = "white";
 winnings.style.marginBottom = "25px";
 
 // Bottone Ricomincia
 const restartBtn = document.createElement("button");restartBtn.textContent = "🔁 Ricomincia";
+restartBtn.textContent = translate("restart") || "🔁 Ricomincia";
 restartBtn.style.fontSize = "1.5rem";
 restartBtn.style.padding = "10px 20px";
 restartBtn.style.background = "#28a745";
@@ -754,7 +756,7 @@ text.style.marginBottom = "30px";
 
 // Bottone Ricomincia
 const restartBtn = document.createElement("button");
-restartBtn.textContent = "🔁 Ricomincia";
+restartBtn.textContent = translate("restart") || "🔁 Ricomincia";
 restartBtn.style.fontSize = "1.5rem";
 restartBtn.style.padding = "10px 20px";
 restartBtn.style.background = "#28a745";
@@ -850,8 +852,7 @@ challengeButtons.appendChild(btn);
 function showVictoryScreen(vincitaTotale) {
 // Suono vittoria
 soundWin.play();
-
-// Nascondi area di gioco
+// Nasconde area di gioco
 gameArea.classList.add("hidden");
 gameSetup.classList.add("hidden");
 
@@ -867,7 +868,6 @@ overlay.style.display = "flex";
 overlay.style.justifyContent = "center";
 overlay.style.alignItems = "center";
 overlay.style.zIndex = "9999";
-
 // Container grande come il gioco principale
 const container = document.createElement("div");
 container.style.width = "90%";
@@ -886,25 +886,23 @@ container.style.flexDirection = "column";
 container.style.justifyContent = "center";
 container.style.alignItems = "center";
 container.style.textAlign = "center";
-
 // Titolo
 const title = document.createElement("h1");
-title.textContent = "🎆 VITTORIA! 🎆";
+title.textContent = translate("victoryTitle") || "🎆 VITTORIA! 🎆";
 title.style.fontSize = "3rem";
 title.style.color = "gold";
 title.style.marginBottom = "20px";
 title.style.textShadow = "0 0 10px gold, 0 0 20px orange, 0 0 30px red";
-
-// Premio
+// Testo vinicta Localizzato
 const prize = document.createElement("p");
-prize.textContent = `Hai vinto ${vincitaTotale} crediti!`;
+const winText = translate("victoryWin") || "Hai vinto {amount} crediti!";
+prize.textContent = winText.replace("{amount}", vincitaTotale);
 prize.style.fontSize = "1.5rem";
 prize.style.color = "white";
 prize.style.marginBottom = "25px";
-
 // Bottone Ricomincia
 const restartBtn = document.createElement("button");
-restartBtn.textContent = "🔁 Ricomincia";
+restartBtn.textContent = translate("restart") || "🔁 Ricomincia";
 restartBtn.style.fontSize = "1.5rem";
 restartBtn.style.padding = "10px 20px";
 restartBtn.style.background = "#28a745";
@@ -917,13 +915,11 @@ playSound(soundClick);
 location.reload();
 };
 
-// Appendi elementi
 container.appendChild(title);
 container.appendChild(prize);
 container.appendChild(restartBtn);
 overlay.appendChild(container);
 document.body.appendChild(overlay);
-
 // Brillantini animati
 for (let i = 0; i < 30; i++) {
 const spark = document.createElement("div");
@@ -938,18 +934,13 @@ spark.style.opacity = "0.8";
 spark.style.transform = "scale(0)";
 spark.style.transition = "transform 1.2s ease-out, opacity 1.2s ease-out";
 document.body.appendChild(spark);
-
 setTimeout(() => {
 spark.style.transform = "scale(5)";
 spark.style.opacity = "0";
 }, 50 + i * 100);
-
 setTimeout(() => spark.remove(), 2000);
 }
 }
-
-
-
 // jolly automatico
 function tryAutoJolly(maxErrors) {
 if (jollyFromMinigioco) {
@@ -1006,8 +997,10 @@ const withdrawLabel = document.getElementById("withdrawLabel");
 if (withdrawLabel) withdrawLabel.textContent = translate("withdraw");
 const drawnCardLabel = document.getElementById("drawnCardLabel");
 if (drawnCardLabel) drawnCardLabel.textContent = translate("drawnCard");
-const betBadgeLabel = document.getElementById("betBadgeLabel");
-if (betBadgeLabel) betLabel.textContent = translate("bet");
+const betBadge = document.getElementById("betBadge");
+if (betBadge) {
+const betValue = parseFloat(document.getElementById("bet").value).toFixed(2);
+betBadge.textContent = `${translate("bet")} €${betValue}`;
 }
 //Traduzione per cambio lingua
 function translate(key) {
@@ -1041,6 +1034,12 @@ stage: "Tappa",
 bet: "Puntata:",
 risk: "Modalità rischio:",
 lost: "Hai perso!",
+victoryTitle: "🎆 VITTORIA! 🎆",
+victoryWin: "Hai vinto {amount} crediti!",
+withdrawTitle: "💰 RITIRO!",
+withdrawMsg: "Hai incassato: €{amount}",
+gameOverTitle: "💀 GAME OVER",
+gameOverMsg: "Meglio fortuna la prossima volta!",
 rulesText: `<p>Benvenuto in <strong>Deck Step</strong>! Il tuo obiettivo è completare 10-15-20 tappe indovinando le carte successive e accumulando vincite.</p>
 <ul>
 <li>Scegli la <strong>puntata iniziale</strong> (€0,10–€5) e la difficoltà (Facile, Media, Difficile).</li>
@@ -1081,6 +1080,12 @@ stage: "Stage",
 bet: "Bet:",
 risk: "Risk mode:",
 lost: "You lost!",
+victoryTitle: "🎆 VICTORY! 🎆",
+victoryWin: "You won {amount} credits!",  
+withdrawTitle: "💰 WITHDRAW!",
+withdrawMsg: "You cashed out: €{amount}",
+gameOverTitle: "💀 GAME OVER",
+gameOverMsg: "Better luck next time!",
 rulesText: `<p>Welcome to <strong>Deck Step</strong>! Your goal is to complete 10-15-20 stages by guessing the next cards and accumulating winnings.</p>
 <ul>
 <li>Choose your <strong>starting bet</strong> (€0.10–€5) and difficulty (Easy, Medium, Hard).</li>
