@@ -1127,23 +1127,27 @@ if (wasPlaying) {
 backgroundMusic.play().catch(() => {});
 }
 }
+  
 document.addEventListener("DOMContentLoaded", () => {
 currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
 languageSelect.value = currentLanguage;
 updateLanguage();
 aggiornaMoltiplicatori();
+  
 // 🔹 Ricomincia dopo Game Over
 document.getElementById("restartBtn").addEventListener("click", () => {
 saveMusicState();
 playSound(soundClick);
 location.reload();
 });
+  
 // 🔹 Ricomincia dopo Withdraw
 document.getElementById("restartBtnWithdraw").addEventListener("click", () => {
 saveMusicState();
 playSound(soundClick);
 location.reload();
 });
+  
 // 🔹 Usa Jolly manualmente
 document.getElementById("useJollyBtn").addEventListener("click", () => {
 if (jollyCount > 0 && !jollyUsedInThisTurn) {
@@ -1153,6 +1157,7 @@ jollyUsedInThisTurn = true;
 alert("Hai usato il Jolly manualmente!");
 }
 });
+  
 // 🔹 Scala grafica area di gioco
 const gameArea = document.getElementById("gameArea");
 gameArea.style.transform = "scale(0.90)";
@@ -1160,4 +1165,3 @@ gameArea.style.transformOrigin = "top center";
 // 🔹 Ripristina musica dopo reload
 restoreMusicState();
 });
-}
