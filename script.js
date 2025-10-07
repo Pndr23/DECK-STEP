@@ -1160,3 +1160,4 @@ gameArea.style.transformOrigin = "top center";
 // 🔹 Ripristina musica dopo reload
 restoreMusicState();
 });
+}
