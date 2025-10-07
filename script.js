@@ -982,13 +982,13 @@ const betLabel = document.getElementById("betLabel");
 if (betLabel) betLabel.textContent = translate("bet");
 const riskLabel = document.getElementById("riskLabel");
 if (riskLabel) riskLabel.textContent = translate("risk");
-const riskModeSelect = document.getElementById("riskMode");
-if (riskModeSelect) {
-  for (const option of riskModeSelect.options) {
-    if (option.value === "easy") option.text = translate("easy");
-    else if (option.value === "medium") option.text = translate("medium");
-    else if (option.value === "hard") option.text = translate("hard");
-  }
+const riskSelect = document.getElementById("risk");
+if (riskSelect) {
+for (const option of riskSelect.options) {
+if (option.value === "easy") option.text = translate("easy");
+else if (option.value === "medium") option.text = translate("medium");
+else if (option.value === "hard") option.text = translate("hard");
+}
 }
 const pointsLabel = document.getElementById("pointsLabel");
 if (pointsLabel) pointsLabel.textContent = translate("points");
