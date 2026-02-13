@@ -368,7 +368,7 @@ popup.style.display = "none";
 gameArea.style.display = gameAreaOriginalDisplay;
 window.removeEventListener("resize", resizeMinigioco);
 }, 1800);
-;
+};
 });
   closeBtn.onclick = () => {
 if (!minigiocoAttivo) return;
