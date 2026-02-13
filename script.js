@@ -248,27 +248,24 @@ function showMinigiocoJolly(callback) {
     if (minigiocoAttivo) return;
     minigiocoAttivo = true;
     minigiocoCallback = callback;
+    
     const popup = document.getElementById("minigiocoJolly");
+    
     if (gameAreaOriginalDisplay === null) {
         gameAreaOriginalDisplay = getComputedStyle(gameArea).display;
     }
-    gameArea.style.display = "none";
-    popup.style.display = "flex";
-    popup.style.flexDirection = "column";
-    popup.style.alignItems = "center";
-    popup.style.justifyContent = "center";
-    popup.style.width = "100%";
-    popup.style.height = "100vh";
-    popup.style.backgroundColor = "#800020";
-    popup.style.backgroundImage = "url('sfondomini.png')";
-    popup.style.backgroundPosition = "center";
-    popup.style.backgroundSize = "cover";
 
-    // --- SISTEMAZIONE TRADUZIONE TITOLO ---
-    // Poiché nell'HTML il titolo è un <h2> senza ID, lo cerchiamo così:
+    // 1. GESTIONE VISIBILITÀ
+    gameArea.style.display = "none";
+    // Usiamo setProperty per essere sicuri che vinca il "flex" sul "none" del CSS
+    popup.style.setProperty("display", "flex", "important"); 
+
+    // 2. TRADUZIONE E STILE TITOLO
     const title = popup.querySelector("h2");
     if (title) {
-        title.textContent = translate("miniTitle"); // Usa la traduzione
+        title.textContent = translate("miniTitle"); // Mette "PICK A CARD" o "SCEGLI UNA CARTA"
+        title.style.order = "1"; // Lo forza in alto
+        // Lasciamo che il colore e la dimensione vengano dal CSS !important
     }
     
     const cardElems = [
@@ -278,29 +275,27 @@ function showMinigiocoJolly(callback) {
     
     const closeBtn = document.getElementById("minigiocoCloseBtn");
     if (closeBtn) {
-        closeBtn.textContent = translate("miniCancel"); // Traduce il tasto Annulla
+        closeBtn.textContent = translate("miniCancel"); 
+        closeBtn.style.order = "3"; // Lo forza in basso
     }
 
- function resizeMinigioco() {
+    // 3. RIDIMENSIONAMENTO CARTE
+    function resizeMinigioco() {
         let screenWidth = window.innerWidth;
         cardElems.forEach(c => {
             if (screenWidth < 600) {
-                c.style.width = "110px"; 
-                c.style.height = "165px";
+                c.style.width = "120px"; 
+                c.style.height = "180px";
             } else {
-                c.style.width = "180px"; 
-                c.style.height = "260px";
+                c.style.width = "190px"; 
+                c.style.height = "270px";
             }
             c.style.order = "2"; // Le carte restano al centro
         });
 
         if (closeBtn) {
-            closeBtn.style.order = "3"; // Il bottone resta in basso
             closeBtn.style.marginTop = screenWidth < 600 ? "15px" : "30px";
         }
-
-        // Centra tutto verticalmente
-        popup.style.justifyContent = "center";
     }
 
     resizeMinigioco();
