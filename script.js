@@ -285,9 +285,6 @@ function showMinigiocoJolly(callback) {
         let screenWidth = window.innerWidth;
         if (title) {
             title.style.order = "1";
-            title.style.fontSize = screenWidth < 600 ? "0.8em" : "1.8em";
-            title.style.color = "white";
-            title.style.marginBottom = screenWidth < 600 ? "6px" : "15px";
             title.style.textAlign = "center";
         }
         cardElems.forEach(c => {
@@ -295,11 +292,9 @@ function showMinigiocoJolly(callback) {
             if (screenWidth < 600) {
                 c.style.width = "90px";
                 c.style.height = "150px";
-                c.style.margin = "0 4px";
             } else {
                 c.style.width = "160px";
                 c.style.height = "230px";
-                c.style.margin = "0 12px";
             }
         });
         if (closeBtn) {
