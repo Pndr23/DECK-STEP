@@ -281,29 +281,26 @@ function showMinigiocoJolly(callback) {
         closeBtn.textContent = translate("miniCancel"); // Traduce il tasto Annulla
     }
 
-    function resizeMinigioco() {
+ function resizeMinigioco() {
         let screenWidth = window.innerWidth;
-        if (title) {
-            title.style.order = "1";
-            title.style.textAlign = "center";
-        }
         cardElems.forEach(c => {
-            c.style.order = "2";
             if (screenWidth < 600) {
-                c.style.width = "90px";
-                c.style.height = "150px";
+                c.style.width = "110px"; 
+                c.style.height = "165px";
             } else {
-                c.style.width = "160px";
-                c.style.height = "230px";
+                c.style.width = "180px"; 
+                c.style.height = "260px";
             }
+            c.style.order = "2"; // Le carte restano al centro
         });
+
         if (closeBtn) {
-            closeBtn.style.order = "3";
-            closeBtn.style.marginTop = screenWidth < 600 ? "10px" : "25px";
-            closeBtn.style.fontSize = screenWidth < 600 ? "0.75em" : "1.1em";
-            closeBtn.style.padding = screenWidth < 600 ? "4px 8px" : "8px 16px";
+            closeBtn.style.order = "3"; // Il bottone resta in basso
+            closeBtn.style.marginTop = screenWidth < 600 ? "15px" : "30px";
         }
-        popup.style.justifyContent = screenWidth < 600 ? "flex-start" : "center";
+
+        // Centra tutto verticalmente
+        popup.style.justifyContent = "center";
     }
 
     resizeMinigioco();
