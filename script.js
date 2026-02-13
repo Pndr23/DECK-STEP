@@ -243,129 +243,134 @@ document.getElementById("startButton").addEventListener("click", () => {
 createBetBadge();
 });
 // Mostra il minigioco Jolly e gestisce la scelta
-function showMinigiocoMessage(text) {
-const msg = document.getElementById("minigiocoMessage");
-if (!msg) return;
-msg.textContent = text;
-msg.classList.add("show");
-setTimeout(() => msg.classList.remove("show"), 2500);
-}
 function showMinigiocoJolly(callback) {
-playSound(soundMinigame);
-if (minigiocoAttivo) return;
-minigiocoAttivo = true;
-minigiocoCallback = callback;
-const popup = document.getElementById("minigiocoJolly");
-if (gameAreaOriginalDisplay === null) {
-gameAreaOriginalDisplay = getComputedStyle(gameArea).display;
-}
-gameArea.style.display = "none";
-popup.style.display = "flex";
-popup.style.flexDirection = "column";
-popup.style.alignItems = "center";
-popup.style.justifyContent = "center";
-popup.style.width = "100%";
-popup.style.height = "100vh";
-popup.style.backgroundColor = "#800020";
-popup.style.backgroundImage = "url('sfondomini.png')";
-popup.style.backgroundPosition = "center";
-popup.style.backgroundSize = "cover";
-const title = document.getElementById("minigiocoTitle");
-const cardElems = [
-document.getElementById("minicard1"),
-document.getElementById("minicard2")
-];
-const closeBtn = document.getElementById("minigiocoCloseBtn");
-// 🔹 Resize dinamico
-function resizeMinigioco() {
-let screenWidth = window.innerWidth;
-if (title) {
-title.style.order = "1";
-title.style.fontSize = screenWidth < 600 ? "0.8em" : "1.8em";
-title.style.color = "white";
-title.style.marginBottom = screenWidth < 600 ? "6px" : "15px";
-title.style.textAlign = "center";
-}
-cardElems.forEach(c => {
-c.style.order = "2";
-if (screenWidth < 600) {
-c.style.width = "90px";
-c.style.height = "150px";
-c.style.margin = "0 4px";
-} else {
-c.style.width = "160px";
-c.style.height = "230px";
-c.style.margin = "0 12px";
-}
-});
-if (closeBtn) {
-closeBtn.style.order = "3";
-closeBtn.style.marginTop = screenWidth < 600 ? "10px" : "25px";
-closeBtn.style.fontSize = screenWidth < 600 ? "0.75em" : "1.1em";
-closeBtn.style.padding = screenWidth < 600 ? "4px 8px" : "8px 16px";
-}
-popup.style.justifyContent = screenWidth < 600 ? "flex-start" : "center";
-}
-resizeMinigioco();
-window.addEventListener("resize", resizeMinigioco);
-// 🔹 Carte del minigioco
-const jollyImgSrc = "jolly.png";
-const moltiplicatoreScelto = Math.floor(Math.random() * 10) + 1;
-const suitsLetters = ["C", "P", "F", "Q"];
-const suitLetter = suitsLetters[Math.floor(Math.random() * suitsLetters.length)];
-const moltiplicatoreImgSrc = `cards/card_${moltiplicatoreScelto}${suitLetter}.png`;
-let carte = [
-{ type: "jolly", img: jollyImgSrc },
-{ type: "moltiplicatore", img: moltiplicatoreImgSrc, value: moltiplicatoreScelto }
-];
-carte.sort(() => Math.random() - 0.5);
-cardElems.forEach((el, i) => {
-el.src = "cards/card_back.png";
-el.classList.remove("flipped", "selected");
-el.classList.add("covered");
-el.style.cursor = "pointer";
-el.dataset.type = carte[i].type;
-el.dataset.img = carte[i].img;
-if (carte[i].type === "moltiplicatore") el.dataset.value = carte[i].value;
-el.onclick = () => {
-if (!minigiocoAttivo) return;
-minigiocoAttivo = false;
-cardElems.forEach(c => c.classList.remove("covered"));
-el.classList.add("card-flip");
-setTimeout(() => {
-el.src = el.dataset.img;
-el.classList.add("selected");
-if (el.dataset.type === "jolly") {
-playSound(soundJolly);
-jollyCount++;
-updateJollyDisplay();
-updateScore();
-showMinigiocoMessage("Hai vinto 1 jolly!");
+    playSound(soundMinigame);
+    if (minigiocoAttivo) return;
+    minigiocoAttivo = true;
+    minigiocoCallback = callback;
+    const popup = document.getElementById("minigiocoJolly");
+    if (gameAreaOriginalDisplay === null) {
+        gameAreaOriginalDisplay = getComputedStyle(gameArea).display;
+    }
+    gameArea.style.display = "none";
+    popup.style.display = "flex";
+    popup.style.flexDirection = "column";
+    popup.style.alignItems = "center";
+    popup.style.justifyContent = "center";
+    popup.style.width = "100%";
+    popup.style.height = "100vh";
+    popup.style.backgroundColor = "#800020";
+    popup.style.backgroundImage = "url('sfondomini.png')";
+    popup.style.backgroundPosition = "center";
+    popup.style.backgroundSize = "cover";
+
+    // --- SISTEMAZIONE TRADUZIONE TITOLO ---
+    // Poiché nell'HTML il titolo è un <h2> senza ID, lo cerchiamo così:
+    const title = popup.querySelector("h2");
+    if (title) {
+        title.textContent = translate("miniTitle"); // Usa la traduzione
+    }
+    
+    const cardElems = [
+        document.getElementById("minicard1"),
+        document.getElementById("minicard2")
+    ];
+    
+    const closeBtn = document.getElementById("minigiocoCloseBtn");
+    if (closeBtn) {
+        closeBtn.textContent = translate("miniCancel"); // Traduce il tasto Annulla
+    }
+
+    function resizeMinigioco() {
+        let screenWidth = window.innerWidth;
+        if (title) {
+            title.style.order = "1";
+            title.style.fontSize = screenWidth < 600 ? "0.8em" : "1.8em";
+            title.style.color = "white";
+            title.style.marginBottom = screenWidth < 600 ? "6px" : "15px";
+            title.style.textAlign = "center";
+        }
+        cardElems.forEach(c => {
+            c.style.order = "2";
+            if (screenWidth < 600) {
+                c.style.width = "90px";
+                c.style.height = "150px";
+                c.style.margin = "0 4px";
+            } else {
+                c.style.width = "160px";
+                c.style.height = "230px";
+                c.style.margin = "0 12px";
+            }
+        });
+        if (closeBtn) {
+            closeBtn.style.order = "3";
+            closeBtn.style.marginTop = screenWidth < 600 ? "10px" : "25px";
+            closeBtn.style.fontSize = screenWidth < 600 ? "0.75em" : "1.1em";
+            closeBtn.style.padding = screenWidth < 600 ? "4px 8px" : "8px 16px";
+        }
+        popup.style.justifyContent = screenWidth < 600 ? "flex-start" : "center";
+    }
+
+    resizeMinigioco();
+    window.addEventListener("resize", resizeMinigioco);
+
+    const jollyImgSrc = "jolly.png";
+    const moltiplicatoreScelto = Math.floor(Math.random() * 10) + 1;
+    const suitsLetters = ["C", "P", "F", "Q"];
+    const suitLetter = suitsLetters[Math.floor(Math.random() * suitsLetters.length)];
+    const moltiplicatoreImgSrc = `cards/card_${moltiplicatoreScelto}${suitLetter}.png`;
+    
+    let carte = [
+        { type: "jolly", img: jollyImgSrc },
+        { type: "moltiplicatore", img: moltiplicatoreImgSrc, value: moltiplicatoreScelto }
+    ];
+    carte.sort(() => Math.random() - 0.5);
+
+    cardElems.forEach((el, i) => {
+        el.src = "cards/card_back.png";
+        el.classList.remove("flipped", "selected");
+        el.classList.add("covered");
+        el.style.cursor = "pointer";
+        el.dataset.type = carte[i].type;
+        el.dataset.img = carte[i].img;
+        if (carte[i].type === "moltiplicatore") el.dataset.value = carte[i].value;
+
+        el.onclick = () => {
+            if (!minigiocoAttivo) return;
+            minigiocoAttivo = false;
+            cardElems.forEach(c => c.classList.remove("covered"));
+            el.classList.add("card-flip");
+            setTimeout(() => {
+                el.src = el.dataset.img;
+                el.classList.add("selected");
+                if (el.dataset.type === "jolly") {
+                    playSound(soundJolly);
+                    jollyCount++;
+                    updateJollyDisplay();
+                    updateScore();
+                    // MESSAGGIO TRADOTTO
+                    showMinigiocoMessage(translate("miniJollyWin"));
 } else if (el.dataset.type === "moltiplicatore") {
 playSound(soundMultiplier);
-showMinigiocoMessage(`Moltiplicatore x${el.dataset.value}!`);
+// MESSAGGIO TRADOTTO CON VALORE
+showMinigiocoMessage(translate("miniMultWin").replace("{val}", el.dataset.value));
 updateScore();
-}
+}           
 }, 300);
-el.addEventListener(
-"animationend",
-() => {
+el.addEventListener("animationend", () => {
 el.classList.remove("card-flip");
-},
-{ once: true }
-);
+}, { once: true });
+
 setTimeout(() => {
-if (minigiocoCallback)
-minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
+if (minigiocoCallback) minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
 minigiocoCallback = null;
 popup.style.display = "none";
 gameArea.style.display = gameAreaOriginalDisplay;
 window.removeEventListener("resize", resizeMinigioco);
 }, 1800);
-};
+;
 });
-// 🔹 Chiudi minigioco
-closeBtn.onclick = () => {
+  closeBtn.onclick = () => {
 if (!minigiocoAttivo) return;
 minigiocoAttivo = false;
 minigiocoCallback = null;
@@ -1052,6 +1057,10 @@ withdrawTitle: "💰 RITIRO!",
 withdrawMsg: "Hai incassato: €{amount}",
 gameOverTitle: "💀 GAME OVER",
 gameOverMsg: "Meglio fortuna la prossima volta!",
+miniTitle: "Scegli una carta",
+miniJollyWin: "Hai vinto 1 Jolly!",
+miniMultWin: "Moltiplicatore x{val}!",
+miniCancel: "Annulla",
 rulesText: `<p>Benvenuto in <strong>Deck Step</strong>! Il tuo obiettivo è completare 10-15-20 tappe indovinando le carte successive e accumulando vincite.</p>
 <ul>
 <li>Scegli la <strong>puntata iniziale</strong> (€0,10–€5) e la difficoltà (Facile, Media, Difficile).</li>
@@ -1101,6 +1110,10 @@ withdrawTitle: "💰 WITHDRAW!",
 withdrawMsg: "You cashed out: €{amount}",
 gameOverTitle: "💀 GAME OVER",
 gameOverMsg: "Better luck next time!",
+miniTitle: "Pick a card",
+miniJollyWin: "You won 1 Joker!",
+miniMultWin: "Multiplier x{val}!",
+miniCancel: "Cancel",
 rulesText: `<p>Welcome to <strong>Deck Step</strong>! Your goal is to complete 10-15-20 stages by guessing the next cards and accumulating winnings.</p>
 <ul>
 <li>Choose your <strong>starting bet</strong> (€0.10–€5) and difficulty (Easy, Medium, Hard).</li>
