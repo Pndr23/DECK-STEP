@@ -144,12 +144,14 @@ background:#333; color:#fff; cursor:pointer;">
 <h1 id="gameOverText">GAME OVER</h1>
 <button id="restartBtn"> ⏯RICOMINCIA </button>
 </div>
-<div id="minigiocoJolly" style="display:none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-background: #222; padding: 20px; border-radius: 12px; box-shadow: 0 0 15px gold; z-index: 10000; text-align:center; width: 280px;">
-<h2 style="color: gold; margin-bottom: 15px;">Scegli una carta</h2>
-<div style="display:flex; justify-content: space-around; margin-bottom: 15px;">
-<img id="minicard1" src="cards/card_back.png" style="width: 100px; height: 140px; cursor:pointer; border: 2px solid transparent; border-radius: 8px;" />
-<img id="minicard2" src="cards/card_back.png" style="width: 100px; height: 140px; cursor:pointer; border: 2px solid transparent; border-radius: 8px;" />
+<div id="minigiocoJolly">
+<h2>Scegli una carta</h2>
+<div class="carte">
+<img id="minicard1" src="cards/card_back.png" alt="Carta 1" />
+<img id="minicard2" src="cards/card_back.png" alt="Carta 2" />
+</div>
+<button id="minigiocoCloseBtn">Annulla</button>
+<div id="minigiocoMessage"></div>
 </div>
 <button id="minigiocoCloseBtn" style="padding: 8px 14px; font-size: 1rem; cursor:pointer; border-radius:6px; background: gold; border:none; font-weight: 700;">Annulla</button>
 <div id="minigiocoMessage"></div>
