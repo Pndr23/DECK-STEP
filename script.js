@@ -250,36 +250,23 @@ function showMinigiocoJolly(callback) {
     minigiocoCallback = callback;
     
     const popup = document.getElementById("minigiocoJolly");
-    const messaggioEl = document.getElementById("minigiocoMessage");
+    const messaggioEl = document.getElementById("minigiocoMessage"); //
 
-    // PULISCE IL MESSAGGIO VECCHIO (così la schermata è pulita quando si apre)
+    // PULISCE IL MESSAGGIO VECCHIO ALL'APERTURA
     if (messaggioEl) messaggioEl.textContent = "";
 
     if (gameAreaOriginalDisplay === null) {
         gameAreaOriginalDisplay = getComputedStyle(gameArea).display;
     }
 
-    // 1. VISIBILITÀ (Usa la classe attivo per mostrare la schermata bordeaux)
     gameArea.style.display = "none";
     popup.classList.add("attivo");
-
-    // 2. TRADUZIONI
-    const title = popup.querySelector("h2");
-    if (title) {
-        title.textContent = translate("miniTitle"); 
-    }
-    
-    const closeBtn = document.getElementById("minigiocoCloseBtn");
-    if (closeBtn) {
-        closeBtn.textContent = translate("miniCancel"); 
-    }
 
     const cardElems = [
         document.getElementById("minicard1"),
         document.getElementById("minicard2")
     ];
 
-    // 3. LOGICA CARTE
     const jollyImgSrc = "jolly.png";
     const moltiplicatoreScelto = Math.floor(Math.random() * 10) + 1;
     const suitsLetters = ["C", "P", "F", "Q"];
@@ -311,20 +298,20 @@ function showMinigiocoJolly(callback) {
                 el.src = el.dataset.img;
                 el.classList.add("selected");
 
-                // --- APPARIZIONE DEL MESSAGGIO (Come nello Screenshot 96) ---
+                // --- MODIFICA QUI PER FAR APPARIRE LA SCRITTA ---
                 if (el.dataset.type === "jolly") {
                     playSound(soundJolly);
                     jollyCount++;
                     updateJollyDisplay();
                     updateScore();
-                    // Scrive il messaggio nel div giallo
-                    if (messaggioEl) messaggioEl.textContent = "Hai vinto 1 Jolly!";
+                    // Invece di chiamare funzioni esterne, scriviamo direttamente qui:
+                    if (messaggioEl) messaggioEl.textContent = "Hai vinto 1 Jolly!"; //
                 } else if (el.dataset.type === "moltiplicatore") {
                     playSound(soundMultiplier);
                     const val = el.dataset.value;
                     updateScore();
-                    // Scrive il messaggio del moltiplicatore
-                    if (messaggioEl) messaggioEl.textContent = "Hai vinto un moltiplicatore x" + val + "!";
+                    // Invece di chiamare funzioni esterne, scriviamo direttamente qui:
+                    if (messaggioEl) messaggioEl.textContent = "Hai vinto un moltiplicatore x" + val + "!"; //
                 }           
             }, 300);
 
@@ -335,13 +322,13 @@ function showMinigiocoJolly(callback) {
             setTimeout(() => {
                 if (minigiocoCallback) minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
                 minigiocoCallback = null;
-                // CHIUSURA
                 popup.classList.remove("attivo");
                 gameArea.style.display = gameAreaOriginalDisplay;
-            }, 1800);
+            }, 2000); // Leggermente più tempo per leggere la scritta
         };
     });
     
+    const closeBtn = document.getElementById("minigiocoCloseBtn");
     closeBtn.onclick = () => {
         if (!minigiocoAttivo) return;
         minigiocoAttivo = false;
