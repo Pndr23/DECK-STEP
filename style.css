@@ -644,27 +644,31 @@ background-color: #2196F3 !important;
     left: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
+    transform: none !important; 
+    /* SFONDO E CENTRATURA */
     background: url('sfondomini.png') center center / cover no-repeat !important;
     background-color: #800020 !important;
-    display: none; /* Lo script userà flex */
-    justify-content: center !important;
+    z-index: 10000 !important;
+    
+    display: flex !important;
+    flex-direction: column !important;
     align-items: center !important;
-    flex-direction: column !important; /* Forza l'ordine verticale */
-    padding: 2rem;
-    box-sizing: border-box;
-    z-index: 9999 !important;
-    user-select: none;
+    justify-content: center !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
 }
 #minigiocoJolly h2 {
     color: #FFD700 !important;
-    font-size: clamp(2.5rem, 8vw, 5rem) !important; /* Si adatta tra mobile e PC */
+    font-size: clamp(2.5rem, 8vw, 5rem) !important;
     font-weight: 900 !important;
     text-transform: uppercase !important;
     text-shadow: 4px 4px 10px rgba(0,0,0,0.8) !important;
+    margin-bottom: 30px !important;
     text-align: center !important;
     width: 100% !important;
-    margin-bottom: 30px !important;
-    order: -1 !important; /* Lo tiene sopra le carte */
+    order: -1 !important;
 }
 #minigiocoJolly div.carte {
 display: flex;
