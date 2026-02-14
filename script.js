@@ -256,8 +256,8 @@ function showMinigiocoJolly(callback) {
     }
 
     // 1. VISIBILITÀ (Forza il flex per coprire tutto)
-    gameArea.style.display = "none";
-    popup.style.setProperty("display", "flex", "important"); 
+   gameArea.style.display = "none";
+   popup.classList.add("attivo");
 
     // 2. TRADUZIONI (Senza toccare gli stili, ci pensa il CSS)
     const title = popup.querySelector("h2");
@@ -326,7 +326,7 @@ function showMinigiocoJolly(callback) {
             setTimeout(() => {
                 if (minigiocoCallback) minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
                 minigiocoCallback = null;
-                popup.style.display = "none";
+                popup.classList.remove("attivo");
                 gameArea.style.display = gameAreaOriginalDisplay;
             }, 1800);
         };
@@ -336,7 +336,7 @@ function showMinigiocoJolly(callback) {
         if (!minigiocoAttivo) return;
         minigiocoAttivo = false;
         minigiocoCallback = null;
-        popup.style.display = "none";
+       popup.classList.remove("attivo");
         gameArea.style.display = gameAreaOriginalDisplay;
     };
 }
