@@ -255,52 +255,27 @@ function showMinigiocoJolly(callback) {
         gameAreaOriginalDisplay = getComputedStyle(gameArea).display;
     }
 
-    // 1. GESTIONE VISIBILITÀ
+    // 1. VISIBILITÀ (Forza il flex per coprire tutto)
     gameArea.style.display = "none";
-    // Usiamo setProperty per essere sicuri che vinca il "flex" sul "none" del CSS
     popup.style.setProperty("display", "flex", "important"); 
 
-    // 2. TRADUZIONE E STILE TITOLO
+    // 2. TRADUZIONI (Senza toccare gli stili, ci pensa il CSS)
     const title = popup.querySelector("h2");
     if (title) {
-        title.textContent = translate("miniTitle"); // Mette "PICK A CARD" o "SCEGLI UNA CARTA"
-        title.style.order = "1"; // Lo forza in alto
-        // Lasciamo che il colore e la dimensione vengano dal CSS !important
+        title.textContent = translate("miniTitle"); 
     }
-    
-    const cardElems = [
-        document.getElementById("minicard1"),
-        document.getElementById("minicard2")
-    ];
     
     const closeBtn = document.getElementById("minigiocoCloseBtn");
     if (closeBtn) {
         closeBtn.textContent = translate("miniCancel"); 
-        closeBtn.style.order = "3"; // Lo forza in basso
     }
 
-    // 3. RIDIMENSIONAMENTO CARTE
-    function resizeMinigioco() {
-        let screenWidth = window.innerWidth;
-        cardElems.forEach(c => {
-            if (screenWidth < 600) {
-                c.style.width = "120px"; 
-                c.style.height = "180px";
-            } else {
-                c.style.width = "190px"; 
-                c.style.height = "270px";
-            }
-            c.style.order = "2"; // Le carte restano al centro
-        });
+    const cardElems = [
+        document.getElementById("minicard1"),
+        document.getElementById("minicard2")
+    ];
 
-        if (closeBtn) {
-            closeBtn.style.marginTop = screenWidth < 600 ? "15px" : "30px";
-        }
-    }
-
-    resizeMinigioco();
-    window.addEventListener("resize", resizeMinigioco);
-
+    // 3. LOGICA CARTE (Calcolo premi)
     const jollyImgSrc = "jolly.png";
     const moltiplicatoreScelto = Math.floor(Math.random() * 10) + 1;
     const suitsLetters = ["C", "P", "F", "Q"];
@@ -327,6 +302,7 @@ function showMinigiocoJolly(callback) {
             minigiocoAttivo = false;
             cardElems.forEach(c => c.classList.remove("covered"));
             el.classList.add("card-flip");
+            
             setTimeout(() => {
                 el.src = el.dataset.img;
                 el.classList.add("selected");
@@ -335,37 +311,34 @@ function showMinigiocoJolly(callback) {
                     jollyCount++;
                     updateJollyDisplay();
                     updateScore();
-                    // MESSAGGIO TRADOTTO
                     showMinigiocoMessage(translate("miniJollyWin"));
-} else if (el.dataset.type === "moltiplicatore") {
-playSound(soundMultiplier);
-// MESSAGGIO TRADOTTO CON VALORE
-showMinigiocoMessage(translate("miniMultWin").replace("{val}", el.dataset.value));
-updateScore();
-}           
-}, 300);
-el.addEventListener("animationend", () => {
-el.classList.remove("card-flip");
-}, { once: true });
+                } else if (el.dataset.type === "moltiplicatore") {
+                    playSound(soundMultiplier);
+                    showMinigiocoMessage(translate("miniMultWin").replace("{val}", el.dataset.value));
+                    updateScore();
+                }           
+            }, 300);
 
-setTimeout(() => {
-if (minigiocoCallback) minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
-minigiocoCallback = null;
-popup.style.display = "none";
-gameArea.style.display = gameAreaOriginalDisplay;
-window.removeEventListener("resize", resizeMinigioco);
-    }, 1800);
-  };
-});
+            el.addEventListener("animationend", () => {
+                el.classList.remove("card-flip");
+            }, { once: true });
+
+            setTimeout(() => {
+                if (minigiocoCallback) minigiocoCallback(el.dataset.type, parseInt(el.dataset.value || "0"));
+                minigiocoCallback = null;
+                popup.style.display = "none";
+                gameArea.style.display = gameAreaOriginalDisplay;
+            }, 1800);
+        };
+    });
     
-  closeBtn.onclick = () => {
-if (!minigiocoAttivo) return;
-minigiocoAttivo = false;
-minigiocoCallback = null;
-popup.style.display = "none";
-gameArea.style.display = gameAreaOriginalDisplay;
-window.removeEventListener("resize", resizeMinigioco);
-};
+    closeBtn.onclick = () => {
+        if (!minigiocoAttivo) return;
+        minigiocoAttivo = false;
+        minigiocoCallback = null;
+        popup.style.display = "none";
+        gameArea.style.display = gameAreaOriginalDisplay;
+    };
 }
 function aggiornaMoltiplicatori() {
 const livello = document.getElementById("risk").value;
