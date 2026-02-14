@@ -705,6 +705,17 @@ filter: drop-shadow(0 0 20px gold) !important;
 transform: scale(1.1);
 transition: all 0.3s ease;
 }
+#minigiocoMessage {
+    color: #FFD700 !important;           /* Colore Giallo Oro come nel titolo */
+    font-size: 1.8rem !important;        /* Dimensione leggibile */
+    font-weight: 900 !important;         /* Molto marcato */
+    margin-top: 25px !important;         /* Distanza dalle carte */
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.9) !important; /* Ombra per farlo risaltare sul bordeaux */
+    text-align: center !important;       /* Centrato perfettamente */
+    width: 100% !important;              /* Prende tutta la larghezza per centrarsi */
+    z-index: 10001 !important;           /* Sta sopra allo sfondo */
+    font-family: 'Poppins', sans-serif !important;
+}
 @keyframes glowPulse {
 0%, 100% { filter: drop-shadow(0 0 3px gold); }
 50% { filter: drop-shadow(0 0 12px gold); }
