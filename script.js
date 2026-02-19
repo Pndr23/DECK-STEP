@@ -252,6 +252,8 @@ function showMinigiocoJolly(callback) {
     const popup = document.getElementById("minigiocoJolly");
     const messaggioEl = document.getElementById("minigiocoMessage"); //
 
+    const miniTitle = popup.querySelector("h2");
+    if (miniTitle) miniTitle.textContent = translate("miniTitle");
     // PULISCE IL MESSAGGIO VECCHIO ALL'APERTURA
     if (messaggioEl) messaggioEl.textContent = "";
 
@@ -305,13 +307,16 @@ function showMinigiocoJolly(callback) {
                     updateJollyDisplay();
                     updateScore();
                     // Invece di chiamare funzioni esterne, scriviamo direttamente qui:
-                    if (messaggioEl) messaggioEl.textContent = "Hai vinto 1 Jolly!"; //
-                } else if (el.dataset.type === "moltiplicatore") {
-                    playSound(soundMultiplier);
-                    const val = el.dataset.value;
-                    updateScore();
-                    // Invece di chiamare funzioni esterne, scriviamo direttamente qui:
-                    if (messaggioEl) messaggioEl.textContent = "Hai vinto un moltiplicatore x" + val + "!"; //
+                   if (messaggioEl) messaggioEl.textContent = translate("miniJollyWin");
+            } else if (el.dataset.type === "moltiplicatore") {
+                playSound(soundMultiplier);
+                const val = el.dataset.value;
+                updateScore();
+                // USA TRANSLATE E REPLACE QUI:
+                if (messaggioEl) {
+                    let msg = translate("miniMultWin");
+                    messaggioEl.textContent = msg.replace("{val}", val);
+                }
                 }           
             }, 300);
 
@@ -923,50 +928,77 @@ guadagno += moltiplicatoreBonus * puntataIniziale;
 label.textContent = "+€" + guadagno.toFixed(2);
 }
 function updateLanguage() {
-document.querySelector("html").lang = currentLanguage;
-const gameTitle = document.getElementById("gameTitle");
-if (gameTitle) gameTitle.textContent = translate("title");
-const startButton = document.getElementById("startButton");
-if (startButton) startButton.textContent = translate("start");
-const restartBtn = document.getElementById("restartBtn");
-if (restartBtn) restartBtn.textContent = translate("restart");
-const rulesLabel = document.getElementById("rulesLabel");
-if (rulesLabel) rulesLabel.textContent = translate("rules");
-const currentCardLabel = document.getElementById("currentCardLabel");
-if (currentCardLabel) currentCardLabel.textContent = translate("currentCard");
-const betLabel = document.getElementById("betLabel");
-if (betLabel) betLabel.textContent = translate("bet");
-const riskLabel = document.getElementById("riskLabel");
-if (riskLabel) riskLabel.textContent = translate("risk");
-const riskSelect = document.getElementById("risk");
-if (riskSelect) {
-for (const option of riskSelect.options) {
-if (option.value === "easy") option.text = translate("easy");
-else if (option.value === "medium") option.text = translate("medium");
-else if (option.value === "hard") option.text = translate("hard");
-}
-}
-const pointsLabel = document.getElementById("pointsLabel");
-if (pointsLabel) pointsLabel.textContent = translate("points");
-const correctLabel = document.getElementById("correctLabel");
-if (correctLabel) correctLabel.textContent = "✅ " + translate("correct");
-const errorLabel = document.getElementById("errorLabel");
-if (errorLabel) errorLabel.textContent = "❌ " + translate("error");
-const jollyLabel = document.getElementById("jollyLabel");
-if (jollyLabel) jollyLabel.textContent = "🃏 " + translate("jolly");
-if (useJollyBtn) useJollyBtn.textContent = "🃏 " + translate("useJolly");
-updateProgress();
-if (rulesPanel) rulesPanel.innerHTML = translate("rulesText");
-const withdrawLabel = document.getElementById("withdrawLabel");
-if (withdrawLabel) withdrawLabel.textContent = translate("withdraw");
-const drawnCardLabel = document.getElementById("drawnCardLabel");
-if (drawnCardLabel) drawnCardLabel.textContent = translate("drawnCard");
-const betBadge = document.getElementById("betBadge");
-if (betBadge) {
-const betValue = parseFloat(document.getElementById("bet").value).toFixed(2);
-betBadge.textContent = `${translate("bet")} €${betValue}`;
-}
-}
+    document.querySelector("html").lang = currentLanguage;
+    const gameTitle = document.getElementById("gameTitle");
+    if (gameTitle) gameTitle.textContent = translate("title");
+    const startButton = document.getElementById("startButton");
+    if (startButton) startButton.textContent = translate("start");
+    const restartBtn = document.getElementById("restartBtn");
+    if (restartBtn) restartBtn.textContent = translate("restart");
+    const rulesLabel = document.getElementById("rulesLabel");
+    if (rulesLabel) rulesLabel.textContent = translate("rules");
+    const currentCardLabel = document.getElementById("currentCardLabel");
+    if (currentCardLabel) currentCardLabel.textContent = translate("currentCard");
+    const betLabel = document.getElementById("betLabel");
+    if (betLabel) betLabel.textContent = translate("bet");
+    const riskLabel = document.getElementById("riskLabel");
+    if (riskLabel) riskLabel.textContent = translate("risk");
+
+    const riskSelect = document.getElementById("risk");
+    if (riskSelect) {
+        for (const option of riskSelect.options) {
+            if (option.value === "easy") option.text = translate("easy");
+            else if (option.value === "medium") option.text = translate("medium");
+            else if (option.value === "hard") option.text = translate("hard");
+        }
+    }
+
+    const pointsLabel = document.getElementById("pointsLabel");
+    if (pointsLabel) pointsLabel.textContent = translate("points");
+    const correctLabel = document.getElementById("correctLabel");
+    if (correctLabel) correctLabel.textContent = "✅ " + translate("correct");
+    const errorLabel = document.getElementById("errorLabel");
+    if (errorLabel) errorLabel.textContent = "❌ " + translate("error");
+    const jollyLabel = document.getElementById("jollyLabel");
+    if (jollyLabel) jollyLabel.textContent = "🃏 " + translate("jolly");
+    if (useJollyBtn) useJollyBtn.textContent = "🃏 " + translate("useJolly");
+
+    updateProgress();
+    if (rulesPanel) rulesPanel.innerHTML = translate("rulesText");
+    const withdrawLabel = document.getElementById("withdrawLabel");
+    if (withdrawLabel) withdrawLabel.textContent = translate("withdraw");
+    const drawnCardLabel = document.getElementById("drawnCardLabel");
+    if (drawnCardLabel) drawnCardLabel.textContent = translate("drawnCard");
+
+    const betBadge = document.getElementById("betBadge");
+    if (betBadge) {
+        const betValue = parseFloat(document.getElementById("bet").value).toFixed(2);
+        betBadge.textContent = `${translate("bet")} €${betValue}`;
+    }
+
+    // --- TRADUZIONE MINIGIOCO ---
+    const miniTitle = document.querySelector("#minigiocoJolly h2");
+    if (miniTitle) {
+        miniTitle.textContent = translate("miniTitle");
+    }
+
+    const miniCloseBtn = document.getElementById("minigiocoCloseBtn");
+    if (miniCloseBtn) {
+        miniCloseBtn.textContent = translate("miniCancel");
+    }
+
+    const miniMsg = document.getElementById("minigiocoMessage");
+    if (miniMsg && miniMsg.textContent !== "") {
+        if (miniMsg.textContent.includes("Jolly") || miniMsg.textContent.includes("Joker")) {
+            miniMsg.textContent = translate("miniJollyWin");
+        } else if (miniMsg.textContent.includes("moltiplicatore") || miniMsg.textContent.includes("multiplier")) {
+            const valMatch = miniMsg.textContent.match(/\d+/); 
+            const val = valMatch ? valMatch[0] : "1";
+            let msg = translate("miniMultWin");
+            miniMsg.textContent = msg.replace("{val}", val);
+        }
+    }
+} 
 //Traduzione per cambio lingua
 function translate(key) {
 const t = {
