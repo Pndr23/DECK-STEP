@@ -11,6 +11,9 @@ let correctStreak = 0;
 let jollyUsedInThisTurn = false;
 let currentLanguage = "it";
 let currentLevel = "easy";
+let currentChallengeType = ""; 
+let aCurrent = 0;             
+let bCurrent = 0;
 let puntataIniziale = parseFloat(document.getElementById("bet").value);
 const moltiplicatoriFacile = [1.1,1.2,1.3,1.5,1.8,2,2.2,2.5,3,5];
 const moltiplicatoriMedio = [1.2,1.3,1.5,1.7,2,2.2,2.5,3,3.5,4,4.5,5,6,7,10];
@@ -1038,6 +1041,12 @@ even: "Pari",
 odd: "Dispari",
 in: "Dentro",
 out: "Fuori",
+higherLower: "Maggiore o Minore",
+evenOdd: "Pari o Dispari",
+inOut: "Dentro o Fuori",
+exactNumber: "Numero Esatto",
+color: "Colore",
+suit: "Seme",
 correct: "Corrette",
 error: "Errori",
 jolly: "Jolly",
@@ -1091,6 +1100,12 @@ even: "Even",
 odd: "Odd",
 in: "In",
 out: "Out",
+higherLower: "Higher or Lower",
+evenOdd: "Even or Odd",
+inOut: "In or Out",
+exactNumber: "Exact Number",
+color: "Color",
+suit: "Suit",
 correct: "Correct",
 error: "Errors",
 jolly: "Joker",
