@@ -644,8 +644,8 @@ if (selected.key === "higherLower") {
 addButton(translate("higher"), (next) => next.value > lockedValue, "higher");
 addButton(translate("lower"), (next) => next.value < lockedValue, "lower");
 } else if (selected.key === "evenOdd") {
-addButton(translate("even"), (next) => next.value % 2 === 0);
-addButton(translate("odd"), (next) => next.value % 2 !== 0);
+addButton(translate("even"), (next) => next.value % 2 === 0, "even");
+addButton(translate("odd"), (next) => next.value % 2 !== 0, "odd");
 } else if (selected.key === "inOut") {
 const a = Math.floor(Math.random() * 7) + 2;
 const b = a + 2; 
@@ -656,16 +656,16 @@ addButton(translate("in"), (next) => next.value >= a && next.value <= b, "in");
 addButton(translate("out"), (next) => next.value < a || next.value > b, "out");
 } else if (selected.key === "exactNumber") {
 for (let i = 1; i <= 10; i++) {
-addButton(i.toString(), (next) => next.value === i);
+addButton(i.toString(), (next) => next.value === i, i.toString());
 }
 } else if (selected.key === "color") {
-addButton(translate("red"), (next) => next.suit === "C" || next.suit === "Q");
-addButton(translate("black"), (next) => next.suit === "F" || next.suit === "P");
+addButton(translate("red"), (next) => next.suit === "C" || next.suit === "Q", "red");
+addButton(translate("black"), (next) => next.suit === "F" || next.suit === "P", "black");
 } else if (selected.key === "suit") {
-addButton(translate("hearts"), (next) => next.suit === "C");
-addButton(translate("diamonds"), (next) => next.suit === "Q");
-addButton(translate("clubs"), (next) => next.suit === "F");
-addButton(translate("spades"), (next) => next.suit === "P");
+addButton(translate("hearts"), (next) => next.suit === "C", "hearts");
+addButton(translate("diamonds"), (next) => next.suit === "Q", "diamonds");
+addButton(translate("clubs"), (next) => next.suit === "F", "clubs");
+addButton(translate("spades"), (next) => next.suit === "P", "spades");
 }
 }
 document.addEventListener("DOMContentLoaded", () => {
