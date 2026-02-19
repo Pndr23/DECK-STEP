@@ -641,8 +641,8 @@ challengeButtons.innerHTML = "";
 const lockedValue = currentCard.value;
 const lockedSuit = currentCard.suit;
 if (selected.key === "higherLower") {
-addButton(translate("higher"), (next) => next.value > lockedValue);
-addButton(translate("lower"), (next) => next.value < lockedValue);
+addButton(translate("higher"), (next) => next.value > lockedValue, "higher");
+addButton(translate("lower"), (next) => next.value < lockedValue, "lower");
 } else if (selected.key === "evenOdd") {
 addButton(translate("even"), (next) => next.value % 2 === 0);
 addButton(translate("odd"), (next) => next.value % 2 !== 0);
