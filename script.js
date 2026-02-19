@@ -741,9 +741,12 @@ document.body.appendChild(overlay);
 }
 
 // Aggiunge un bottone con la logica associata (es. Maggiore/Minore)
-function addButton(text, checkFn) {
+function addButton(text, checkFn, type) {
 const btn = document.createElement("button");
 btn.textContent = text;
+if (type) {
+ btn.dataset.type = type;
+}
 btn.classList.add("green-button");
 btn.style.color = "white";
 btn.onclick = () => {
@@ -975,7 +978,16 @@ function updateLanguage() {
         const betValue = parseFloat(document.getElementById("bet").value).toFixed(2);
         betBadge.textContent = `${translate("bet")} €${betValue}`;
     }
-
+    const challengeElement = document.getElementById("challengeText");
+    if (challengeElement && typeof currentChallenge !== 'undefined' && currentChallenge) {
+        challengeElement.textContent = translate("challenge") + ": " + translate(currentChallenge.type);
+    }
+    const buttons = document.querySelectorAll("#challengeButtons button");
+    buttons.forEach(btn => {
+        if (btn.dataset.type) {
+            btn.textContent = translate(btn.dataset.type);
+        }
+    });
     // --- TRADUZIONE MINIGIOCO ---
     const miniTitle = document.querySelector("#minigiocoJolly h2");
     if (miniTitle) {
