@@ -631,6 +631,7 @@ challenges = challenges.filter(ch => ch.key !== "color");
 challenges = challenges.filter(ch => ch.key !== "exactNumber");
 }
 const selected = challenges[Math.floor(Math.random() * challenges.length)];
+currentChallengeType = selected.key;
 const label = selected.label[currentLanguage];
 challengeText.textContent = `${translate("challenge")}: ${label}`;
 challengeButtons.innerHTML = "";
@@ -644,7 +645,9 @@ addButton(translate("even"), (next) => next.value % 2 === 0);
 addButton(translate("odd"), (next) => next.value % 2 !== 0);
 } else if (selected.key === "inOut") {
 const a = Math.floor(Math.random() * 7) + 2;
-const b = a + 2;
+const b = a + 2; 
+    aCurrent = a;
+    bCurrent = b;
 challengeText.textContent += ` (${a}-${b})`;
 addButton(translate("in"), (next) => next.value >= a && next.value <= b);
 addButton(translate("out"), (next) => next.value < a || next.value > b);
