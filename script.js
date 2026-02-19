@@ -420,7 +420,7 @@ playSound(soundClick);
 withdrawBtn.addEventListener("click", () => {
 playSound(soundWithdraw);
 const totale = calcolaGuadagno(correctCount);
-gameArea.classList.add("hidden"); 
+document.getElementById("gameArea").style.display = "none";
 gameSetup.classList.add("hidden");
 document.body.style.background = "#800000";
 logHistoryEvent(`Hai deciso di ritirarti con €${totale.toFixed(2)}`);
@@ -671,7 +671,7 @@ startGame();
 });
 function showGameOverScreen() {
 playSound(soundLose);
-gameArea.classList.add("hidden");
+document.getElementById("gameArea").style.display = "none";
 gameSetup.classList.add("hidden");
 document.body.style.background = "#800000";
 // Overlay fullscreen bordeaux
@@ -810,7 +810,7 @@ challengeButtons.appendChild(btn);
 //Schermata vittoria
 function showVictoryScreen(vincitaTotale) {
 soundWin.play();
-gameArea.classList.add("hidden");
+document.getElementById("gameArea").style.display = "none";
 gameSetup.classList.add("hidden");
 document.body.style.background = "#800000";
 // Overlay fullscreen bordeaux
