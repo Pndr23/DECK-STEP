@@ -508,14 +508,14 @@ margin: 20px 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: #800020; /* Bordeaux solido, non trasparente */
+    background: #800020; /* Colore solido, non trasparente */
     color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    z-index: 10000; /* Alzato per stare sopra a tutto */
+    z-index: 99999; /* Superiore a tutto */
 }
 #gameOverScreen.hidden {
 display: none;
@@ -576,14 +576,14 @@ transform: scale(1.05);
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: #800020; /* Bordeaux solido */
+    background: #800020; /* Colore solido */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     color: white;
     text-align: center;
-    z-index: 10000;
+    z-index: 99999;
 }
 #withdrawScreen.hidden {
 display: none;
