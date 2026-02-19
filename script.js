@@ -652,8 +652,8 @@ const b = a + 2;
     aCurrent = a;
     bCurrent = b;
 challengeText.textContent += ` (${a}-${b})`;
-addButton(translate("in"), (next) => next.value >= a && next.value <= b);
-addButton(translate("out"), (next) => next.value < a || next.value > b);
+addButton(translate("in"), (next) => next.value >= a && next.value <= b, "in");
+addButton(translate("out"), (next) => next.value < a || next.value > b, "out");
 } else if (selected.key === "exactNumber") {
 for (let i = 1; i <= 10; i++) {
 addButton(i.toString(), (next) => next.value === i);
@@ -983,11 +983,14 @@ function updateLanguage() {
     if (betBadge) {
         const betValue = parseFloat(document.getElementById("bet").value).toFixed(2);
         betBadge.textContent = `${translate("bet")} €${betValue}`;
-    }
-    const challengeElement = document.getElementById("challengeText");
-    if (challengeElement && typeof currentChallenge !== 'undefined' && currentChallenge) {
-        challengeElement.textContent = translate("challenge") + ": " + translate(currentChallenge.type);
-    }
+}
+if (challengeElement && currentChallengeType) {
+let testoSfida = translate(currentChallengeType);
+if (currentChallengeType === "inOut" && typeof aCurrent !== 'undefined') {
+testoSfida += ` (${aCurrent}-${bCurrent})`;
+}
+challengeElement.textContent = translate("challenge") + ": " + testoSfida;
+}
     const buttons = document.querySelectorAll("#challengeButtons button");
     buttons.forEach(btn => {
         if (btn.dataset.type) {
