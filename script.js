@@ -723,16 +723,22 @@ container.style.textAlign = "center";
 
 // Testo Game Over
 const text = document.createElement("h1");
-text.textContent = translate("lost").toUpperCase(); // Forza MAIUSCOLO
-text.style.fontSize = "5rem";        // Testo grande
-text.style.color = "#FF0000";         // Colore Rosso
-text.style.position = "relative";    // Serve per far partire le lacrime dal testo
+text.textContent = translate("lost").toUpperCase(); // Tutto maiuscolo
+text.style.fontSize = "6rem";        // PIÙ GRANDE (da 5 a 6rem)
+text.style.color = "#a30000";         // ROSSO SCURO (un bordeaux minaccioso)
+text.style.position = "relative";    // Serve per posizionare le lacrime
 text.style.display = "inline-block";
 text.style.marginBottom = "30px";
 text.style.fontWeight = "900";
-text.style.textShadow = "3px 3px 10px rgba(0,0,0,0.7)";
     
-    for (let i = 0; i < 15; i++) {
+    text.style.textShadow = `
+    2px 2px 0px #000, 
+    4px 4px 0px rgba(0,0,0,0.8), 
+    0 0 20px rgba(255,0,0,0.5)
+`;
+text.style.fontFamily = "'Arial Black', Gadget, sans-serif"; // Font più "ciccione"
+    
+   for (let i = 0; i < 15; i++) {
     const lacrima = document.createElement("div");
     lacrima.className = "lacrima-animata"; // Usa la classe che abbiamo messo nel CSS
     lacrima.style.left = Math.random() * 100 + "%";
