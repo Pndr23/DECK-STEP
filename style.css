@@ -932,8 +932,8 @@ transform: scale(0.85);
 /* --- STILE DELLA GOCCIA --- */
 .lacrima-animata {
     position: absolute;
-    width: 10px;          /*lunghezza*/
-    height: 16px;        /*larghezza*/ 
+    width: 10px;          /*larghezza*/
+    height: 16px;        /*lunghezza*/ 
     background-color: #33CCFF; /* Azzurro lacrima */
     border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
     animation: cadeLacrima 2s linear infinite;
@@ -952,7 +952,7 @@ transform: scale(0.85);
     }
     50% {
         text-shadow: 
-            0 0 15px #FFE4B5,   /* Più chiaro */
+            0 0 15px #FFE4B5,   
             0 0 25px #FFD700, 
             0 0 35px #DAA520,   /* Oro ocra */
             0 0 50px #FFD700, 
@@ -968,12 +968,10 @@ transform: scale(0.85);
     margin-bottom: 15px;        /* Spazio sopra la scritta */
     display: block;             /* Su una riga separata */
     text-align: center;
-    /* Applichiamo l'onda del ritiro e la pulsazione */
     animation: ondaOcre 2s ease-in-out infinite; 
     text-shadow: 0 0 10px #FFD700, 0 0 20px #B8860B;
 }
-
-/* Regoliamo la dimensione della corona su mobile */
+/* la dimensione della corona su mobile */
 @media (max-width: 768px) {
     .corona-vittoria {
         font-size: 2rem;
