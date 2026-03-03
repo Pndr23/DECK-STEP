@@ -844,95 +844,90 @@ challengeButtons.appendChild(btn);
 }
 //Schermata vittoria
 function showVictoryScreen(vincitaTotale) {
-soundWin.play();
-document.getElementById("gameArea").style.display = "none";
-gameSetup.classList.add("hidden");
-document.body.style.background = "#800000";
-// Overlay fullscreen bordeaux
-const overlay = document.createElement("div");
-overlay.style.top = "0";
-overlay.style.left = "0";
-overlay.style.width = "100vw";
-overlay.style.height = "100vh";
-overlay.style.background = "#800000"; // bordeaux
-overlay.style.display = "flex";
-overlay.style.justifyContent = "center";
-overlay.style.alignItems = "center";
-overlay.style.zIndex = "9999";
-// Container grande come il gioco principale
-const container = document.createElement("div");
-container.style.width = "90%";
-container.style.height = "90%";
-container.style.padding = "20px";
-container.style.borderRadius = "15px";
-container.style.backgroundImage = "url('sfondofine.jpg')";
-container.style.backgroundSize = "cover";
-container.style.backgroundPosition = "center";
-if (window.innerWidth <= 768) {
-container.style.backgroundSize = "contain";
-}
-container.style.boxShadow = "0 0 20px rgba(0,0,0,0.5)";
-container.style.display = "flex";
-container.style.flexDirection = "column";
-container.style.justifyContent = "center";
-container.style.alignItems = "center";
-container.style.textAlign = "center";
-// Titolo
-const title = document.createElement("h1");
-title.textContent = translate("victoryTitle") || "🎆 VITTORIA! 🎆";
-title.style.fontSize = "3rem";
-title.style.color = "gold";
-title.style.marginBottom = "20px";
-title.style.textShadow = "0 0 10px gold, 0 0 20px orange, 0 0 30px red";
-// Testo vinicta Localizzato
-const prize = document.createElement("p");
-const winText = translate("victoryWin") || "Hai vinto {amount} crediti!";
-prize.textContent = winText.replace("{amount}", vincitaTotale);
-prize.style.fontSize = "1.5rem";
-prize.style.color = "white";
-prize.style.marginBottom = "25px";
-// Bottone Ricomincia
-const restartBtn = document.createElement("button");
-restartBtn.textContent = translate("restart") || "🔁 Ricomincia";
-restartBtn.style.fontSize = "1.5rem";
-restartBtn.style.padding = "10px 20px";
-restartBtn.style.background = "#28a745";
-restartBtn.style.color = "white";
-restartBtn.style.border = "none";
-restartBtn.style.borderRadius = "10px";
-restartBtn.style.cursor = "pointer";
-restartBtn.onclick = () => {
-playSound(soundClick);
-location.reload();
-};
+    soundWin.play();
+    document.getElementById("gameArea").style.display = "none";
+    gameSetup.classList.add("hidden");
+    document.body.style.background = "#800000";
 
-container.appendChild(title);
-container.appendChild(prize);
-container.appendChild(restartBtn);
-overlay.appendChild(container);
-document.body.appendChild(overlay);
-// Brillantini animati
-for (let i = 0; i < 30; i++) {
-const spark = document.createElement("div");
-spark.style.position = "fixed";
-spark.style.width = "6px";
-spark.style.height = "6px";
-spark.style.background = `hsl(${Math.random() * 360}, 100%, 60%)`;
-spark.style.borderRadius = "50%";
-spark.style.top = (Math.random() * window.innerHeight) + "px";
-spark.style.left = (Math.random() * window.innerWidth) + "px";
-spark.style.opacity = "0.8";
-spark.style.transform = "scale(0)";
-spark.style.transition = "transform 1.2s ease-out, opacity 1.2s ease-out";
-document.body.appendChild(spark);
-setTimeout(() => {
-spark.style.transform = "scale(5)";
-spark.style.opacity = "0";
-}, 50 + i * 100);
-setTimeout(() => spark.remove(), 2000);
+    const overlay = document.createElement("div");
+    overlay.style = "position:fixed; top:0; left:0; width:100vw; height:100vh; background:#800000; display:flex; justify-content:center; align-items:center; z-index:9999;";
+
+    const container = document.createElement("div");
+    container.style = "width:90%; height:90%; padding:20px; border-radius:15px; background-image:url('sfondofine.jpg'); background-size:cover; background-position:center; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; box-shadow: 0 0 20px rgba(0,0,0,0.5);";
+    
+    if (window.innerWidth <= 768) { container.style.backgroundSize = "contain"; }
+
+    // --- 👑 CORONA ONDEGGIANTE ---
+    const corona = document.createElement("div");
+    corona.textContent = "👑";
+    corona.style.fontSize = "4rem";
+    corona.style.marginBottom = "10px";
+    corona.style.animation = "ondaOcre 2s ease-in-out infinite"; // Usa l'onda del ritiro
+    corona.style.textShadow = "0 0 15px gold";
+
+    // --- 🏆 TITOLO CON BAGLIORE DIVINO ---
+    const title = document.createElement("h1");
+    title.textContent = translate("victoryTitle").toUpperCase();
+    title.style.fontSize = "6rem"; // Grande come il Game Over
+    title.style.color = "#FFD700"; // Oro Sisal
+    title.style.fontWeight = "900";
+    title.style.fontFamily = "'Arial Black', Gadget, sans-serif";
+    title.style.marginBottom = "20px";
+    title.style.display = "inline-block";
+    
+    // Applichiamo l'animazione del bagliore (fumo oro) e l'onda
+    title.style.animation = "baglioreDivino 3s ease-in-out infinite, ondaOcre 2s ease-in-out infinite alternate";
+    
+    // Ombra base per dare spessore (Arial Black + ombra nera)
+    title.style.textShadow = "3px 3px 0px #000";
+
+    if (window.innerWidth <= 768) { title.style.fontSize = "3rem"; }
+
+    // Testo vincita
+    const prize = document.createElement("p");
+    const winText = translate("victoryWin") || "Hai vinto {amount} crediti!";
+    prize.textContent = winText.replace("{amount}", vincitaTotale);
+    prize.style.fontSize = "2rem"; // Leggermente più grande per enfasi
+    prize.style.color = "white";
+    prize.style.fontWeight = "bold";
+    prize.style.marginBottom = "25px";
+    prize.style.textShadow = "2px 2px 5px black";
+
+    // Bottone Ricomincia
+    const restartBtn = document.createElement("button");
+    restartBtn.textContent = translate("restart") || "🔁 Ricomincia";
+    restartBtn.style = "font-size:1.5rem; padding:10px 20px; background:#28a745; color:white; border:none; border-radius:10px; cursor:pointer;";
+    restartBtn.onclick = () => { playSound(soundClick); location.reload(); };
+
+    // Appendi in ordine: Corona -> Titolo -> Premio -> Bottone
+    container.appendChild(corona);
+    container.appendChild(title);
+    container.appendChild(prize);
+    container.appendChild(restartBtn);
+    overlay.appendChild(container);
+    document.body.appendChild(overlay);
+
+    // Effetto brillantini (il tuo codice originale)
+    for (let i = 0; i < 30; i++) {
+        const spark = document.createElement("div");
+        spark.style.position = "fixed";
+        spark.style.width = "6px";
+        spark.style.height = "6px";
+        spark.style.background = `hsl(${Math.random() * 360}, 100%, 60%)`;
+        spark.style.borderRadius = "50%";
+        spark.style.top = (Math.random() * window.innerHeight) + "px";
+        spark.style.left = (Math.random() * window.innerWidth) + "px";
+        spark.style.opacity = "0.8";
+        spark.style.transform = "scale(0)";
+        spark.style.transition = "transform 1.2s ease-out, opacity 1.2s ease-out";
+        document.body.appendChild(spark);
+        setTimeout(() => {
+            spark.style.transform = "scale(5)";
+            spark.style.opacity = "0";
+        }, 50 + i * 100);
+        setTimeout(() => spark.remove(), 2000);
+    }
 }
-}
-// jolly automatico
 function tryAutoJolly(maxErrors) {
 if (jollyFromMinigioco) {
 jollyFromMinigioco = false;
