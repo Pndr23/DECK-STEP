@@ -467,10 +467,14 @@ container.style.textAlign = "center";
 
 // Testo ritirata
 const text = document.createElement("h1");
-text.textContent = translate("withdrawTitle") || "Hai ritirato!";
-text.style.fontSize = "3rem";
-text.style.color = "white";
+text.textContent = translate("withdrawTitle").toUpperCase(); // Forza MAIUSCOLO
+text.style.fontSize = "5rem";            // Testo grande
+text.style.color = "#DAA520";             // Oro Ocra
+text.style.display = "inline-block";
+text.style.animation = "ondaOcre 2s ease-in-out infinite"; // Attiva l'onda del CSS
 text.style.marginBottom = "20px";
+text.style.fontWeight = "900";
+text.style.textShadow = "3px 3px 10px rgba(0,0,0,0.5)";
 
 // Mostra vincita
 const winnings = document.createElement("p");
@@ -719,11 +723,22 @@ container.style.textAlign = "center";
 
 // Testo Game Over
 const text = document.createElement("h1");
-text.textContent = translate("lost") || "Hai perso!";
-text.style.fontSize = "3rem";
-text.style.color = "white";
+text.textContent = translate("lost").toUpperCase(); // Forza MAIUSCOLO
+text.style.fontSize = "5rem";        // Testo grande
+text.style.color = "#FF0000";         // Colore Rosso
+text.style.position = "relative";    // Serve per far partire le lacrime dal testo
+text.style.display = "inline-block";
 text.style.marginBottom = "30px";
-
+text.style.fontWeight = "900";
+text.style.textShadow = "3px 3px 10px rgba(0,0,0,0.7)";
+    
+    for (let i = 0; i < 15; i++) {
+    const lacrima = document.createElement("div");
+    lacrima.className = "lacrima-animata"; // Usa la classe che abbiamo messo nel CSS
+    lacrima.style.left = Math.random() * 100 + "%";
+    lacrima.style.animationDelay = Math.random() * 2 + "s";
+    text.appendChild(lacrima);
+}
 // Bottone Ricomincia
 const restartBtn = document.createElement("button");
 restartBtn.textContent = translate("restart") || "🔁 Ricomincia";
