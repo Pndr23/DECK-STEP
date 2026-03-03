@@ -932,8 +932,8 @@ transform: scale(0.85);
 /* --- STILE DELLA GOCCIA --- */
 .lacrima-animata {
     position: absolute;
-    width: 6px;
-    height: 10px;
+    width: 10px;          /*lunghezza*/
+    height: 16px;        /*larghezza*/ 
     background-color: #33CCFF; /* Azzurro lacrima */
     border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
     animation: cadeLacrima 2s linear infinite;
