@@ -919,3 +919,24 @@ right: 50px;
 transform: scale(0.85);
 }
 }
+@keyframes ondaOcre {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+/* --- ANIMAZIONE LACRIME (per la Perdita) --- */
+@keyframes cadeLacrima {
+    0% { transform: translateY(0); opacity: 0; }
+    20% { opacity: 1; }
+    100% { transform: translateY(200px); opacity: 0; }
+}
+/* --- STILE DELLA GOCCIA --- */
+.lacrima-animata {
+    position: absolute;
+    width: 6px;
+    height: 10px;
+    background-color: #33CCFF; /* Azzurro lacrima */
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    animation: cadeLacrima 2s linear infinite;
+    pointer-events: none;
+    z-index: 10;
+}
