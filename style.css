@@ -942,53 +942,37 @@ transform: scale(0.85);
     animation: pioggiaLacrime linear infinite;
     opacity: 0.6;            /* Leggera trasparenza per non coprire troppo il testo */
 }
-@keyframes baglioreDivino {
-    0%, 100% {
-        text-shadow: 
-            0 0 10px rgba(255, 215, 0, 0.5), 
-            0 0 20px rgba(218, 165, 32, 0.4),
-            0 -10px 40px rgba(255, 215, 0, 0.3); /* Fumo leggero */
-    }
-    50% {
-        text-shadow: 
-            0 0 20px rgba(255, 215, 0, 0.8), 
-            0 0 40px rgba(218, 165, 32, 0.6),
-            0 -15px 60px rgba(255, 215, 0, 0.5); /* Fumo più intenso */
-    }
+@keyframes baglioreCorona {
+    0% { text-shadow: 0 0 30px #FFD700, 0 0 50px #B8860B; }
+    100% { text-shadow: 0 0 50px #FFE4B5, 0 0 70px #FFD700, 0 0 90px #FF8C00; }
 }
 /* --- STILE PER LA CORONA --- */
-.corona-reale {
-    width: 250px;             /* Enorme (almeno il doppio dell'emoji) */
-    height: auto;             /* Mantiene le proporzioni */
-    margin-bottom: -10px;     /* La avvicina al titolo */
+.corona-vittoria-grande {
+    font-size: 10rem;          /* ENORME (era 4-7rem) */
+    margin-bottom: 0px;        /* Spazio rimosso per avvicinarla al titolo */
     display: block;
-    margin-left: auto;
-    margin-right: auto;       /* Centratura perfetta */
-    /* Manteniamo l'onda del ritiro */
-    animation: ondaOcre 2s ease-in-out infinite;
-    filter: drop-shadow(0 0 15px #FFD700); /* Bagliore oro esterno */
-    z-index: 10;
+    text-align: center;
+    position: relative;        
+    z-index: 10001;            /* Sopra overlay e coriandoli */
+    animation: ondaOcre 2s ease-in-out infinite, baglioreCorona 1.5s ease-in-out infinite alternate;
+    text-shadow: 0 0 30px #FFD700, 0 0 50px #B8860B, 0 0 70px #DAA520;
 }
 /* la dimensione della corona su mobile */
 @media (max-width: 768px) {
-    .corona-reale {
-        width: 150px; /* Più piccola ma comunque grande su mobile */
+    .corona-vittoria-grande {
+        font-size: 6rem; /* Più piccola ma comunque grande su mobile */
     }
 }
-
-/* --- 🎉 NUOVA ANIMAZIONE CORIANDOLI CADENTI --- */
+/* --- 🎉 STILE CORIANDOLI CADENTI (FULL SCREEN) --- */
 .confetti {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    opacity: 0.7;
-    border-radius: 50%; /* Piccoli cerchietti */
-    pointer-events: none;
-    z-index: 9998; /* Sopra tutto tranne l'overlay/container */
-    animation: confettiCadono linear infinite; /* Animazione infinita */
+    position: fixed;         /* Fixed per coprire tutto lo schermo */
+    top: -20px;              /* Parte da sopra il bordo superiore */
+    opacity: 0.9;
+    pointer-events: none;    /* Non interferiscono con i clic */
+    z-index: 10000;          /* Sopra l'overlay bordeaux ma sotto la corona/titolo */
+    animation: confettiCadono linear infinite;
 }
-
 @keyframes confettiCadono {
-    0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; } /* Cadono oltre il fondo */
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(110vh) rotate(720deg); } /* Cadono fino in fondo */
 }
