@@ -931,16 +931,17 @@ transform: scale(0.85);
 }
 /* --- STILE DELLA GOCCIA --- */
 .lacrima-animata {
-    position: fixed;         /* Fixed per coprire tutto lo schermo */
-    top: -20px;              /* Parte da sopra il bordo superiore */
-    width: 8px;              /* Leggermente più sottili per sembrare pioggia */
+    position: fixed;         
+    top: -20px;             
+    width: 8px;              
     height: 14px;
     background-color: #33CCFF; 
     border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
     pointer-events: none;
-    z-index: 10000;          /* Sopra tutto */
+    z-index: 10000;         
     animation: pioggiaLacrime linear infinite;
-    opacity: 0.6;            /* Leggera trasparenza per non coprire troppo il testo */
+    opacity: 0.6;   
+    z-index: 100000;
 }
 @keyframes baglioreCorona {
     0% { text-shadow: 0 0 30px #FFD700, 0 0 50px #B8860B; }
