@@ -719,6 +719,7 @@ container.style.flexDirection = "column";
 container.style.justifyContent = "center";
 container.style.alignItems = "center";
 container.style.textAlign = "center";
+if (window.innerWidth <= 768) { container.style.backgroundSize = "contain"; }
 // Testo Game Over
 const text = document.createElement("h1");
 text.textContent = translate("lost").toUpperCase(); 
@@ -733,8 +734,29 @@ text.style.textShadow = `
     4px 4px 0px rgba(0,0,0,0.8), 
     0 0 20px rgba(255,0,0,0.5)
 `;
-text.style.fontFamily = "'Arial Black', Gadget, sans-serif";
-// --- 💧 LACRIME: PIOGGIA SU TUTTO LO SCHERMO ---
+if (window.innerWidth <= 768) { text.style.fontSize = "3rem"; }
+// Bottone Ricomincia
+const restartBtn = document.createElement("button");
+restartBtn.textContent = translate("restart") || "🔁 Ricomincia";
+restartBtn.style.fontSize = "1.5rem";
+restartBtn.style.padding = "10px 20px";
+restartBtn.style.background = "#28a745";
+restartBtn.style.color = "white";
+restartBtn.style.border = "none";
+restartBtn.style.borderRadius = "10px";
+restartBtn.style.cursor = "pointer";
+restartBtn.style.position = "relative"; 
+restartBtn.style.zIndex = "100001";
+restartBtn.onclick = () => {
+playSound(soundClick);
+location.reload();
+};  
+// Appendi elementi
+container.appendChild(text);
+container.appendChild(restartBtn);
+overlay.appendChild(container);
+document.body.appendChild(overlay);
+    // --- 💧 LACRIME: PIOGGIA SU TUTTO LO SCHERMO ---
 for (let i = 0; i < 40; i++) { 
     const drop = document.createElement("div");
     drop.className = "lacrima-animata"; 
@@ -747,28 +769,7 @@ for (let i = 0; i < 40; i++) {
     // Pulizia
     setTimeout(() => drop.remove(), 7000);
 }
-// Bottone Ricomincia
-const restartBtn = document.createElement("button");
-restartBtn.textContent = translate("restart") || "🔁 Ricomincia";
-restartBtn.style.fontSize = "1.5rem";
-restartBtn.style.padding = "10px 20px";
-restartBtn.style.background = "#28a745";
-restartBtn.style.color = "white";
-restartBtn.style.border = "none";
-restartBtn.style.borderRadius = "10px";
-restartBtn.style.cursor = "pointer";
-restartBtn.onclick = () => {
-playSound(soundClick);
-location.reload();
-};
-
-// Appendi elementi
-container.appendChild(text);
-container.appendChild(restartBtn);
-overlay.appendChild(container);
-document.body.appendChild(overlay);
 }
-
 // Aggiunge un bottone con la logica associata (es. Maggiore/Minore)
 function addButton(text, checkFn, type) {
 const btn = document.createElement("button");
