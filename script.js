@@ -498,8 +498,15 @@ restartBtn.style.border = "none";
 restartBtn.style.borderRadius = "10px";
 restartBtn.style.cursor = "pointer";
 restartBtn.onclick = () => {
-playSound(soundClick);
-location.reload();
+    playSound(soundClick);
+    overlay.remove(); 
+    document.querySelectorAll('.lacrima-animata').forEach(l => l.remove());
+    document.body.style.overflow = "auto";
+    document.body.style.background = "#800020";
+    document.getElementById("gameArea").style.display = "block";
+    gameSetup.classList.add("hidden"); 
+    resetGame(); 
+    startGame(); 
 };
 // Appendi elementi
 container.appendChild(text);
