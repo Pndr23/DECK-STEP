@@ -503,7 +503,7 @@ restartBtn.onclick = () => {
     document.querySelectorAll('.lacrima-animata').forEach(l => l.remove());
     document.body.style.overflow = "auto";
     document.body.style.background = "#800020"; 
-    document.getElementById("gameArea").style.display = "none"; 
+    document.getElementById("gameArea").style.display = "none";
     gameSetup.classList.remove("hidden"); 
     resetGame(); 
 };
