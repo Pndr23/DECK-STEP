@@ -987,17 +987,18 @@ function updateLanguage() {
         const betValue = parseFloat(document.getElementById("bet").value).toFixed(2);
         betBadge.textContent = `${translate("bet")} €${betValue}`;
 }
-if (challengeElement && currentChallengeType) {
+if (challengeText && currentChallengeType) {
 let testoSfida = translate(currentChallengeType);
 if (currentChallengeType === "inOut" && typeof aCurrent !== 'undefined') {
 testoSfida += ` (${aCurrent}-${bCurrent})`;
 }
-challengeElement.textContent = translate("challenge") + ": " + testoSfida;
+challengeText.textContent= translate("challenge") + ": " + testoSfida;
 }
     const buttons = document.querySelectorAll("#challengeButtons button");
     buttons.forEach(btn => {
         if (btn.dataset.type) {
-            btn.textContent = translate(btn.dataset.type);
+            const traduzione = translate(btn.dataset.type);
+           btn.textContent = traduzione || btn.dataset.type;
         }
     });
     // --- TRADUZIONE MINIGIOCO ---
@@ -1178,6 +1179,11 @@ backgroundMusic.play().catch(() => {});
 document.addEventListener("DOMContentLoaded", () => {
 currentLanguage = navigator.language.startsWith("en") ? "en" : "it";
 languageSelect.value = currentLanguage;
+    
+    languageSelect.addEventListener("change", (e) => {
+        currentLanguage = e.target.value; // Prende la lingua scelta (it o en)
+        updateLanguage();                // Chiama la funzione che traduce tutto
+    });
 updateLanguage();
 aggiornaMoltiplicatori();
   
