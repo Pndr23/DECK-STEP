@@ -537,17 +537,21 @@ function resetGame() {
     updateJollyButton();
 }
 function updateJollyDisplay() {
-jollyCountSpan.textContent = jollyCount;
-if (jollyCount > 0) {
-useJollyBtn.classList.remove("hidden");
-} else {
-useJollyBtn.classList.add("hidden");
-}
+    const jollySpan = document.getElementById("jollyCount");
+    const jollyBtn = document.getElementById("useJollyBtn");
+    if (jollySpan) jollySpan.textContent = jollyCount;
+    if (jollyCount > 0 && errorCount > 0) {
+        jollyBtn.classList.remove("hidden");
+        jollyBtn.style.display = "block"; 
+    } else {
+        jollyBtn.classList.add("hidden");
+        jollyBtn.style.display = "none";
+    }
 }
 function updateScore() {
-correctCountSpan.textContent = correctCount;
-errorCountSpan.textContent = errorCount;
-jollyCountSpan.textContent = jollyCount;
+    document.getElementById("correctCount").textContent = correctCount;
+    document.getElementById("errorCount").textContent = errorCount;
+    document.getElementById("jollyCount").textContent = jollyCount;
 }
 //tappe
 function updateProgress() {
@@ -1245,14 +1249,18 @@ document.addEventListener("DOMContentLoaded", () => {
             resetGame();
         };
     }
-    document.getElementById("useJollyBtn").addEventListener("click", () => {
-        if (jollyCount > 0 && !jollyUsedInThisTurn) {
-            jollyCount--;
-            updateJollyDisplay();
-            jollyUsedInThisTurn = true;
-            alert(currentLanguage === "it" ? "Hai usato il Jolly manualmente!" : "You used a Joker manually!");
-        }
-    });
+document.getElementById("useJollyBtn").onclick = () => {
+    if (jollyCount > 0 && errorCount > 0) {
+        jollyCount--;   
+        errorCount--;     
+        updateScore();         
+        updateJollyDisplay();  
+        console.log("Manuale: Jolly usato. Rimanenti:", jollyCount, "Errori:", errorCount);
+    } else if (jollyCount > 0 && errorCount === 0) {
+        const msg = currentLanguage === "it" ? "Non hai errori da correggere!" : "No errors to fix!";
+        alert(msg);
+    }
+};
     const gameArea = document.getElementById("gameArea");
     gameArea.style.transform = "scale(0.90)";
     gameArea.style.transformOrigin = "top center";
