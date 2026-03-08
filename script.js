@@ -517,19 +517,23 @@ document.body.appendChild(overlay);
 });
 // Resetta il gioco alla condizione iniziale
 function resetGame() {
-document.getElementById("gameOverScreen").classList.add("hidden");
-document.getElementById("drawnCardImg").src = "";
-partitaIniziata = false
-gameEnded = false;
-correctCount = 0;
-errorCount = 0;
-jollyCount = 0;
-tappe = 0;
-correctStreak = 0;
-moltiplicatoreBonus = 0;
-jollyUsedInThisTurn = false;
-updateProgress();
-updateJollyButton();
+    document.getElementById("gameOverScreen").classList.add("hidden");
+    document.getElementById("drawnCardImg").src = "cards/card_back.png"; 
+    document.getElementById("gainLabel").textContent = ""; 
+    document.getElementById("challengeButtons").innerHTML = "";
+    document.getElementById("challengeText").textContent = "";
+    partitaIniziata = false;
+    gameEnded = false;
+    correctCount = 0;
+    errorCount = 0;
+    jollyCount = 0;
+    tappe = 0;
+    correctStreak = 0;
+    moltiplicatoreBonus = 0;
+    jollyUsedInThisTurn = false;
+    updateScore(); 
+    updateProgress();
+    updateJollyButton();
 }
 function updateJollyDisplay() {
 jollyCountSpan.textContent = jollyCount;
@@ -1222,22 +1226,22 @@ document.addEventListener("DOMContentLoaded", () => {
     currentLevel = document.getElementById("risk").value;
     updateLanguage(); 
     aggiornaMoltiplicatori();
-    const startBtn = document.getElementById("startBtn"); 
+   const startBtn = document.getElementById("startButton"); 
     if (startBtn) {
-        startBtn.addEventListener("click", () => {
+        startBtn.onclick = () => {
             playSound(soundClick);
             startGame(); 
-        });
+        };
     }
-    const restartBtnHtml = document.getElementById("restartBtn");
-    if (restartBtnHtml) {
-        restartBtnHtml.addEventListener("click", () => {
+   const btnRestartHtml = document.getElementById("restartBtn");
+    if (btnRestartHtml) {
+        btnRestartHtml.onclick = () => {
             playSound(soundClick);
             document.getElementById("gameOverScreen").classList.add("hidden");
-            document.getElementById("gameArea").classList.add("hidden");
+            document.getElementById("gameArea").style.display = "none";
             document.getElementById("gameSetup").classList.remove("hidden");
             resetGame();
-        });
+        };
     }
     document.getElementById("useJollyBtn").addEventListener("click", () => {
         if (jollyCount > 0 && !jollyUsedInThisTurn) {
