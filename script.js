@@ -71,20 +71,23 @@ sound.play();
 }
 //bottoni per cronologia  e mutare i suoni
 window.addEventListener("DOMContentLoaded", () => {
-const soundToggle = document.getElementById("soundToggle");
-if (!soundToggle) return;
-soundToggle.textContent = audioOn ? "🔊" : "🔇";
-soundToggle.addEventListener("click", (event) => {
-event.stopPropagation();
-audioOn = !audioOn;
-soundToggle.textContent = audioOn ? "🔊" : "🔇";
-localStorage.setItem("audioOn", audioOn);
-if (!audioOn) {
-backgroundMusic.pause();
-} else {
-backgroundMusic.play().catch(() => {});
-}
-});
+    const soundToggle = document.getElementById("soundToggle");
+    if (!soundToggle) return;
+    soundToggle.textContent = audioOn ? "🔊" : "🔇";
+    if (!audioOn && backgroundMusic) {
+        backgroundMusic.pause();
+    }
+    soundToggle.addEventListener("click", (event) => {
+        event.stopPropagation();
+        audioOn = !audioOn;
+        soundToggle.textContent = audioOn ? "🔊" : "🔇";
+        localStorage.setItem("audioOn", audioOn); // Salva la scelta
+        if (!audioOn) {
+            backgroundMusic.pause();
+        } else {
+            backgroundMusic.play().catch(() => {});
+        }
+    });
 });
 function preloadCardImages() {
 const suits = ["C", "P", "F", "Q"]; // semi
