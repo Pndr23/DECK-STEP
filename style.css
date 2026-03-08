@@ -924,21 +924,23 @@ transform: scale(0.85);
     50% { transform: translateY(-15px); }
 }
 /* --- ANIMAZIONE LACRIME (per la Perdita) --- */
-@keyframes cadeLacrima {
+@keyframes pioggiaLacrime {
     0% { transform: translateY(0); opacity: 0; }
-    20% { opacity: 1; }
-    100% { transform: translateY(200px); opacity: 0; }
+    10% { opacity: 0.6; }
+    100% { transform: translateY(110vh); opacity: 0.2; } /* Cadono fino in fondo */
 }
 /* --- STILE DELLA GOCCIA --- */
 .lacrima-animata {
-    position: absolute;
-    width: 10px;          /*larghezza*/
-    height: 16px;        /*lunghezza*/ 
-    background-color: #33CCFF; /* Azzurro lacrima */
+    position: fixed;         /* Fixed per coprire tutto lo schermo */
+    top: -20px;              /* Parte da sopra il bordo superiore */
+    width: 8px;              /* Leggermente più sottili per sembrare pioggia */
+    height: 14px;
+    background-color: #33CCFF; 
     border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-    animation: cadeLacrima 2s linear infinite;
     pointer-events: none;
-    z-index: 10;
+    z-index: 10000;          /* Sopra tutto */
+    animation: pioggiaLacrime linear infinite;
+    opacity: 0.6;            /* Leggera trasparenza per non coprire troppo il testo */
 }
 @keyframes baglioreDivino {
     0%, 100% {
