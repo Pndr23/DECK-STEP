@@ -662,9 +662,15 @@ challengeText.textContent += ` (${a}-${b})`;
 addButton(translate("in"), (next) => next.value >= a && next.value <= b, "in");
 addButton(translate("out"), (next) => next.value < a || next.value > b, "out");
 } else if (selected.key === "exactNumber") {
-for (let i = 1; i <= 10; i++) {
-addButton(i.toString(), (next) => next.value === i, i.toString());
-}
+    for (let i = 1; i <= 10; i++) {
+        // CORRETTO: Salviamo il bottone nella variabile 'btn'
+        const btn = addButton(i.toString(), (next) => next.value === i, i.toString());
+        // Ora possiamo aggiungergli la classe
+        if (btn) {
+            btn.classList.remove("green-button"); // Togliamo il verde standard
+            btn.classList.add("numero-esatto");   // Mettiamo lo stile oro grande
+        }
+     }
 } else if (selected.key === "color") {
 addButton(translate("red"), (next) => next.suit === "C" || next.suit === "Q", "red");
 addButton(translate("black"), (next) => next.suit === "F" || next.suit === "P", "black");
@@ -844,6 +850,7 @@ aggiornaGuadagno(correctCount);
 }, 800);
 };
 challengeButtons.appendChild(btn);
+return btn;
 }
 //Schermata vittoria
 function showVictoryScreen(vincitaTotale) {
