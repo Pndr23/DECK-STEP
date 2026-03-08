@@ -943,37 +943,29 @@ transform: scale(0.85);
 @keyframes baglioreDivino {
     0%, 100% {
         text-shadow: 
-            0 0 10px #FFD700,   /* Oro chiaro */
-            0 0 20px #FFD700, 
-            0 0 30px #B8860B,   /* Oro scuro */
-            0 0 40px #FF8C00,   /* Arancione scuro */
-            0 -10px 50px rgba(255, 215, 0, 0.5); /* Fumo verso l'alto */
-        transform: scale(1);
+            0 0 10px rgba(255, 215, 0, 0.5), 
+            0 0 20px rgba(218, 165, 32, 0.4),
+            0 -10px 40px rgba(255, 215, 0, 0.3); /* Fumo leggero */
     }
     50% {
         text-shadow: 
-            0 0 15px #FFE4B5,   
-            0 0 25px #FFD700, 
-            0 0 35px #DAA520,   /* Oro ocra */
-            0 0 50px #FFD700, 
-            0 -20px 70px rgba(255, 215, 0, 0.8); /* Fumo si alza */
-        transform: scale(1.02); /* Leggera pulsazione */
+            0 0 20px rgba(255, 215, 0, 0.8), 
+            0 0 40px rgba(218, 165, 32, 0.6),
+            0 -15px 60px rgba(255, 215, 0, 0.5); /* Fumo più intenso */
     }
 }
-
 /* --- STILE PER LA CORONA --- */
 .corona-vittoria {
-    font-size: 3rem;           /* Dimensione della corona */
-    color: #FFD700;             /* Colore Oro */
-    margin-bottom: 15px;        /* Spazio sopra la scritta */
-    display: block;             /* Su una riga separata */
+    font-size: 7rem;           /* Molto grande al centro */
+    margin-bottom: 10px;
+    display: block;
     text-align: center;
     animation: ondaOcre 2s ease-in-out infinite; 
-    text-shadow: 0 0 10px #FFD700, 0 0 20px #B8860B;
+    filter: drop-shadow(0 0 15px #FFD700); /* Bagliore solo esterno alla corona */
 }
 /* la dimensione della corona su mobile */
 @media (max-width: 768px) {
     .corona-vittoria {
-        font-size: 2rem;
+        font-size: 4rem;
     }
 }
