@@ -502,13 +502,11 @@ restartBtn.onclick = () => {
     overlay.remove(); 
     document.querySelectorAll('.lacrima-animata').forEach(l => l.remove());
     document.body.style.overflow = "auto";
-    document.body.style.background = "#800020";
-    document.getElementById("gameArea").style.display = "block";
-    gameSetup.classList.add("hidden"); 
+    document.body.style.background = "#800020"; 
+    document.getElementById("gameArea").style.display = "none"; 
+    gameSetup.classList.remove("hidden"); 
     resetGame(); 
-    startGame(); 
 };
-// Appendi elementi
 container.appendChild(text);
 container.appendChild(winnings);
 container.appendChild(restartBtn);
