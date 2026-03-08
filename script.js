@@ -1205,8 +1205,7 @@ backgroundMusic.currentTime = savedTime;
 if (wasPlaying) {
 backgroundMusic.play().catch(() => {});
 }
-}
-  
+}  
 document.addEventListener("DOMContentLoaded", () => {
     const savedLanguage = localStorage.getItem("selectedLanguage");
     if (savedLanguage) {
@@ -1221,28 +1220,35 @@ document.addEventListener("DOMContentLoaded", () => {
         updateLanguage(); 
     });
     currentLevel = document.getElementById("risk").value;
-    updateLanguage(); // Prima traduzione all'avvio
+    updateLanguage(); 
     aggiornaMoltiplicatori();
-    // 🔹 Ricomincia dopo Game Over
-    document.getElementById("restartBtn").addEventListener("click", () => {
-        saveMusicState();
-        playSound(soundClick);
-        location.reload();
+    const startBtn = document.getElementById("startBtn"); 
+    if (startBtn) {
+        startBtn.addEventListener("click", () => {
+            playSound(soundClick);
+            startGame(); 
+        });
+    }
+    const restartBtnHtml = document.getElementById("restartBtn");
+    if (restartBtnHtml) {
+        restartBtnHtml.addEventListener("click", () => {
+            playSound(soundClick);
+            document.getElementById("gameOverScreen").classList.add("hidden");
+            document.getElementById("gameArea").classList.add("hidden");
+            document.getElementById("gameSetup").classList.remove("hidden");
+            resetGame();
+        });
+    }
+    document.getElementById("useJollyBtn").addEventListener("click", () => {
+        if (jollyCount > 0 && !jollyUsedInThisTurn) {
+            jollyCount--;
+            updateJollyDisplay();
+            jollyUsedInThisTurn = true;
+            alert(currentLanguage === "it" ? "Hai usato il Jolly manualmente!" : "You used a Joker manually!");
+        }
     });
-// 🔹 Usa Jolly manualmente
-document.getElementById("useJollyBtn").addEventListener("click", () => {
-if (jollyCount > 0 && !jollyUsedInThisTurn) {
-jollyCount--;
-updateJollyDisplay();
-jollyUsedInThisTurn = true;
-alert(currentLanguage === "it" ? "Hai usato il Jolly manualmente!" : "You used a Joker manually!");
-}
-});
-  
-// 🔹 Scala grafica area di gioco
-const gameArea = document.getElementById("gameArea");
-gameArea.style.transform = "scale(0.90)";
-gameArea.style.transformOrigin = "top center";
-// 🔹 Ripristina musica dopo reload
-restoreMusicState();
+    const gameArea = document.getElementById("gameArea");
+    gameArea.style.transform = "scale(0.90)";
+    gameArea.style.transformOrigin = "top center";
+    restoreMusicState();
 });
