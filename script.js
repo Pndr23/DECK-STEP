@@ -859,42 +859,35 @@ function showVictoryScreen(vincitaTotale) {
     
     if (window.innerWidth <= 768) { container.style.backgroundSize = "contain"; }
 
-    // --- 👑 CORONA ONDEGGIANTE ---
-    const corona = document.createElement("img");
-    corona.src = "corona_gold.png";    
-    corona.className = "corona-reale"; // Gestita dal CSS per dimensione e onda
-    corona.alt = "👑";
+  // --- 👑 CREAZIONE CORONA MAESTOSA (EMOJI GIGANTE) ---
+    const corona = document.createElement("div");
+    corona.textContent = "👑";
+    corona.className = "corona-vittoria-grande"; // Usa la classe CSS con font-size 10rem e bagliore
+    corona.style.position = "relative";
+    corona.style.zIndex = "10002"; // Il punto più alto dello schermo
 
-// --- 🏆 TITOLO VITTORIA PULITO ---
-const title = document.createElement("h1");
-let titleText = translate("victoryTitle").replace(/🎆/g, '').trim();
-title.textContent = titleText.toUpperCase();
+    // --- 🏆 TITOLO VITTORIA PULITO (Color Crema) ---
+    const title = document.createElement("h1");
+    let titleText = (translate("victoryTitle") || "VITTORIA").replace(/🎆/g, '').trim();
+    title.textContent = titleText.toUpperCase();
+    title.style = `
+        font-size: 6rem; color: #FFFDD0; font-weight: 700; font-family: sans-serif;
+        margin-bottom: 25px; display: inline-block; position: relative; z-index: 10002;
+        animation: baglioreDivino 3s ease-in-out infinite, ondaOcre 2s ease-in-out infinite alternate;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    `;
 
-title.style.fontSize = "6rem"; 
-title.style.color = "#FFFDD0";        // Colore Crema
-title.style.fontWeight = "700";       
-title.style.fontFamily = "sans-serif";
-title.style.marginBottom = "25px";
-title.style.display = "inline-block";
-title.style.position = "relative";
-title.style.animation = "baglioreDivino 3s ease-in-out infinite, ondaOcre 2s ease-in-out infinite alternate";
-title.style.textShadow = "2px 2px 4px rgba(0,0,0,0.3)";
+    if (window.innerWidth <= 768) { title.style.fontSize = "3.5rem"; }
 
-if (window.innerWidth <= 768) { title.style.fontSize = "3.5rem"; }
-    // Testo vincita
+    // --- 💰 TESTO VINCITA ---
     const prize = document.createElement("p");
     const winText = translate("victoryWin") || "Hai vinto {amount} crediti!";
     prize.textContent = winText.replace("{amount}", vincitaTotale);
-    prize.style.fontSize = "2rem"; // Leggermente più grande per enfasi
-    prize.style.color = "white";
-    prize.style.fontWeight = "bold";
-    prize.style.marginBottom = "25px";
-    prize.style.textShadow = "2px 2px 5px black";
-
+    prize.style = "font-size: 2rem; color: white; font-weight: bold; margin-bottom: 25px; text-shadow: 2px 2px 5px black; position: relative; z-index: 10002;";
     // Bottone Ricomincia
     const restartBtn = document.createElement("button");
     restartBtn.textContent = translate("restart") || "🔁 Ricomincia";
-    restartBtn.style = "font-size:1.5rem; padding:10px 20px; background:#28a745; color:white; border:none; border-radius:10px; cursor:pointer;";
+    restartBtn.style = "font-size:1.5rem; padding:10px 20px; background:#28a745; color:white; border:none; border-radius:10px; cursor:pointer;z-index:10002;";
     restartBtn.onclick = () => { playSound(soundClick); location.reload(); };
 
     // Appendi in ordine: Corona -> Titolo -> Premio -> Bottone
@@ -905,25 +898,23 @@ if (window.innerWidth <= 768) { title.style.fontSize = "3.5rem"; }
     overlay.appendChild(container);
     document.body.appendChild(overlay);
 
-    // Effetto brillantini (il tuo codice originale)
-    for (let i = 0; i < 30; i++) {
-        const spark = document.createElement("div");
-        spark.style.position = "fixed";
-        spark.style.width = "6px";
-        spark.style.height = "6px";
-        spark.style.background = `hsl(${Math.random() * 360}, 100%, 60%)`;
-        spark.style.borderRadius = "50%";
-        spark.style.top = (Math.random() * window.innerHeight) + "px";
-        spark.style.left = (Math.random() * window.innerWidth) + "px";
-        spark.style.opacity = "0.8";
-        spark.style.transform = "scale(0)";
-        spark.style.transition = "transform 1.2s ease-out, opacity 1.2s ease-out";
-        document.body.appendChild(spark);
-        setTimeout(() => {
-            spark.style.transform = "scale(5)";
-            spark.style.opacity = "0";
-        }, 50 + i * 100);
-        setTimeout(() => spark.remove(), 2000);
+   // --- 🎉 NUOVA PIOGGIA DI CORIANDOLI (Sostituisce i brillantini) ---
+    const confettiColors = ["#FFD700", "#FFFDD0", "#FF4500", "#33CCFF"]; 
+    for (let i = 0; i < 60; i++) { 
+        const confetti = document.createElement("div");
+        confetti.className = "confetti"; // Usa la classe CSS che abbiamo scritto
+        // Posizione casuale
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+        // Dimensioni casuali per realismo
+        const size = Math.random() * 12 + 6 + "px"; 
+        confetti.style.width = size;
+        confetti.style.height = size;
+        // Ritardo e velocità casuali per non farli cadere tutti insieme
+        confetti.style.animationDelay = Math.random() * 4 + "s";
+        confetti.style.animationDuration = Math.random() * 2 + 3 + "s"; 
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 7000);
     }
 }
 function tryAutoJolly(maxErrors) {
