@@ -542,7 +542,8 @@ function updateJollyDisplay() {
     if (jollySpan) jollySpan.textContent = jollyCount;
     if (jollyCount > 0 && errorCount > 0) {
         jollyBtn.classList.remove("hidden");
-        jollyBtn.style.display = "block"; 
+        jollyBtn.style.display = "inline-block";
+        jollyBtn.style.margin = "10px auto";
     } else {
         jollyBtn.classList.add("hidden");
         jollyBtn.style.display = "none";
