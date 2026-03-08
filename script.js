@@ -866,23 +866,26 @@ function showVictoryScreen(vincitaTotale) {
     corona.style.textShadow = "0 0 15px gold";
 
     // --- 🏆 TITOLO CON BAGLIORE DIVINO ---
-    const title = document.createElement("h1");
-    title.textContent = translate("victoryTitle").toUpperCase();
-    title.style.fontSize = "6rem"; // Grande come il Game Over
-    title.style.color = "#FFD700"; // Oro Sisal
-    title.style.fontWeight = "900";
-    title.style.fontFamily = "'Arial Black', Gadget, sans-serif";
-    title.style.marginBottom = "20px";
-    title.style.display = "inline-block";
-    
-    // Applichiamo l'animazione del bagliore (fumo oro) e l'onda
-    title.style.animation = "baglioreDivino 3s ease-in-out infinite, ondaOcre 2s ease-in-out infinite alternate";
-    
-    // Ombra base per dare spessore (Arial Black + ombra nera)
-    title.style.textShadow = "3px 3px 0px #000";
+    // --- 🏆 TITOLO VITTORIA (Elegante e Leggibile) ---
+const title = document.createElement("h1");
+title.textContent = translate("victoryTitle").toUpperCase();
+title.style.fontSize = "6rem"; 
+title.style.color = "#FFFDD0";        // COLORE CREMA (Avorio)
+title.style.fontWeight = "700";       // SPESSORE RIDOTTO (Bold standard, non eccessivo)
+title.style.fontFamily = "sans-serif"; // Font pulito senza grazie
+title.style.marginBottom = "25px";
+title.style.display = "inline-block";
+title.style.position = "relative";
 
-    if (window.innerWidth <= 768) { title.style.fontSize = "3rem"; }
+// Applichiamo il bagliore oro del CSS e l'onda
+title.style.animation = "baglioreDivino 3s ease-in-out infinite, ondaOcre 2s ease-in-out infinite alternate";
 
+// Ombra sottile per definire i bordi della scritta rispetto al bagliore
+title.style.textShadow = "2px 2px 4px rgba(0,0,0,0.3)";
+
+if (window.innerWidth <= 768) {
+    title.style.fontSize = "3.5rem";
+}
     // Testo vincita
     const prize = document.createElement("p");
     const winText = translate("victoryWin") || "Hai vinto {amount} crediti!";
