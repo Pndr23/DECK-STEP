@@ -686,7 +686,7 @@ startGame();
 });
 function showGameOverScreen() {
 playSound(soundLose);
-document.body.classList.add("no-scroll");
+document.body.style.overflow = "hidden";
 document.getElementById("gameArea").style.display = "none";
 gameSetup.classList.add("hidden");
 document.body.style.background = "#800000";
@@ -845,6 +845,7 @@ challengeButtons.appendChild(btn);
 //Schermata vittoria
 function showVictoryScreen(vincitaTotale) {
     soundWin.play();
+    document.body.style.overflow = "hidden";
     document.getElementById("gameArea").style.display = "none";
     gameSetup.classList.add("hidden");
     document.body.style.background = "#800000";
@@ -912,7 +913,6 @@ function showVictoryScreen(vincitaTotale) {
         confetti.style.animationDelay = Math.random() * 4 + "s";
         confetti.style.animationDuration = Math.random() * 2 + 3 + "s"; 
         document.body.appendChild(confetti);
-        setTimeout(() => confetti.remove(), 7000);
     }
 }
 function tryAutoJolly(maxErrors) {
