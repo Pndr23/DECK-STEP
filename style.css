@@ -65,6 +65,34 @@ color: white !important;
 background-color: #14d928 !important;
 color: white !important;
 }
+.numero-esatto {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 60px !important;  
+    height: 60px !important;
+    margin: 6px !important;
+    background: linear-gradient(to bottom, #d4af37, #b8860b) !important;
+    color: black !important;
+    border: 2px solid white !important;
+    border-radius: 12px !important;
+    font-size: 1.5rem !important;
+    font-weight: bold !important;
+    box-shadow: 0 0 10px gold !important;
+    cursor: pointer;
+}
+@media (min-width: 768px) {
+    .numero-esatto {
+        width: 100px !important;   
+        height: 100px !important;
+        font-size: 2.5rem !important; 
+        margin: 10px !important;
+    }
+    .numero-esatto:hover {
+        transform: scale(1.1);
+        filter: brightness(1.2);
+    }
+}
 img {
 width: 400px;
 height: auto;
