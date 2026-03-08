@@ -760,15 +760,15 @@ restartBtn.style.cursor = "pointer";
 restartBtn.style.position = "relative"; 
 restartBtn.style.zIndex = "100001";
 restartBtn.onclick = () => {
-playSound(soundClick);
+    playSound(soundClick);
     overlay.remove(); 
     document.body.style.overflow = "auto";
     document.body.style.background = "#800020";
     document.getElementById("gameArea").style.display = "block";
-    gameSetup.classList.remove("hidden");
+    gameSetup.classList.add("hidden"); 
+    resetGame(); 
     startGame(); 
 };
-};  
 // Appendi elementi
 container.appendChild(text);
 container.appendChild(restartBtn);
