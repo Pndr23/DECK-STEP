@@ -686,6 +686,7 @@ startGame();
 });
 function showGameOverScreen() {
 playSound(soundLose);
+document.body.classList.add("no-scroll");
 document.getElementById("gameArea").style.display = "none";
 gameSetup.classList.add("hidden");
 document.body.style.background = "#800000";
@@ -758,16 +759,12 @@ overlay.appendChild(container);
 document.body.appendChild(overlay);
     // --- 💧 LACRIME: PIOGGIA SU TUTTO LO SCHERMO ---
 for (let i = 0; i < 40; i++) { 
-    const drop = document.createElement("div");
-    drop.className = "lacrima-animata"; 
-    // Posizione orizzontale su tutta la larghezza (vw = view width)
-    drop.style.left = Math.random() * 100 + "vw";
-    // Ritardo e velocità casuali per l'effetto pioggia
-    drop.style.animationDelay = Math.random() * 5 + "s";
-    drop.style.animationDuration = (Math.random() * 2 + 2) + "s";
-    document.body.appendChild(drop);
-    // Pulizia
-    setTimeout(() => drop.remove(), 7000);
+        const drop = document.createElement("div");
+        drop.className = "lacrima-animata"; 
+        drop.style.left = Math.random() * 100 + "vw";
+        // Ritardi diversi così la pioggia è continua e naturale
+        drop.style.animationDelay = Math.random() * 5 + "s";
+        document.body.appendChild(drop);
 }
 }
 // Aggiunge un bottone con la logica associata (es. Maggiore/Minore)
