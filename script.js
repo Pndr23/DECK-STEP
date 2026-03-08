@@ -503,9 +503,13 @@ restartBtn.onclick = () => {
     document.querySelectorAll('.lacrima-animata').forEach(l => l.remove());
     document.body.style.overflow = "auto";
     document.body.style.background = "#800020"; 
-    document.getElementById("gameArea").style.display = "none";
-    gameSetup.classList.remove("hidden"); 
+    document.getElementById("gameArea").classList.add("hidden"); 
+    document.getElementById("gameArea").style.display = "none"; 
+    const gameSetup = document.getElementById("gameSetup");
+    gameSetup.classList.remove("hidden");
+    gameSetup.style.display = "block";
     resetGame(); 
+
 };
 container.appendChild(text);
 container.appendChild(winnings);
@@ -767,12 +771,15 @@ restartBtn.style.zIndex = "100001";
 restartBtn.onclick = () => {
     playSound(soundClick);
     overlay.remove(); 
+    document.querySelectorAll('.lacrima-animata').forEach(l => l.remove());
     document.body.style.overflow = "auto";
     document.body.style.background = "#800020";
-    document.getElementById("gameArea").style.display = "block";
-    gameSetup.classList.add("hidden"); 
+    document.getElementById("gameArea").style.display = "none";
+    document.getElementById("gameArea").classList.add("hidden");
+    const gameSetup = document.getElementById("gameSetup");
+    gameSetup.classList.remove("hidden");
+    gameSetup.style.display = "block"; 
     resetGame(); 
-    startGame(); 
 };
 // Appendi elementi
 container.appendChild(text);
