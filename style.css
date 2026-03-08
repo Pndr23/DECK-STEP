@@ -955,17 +955,38 @@ transform: scale(0.85);
     }
 }
 /* --- STILE PER LA CORONA --- */
-.corona-vittoria {
-    font-size: 7rem;           /* Molto grande al centro */
-    margin-bottom: 10px;
+.corona-reale {
+    width: 250px;             /* Enorme (almeno il doppio dell'emoji) */
+    height: auto;             /* Mantiene le proporzioni */
+    margin-bottom: -10px;     /* La avvicina al titolo */
     display: block;
-    text-align: center;
-    animation: ondaOcre 2s ease-in-out infinite; 
-    filter: drop-shadow(0 0 15px #FFD700); /* Bagliore solo esterno alla corona */
+    margin-left: auto;
+    margin-right: auto;       /* Centratura perfetta */
+    /* Manteniamo l'onda del ritiro */
+    animation: ondaOcre 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 15px #FFD700); /* Bagliore oro esterno */
+    z-index: 10;
 }
 /* la dimensione della corona su mobile */
 @media (max-width: 768px) {
-    .corona-vittoria {
-        font-size: 4rem;
+    .corona-reale {
+        width: 150px; /* Più piccola ma comunque grande su mobile */
     }
+}
+
+/* --- 🎉 NUOVA ANIMAZIONE CORIANDOLI CADENTI --- */
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    opacity: 0.7;
+    border-radius: 50%; /* Piccoli cerchietti */
+    pointer-events: none;
+    z-index: 9998; /* Sopra tutto tranne l'overlay/container */
+    animation: confettiCadono linear infinite; /* Animazione infinita */
+}
+
+@keyframes confettiCadono {
+    0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; } /* Cadono oltre il fondo */
 }
