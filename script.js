@@ -1207,7 +1207,7 @@ if (jollyCount > 0 && !jollyUsedInThisTurn) {
 jollyCount--;
 updateJollyDisplay();
 jollyUsedInThisTurn = true;
-alert("Hai usato il Jolly manualmente!");
+alert(currentLanguage === "it" ? "Hai usato il Jolly manualmente!" : "You used a Joker manually!");
 }
 });
   
