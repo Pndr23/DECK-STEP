@@ -501,12 +501,13 @@ restartBtn.onclick = () => {
     playSound(soundClick);
     overlay.remove(); 
     document.querySelectorAll('.lacrima-animata').forEach(l => l.remove());
-    document.body.style.overflow = "auto";
-    document.body.style.background = "#800020";
-    document.getElementById("gameArea").style.display = "none";
+    document.getElementById("gameArea").style.display = "none"; 
+    document.getElementById("gameArea").classList.add("hidden");
     const gameSetup = document.getElementById("gameSetup");
+    gameSetup.style.display = "block"; 
     gameSetup.classList.remove("hidden");
-    gameSetup.style.display = "block";
+    document.body.style.overflow = "auto";
+    document.body.style.background = "#800020"; 
     resetGame(); 
 };
 container.appendChild(text);
@@ -590,9 +591,10 @@ useJollyBtn.classList.toggle("hidden", jollyCount === 0);
 }
 // Avvia una nuova partita
 function startGame() {
+document.getElementById("gameSetup").style.display = "none";
+document.getElementById("gameSetup").classList.add("hidden");
 document.getElementById("gameArea").style.display = "block";
 document.getElementById("gameArea").classList.remove("hidden");
-document.getElementById("gameSetup").classList.add("hidden");
 console.log("startGame chiamato");  // Controlla se la funzione viene eseguita
 console.log("Stato schermata gioco:", gameArea.hidden);
 partitaIniziata = true;
