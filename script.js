@@ -858,34 +858,27 @@ function showVictoryScreen(vincitaTotale) {
     if (window.innerWidth <= 768) { container.style.backgroundSize = "contain"; }
 
     // --- 👑 CORONA ONDEGGIANTE ---
-    const corona = document.createElement("div");
-    corona.textContent = "👑";
-    corona.style.fontSize = "4rem";
-    corona.style.marginBottom = "10px";
-    corona.style.animation = "ondaOcre 2s ease-in-out infinite"; // Usa l'onda del ritiro
-    corona.style.textShadow = "0 0 15px gold";
+    const corona = document.createElement("img");
+    corona.src = "corona_gold.png";    
+    corona.className = "corona-reale"; // Gestita dal CSS per dimensione e onda
+    corona.alt = "👑";
 
-    // --- 🏆 TITOLO CON BAGLIORE DIVINO ---
-    // --- 🏆 TITOLO VITTORIA (Elegante e Leggibile) ---
+// --- 🏆 TITOLO VITTORIA PULITO ---
 const title = document.createElement("h1");
-title.textContent = translate("victoryTitle").toUpperCase();
+let titleText = translate("victoryTitle").replace(/🎆/g, '').trim();
+title.textContent = titleText.toUpperCase();
+
 title.style.fontSize = "6rem"; 
-title.style.color = "#FFFDD0";        // COLORE CREMA (Avorio)
-title.style.fontWeight = "700";       // SPESSORE RIDOTTO (Bold standard, non eccessivo)
-title.style.fontFamily = "sans-serif"; // Font pulito senza grazie
+title.style.color = "#FFFDD0";        // Colore Crema
+title.style.fontWeight = "700";       
+title.style.fontFamily = "sans-serif";
 title.style.marginBottom = "25px";
 title.style.display = "inline-block";
 title.style.position = "relative";
-
-// Applichiamo il bagliore oro del CSS e l'onda
 title.style.animation = "baglioreDivino 3s ease-in-out infinite, ondaOcre 2s ease-in-out infinite alternate";
-
-// Ombra sottile per definire i bordi della scritta rispetto al bagliore
 title.style.textShadow = "2px 2px 4px rgba(0,0,0,0.3)";
 
-if (window.innerWidth <= 768) {
-    title.style.fontSize = "3.5rem";
-}
+if (window.innerWidth <= 768) { title.style.fontSize = "3.5rem"; }
     // Testo vincita
     const prize = document.createElement("p");
     const winText = translate("victoryWin") || "Hai vinto {amount} crediti!";
