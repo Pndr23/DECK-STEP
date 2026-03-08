@@ -972,7 +972,7 @@ transform: scale(0.85);
     opacity: 0.9;
     pointer-events: none;    /* Non interferiscono con i clic */
     z-index: 10000;          /* Sopra l'overlay bordeaux ma sotto la corona/titolo */
-    animation: confettiCadono linear infinite;
+    animation: confettiCadono 4s linear infinite;
 }
 @keyframes confettiCadono {
     0% { transform: translateY(0) rotate(0deg); }
