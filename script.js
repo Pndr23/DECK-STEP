@@ -701,7 +701,6 @@ overlay.style.display = "flex";
 overlay.style.justifyContent = "center";
 overlay.style.alignItems = "center";
 overlay.style.zIndex = "99999";
-
 // Container grande come il gioco principale
 const container = document.createElement("div");
 container.style.width = "90%";
@@ -720,30 +719,33 @@ container.style.flexDirection = "column";
 container.style.justifyContent = "center";
 container.style.alignItems = "center";
 container.style.textAlign = "center";
-
 // Testo Game Over
 const text = document.createElement("h1");
-text.textContent = translate("lost").toUpperCase(); // Tutto maiuscolo
-text.style.fontSize = "6rem";        // PIÙ GRANDE (da 5 a 6rem)
-text.style.color = "#a30000";         // ROSSO SCURO (un bordeaux minaccioso)
-text.style.position = "relative";    // Serve per posizionare le lacrime
+text.textContent = translate("lost").toUpperCase(); 
+text.style.fontSize = "6rem";        
+text.style.color = "#a30000";         
+text.style.position = "relative";    
 text.style.display = "inline-block";
 text.style.marginBottom = "30px";
 text.style.fontWeight = "900";
-    
-    text.style.textShadow = `
+text.style.textShadow = `
     2px 2px 0px #000, 
     4px 4px 0px rgba(0,0,0,0.8), 
     0 0 20px rgba(255,0,0,0.5)
 `;
-text.style.fontFamily = "'Arial Black', Gadget, sans-serif"; // Font più "ciccione"
-    
-   for (let i = 0; i < 15; i++) {
-    const lacrima = document.createElement("div");
-    lacrima.className = "lacrima-animata"; // Usa la classe che abbiamo messo nel CSS
-    lacrima.style.left = Math.random() * 100 + "%";
-    lacrima.style.animationDelay = Math.random() * 2 + "s";
-    text.appendChild(lacrima);
+text.style.fontFamily = "'Arial Black', Gadget, sans-serif";
+// --- 💧 LACRIME: PIOGGIA SU TUTTO LO SCHERMO ---
+for (let i = 0; i < 40; i++) { 
+    const drop = document.createElement("div");
+    drop.className = "lacrima-animata"; 
+    // Posizione orizzontale su tutta la larghezza (vw = view width)
+    drop.style.left = Math.random() * 100 + "vw";
+    // Ritardo e velocità casuali per l'effetto pioggia
+    drop.style.animationDelay = Math.random() * 5 + "s";
+    drop.style.animationDuration = (Math.random() * 2 + 2) + "s";
+    document.body.appendChild(drop);
+    // Pulizia
+    setTimeout(() => drop.remove(), 7000);
 }
 // Bottone Ricomincia
 const restartBtn = document.createElement("button");
