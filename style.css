@@ -995,8 +995,8 @@ transform: scale(0.85);
 }
 /* --- 🎉 STILE CORIANDOLI CADENTI (FULL SCREEN) --- */
 .confetti {
-    position: fixed;         /* Fixed per coprire tutto lo schermo */
-    top: -20px;              /* Parte da sopra il bordo superiore */
+    position: fixed;         
+    top: -20px;             
     opacity: 0.9;
     pointer-events: none;    
     z-index: 10000;          
@@ -1004,60 +1004,55 @@ transform: scale(0.85);
 }
 @keyframes confettiCadono {
     0% { transform: translateY(0) rotate(0deg); }
-    100% { transform: translateY(110vh) rotate(720deg); } /* Cadono fino in fondo */
+    100% { transform: translateY(110vh) rotate(720deg); } 
 }
 @media (max-width: 600px) {
-    /* 1. Gestione Spazi Esterni */
-    body {
-        padding: 0 !important;
-        margin: 0 !important;
-    }
     #languageSelect {
         font-size: 11px !important;
-        padding: 2px !important;
         position: absolute !important;
-        top: 2px !important;
-        right: 5px !important;
-        transform: scale(0.8) !important;
+        top: 5px !important;
+        right: 45px !important; 
+        transform: scale(0.85) !important;
+        z-index: 1002;
+    }
+    #historyButton.icon-button {
+        position: absolute !important;
+        top: 5px !important;
+        right: 5px !important; /
+        width: 30px !important;
+        height: 30px !important;
+        margin: 0 !important;
         z-index: 1002;
     }
     #gameTitle {
-        font-size: 1.3rem !important; 
-        margin-top: 18px !important; 
-        margin-bottom: -5px !important; 
+        font-size: 1.4rem !important; 
+        margin-top: 35px !important; 
+        margin-bottom: 5px !important;
+    }
+    #scorePanel {
+        gap: 8px !important; 
+        margin-top: 5px !important;
+        margin-bottom: 8px !important;
+    }
+    .multiplier-label {
+        font-size: 0.9rem !important;
+        margin-top: 8px !important; 
+        margin-bottom: 8px !important;
     }
     .container {
-        padding: 2px !important;
-        margin-top: 0 !important;
-        margin-left: 2px !important;
-        margin-right: 2px !important;
-        border-radius: 15px !important;
+        padding: 8px !important;
+        margin-top: 5px !important;
     }
     #currentCardImg, #drawnCardImg {
         width: 120px !important; 
-        margin: 0 auto !important; 
-    }
-    #scorePanel {
-        gap: 0 !important;
-        margin-bottom: 0 !important;
+        margin: 5px auto !important; 
     }
     #challengeText {
-        margin: 0px 0 !important; 
-        font-size: 1.1rem !important;
-        line-height: 1 !important;
+        margin: 8px 0 !important;
+        font-size: 1.2rem !important;
     }
     button {
-        margin: 1px !important; 
-        padding: 5px 8px !important;
-        font-size: 0.8rem !important;
-    }
-    .progress-path {
-        padding-top: 0px !important;
-        padding-bottom: 5px !important;
-        margin-top: -5px !important;
-    }
-    #tappaCounter, #betDisplay {
-        margin-bottom: 2px !important;
-        font-size: 0.9rem !important;
+        margin: 3px !important; 
+        padding: 8px 12px !important;
     }
 }
