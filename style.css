@@ -322,15 +322,12 @@ font-size: 1rem;
 }
 #challengeText {
     font-size: 1.4rem;
-    margin-top: 5px; 
-    margin-bottom: 5px;
 }
 #currentCardImg,
 #drawnCardImg {
-    width: 130px; 
-    height: auto;
-    margin: 2px auto; 
-    display: block;
+width: 100%;
+max-width: 40vw;
+height: auto;
 }
 body {
 background-size: cover;
@@ -343,14 +340,14 @@ border-radius: 12px;
 box-shadow: 0 0 20px gold;
 }
 #gameTitle {
-font-size: 1.8rem;
-margin-bottom: 5px;
+font-size: 2rem;
+margin-bottom: 1rem;
 }
 select,
 button {
 font-size: 0.9rem;
-    padding: 8px 12px; 
-    margin: 3px;
+    padding: 10px 14px; 
+    margin: 6px;
 }
 #withdrawBtn,
 #useJollyBtn {
@@ -1001,11 +998,38 @@ transform: scale(0.85);
     position: fixed;         /* Fixed per coprire tutto lo schermo */
     top: -20px;              /* Parte da sopra il bordo superiore */
     opacity: 0.9;
-    pointer-events: none;    /* Non interferiscono con i clic */
-    z-index: 10000;          /* Sopra l'overlay bordeaux ma sotto la corona/titolo */
+    pointer-events: none;    
+    z-index: 10000;          
     animation: confettiCadono 4s linear infinite;
 }
 @keyframes confettiCadono {
     0% { transform: translateY(0) rotate(0deg); }
     100% { transform: translateY(110vh) rotate(720deg); } /* Cadono fino in fondo */
+}
+@media (max-width: 600px) {
+    #gameTitle {
+        font-size: 1.8rem !important;
+        margin-bottom: 2px !important;
+    }
+    .container {
+        padding: 5px !important;
+        margin-top: 5px !important;
+    }
+    /* 3. Carte: manteniamo la larghezza ma togliamo lo spazio sopra/sotto */
+    #currentCardImg, #drawnCardImg {
+        width: 150px !important; /* Misura media per mobile */
+        margin: 0 auto !important; 
+    }
+    #challengeText {
+        margin: 5px 0 !important;
+        font-size: 1.4rem !important;
+    }
+    button {
+        margin: 2px !important; /* Bottoni vicini tra loro */
+        padding: 8px 12px !important;
+    }
+    /* 5. Pannello punteggi più stretto */
+    #scorePanel {
+        gap: 2px !important;
+    }
 }
