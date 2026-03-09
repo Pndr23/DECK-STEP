@@ -321,13 +321,16 @@ margin-top: 0.2rem;
 font-size: 1rem;
 }
 #challengeText {
-font-size: 1.4rem;
+    font-size: 1.4rem;
+    margin-top: 5px; 
+    margin-bottom: 5px;
 }
 #currentCardImg,
 #drawnCardImg {
-width: 100%;
-max-width: 40vw;
-height: auto;
+    width: 130px; 
+    height: auto;
+    margin: 2px auto; 
+    display: block;
 }
 body {
 background-size: cover;
@@ -340,14 +343,14 @@ border-radius: 12px;
 box-shadow: 0 0 20px gold;
 }
 #gameTitle {
-font-size: 2rem;
-margin-bottom: 1rem;
+font-size: 1.8rem;
+margin-bottom: 5px;
 }
 select,
 button {
 font-size: 0.9rem;
-padding: 10px 14px;
-margin: 6px;
+    padding: 8px 12px; 
+    margin: 3px;
 }
 #withdrawBtn,
 #useJollyBtn {
