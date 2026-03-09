@@ -516,13 +516,12 @@ overflow-y: visible;
 }
 #currentCardImg,
 #drawnCardImg {
-    width: 280px; 
+    width: 240px; 
     height: auto;
     display: block;
-    margin: 15px auto; 
+    margin: 10px auto; 
     backface-visibility: hidden;
     transform-style: preserve-3d;
-    transition: width 0.3s ease;
 }
 .animated-win-text {
 font-size: 2em;
@@ -1008,40 +1007,57 @@ transform: scale(0.85);
     100% { transform: translateY(110vh) rotate(720deg); } /* Cadono fino in fondo */
 }
 @media (max-width: 600px) {
+    /* 1. Gestione Spazi Esterni */
     body {
         padding: 0 !important;
         margin: 0 !important;
-    }/
+    }
+    #languageSelect {
+        font-size: 11px !important;
+        padding: 2px !important;
+        position: absolute !important;
+        top: 2px !important;
+        right: 5px !important;
+        transform: scale(0.8) !important;
+        z-index: 1002;
+    }
     #gameTitle {
-        font-size: 1.5rem !important; 
-        margin-top: 2px !important;
-        margin-bottom: 0px !important;
+        font-size: 1.3rem !important; 
+        margin-top: 18px !important; 
+        margin-bottom: -5px !important; 
     }
     .container {
-        padding: 4px !important;
-        margin-top: 2px !important;
-        margin-bottom: 2px !important;
-        border-radius: 20px !important; 
+        padding: 2px !important;
+        margin-top: 0 !important;
+        margin-left: 2px !important;
+        margin-right: 2px !important;
+        border-radius: 15px !important;
     }
     #currentCardImg, #drawnCardImg {
-        width: 135px !important; 
+        width: 120px !important; 
         margin: 0 auto !important; 
     }
+    #scorePanel {
+        gap: 0 !important;
+        margin-bottom: 0 !important;
+    }
     #challengeText {
-        margin: 2px 0 !important; 
-        font-size: 1.2rem !important;
+        margin: 0px 0 !important; 
+        font-size: 1.1rem !important;
+        line-height: 1 !important;
     }
     button {
-        margin: 2px !important; 
-        padding: 6px 10px !important; 
-        font-size: 0.85rem !important;
-    }
-    #scorePanel {
-        gap: 0px !important;
-        margin-bottom: 2px !important;
+        margin: 1px !important; 
+        padding: 5px 8px !important;
+        font-size: 0.8rem !important;
     }
     .progress-path {
-        padding-top: 2px !important;
-        padding-bottom: 10px !important;
+        padding-top: 0px !important;
+        padding-bottom: 5px !important;
+        margin-top: -5px !important;
+    }
+    #tappaCounter, #betDisplay {
+        margin-bottom: 2px !important;
+        font-size: 0.9rem !important;
     }
 }
