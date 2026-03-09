@@ -36,8 +36,8 @@ overflow: visible;
 select,
 button {
 margin: 10px;
-padding: 12px 20px;
-font-size: 1rem;
+padding: 22px 40px; 
+font-size: 1.6rem;  
 border-radius: 10px;
 border: none;
 font-weight: bold;
@@ -345,9 +345,9 @@ margin-bottom: 1rem;
 }
 select,
 button {
-font-size: 0.9rem;
-    padding: 10px 14px; 
-    margin: 6px;
+margin: 10px;
+padding: 12px 20px;
+font-size: 1rem;
 }
 #withdrawBtn,
 #useJollyBtn {
