@@ -35,14 +35,14 @@ overflow: visible;
 }
 select,
 button {
-margin: 10px;
-padding: 22px 40px; 
-font-size: 1.6rem;  
-border-radius: 10px;
-border: none;
-font-weight: bold;
-text-transform: uppercase;
-box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+    margin: 10px;
+    padding: 15px 25px; 
+    font-size: 1.1rem;   
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
 }
 button {
 background: linear-gradient(to bottom, #d4af37, #b8860b);
