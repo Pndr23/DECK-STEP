@@ -1252,16 +1252,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 document.getElementById("useJollyBtn").onclick = () => {
     if (jollyCount > 0 && errorCount > 0) {
-        jollyCount--;   
+        jollyCount--;     
         errorCount--;     
         updateScore();         
         updateJollyDisplay();  
-        console.log("Manuale: Jolly usato. Rimanenti:", jollyCount, "Errori:", errorCount);
-    } else if (jollyCount > 0 && errorCount === 0) {
-        const msg = currentLanguage === "it" ? "Non hai errori da correggere!" : "No errors to fix!";
-        alert(msg);
+        
+        console.log("Jolly usato: ne rimane", jollyCount, "e restano", errorCount, "errori.");
+    } 
+    else if (jollyCount > 0 && errorCount === 0) {
+        alert(currentLanguage === "it" ? "Non hai errori da correggere!" : "No errors to fix!");
     }
-};
+}
     const gameArea = document.getElementById("gameArea");
     gameArea.style.transform = "scale(0.90)";
     gameArea.style.transformOrigin = "top center";
