@@ -516,12 +516,13 @@ overflow-y: visible;
 }
 #currentCardImg,
 #drawnCardImg {
-width: 200px;
-height: auto;
-display: block;
-margin: 0 auto;
-backface-visibility: hidden;
-transform-style: preserve-3d;
+    width: 260px; 
+    height: auto;
+    display: block;
+    margin: 15px auto; 
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease; 
 }
 .animated-win-text {
 font-size: 2em;
