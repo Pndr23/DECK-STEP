@@ -1008,29 +1008,40 @@ transform: scale(0.85);
     100% { transform: translateY(110vh) rotate(720deg); } /* Cadono fino in fondo */
 }
 @media (max-width: 600px) {
+    body {
+        padding: 0 !important;
+        margin: 0 !important;
+    }/
     #gameTitle {
-        font-size: 1.8rem !important;
-        margin-bottom: 2px !important;
+        font-size: 1.5rem !important; 
+        margin-top: 2px !important;
+        margin-bottom: 0px !important;
     }
     .container {
-        padding: 5px !important;
-        margin-top: 5px !important;
+        padding: 4px !important;
+        margin-top: 2px !important;
+        margin-bottom: 2px !important;
+        border-radius: 20px !important; 
     }
-    /* 3. Carte: manteniamo la larghezza ma togliamo lo spazio sopra/sotto */
     #currentCardImg, #drawnCardImg {
-        width: 150px !important; /* Misura media per mobile */
+        width: 135px !important; 
         margin: 0 auto !important; 
     }
     #challengeText {
-        margin: 5px 0 !important;
-        font-size: 1.4rem !important;
+        margin: 2px 0 !important; 
+        font-size: 1.2rem !important;
     }
     button {
-        margin: 2px !important; /* Bottoni vicini tra loro */
-        padding: 8px 12px !important;
+        margin: 2px !important; 
+        padding: 6px 10px !important; 
+        font-size: 0.85rem !important;
     }
-    /* 5. Pannello punteggi più stretto */
     #scorePanel {
-        gap: 2px !important;
+        gap: 0px !important;
+        margin-bottom: 2px !important;
+    }
+    .progress-path {
+        padding-top: 2px !important;
+        padding-bottom: 10px !important;
     }
 }
