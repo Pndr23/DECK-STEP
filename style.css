@@ -36,8 +36,8 @@ overflow: visible;
 select,
 button {
     margin: 8px;
-    padding: 12px 22px;  
-    font-size: 1rem;    
+    padding: 10px 20px;  
+    font-size: 1rem;     
     border-radius: 10px;
     border: none;
     font-weight: bold;
@@ -344,15 +344,11 @@ font-size: 2rem;
 margin-bottom: 1rem;
 }
 select,
-button {
-    margin: 8px;
-    padding: 12px 22px;  
-    font-size: 1rem;     
-    border-radius: 10px;
-    border: none;
-    font-weight: bold;
-    text-transform: uppercase;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+    button {
+        margin: 5px;         
+        padding: 8px 14px;   
+        font-size: 0.85rem;   
+        border-radius: 8px;
 }
 #withdrawBtn,
 #useJollyBtn {
@@ -1042,8 +1038,9 @@ transform: scale(0.85);
         width: 125px !important;
         margin: 10px auto !important; 
     }
-    button {
-        padding: 10px 15px !important;
-        margin: 4px !important; 
+   button {
+        padding: 7px 12px !important; 
+        margin: 3px !important;
+        font-size: 0.8rem !important;
     }
 }
