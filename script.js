@@ -156,6 +156,9 @@ s.outcome = outcome;
 s.winnings = winnings;
 s.endedAt = new Date().toISOString();
 if (outcome === "Ritirato") {
+const msg = currentLanguage === 'it' 
+? `Hai deciso di ritirarti con €${winnings}` 
+: `You decided to withdraw with €${winnings}`;
 s.events.push({
 at: new Date().toISOString(),
 text: `Hai deciso di ritirarti con €${winnings}`
@@ -194,10 +197,18 @@ const listEl = document.getElementById('historyList');
 if (!listEl) return;
 const items = loadHistory().slice().reverse();
 if (items.length === 0) {
-listEl.innerHTML = '<p style="opacity:.7">Nessuna partita salvata.</p>';
+const noGames = currentLanguage === 'it' ? 'Nessuna partita salvata.' : 'No games saved.';
+listEl.innerHTML = `<p style="opacity:.7">${noGames}</p>`;
 return;
 }
-listEl.innerHTML = items.map(s => `
+listEl.innerHTML = items.map(s => {
+let displayOutcome = s.outcome;
+if (s.outcome === "Ritirato") displayOutcome = currentLanguage === 'it' ? "Ritirato" : "Withdrawn";
+if (s.outcome === "Perso") displayOutcome = currentLanguage === 'it' ? "Perso" : "Lost";
+if (s.outcome === "Vinto") displayOutcome = currentLanguage === 'it' ? "Vinto" : "Won";
+if (!s.outcome) displayOutcome = currentLanguage === 'it' ? "In corso" : "In progress";
+const labelEventi = currentLanguage === 'it' ? "Eventi" : "Events";
+return `
 <div class="history-card">
 <div class="history-row">
 <strong>${new Date(s.startedAt).toLocaleString()}</strong>
