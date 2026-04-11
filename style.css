@@ -1027,36 +1027,37 @@ margin: 8px 0 0 18px;
     100% { transform: translateY(110vh) rotate(720deg); } 
 }
 @media (max-width: 600px) {
-    #muteBtn {
+   #historyButton.icon-button {
         position: absolute !important;
-        top: 10px !important;
-        right: 145px !important;
-        width: 48px !important;
-        height: 48px !important;
-        font-size: 22px !important;
-        z-index: 1002 !important;
+        top: 8px !important;
+        right: 8px !important;
+        width: 38px !important;
+        height: 38px !important;
+        font-size: 18px !important; 
+        z-index: 1005 !important;
         margin: 0 !important;
+        display: flex !important;
     }
     #languageSelect {
         position: absolute !important;
-        top: 10px !important;
-        right: 70px !important; 
-        z-index: 1002 !important;
-        width: auto !important;
-        font-size: 0.9rem !important; 
-        padding: 5px 8px !important;
-        transform: scale(1) !important;
+        top: 8px !important;
+        right: 55px !important; 
+        height: 38px !important;
+        font-size: 0.8rem !important;
+        z-index: 1004 !important;
+        padding: 0 6px !important;
+        border-radius: 6px !important;
     }
-    #historyButton.icon-button {
+    #muteBtn {
         position: absolute !important;
         top: 8px !important;
-        right: 10px !important;
-        z-index: 1002 !important;
-        width: 50px !important;
-        height: 50px !important;
-        font-size: 26px !important;
+        right: 140px !important; 
+        width: 38px !important;
+        height: 38px !important;
+        font-size: 18px !important;
+        z-index: 1003 !important;
         margin: 0 !important;
-        border: 2px solid gold !important; 
+        display: flex !important;
     }
     #gameTitle {
         margin-top: 65px !important; 
