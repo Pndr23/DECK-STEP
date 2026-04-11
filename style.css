@@ -1027,35 +1027,40 @@ margin: 8px 0 0 18px;
     100% { transform: translateY(110vh) rotate(720deg); } 
 }
 @media (max-width: 600px) {
+    /* 1. AUDIO (Sulla sinistra) */
     #muteBtn {
-    position: absolute !important;
-    top: 10px !important;
-    right: 145px !important;
-    width: 48px !important;
-    height: 48px !important;
-    font-size: 22px !important;
-    z-index: 1002 !important;
-    margin: 0 !important;
-}
+        position: absolute !important;
+        top: 10px !important;
+        right: 145px !important;
+        width: 48px !important;
+        height: 48px !important;
+        font-size: 22px !important;
+        z-index: 1002 !important;
+        margin: 0 !important;
+    }
     #languageSelect {
         position: absolute !important;
-        top: 8px !important;
-        right: 50px !important; 
+        top: 10px !important;
+        right: 70px !important; 
         z-index: 1002 !important;
         width: auto !important;
+        font-size: 0.9rem !important; 
+        padding: 5px 8px !important;
+        transform: scale(1) !important;
     }
     #historyButton.icon-button {
-position: absolute !important;
-    top: 8px !important;
-    right: 10px !important; /* Attaccato al bordo destro */
-    z-index: 1002 !important;
-    width: 50px !important;  /* Dimensione perfetta per il pollice */
-    height: 50px !important;
-    font-size: 26px !important;
-    margin: 0 !important;
-}
+        position: absolute !important;
+        top: 8px !important;
+        right: 10px !important;
+        z-index: 1002 !important;
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 26px !important;
+        margin: 0 !important;
+        border: 2px solid gold !important; 
+    }
     #gameTitle {
-        margin-top: 40px !important; 
+        margin-top: 65px !important; 
         font-size: 1.6rem !important;
         margin-bottom: 10px !important;
     }
@@ -1070,9 +1075,10 @@ position: absolute !important;
         width: 125px !important;
         margin: 10px auto !important; 
     }
-   button {
+    button {
         padding: 7px 12px !important; 
         margin: 3px !important;
         font-size: 0.8rem !important;
     }
+}
 }
