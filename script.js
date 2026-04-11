@@ -221,7 +221,8 @@ ${s.events.map(e => `<li>${e.at}: ${e.text}</li>`).join('')}
 </ol>
 </details>
 </div>
-`).join('');
+';
+}).join('');
 }
 function createBetBadge() {
 const gameArea = document.getElementById("gameArea");
