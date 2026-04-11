@@ -1030,7 +1030,10 @@ function updateLanguage() {
     const jollyLabel = document.getElementById("jollyLabel");
     if (jollyLabel) jollyLabel.textContent = "🃏 " + translate("jolly");
     if (useJollyBtn) useJollyBtn.textContent = "🃏 " + translate("useJolly");
-
+    const historyClear = document.getElementById("historyClear");
+    const historyClose = document.getElementById("historyClose");
+    if (historyClear) historyClear.textContent = translate("clearBtn");
+    if (historyClose) historyClose.textContent = translate("closeBtn");
     updateProgress();
     if (rulesPanel) rulesPanel.innerHTML = translate("rulesText");
     const withdrawLabel = document.getElementById("withdrawLabel");
