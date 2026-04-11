@@ -1,10 +1,12 @@
 body {
-margin: 0;
-min-height: 100vh;
-background: #800020;
-font-family: 'Trebuchet MS', sans-serif;
-overflow-x: visible;
-overflow-y: visible;
+    margin: 0;
+    height: 100vh; 
+    background: #800020;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .hidden {
 display: none;
@@ -22,27 +24,29 @@ margin: 20px 0;
 50% { transform: scale(1.1); opacity: 0.7; }
 }
 .container {
-text-align: center;
-background: url(sfondo.jpg.jpg);
-border: 2px solid gold;
-color: white;
-padding: 0.8rem;
-margin-top: 10px;
-margin-bottom: 5px;
-border-radius: 40px;
-box-shadow: 0 0 40px gold;
-overflow: visible;
+    text-align: center;
+    background: url(sfondo.jpg.jpg);
+    border: 2px solid gold;
+    color: white;
+    padding: 10px;
+    height: 95vh; 
+    width: 95vw;
+    max-width: 1200px;
+    border-radius: 40px;
+    box-shadow: 0 0 40px gold;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around; 
+    box-sizing: border-box; 
 }
-select,
-button {
-    margin: 8px;
-    padding: 10px 20px;  
+select, button {
+    margin: 4px; 
+    padding: 8px 18px;  
     font-size: 1rem;     
     border-radius: 10px;
     border: none;
     font-weight: bold;
     text-transform: uppercase;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
 }
 button {
 background: linear-gradient(to bottom, #d4af37, #b8860b);
@@ -57,16 +61,20 @@ box-shadow: 0 0 12px gold;
 .button-dentro,
 .button-pari {
 background-color: #ff0000 !important;
-color: white !important;
+    background-image: none !important;
+    color: white !important;
+    border: 2px solid white !important;
 }
 .button-minore,
 .button-fuori,
 .button-dispari {
 background-color: #14d928 !important;
-color: white !important;
+    background-image: none !important;
+    color: white !important;
+    border: 2px solid white !important;
 }
 .numero-esatto {
-    display: inline-flex !important;
+   display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     width: 60px !important;  
@@ -79,7 +87,6 @@ color: white !important;
     font-size: 1.5rem !important;
     font-weight: bold !important;
     box-shadow: 0 0 10px gold !important;
-    cursor: pointer;
 }
 @media (min-width: 768px) {
     .numero-esatto {
@@ -94,101 +101,99 @@ color: white !important;
     }
 }
 img {
-width: 400px;
-height: auto;
-margin-top: 0.5rem;
+    height: 30vh; 
+    width: auto;  
+    margin: 5px auto;
 }
 #rulesLabel {
-font-size: 1.5rem;
-cursor: pointer;
-margin-bottom: 2rem;
-text-decoration: underline;
-color: white;
+    font-size: clamp(1rem, 3vh, 1.5rem); 
+    cursor: pointer;
+    margin-bottom: 5px; 
+    text-decoration: underline;
+    color: white;
 }
 #scoreValue {
-font-size: 1.5rem;
-margin: 1rem 0;
+    font-size: clamp(1rem, 3vh, 1.5rem);
+    margin: 5px 0; 
 }
 #correctLabel,
 #errorLabel,
 #jollyLabel {
-font-size: 2rem;
-font-weight: bold;
-color: white;
-text-shadow: 0 0 3px gold;
+    font-size: clamp(1rem, 3vh, 1.8rem); 
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 0 3px gold;
 }
 #challengeText {
-font-size: 2rem;
-font-weight: bold;
-color: gold;
-text-shadow: 0 0 5px black, 0 0 8px gold;
-margin-top: 1rem;
+    font-size: clamp(1.4rem, 5vh, 2rem);
+    font-weight: bold;
+    color: gold;
+    text-shadow: 0 0 5px black, 0 0 8px gold;
+    margin-top: 5px; 
 }
 #toggle-regolamento {
-position: fixed;
-top: 10px;
-right: 10px;
-font-size: 30px;
-background: none;
-border: none;
-cursor: pointer;
-z-index: 1001;
-color: gold;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    font-size: clamp(20px, 4vh, 30px); 
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+    color: gold;
 }
+
 #regolamento-popup {
-display: none;
-position: fixed;
-top: 50px;
-right: 10px;
-background: black;
-color: gold;
-border: 2px solid #ffb300;
-padding: 15px;
-max-width: 300px;
-z-index: 1000;
-box-shadow: 0 0 15px gold;
-border-radius: 10px;
+    display: none;
+    position: fixed;
+    top: 50px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.9); 
+    color: gold;
+    border: 2px solid #ffb300;
+    padding: 10px;
+    max-width: 280px;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 0 15px gold;
+    border-radius: 10px;
 }
 #useJollyBtn {
-background-color: gold;
-color: black;
-font-weight: bold;
-padding: 10px 20px;
-border: 2px solid darkgoldenrod;
-border-radius: 10px;
-font-size: 1rem;
-cursor: pointer;
-animation: pulseJolly 1.5s infinite;
-box-shadow: 0 0 10px gold;
+   background-color: gold;
+    color: black;
+    font-weight: bold;
+    padding: 8px 16px; 
+    border: 2px solid darkgoldenrod;
+    border-radius: 10px;
+    font-size: 0.9rem; 
+    animation: pulseJolly 1.5s infinite;
+    box-shadow: 0 0 10px gold;
 }
 @keyframes pulseJolly {
-0% {
-transform: scale(1);
-box-shadow: 0 0 10px gold;
-}
-50% {
-transform: scale(1.1);
-box-shadow: 0 0 20px gold;
-}
-100% {
-transform: scale(1);
-box-shadow: 0 0 10px gold;
-}
+    0%, 100% { 
+        transform: scale(1); 
+        box-shadow: 0 0 10px gold; 
+    }
+    50% { 
+        transform: scale(1.1); 
+        box-shadow: 0 0 20px gold; 
+    }
 }
 .multiplier-label {
-font-size: 1.5em;
-color: gold;
-font-weight: bold;
-text-align: center;
-margin-top: 4px;
-margin-bottom: 6px;
-line-height: 1.1;
+    font-size: clamp(1rem, 3.5vh, 1.5rem);
+    color: gold;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    line-height: 1; 
 }
 .jackpot {
-color: #ffdf00;
-font-size: 1.5rem;
-text-shadow: 0 0 8px red, 0 0 4px gold;
-font-weight: bold;
+    color: #ffdf00;
+    font-size: clamp(1.1rem, 4vh, 1.5rem);
+    text-shadow: 0 0 8px red, 0 0 4px gold;
+    font-weight: bold;
 }
 .green-button {
 background-color: #14d928 !important;
@@ -205,24 +210,25 @@ border: 2px solid white !important;
 font-weight: bold !important;
 }
 #gameTitle {
-font-size: 3.2rem;
-text-transform: uppercase;
-font-weight: bold;
-color: gold;
-text-align: center;
-margin-bottom: 15px;
-text-shadow: 0 0 10px #ffcc00;
+    
+    font-size: clamp(1.5rem, 5vh, 3rem); 
+    text-transform: uppercase;
+    font-weight: bold;
+    color: gold;
+    text-align: center;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px #ffcc00;
 }
 #withdrawBtn {
-padding: 12px 24px;
-font-size: 1rem;
-font-weight: bold;
-color: white;
-background-color: #111;
-border: 2px solid crimson;
-border-radius: 10px;
-cursor: pointer;
-transition: 0.3s ease;
+    padding: 8px 20px;
+    font-size: 0.9rem;  
+    font-weight: bold;
+    color: white;
+    background-color: #111;
+    border: 2px solid crimson;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s ease;
 }
 #withdrawBtn:hover {
 background-color: crimson;
@@ -230,26 +236,23 @@ color: #fff;
 box-shadow: 0 0 10px red;
 }
 .gain-label {
-display: inline-block;
-background-color: rgba(0, 0, 0, 0.85);
-color: #FFD700;
-font-size: 2rem;
-margin-left: 10px;
-padding: 6px 12px;
-border-radius: 10px;
-font-weight: bold;
-border: 2px solid gold;
-box-shadow: 0 0 8px gold;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: #FFD700;
+    font-size: clamp(1rem, 3vh, 1.5rem); 
+    margin-left: 10px;
+    padding: 4px 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    border: 2px solid gold;
+    box-shadow: 0 0 8px gold;
 }
 .progress-path {
-display: flex;
-justify-content: center;
-gap: 55px;
-position: relative;
-overflow: visible;
-padding-top: 5px;
-padding-bottom: 4px;
-min-height: 20px;
+   display: flex;
+    justify-content: center;
+    gap: 3vw; 
+    position: relative;
+    padding: 5px 0;
 }
 .progress-step {
 flex: 1;
@@ -260,27 +263,27 @@ position: relative;
 margin-bottom: 0px;
 }
 .circle {
-width: 30px;
-height: 30px;
-border-radius: 50%;
-background-color: #222;
-border: 2px solid #FFD700;
-box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
-margin-bottom: 6px;
-transition: all 0.3s ease;
+width: clamp(15px, 3vh, 25px); 
+    height: clamp(15px, 3vh, 25px);
+    border-radius: 50%;
+    background-color: #222;
+    border: 2px solid #FFD700;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+    margin-bottom: 4px; 
+    transition: all 0.3s ease;
 }
 .shuffle-card {
 position: absolute;
-width: 120px;
-height: 170px;
-border-radius: 12px;
-background-image: url('card_back.png');
-background-size: cover;
-background-position: center;
-box-shadow: 0 0 15px gold;
-user-select: none;
-animation: shuffleMove 1.5s infinite alternate ease-in-out;
-transform-style: preserve-3d;
+    width: 15vh; 
+    height: 21vh;
+    border-radius: 12px;
+    background-image: url('card_back.png');
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 0 15px gold;
+    user-select: none;
+    animation: shuffleMove 1.5s infinite alternate ease-in-out;
+    transform-style: preserve-3d;
 }
 .shuffle-card:nth-child(1) { animation-delay: 0s; }
 .shuffle-card:nth-child(2) { animation-delay: 0.15s; }
@@ -294,54 +297,60 @@ transform-style: preserve-3d;
 }
 @media (max-width: 768px) {
 #scorePanel {
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 1rem;
-}
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
 #scorePanel .top-row {
 display: flex;
-justify-content: center;
-gap: 1rem;
-}
+        justify-content: center;
+        gap: 1rem;
+    }
 #correctLabel,
 #errorLabel {
 margin: 0;
 }
 .jolly-row {
-margin-top: 0.5rem;
+margin-top: 0.2rem;
 text-align: center;
 }
 #jollyLabel {
-margin-top: 0.2rem;
+margin-top: 0.1rem;
 }
 #correctLabel,
 #errorLabel,
 #jollyLabel {
-font-size: 1rem;
+font-size: 0.9rem;
 }
 #challengeText {
-    font-size: 1.4rem;
+   font-size: clamp(1.4rem, 5vh, 2rem);
+    font-weight: bold;
+    color: gold;
+    text-shadow: 0 0 5px black, 0 0 8px gold;
+    margin-top: 5px; 
 }
 #currentCardImg,
 #drawnCardImg {
-width: 100%;
-max-width: 40vw;
-height: auto;
-}
+width: auto;
+        max-width: 40vw;
+        height: 25vh; 
+    }
 body {
 background-size: cover;
 background-position: center;
 }
 .container {
-padding: 1rem;
-margin: 0.5rem;
-border-radius: 12px;
-box-shadow: 0 0 20px gold;
-}
+padding: 0.5rem; 
+        margin: 0.2rem; 
+        height: 98vh;   
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
 #gameTitle {
-font-size: 2rem;
-margin-bottom: 1rem;
+font-size: 1.5rem;
+margin-bottom: 0.5rem;
 }
 select,
     button {
@@ -360,18 +369,14 @@ width: 140px;
 margin: 0.5rem 0;
 }
 .progress-path {
-display: flex;
-flex-wrap: nowrap;
-overflow-x: auto;
--webkit-overflow-scrolling: touch;
-scrollbar-width: thin;
-scrollbar-color: gold transparent;
-padding: 10px 20px 40px 20px;
-box-sizing: border-box;
-scroll-snap-type: x mandatory;
-justify-content: flex-start;
-gap: 15px;
-}
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding: 5px 10px 10px 10px; 
+        box-sizing: border-box;
+        justify-content: flex-start;
+        gap: 10px; 
+    }
 .progress-path::-webkit-scrollbar {
 height: 6px;
 }
@@ -397,31 +402,26 @@ top: 70px;
 font-size: 1.5rem;
 }
 .circle {
-width: 20px;
-height: 20px;
-margin-bottom: 4px;
-border: 2px solid #FFD700;
-box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+width: 18px; 
+height: 18px; 
+margin-bottom: 2px;
 }
 .multiplier-label {
-font-size: 0.9rem;
-font-weight: 700;
-margin-top: 2px;
-text-shadow: 0 0 4px gold;
+    font-size: clamp(0.8rem, 2.5vh, 1.2rem);
+    color: gold;
+    font-weight: bold;
 }
 .multiplier-label.jackpot {
-font-size: 1rem;
-margin-top: 2px;
-margin-bottom: 2px;
-font-weight: 900;
+    color: #ffdf00;
+    text-shadow: 0 0 8px red, 0 0 4px gold;
 }
 #scorePanel {
-font-size: 2rem;
+    font-size: clamp(1rem, 4vh, 1.8rem); 
 }
 #toggle-regolamento {
-font-size: 1rem;
-top: 6px;
-right: 6px;
+    font-size: 1rem;
+    top: 6px;
+    right: 6px;
 }
 @keyframes bounceLR {
 0%   { transform: translateX(0); opacity: 1; }
@@ -429,26 +429,26 @@ right: 6px;
 100% { transform: translateX(0); opacity: 1; }
 }
 .progress-path::after {
-content: '⬅️➡️';
-position: absolute;
-right: 5px;
-bottom: 4px;
-font-size: 1rem;
-color: #FFD700;
-text-shadow: 0 0 5px black, 0 0 8px gold;
-animation: bounceLR 1.2s infinite;
-pointer-events: none;
-background: rgba(0, 0, 0, 0.6);
-padding: 1px 5px;
-border-radius: 6px;
-z-index: 999;
+    content: '⬅️➡️';
+    position: absolute;
+    right: 5px;
+    bottom: 4px;
+    font-size: 0.8rem; /* Ridotto da 1rem */
+    color: #FFD700;
+    text-shadow: 0 0 5px black, 0 0 8px gold;
+    animation: bounceLR 1.2s infinite;
+    pointer-events: none;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 1px 5px;
+    border-radius: 6px;
+    z-index: 999;
 }
 .progress-step.completed-step .circle {
-background-color: #4CAF50 !important;
-border-color: #4CAF50 !important;
-box-shadow: 0 0 10px #4CAF50;
-transform: scale(1.1);
-transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+    background-color: #4CAF50 !important;
+    border-color: #4CAF50 !important;
+    box-shadow: 0 0 10px #4CAF50;
+    transform: scale(1.1);
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
 .progress-step.active-step .circle {
 background-color: #2196F3 !important;
@@ -486,8 +486,8 @@ display: inline-block;
 }
 @media (min-width: 768px) {
 .progress-step .circle {
-width: 24px;
-height: 24px;
+width: 22px;
+height: 22px;
 background-color: #ccc;
 }
 .progress-step.completed-step .circle {
@@ -499,28 +499,28 @@ background-color: #2196F3 !important;
 #correctCount,
 #errorCount,
 #jollyCount {
-font-size: 2.2rem;
+font-size: 1.8rem;
 font-weight: bold;
 color: gold;
 text-shadow: 0 0 5px black, 0 0 8px gold;
 }
 body {
-transform: scale(0.75);
-transform-origin: top center;
-overflow-x: hidden;
-overflow-y: visible;
+margin: 0;
+    height: 100vh; 
+    background: #800020;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
 }
 html {
-overflow-x: hidden;
-overflow-y: visible;
+overflow: hidden;
 }
 }
 #currentCardImg,
 #drawnCardImg {
-    width: 240px; 
-    height: auto;
+   height: 30vh; 
+    width: auto;  
     display: block;
-    margin: 10px auto; 
+    margin: 1vh auto; 
     backface-visibility: hidden;
     transform-style: preserve-3d;
 }
@@ -532,33 +532,28 @@ text-align: center;
 margin: 20px 0;
 }
 #gameOverScreen {
-    position: fixed;
+  position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: #800020; /* Colore solido, non trasparente */
-    color: white;
+    background: #800020;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    z-index: 99999; /* Superiore a tutto */
+    z-index: 99999;
 }
+#gam
 #gameOverScreen.hidden {
 display: none;
 }
 #gameOverText {
-font-size: 6.5rem;
-color: black;
--webkit-text-stroke: 2px white;
-text-shadow:
-0 0 10px white,
-0 0 20px white,
-0 0 30px white;
-font-weight: bold;
-animation: zoomIn 0.6s ease-out, glow 1.5s infinite alternate;
+font-size: clamp(3rem, 12vh, 6.5rem);
+    color: black;
+    -webkit-text-stroke: 2px white;
+    font-weight: bold;
+    animation: zoomIn 0.6s ease-out;
 }
 @keyframes glow {
 0% {
@@ -586,46 +581,41 @@ opacity: 1;
 }
 #restartBtn {
 background: linear-gradient(to top, #d18b00, #ffcc00);
-border: none;
-padding: 2rem 2rem;
-font-size: 1rem;
-font-family: 'Press Start 2P', cursive;
-cursor: pointer;
-border-radius: 10px;
-box-shadow: 3px 3px 10px #000;
-transition: transform 0.2s ease;
-position: center;
+    border: none;
+    padding: 1.5rem 2rem; 
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px #000;
 }
 #restartBtn:hover {
 transform: scale(1.05);
 }
 #withdrawScreen {
-    position: fixed;
+  position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: #800020; /* Colore solido */
+    background: #800020;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: white;
-    text-align: center;
     z-index: 99999;
 }
 #withdrawScreen.hidden {
 display: none;
 }
 #withdrawScreen h1 {
-font-size: 4rem;
-color: #FFD700;
-text-shadow: 0 0 10px gold;
-margin-bottom: 20px;
+    font-size: clamp(2rem, 10vh, 4rem);
+    color: #FFD700;
+    text-shadow: 0 0 10px gold;
+    margin-bottom: 2vh;
 }
 #withdrawScreen p {
-font-size: 2rem;
-margin-bottom: 30px;
+    font-size: clamp(1rem, 5vh, 2rem);
+    margin-bottom: 3vh;
 }
 #withdrawBtnWithdraw,
 #restartBtnWithdraw {
@@ -668,7 +658,7 @@ transform: scale(1.1);
 background-color: #2196F3 !important;
 }
 #minigiocoJolly {
-    position: fixed !important;
+   position: fixed !important;
     top: 0 !important;
     left: 0 !important;
     width: 100vw !important;
@@ -676,15 +666,11 @@ background-color: #2196F3 !important;
     background: url('sfondomini.png') center center / cover no-repeat !important;
     background-color: #800020 !important;
     z-index: 10000 !important;
-    
-    /* NASCOSTO DI DEFAULT */
     display: none !important; 
-    
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
 }
-
 /* VIENE ATTIVATO SOLO DALLO SCRIPT */
 #minigiocoJolly.attivo {
     display: flex !important;
@@ -702,22 +688,19 @@ background-color: #2196F3 !important;
 }
 #minigiocoJolly div.carte {
 display: flex;
-gap: 40px;
-justify-content: center;
-align-items: center;
-flex-grow: 1;
-width: 100%;
+    gap: 4vw; /* Gap flessibile invece di 40px */
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    width: 100%;
+    padding: 2vh;
 }
 #minigiocoJolly img {
-width: 180px;
-height: 260px;
-border-radius: 14px;
-cursor: pointer;
-box-shadow: 0 0 15px 5px rgba(255, 215, 0, 0.8);
-filter: drop-shadow(0 0 5px gold);
-transition: transform 0.6s ease;
-transform-style: preserve-3d;
-backface-visibility: hidden;
+height: 35vh; 
+    width: auto;
+    border-radius: 14px;
+    box-shadow: 0 0 15px 5px rgba(255, 215, 0, 0.8);
+    transition: transform 0.6s ease;
 }
 #minigiocoJolly img.covered {
 animation: glowPulse 2.5s infinite;
@@ -735,15 +718,14 @@ transform: scale(1.1);
 transition: all 0.3s ease;
 }
 #minigiocoMessage {
-    color: #FFD700 !important;           /* Colore Giallo Oro come nel titolo */
-    font-size: 1.8rem !important;        /* Dimensione leggibile */
-    font-weight: 900 !important;         /* Molto marcato */
-    margin-top: 25px !important;         /* Distanza dalle carte */
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.9) !important; /* Ombra per farlo risaltare sul bordeaux */
-    text-align: center !important;       /* Centrato perfettamente */
-    width: 100% !important;              /* Prende tutta la larghezza per centrarsi */
-    z-index: 10001 !important;           /* Sta sopra allo sfondo */
-    font-family: 'Poppins', sans-serif !important;
+    color: #FFD700 !important; 
+  font-size: clamp(1.2rem, 4vh, 2rem) !important;
+    font-weight: 900 !important;
+    margin-top: 15px !important; 
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.9) !important;
+    text-align: center !important;
+    width: 100% !important;
+    z-index: 10001 !important;
 }
 @keyframes glowPulse {
 0%, 100% { filter: drop-shadow(0 0 3px gold); }
@@ -801,9 +783,9 @@ font-family: 'Poppins', sans-serif;
 }
 @media (max-width: 768px) {
 #minigiocoJolly h2 {
-font-size: 3rem;
-margin-bottom: 15px;
-}
+font-size: clamp(1.5rem, 6vh, 3rem) !important;
+margin-bottom: 10px !important;
+    }
 #minigiocoJolly {
 align-items: flex-start;
 padding-top: 30px;
@@ -812,17 +794,17 @@ padding-top: 30px;
 gap: 15px;
 }
 #minigiocoJolly img {
-width: 120px;
-height: 180px;
-}
+height: 25vh !important; 
+width: auto !important;
+    }
 #minigiocoCloseBtn {
-font-size: 1rem;
-padding: 8px 16px;
-margin-top: 10px;
-}
+font-size: 0.9rem !important;
+padding: 8px 16px !important;
+margin-top: 5px !important;
+    }
 }
 #gameArea {
-padding: 5px 0;
+padding: 2px 0;
 }
 #tappaCounter,
 #betDisplay {
@@ -832,8 +814,8 @@ margin-bottom: 4px;
 margin: 2px 0;
 }
 #cardsContainer {
-margin-top: 4px;
-margin-bottom: 4px;
+margin-top: 2px !important;
+margin-bottom: 2px !important;
 }
 #challengeButtons {
 margin-top: 6px;
@@ -843,17 +825,11 @@ margin: 4px;
 }
 #historyButton.icon-button {
 display: inline-flex;
-align-items: center;
-justify-content: center;
-width: 34px;
-height: 34px;
-margin-right: 8px;
-border-radius: 8px;
-border: 1px solid rgba(255,255,255,.25);
-background: #333;
-color: #fff;
-font-size: 18px;
-cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
 }
 #historyButton.icon-button:hover {
 transform: scale(1.1);
@@ -874,15 +850,14 @@ background: rgba(0,0,0,.5);
 }
 #historyPanel .history-modal {
 position: relative;
-margin: 6vh auto;
-width: min(720px,92vw);
-max-height: 88vh;
-overflow: auto;
-background: #1f1f1f;
-color: #fff;
-border-radius: 16px;
-padding: 16px;
-box-shadow: 0 10px 30px rgba(0,0,0,.5);
+    margin: 4vh auto; 
+    width: min(720px, 92vw);
+    max-height: 85vh; 
+    overflow-y: auto; 
+    background: #1f1f1f;
+    color: #fff;
+    border-radius: 16px;
+    padding: 16px;
 }
 .history-header {
 display: flex;
@@ -907,25 +882,25 @@ gap: 10px;
 }
 .history-card {
 border: 1px solid rgba(255,255,255,.12);
-border-radius: 12px;
-padding: 10px;
-background: #262626;
+    border-radius: 12px;
+    padding: 10px;
+    background: #262626;
+    margin-bottom: 10px;
 }
-.history-row {
 display: flex;
-justify-content: space-between;
-flex-wrap: wrap;
-gap: 8px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 .history-row.small {
-font-size: .9em;
-opacity: .9;
+    font-size: .9em;
+    opacity: .9;
 }
 .turns {
-margin: 8px 0 0 18px;
+    margin: 8px 0 0 18px;
 }
 #muteBtn {
-    position: fixed;
+   position: fixed;
     top: 70px;
     right: 20px;
     background: #222;
@@ -941,13 +916,12 @@ margin: 8px 0 0 18px;
     justify-content: center;
     transition: all 0.2s ease; 
 }
-
 #muteBtn:hover {
     transform: scale(1.1);
     box-shadow: 0 0 10px gold;
 }
 #languageSelect {
-    font-size: 1.1rem !important;
+   font-size: 1.1rem !important;
     padding: 6px 12px !important;
     border-radius: 10px;
     background: #333;
@@ -980,17 +954,15 @@ margin: 8px 0 0 18px;
 /* --- STILE DELLA GOCCIA --- */
 .lacrima-animata {
     position: fixed;         
-    top: -20px;             
+    top: -20px;              
     width: 8px;              
     height: 14px;
     background-color: #33CCFF; 
     border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
     pointer-events: none;
-    z-index: 10000;         
-    animation: pioggiaLacrime linear infinite;
-    opacity: 0.6;   
     z-index: 100000;
     animation: pioggiaLacrime 3s linear infinite;
+    opacity: 0.6;   
 }
 @keyframes baglioreCorona {
     0% { text-shadow: 0 0 30px #FFD700, 0 0 50px #B8860B; }
@@ -998,25 +970,28 @@ margin: 8px 0 0 18px;
 }
 /* --- STILE PER LA CORONA --- */
 .corona-vittoria-grande {
-    font-size: 10rem;          /* ENORME (era 4-7rem) */
-    margin-bottom: 0px;        /* Spazio rimosso per avvicinarla al titolo */
+    font-size: clamp(5rem, 15vh, 10rem); 
     display: block;
     text-align: center;
     position: relative;        
-    z-index: 10001;            /* Sopra overlay e coriandoli */
+    z-index: 10001;            
     animation: ondaOcre 2s ease-in-out infinite, baglioreCorona 1.5s ease-in-out infinite alternate;
     text-shadow: 0 0 30px #FFD700, 0 0 50px #B8860B, 0 0 70px #DAA520;
 }
 /* la dimensione della corona su mobile */
 @media (max-width: 768px) {
     .corona-vittoria-grande {
-        font-size: 6rem; /* Più piccola ma comunque grande su mobile */
-    }
+       font-size: clamp(5rem, 15vh, 10rem); 
+    display: block;
+    text-align: center;
+    animation: ondaOcre 2s ease-in-out infinite;
+    text-shadow: 0 0 30px #FFD700;
+}
 }
 /* --- 🎉 STILE CORIANDOLI CADENTI (FULL SCREEN) --- */
 .confetti {
-    position: fixed;         
-    top: -20px;             
+   position: fixed;         
+    top: -20px;              
     opacity: 0.9;
     pointer-events: none;    
     z-index: 10000;          
@@ -1028,7 +1003,7 @@ margin: 8px 0 0 18px;
 }
 @media (max-width: 600px) {
     #historyButton.icon-button {
-        position: absolute !important;
+       position: absolute !important;
         top: 8px !important;
         right: 8px !important;
         width: 36px !important; 
@@ -1041,7 +1016,7 @@ margin: 8px 0 0 18px;
         justify-content: center !important;
     }
     #languageSelect {
-        position: absolute !important;
+       position: absolute !important;
         top: 8px !important;
         right: 50px !important; 
         height: 36px !important;
@@ -1053,35 +1028,41 @@ margin: 8px 0 0 18px;
         margin: 0 !important;
     }
     #muteBtn {
-        position: absolute !important;
-        top: 8px !important;
-        right: 135px !important; 
-        width: 36px !important;
-        height: 36px !important;
-        font-size: 16px !important;
-        z-index: 1003 !important;
-        margin: 0 !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-    }
+       position: fixed;
+    top: 70px;
+    right: 20px;
+    background: #222;
+    border: 2px solid gold;
+    border-radius: 12px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    cursor: pointer;
+}
     #gameTitle {
-        margin-top: 55px !important; 
-        font-size: 1.5rem !important;
+       margin-top: 55px !important; 
+        font-size: 1.3rem !important; /* Ridotto leggermente per sicurezza */
         margin-bottom: 10px !important;
     }
     #scorePanel {
         margin-bottom: 10px !important; 
     }
     .multiplier-label {
-        margin-top: 10px !important; 
+        margin-top: 5px !important; 
         display: block !important;
-        font-size: 0.85rem !important;
+        font-size: 0.8rem !important;
     }
     #currentCardImg, #drawnCardImg {
-        width: 115px !important; 
-        margin: 5px auto !important; 
-    }
+    height: 30vh; 
+   width: auto;  
+   display: block;
+   margin: 1vh auto; 
+   backface-visibility: hidden;
+   transform-style: preserve-3d;
+}
     button {
         padding: 6px 10px !important; 
         margin: 2px !important;
