@@ -193,57 +193,59 @@ renderHistory();
 });
 }
 function renderHistory() {
-const listEl = document.getElementById('historyList');
-if (!listEl) return;
-const items = loadHistory().slice().reverse();
-if (items.length === 0) {
-const noGames = currentLanguage === 'it' ? 'Nessuna partita salvata.' : 'No games saved.';
-listEl.innerHTML = `<p style="opacity:.7">${noGames}</p>`;
-return;
+    const listEl = document.getElementById('historyList');
+    if (!listEl) return;
+    const items = loadHistory().slice().reverse();
+    if (items.length === 0) {
+        const noGames = currentLanguage === 'it' ? 'Nessuna partita salvata.' : 'No games saved.';
+        listEl.innerHTML = `<p style="opacity:.7">${noGames}</p>`;
+        return;
+    }
+    listEl.innerHTML = items.map(s => {
+        let displayOutcome = s.outcome;
+        if (s.outcome === "Ritirato") displayOutcome = currentLanguage === 'it' ? "Ritirato" : "Withdrawn";
+        if (s.outcome === "Perso") displayOutcome = currentLanguage === 'it' ? "Perso" : "Lost";
+        if (s.outcome === "Vinto") displayOutcome = currentLanguage === 'it' ? "Vinto" : "Won";
+        if (!s.outcome) displayOutcome = currentLanguage === 'it' ? "In corso" : "In progress";
+        const labelEventi = currentLanguage === 'it' ? "Eventi" : "Events";
+        
+        return `
+        <div class="history-card">
+            <div class="history-row">
+                <strong>${new Date(s.startedAt).toLocaleString()}</strong>
+                <span>${displayOutcome} • €${s.winnings || 0}</span>
+            </div>
+            <details>
+                <summary>${labelEventi}</summary>
+                <ol class="turns">
+                    ${s.events.map(e => `<li>${e.at}: ${e.text}</li>`).join('')}
+                </ol>
+            </details>
+        </div>
+        `; // <--- Sistemato: ora c'è il backtick corretto
+    }).join('');
 }
-listEl.innerHTML = items.map(s => {
-let displayOutcome = s.outcome;
-if (s.outcome === "Ritirato") displayOutcome = currentLanguage === 'it' ? "Ritirato" : "Withdrawn";
-if (s.outcome === "Perso") displayOutcome = currentLanguage === 'it' ? "Perso" : "Lost";
-if (s.outcome === "Vinto") displayOutcome = currentLanguage === 'it' ? "Vinto" : "Won";
-if (!s.outcome) displayOutcome = currentLanguage === 'it' ? "In corso" : "In progress";
-const labelEventi = currentLanguage === 'it' ? "Eventi" : "Events";
-return `
-<div class="history-card">
-<div class="history-row">
-<strong>${new Date(s.startedAt).toLocaleString()}</strong>
-<span>${s.outcome||'In corso'} • €${s.winnings||0}</span>
-</div>
-<details>
-<summary>${labelEventi}</summary>
-<ol class="turns">
-${s.events.map(e => `<li>${e.at}: ${e.text}</li>`).join('')}
-</ol>
-</details>
-</div>
-`;
-}).join('');
-}
+
 function createBetBadge() {
-const gameArea = document.getElementById("gameArea");
-let badge = document.getElementById("betBadge");
-if (!badge) {
-badge = document.createElement("div");
-badge.id = "betBadge";
-badge.style.padding = "6px 12px";
-badge.style.background = "#ffcc00";
-badge.style.color = "#222";
-badge.style.fontWeight = "700";
-badge.style.fontSize = "1.1rem";
-badge.style.borderRadius = "10px";
-badge.style.boxShadow = "0 2px 6px rgba(0,0,0,0.3)";
-badge.style.userSelect = "none";
-badge.style.marginBottom = "8px";
-badge.style.textAlign = "center";
-gameArea.insertBefore(badge, gameArea.firstChild);
-}
-puntataIniziale = parseFloat(document.getElementById("bet").value);
-badge.textContent = `Puntata: €${puntataIniziale.toFixed(2)}`;
+    const gameArea = document.getElementById("gameArea");
+    let badge = document.getElementById("betBadge");
+    if (!badge) {
+        badge = document.createElement("div");
+        badge.id = "betBadge";
+        badge.style.padding = "6px 12px";
+        badge.style.background = "#ffcc00";
+        badge.style.color = "#222";
+        badge.style.fontWeight = "700";
+        badge.style.fontSize = "1.1rem";
+        badge.style.borderRadius = "10px";
+        badge.style.boxShadow = "0 2px 6px rgba(0,0,0,0.3)";
+        badge.style.userSelect = "none";
+        badge.style.marginBottom = "8px";
+        badge.style.textAlign = "center";
+        gameArea.insertBefore(badge, gameArea.firstChild);
+    }
+    puntataIniziale = parseFloat(document.getElementById("bet").value);
+    badge.textContent = `Puntata: €${puntataIniziale.toFixed(2)}`;
 }
 document.addEventListener('DOMContentLoaded', () => {
 initHistoryUI();
