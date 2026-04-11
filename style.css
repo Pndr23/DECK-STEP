@@ -1027,58 +1027,64 @@ margin: 8px 0 0 18px;
     100% { transform: translateY(110vh) rotate(720deg); } 
 }
 @media (max-width: 600px) {
-   #historyButton.icon-button {
+    #historyButton.icon-button {
         position: absolute !important;
         top: 8px !important;
         right: 8px !important;
-        width: 38px !important;
-        height: 38px !important;
-        font-size: 18px !important; 
+        width: 36px !important; 
+        height: 36px !important;
+        font-size: 16px !important; 
         z-index: 1005 !important;
         margin: 0 !important;
         display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
     #languageSelect {
         position: absolute !important;
         top: 8px !important;
-        right: 55px !important; 
-        height: 38px !important;
-        font-size: 0.8rem !important;
+        right: 50px !important; 
+        height: 36px !important;
+        width: auto !important;
+        font-size: 0.75rem !important;
         z-index: 1004 !important;
         padding: 0 6px !important;
         border-radius: 6px !important;
+        margin: 0 !important;
     }
     #muteBtn {
         position: absolute !important;
         top: 8px !important;
-        right: 140px !important; 
-        width: 38px !important;
-        height: 38px !important;
-        font-size: 18px !important;
+        right: 135px !important; 
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 16px !important;
         z-index: 1003 !important;
         margin: 0 !important;
         display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
     #gameTitle {
-        margin-top: 65px !important; 
-        font-size: 1.6rem !important;
+        margin-top: 55px !important; 
+        font-size: 1.5rem !important;
         margin-bottom: 10px !important;
     }
     #scorePanel {
-        margin-bottom: 15px !important; 
+        margin-bottom: 10px !important; 
     }
     .multiplier-label {
-        margin-top: 15px !important; 
+        margin-top: 10px !important; 
         display: block !important;
+        font-size: 0.85rem !important;
     }
     #currentCardImg, #drawnCardImg {
-        width: 125px !important;
-        margin: 10px auto !important; 
+        width: 115px !important; 
+        margin: 5px auto !important; 
     }
     button {
-        padding: 7px 12px !important; 
-        margin: 3px !important;
-        font-size: 0.8rem !important;
+        padding: 6px 10px !important; 
+        margin: 2px !important;
+        font-size: 0.75rem !important;
     }
-}
 }
