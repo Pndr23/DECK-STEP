@@ -1027,7 +1027,6 @@ margin: 8px 0 0 18px;
     100% { transform: translateY(110vh) rotate(720deg); } 
 }
 @media (max-width: 600px) {
-    /* 1. AUDIO (Sulla sinistra) */
     #muteBtn {
         position: absolute !important;
         top: 10px !important;
