@@ -161,7 +161,7 @@ const msg = currentLanguage === 'it'
 : `You decided to withdraw with €${winnings}`;
 s.events.push({
 at: new Date().toISOString(),
-text: `Hai deciso di ritirarti con €${winnings}`
+text: msg
 });
 }
 saveHistory(list);
@@ -215,7 +215,7 @@ return `
 <span>${s.outcome||'In corso'} • €${s.winnings||0}</span>
 </div>
 <details>
-<summary>Eventi</summary>
+<summary>${labelEventi}</summary>
 <ol class="turns">
 ${s.events.map(e => `<li>${e.at}: ${e.text}</li>`).join('')}
 </ol>
