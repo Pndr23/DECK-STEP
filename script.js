@@ -1215,10 +1215,11 @@ return t[currentLanguage][key];
 }
 function calcolaGuadagno(corretti) {
     if (corretti <= 0) return 0;
-    const livelloKey = currentLevel; 
-    const arrayMoltiplicatori = moltiplicatori[livelloKey];
-    let moltiplicatoreTappa = arrayMoltiplicatori[corretti - 1];
-    return puntataIniziale * moltiplicatoreTappa * moltiplicatoreBonusMinigioco;
+    const livello = currentLevel; 
+    const arrayLivello = moltiplicatori[livello];
+    let moltiplicatoreTappa = arrayLivello[corretti - 1];
+    let totale = puntataIniziale * moltiplicatoreTappa * moltiplicatoreBonusMinigioco;
+    return totale;
 }
 function restoreMusicState() {
 const savedTime = parseFloat(localStorage.getItem("musicTime") || "0");
