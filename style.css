@@ -1,10 +1,13 @@
 html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    min-height: 100%;
-    overflow-x: hidden; 
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden !important; 
     background: #800020;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 body {
     display: flex;
@@ -30,25 +33,37 @@ margin: 20px 0;
 50% { transform: scale(1.1); opacity: 0.7; }
 }
 .container {
-    text-align: center;
-    background: url(sfondo.jpg.jpg);
+    position: relative;
+    background: url(sfondo.jpg.jpg) no-repeat center center;
     background-size: cover;
-    background-position: center;
     border: 3px solid gold;
+    border-radius: 40px;
+    box-shadow: 0 0 50px gold;
     color: white;
     width: 96vw !important;
     height: 94vh !important;
-    margin: 2vh auto !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: space-around !important; 
+    justify-content: space-between !important; 
     align-items: center !important;
-    padding: 20px;
+    padding: 4vh 2vw !important;
     box-sizing: border-box;
-    border-radius: 40px;
-    box-shadow: 0 0 50px gold;
     overflow: hidden !important;
-    position: relative;
+}
+.top-controls {
+    position: absolute !important;
+    top: 20px !important;
+    right: 30px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    gap: 10px !important;
+    z-index: 2005 !important;
+}
+
+.icon-group {
+    display: flex !important;
+    gap: 10px !important;
 }
 .container::-webkit-scrollbar {
     display: none;
@@ -117,9 +132,8 @@ color: white !important;
     }
 }
 img {
-    max-height: 48vh !important; 
-    width: auto;
-    object-fit: contain;
+    max-height: 40vh !important; 
+    width: auto !important;
 }
 #rulesLabel {
 font-size: 1.5rem;
@@ -228,8 +242,8 @@ border: 2px solid white !important;
 font-weight: bold !important;
 }
 #gameTitle {
-    font-size: clamp(1.8rem, 6vh, 3.5rem) !important;
-    margin: 1vh 0 !important;
+    font-size: 3rem !important;
+    margin: 0 !important;
 }
 #withdrawBtn {
 padding: 12px 24px;
