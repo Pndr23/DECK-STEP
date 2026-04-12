@@ -1023,15 +1023,6 @@ transform: scale(0.85);
     100% { transform: translateY(110vh) rotate(720deg); } 
 }
 @media (max-width: 600px) {
-    .container {
-        height: auto; 
-        min-height: 95vh;
-        padding: 10px;
-    }
-    
-    img {
-        max-height: 30vh !important;
-    }
    #languageSelect {
         transform: scale(0.8) !important;
         margin-right: 10px !important; 
@@ -1061,9 +1052,6 @@ transform: scale(0.85);
         align-items: center !important;
         justify-content: center !important;
         z-index: 2005 !important;
-    }
-    div[style*="flex-direction: column"] {
-        align-items: flex-end !important;
     }
     #gameTitle {
         margin-top: 40px !important; 
