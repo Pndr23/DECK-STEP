@@ -1,10 +1,12 @@
 body {
-margin: 0;
-min-height: 100vh;
-background: #800020;
-font-family: 'Trebuchet MS', sans-serif;
-overflow-x: visible;
-overflow-y: visible;
+    margin: 0;
+    height: 100vh; 
+    background: #800020;
+    font-family: 'Trebuchet MS', sans-serif;
+    overflow: hidden; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .hidden {
 display: none;
@@ -22,16 +24,20 @@ margin: 20px 0;
 50% { transform: scale(1.1); opacity: 0.7; }
 }
 .container {
-text-align: center;
-background: url(sfondo.jpg.jpg);
-border: 2px solid gold;
-color: white;
-padding: 0.8rem;
-margin-top: 10px;
-margin-bottom: 5px;
-border-radius: 40px;
-box-shadow: 0 0 40px gold;
-overflow: visible;
+    text-align: center;
+    background: url(sfondo.jpg.jpg);
+    background-size: cover; 
+    border: 3px solid gold; 
+    color: white;
+    padding: 10px; 
+    border-radius: 40px;
+    box-shadow: 0 0 40px gold;
+    width: 94vw;         
+    height: 82vh;        
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    overflow: hidden;    
 }
 select,
 button {
@@ -94,9 +100,9 @@ filter: brightness(1.2);
 }
 }
 img {
-width: 400px;
-height: auto;
-margin-top: 0.5rem;
+    max-height: 35vh; 
+    width: auto;      
+    margin-top: 5px;
 }
 #rulesLabel {
 font-size: 1.5rem;
