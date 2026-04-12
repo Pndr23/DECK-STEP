@@ -30,24 +30,31 @@ margin: 20px 0;
 .container {
     text-align: center;
     background: url(sfondo.jpg.jpg);
-    background-size: cover;     
-    background-position: center;  
-    border: 2px solid gold;
+    background-size: cover;
+    background-position: center;
+    border: 3px solid gold; 
     color: white;
-    padding: 2vh; 
-    margin: 0 auto;              
-    width: 95vw;        
-    max-width: 1300px;    
-    height: 92vh;     
+    padding: 2vh 2vw;
+    margin: 2vh auto; 
+    width: 96vw;          
+    max-width: 1800px;    
+    height: 94vh;        
     display: flex;
     flex-direction: column;
     justify-content: space-between; 
     align-items: center;
-    box-sizing: border-box;      
+    box-sizing: border-box;
     border-radius: 40px;
-    box-shadow: 0 0 40px gold;
+    box-shadow: 0 0 50px gold;
     overflow: hidden !important; 
     position: relative;
+}
+.container::-webkit-scrollbar {
+    display: none;
+}
+.container {
+    -ms-overflow-style: none;  /* IE e Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 select,button {
     margin: 8px;
@@ -109,7 +116,7 @@ color: white !important;
     }
 }
 img {
-max-height: 40vh !important;
+    max-height: 48vh !important; 
     width: auto;
     object-fit: contain;
 }
