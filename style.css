@@ -1021,7 +1021,7 @@ transform: scale(0.85);
         height: 28px !important; 
         margin: 0 !important;
     }
-   #muteBtn {
+#soundToggle {
         position: absolute !important;
         top: 42px !important; 
         right: 10px !important; 
