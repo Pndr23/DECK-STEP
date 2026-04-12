@@ -368,7 +368,7 @@ function aggiornaMoltiplicatori() {
     const multiplierLabels = document.querySelectorAll(".multiplier-label");
     multiplierLabels.forEach((label, index) => {
         if (moltiplicatoriLivello && moltiplicatoriLivello[index] !== undefined) {
-            label.textContent = "x" + moltiplicatoriLivello[index];
+            label.textContent = "x" * moltiplicatoriLivello[index];
             label.classList.remove("jackpot");
             if (index === moltiplicatoriLivello.length - 1) {
                 label.classList.add("jackpot");
