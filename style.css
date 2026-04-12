@@ -1,207 +1,399 @@
 body {
-    margin: 0;
-    height: 100vh; 
-    background: #800020;
-    font-family: 'Trebuchet MS', sans-serif;
-    overflow: hidden; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+margin: 0;
+
+min-height: 100vh;
+
+background: #800020;
+
+font-family: 'Trebuchet MS', sans-serif;
+
+overflow-x: visible;
+
+overflow-y: visible;
+
 }
+
 .hidden {
+
 display: none;
+
 }
+
 .pulse {
+
 animation: pulseAnimation 1.5s infinite;
+
 font-size: 2.5em;
+
 font-weight: bold;
+
 color: #2ecc71;
+
 text-align: center;
+
 margin: 20px 0;
+
 }
+
 @keyframes pulseAnimation {
+
 0%, 100% { transform: scale(1); opacity: 1; }
+
 50% { transform: scale(1.1); opacity: 0.7; }
+
 }
+
 .container {
-    text-align: center;
-    background: url(sfondo.jpg.jpg);
-    background-size: cover; 
-    border: 3px solid gold; 
-    color: white;
-    padding: 10px; 
-    border-radius: 40px;
-    box-shadow: 0 0 40px gold;
-    width: 94vw;         
-    height: 93vh;        
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; 
-    overflow: hidden;    
-}
-select,
-button {
-margin: 8px;
-padding: 10px 20px;
-font-size: 1rem;
-border-radius: 10px;
-border: none;
-font-weight: bold;
-text-transform: uppercase;
-box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
-}
-button {
-background: linear-gradient(to bottom, #d4af37, #b8860b);
-color: #000;
-cursor: pointer;
-}
-button:hover {
-background: linear-gradient(to bottom, #ffd700, #daa520);
-box-shadow: 0 0 12px gold;
-}
-.button-maggiore,
-.button-dentro,
-.button-pari {
-background-color: #ff0000 !important;
-color: white !important;
-}
-.button-minore,
-.button-fuori,
-.button-dispari {
-background-color: #14d928 !important;
-color: white !important;
-}
-.numero-esatto {
-display: inline-flex !important;
-align-items: center !important;
-justify-content: center !important;
-width: 60px !important;
-height: 60px !important;
-margin: 6px !important;
-background: linear-gradient(to bottom, #d4af37, #b8860b) !important;
-color: black !important;
-border: 2px solid white !important;
-border-radius: 12px !important;
-font-size: 1.5rem !important;
-font-weight: bold !important;
-box-shadow: 0 0 10px gold !important;
-cursor: pointer;
-}
-@media (min-width: 768px) {
-.numero-esatto {
-width: 100px !important;
-height: 100px !important;
-font-size: 2.5rem !important;
-margin: 10px !important;
-}
-.numero-esatto:hover {
-transform: scale(1.1);
-filter: brightness(1.2);
-}
-}
-img {
-    max-height: 32vh; 
-    width: auto;      
-    margin-top: 5px;
-}
-#rulesLabel {
-font-size: 1.5rem;
-cursor: pointer;
-margin-bottom: 2rem;
-text-decoration: underline;
-color: white;
-}
-#scoreValue {
-font-size: 1.5rem;
-margin: 1rem 0;
-}
-#correctLabel,
-#errorLabel,
-#jollyLabel {
-font-size: 2rem;
-font-weight: bold;
-color: white;
-text-shadow: 0 0 3px gold;
-}
-#challengeText {
-font-size: 2rem;
-font-weight: bold;
-color: gold;
-text-shadow: 0 0 5px black, 0 0 8px gold;
-margin-top: 1rem;
-}
-#toggle-regolamento {
-position: fixed;
-top: 10px;
-right: 10px;
-font-size: 30px;
-background: none;
-border: none;
-cursor: pointer;
-z-index: 1001;
-color: gold;
-}
-#regolamento-popup {
-display: none;
-position: fixed;
-top: 50px;
-right: 10px;
-background: black;
-color: gold;
-border: 2px solid #ffb300;
-padding: 15px;
-max-width: 300px;
-z-index: 1000;
-box-shadow: 0 0 15px gold;
-border-radius: 10px;
-}
-#useJollyBtn {
-background-color: gold;
-color: black;
-font-weight: bold;
-padding: 10px 20px;
-border: 2px solid darkgoldenrod;
-border-radius: 10px;
-font-size: 1rem;
-cursor: pointer;
-animation: pulseJolly 1.5s infinite;
-box-shadow: 0 0 10px gold;
-}
-@keyframes pulseJolly {
-0% {
-transform: scale(1);
-box-shadow: 0 0 10px gold;
-}
-50% {
-transform: scale(1.1);
-box-shadow: 0 0 20px gold;
-}
-100% {
-transform: scale(1);
-box-shadow: 0 0 10px gold;
-}
-}
-.multiplier-label {
-font-size: 1.5em;
-color: gold;
-font-weight: bold;
+
 text-align: center;
-margin-top: 4px;
-margin-bottom: 6px;
-line-height: 1.1;
+
+background: url(sfondo.jpg.jpg);
+
+border: 2px solid gold;
+
+color: white;
+
+padding: 0.8rem;
+
+margin-top: 10px;
+
+margin-bottom: 5px;
+
+border-radius: 40px;
+
+box-shadow: 0 0 40px gold;
+
+overflow: visible;
+
 }
-.jackpot {
-color: #ffdf00;
-font-size: 1.5rem;
-text-shadow: 0 0 8px red, 0 0 4px gold;
+
+select,
+
+button {
+
+margin: 8px;
+
+padding: 10px 20px;
+
+font-size: 1rem;
+
+border-radius: 10px;
+
+border: none;
+
 font-weight: bold;
+
+text-transform: uppercase;
+
+box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+
 }
-.green-button {
-background-color: #14d928 !important;
-background-image: none !important;
+
+button {
+
+background: linear-gradient(to bottom, #d4af37, #b8860b);
+
+color: #000;
+
+cursor: pointer;
+
+}
+
+button:hover {
+
+background: linear-gradient(to bottom, #ffd700, #daa520);
+
+box-shadow: 0 0 12px gold;
+
+}
+
+.button-maggiore,
+
+.button-dentro,
+
+.button-pari {
+
+background-color: #ff0000 !important;
+
 color: white !important;
+
+}
+
+.button-minore,
+
+.button-fuori,
+
+.button-dispari {
+
+background-color: #14d928 !important;
+
+color: white !important;
+
+}
+
+.numero-esatto {
+
+display: inline-flex !important;
+
+align-items: center !important;
+
+justify-content: center !important;
+
+width: 60px !important;
+
+height: 60px !important;
+
+margin: 6px !important;
+
+background: linear-gradient(to bottom, #d4af37, #b8860b) !important;
+
+color: black !important;
+
 border: 2px solid white !important;
+
+border-radius: 12px !important;
+
+font-size: 1.5rem !important;
+
 font-weight: bold !important;
+
+box-shadow: 0 0 10px gold !important;
+
+cursor: pointer;
+
+}
+
+@media (min-width: 768px) {
+
+.numero-esatto {
+
+width: 100px !important;
+
+height: 100px !important;
+
+font-size: 2.5rem !important;
+
+margin: 10px !important;
+
+}
+
+.numero-esatto:hover {
+
+transform: scale(1.1);
+
+filter: brightness(1.2);
+
+}
+
+}
+
+img {
+
+width: 400px;
+
+height: auto;
+
+margin-top: 0.5rem;
+
+}
+
+#rulesLabel {
+
+font-size: 1.5rem;
+
+cursor: pointer;
+
+margin-bottom: 2rem;
+
+text-decoration: underline;
+
+color: white;
+
+}
+
+#scoreValue {
+
+font-size: 1.5rem;
+
+margin: 1rem 0;
+
+}
+
+#correctLabel,
+
+#errorLabel,
+
+#jollyLabel {
+
+font-size: 2rem;
+
+font-weight: bold;
+
+color: white;
+
+text-shadow: 0 0 3px gold;
+
+}
+
+#challengeText {
+
+font-size: 2rem;
+
+font-weight: bold;
+
+color: gold;
+
+text-shadow: 0 0 5px black, 0 0 8px gold;
+
+margin-top: 1rem;
+
+}
+
+#toggle-regolamento {
+
+position: fixed;
+
+top: 10px;
+
+right: 10px;
+
+font-size: 30px;
+
+background: none;
+
+border: none;
+
+cursor: pointer;
+
+z-index: 1001;
+
+color: gold;
+
+}
+
+#regolamento-popup {
+
+display: none;
+
+position: fixed;
+
+top: 50px;
+
+right: 10px;
+
+background: black;
+
+color: gold;
+
+border: 2px solid #ffb300;
+
+padding: 15px;
+
+max-width: 300px;
+
+z-index: 1000;
+
+box-shadow: 0 0 15px gold;
+
+border-radius: 10px;
+
+}
+
+#useJollyBtn {
+
+background-color: gold;
+
+color: black;
+
+font-weight: bold;
+
+padding: 10px 20px;
+
+border: 2px solid darkgoldenrod;
+
+border-radius: 10px;
+
+font-size: 1rem;
+
+cursor: pointer;
+
+animation: pulseJolly 1.5s infinite;
+
+box-shadow: 0 0 10px gold;
+
+}
+
+@keyframes pulseJolly {
+
+0% {
+
+transform: scale(1);
+
+box-shadow: 0 0 10px gold;
+
+}
+
+50% {
+
+transform: scale(1.1);
+
+box-shadow: 0 0 20px gold;
+
+}
+
+100% {
+
+transform: scale(1);
+
+box-shadow: 0 0 10px gold;
+
+}
+
+}
+
+.multiplier-label {
+
+font-size: 1.5em;
+
+color: gold;
+
+font-weight: bold;
+
+text-align: center;
+
+margin-top: 4px;
+
+margin-bottom: 6px;
+
+line-height: 1.1;
+
+}
+
+.jackpot {
+
+color: #ffdf00;
+
+font-size: 1.5rem;
+
+text-shadow: 0 0 8px red, 0 0 4px gold;
+
+font-weight: bold;
+
+}
+
+.green-button {
+
+background-color: #14d928 !important;
+
+background-image: none !important;
+
+color: white !important;
+
+border: 2px solid white !important;
+
+font-weight: bold !important;
+
 }
 .red-button {
 background-color: #ff0000 !important;
