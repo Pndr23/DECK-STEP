@@ -1009,31 +1009,26 @@ animation: confettiCadono 4s linear infinite;
 }
 @media (max-width: 600px) {
 #historyButton {
-        width: 25px !important;
+        width: 25px !important;  
         height: 25px !important;
-        min-width: 25px !important;
-        margin-right: 0 !important; 
-        font-size: 12px !important;
-        padding: 0 !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
+        margin-right: 0 !important;
     }
-    #soundToggle {
-        width: 25px !important; 
+  #soundToggle {
+        margin-right: 0 !important;
+        width: 25px !important;  
         height: 25px !important;
-        min-width: 25px !important;
-        margin-right: 0 !important; 
-        font-size: 14px !important;
-        background-color: #333 !important; 
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
+        font-size: 14px !important; 
+        display: inline-flex !important;
+        justify-content: center;
+        align-items: center;
     }
     #languageSelect {
         transform: scale(0.8) !important;
         margin-right: 5px !important; 
         font-size: 11px !important;
+    }
+        div[style*="flex-direction: column"] {
+        align-items: flex-end !important;
     }
 #gameTitle {
 margin-top: 40px !important;
