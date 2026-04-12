@@ -1005,33 +1005,31 @@ transform: scale(0.85);
 }
 @media (max-width: 600px) {
     #languageSelect {
-   position: absolute !important;
-        top: 6px !important;
-        right: 42px !important; 
+        position: absolute !important;
+        top: 8px !important;
+        right: 45px !important; 
         z-index: 2005 !important;
-        font-size: 11px !important; 
-        padding: 2px 4px !important;
-        transform: scale(0.9); 
+        transform: scale(0.8) !important;
         width: auto !important;
     }
-    #historyButton.icon-button {
-   position: absolute !important;
-        top: 5px !important;
+   #historyButton.icon-button {
+        position: absolute !important;
+        top: 8px !important;
         right: 8px !important; 
         z-index: 2005 !important;
         width: 28px !important;  
         height: 28px !important; 
-        font-size: 14px !important; 
         margin: 0 !important;
     }
    #muteBtn {
         position: absolute !important;
-        top: 5px !important;
-        right: 95px !important; 
+        top: 42px !important; 
+        right: 10px !important; 
         z-index: 2005 !important;
-        font-size: 18px !important; 
+        font-size: 20px !important; 
         background: none !important;
         border: none !important;
+        margin: 0 !important;
         padding: 0 !important;
     }
     #gameTitle {
