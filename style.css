@@ -34,16 +34,19 @@ margin: 20px 0;
     background-position: center;  
     border: 2px solid gold;
     color: white;
-    padding: 15px;              
-    margin: 10px auto; 
-    width: 95vw;
-    max-width: 1200px; 
-    height: auto; 
-    max-height: 95vh; 
-    display: block; 
-    overflow-y: auto; 
+    padding: 2vh; 
+    margin: 0 auto;              
+    width: 95vw;        
+    max-width: 1300px;    
+    height: 92vh;     
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    align-items: center;
+    box-sizing: border-box;      
     border-radius: 40px;
     box-shadow: 0 0 40px gold;
+    overflow: hidden !important; 
     position: relative;
 }
 select,button {
@@ -106,9 +109,9 @@ color: white !important;
     }
 }
 img {
-    max-height: 40vh; 
+max-height: 40vh !important;
     width: auto;
-    margin: 10px auto;
+    object-fit: contain;
 }
 #rulesLabel {
 font-size: 1.5rem;
@@ -217,10 +220,8 @@ border: 2px solid white !important;
 font-weight: bold !important;
 }
 #gameTitle {
-    font-size: clamp(1.5rem, 5vh, 3.2rem) !important;
-    margin-top: 5px !important;
-    margin-bottom: 5px !important;
-    line-height: 1;
+    font-size: clamp(1.8rem, 6vh, 3.5rem) !important;
+    margin: 1vh 0 !important;
 }
 #withdrawBtn {
 padding: 12px 24px;
@@ -1014,6 +1015,15 @@ transform: scale(0.85);
     100% { transform: translateY(110vh) rotate(720deg); } 
 }
 @media (max-width: 600px) {
+    .container {
+        height: auto; 
+        min-height: 95vh;
+        padding: 10px;
+    }
+    
+    img {
+        max-height: 30vh !important;
+    }
    #languageSelect {
         transform: scale(0.8) !important;
         margin-right: 10px !important; 
