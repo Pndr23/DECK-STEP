@@ -988,14 +988,16 @@ logHistoryEvent("Jolly usato automaticamente!");
 }
 }
 function aggiornaGuadagno(corretti) {
-const label = document.getElementById("gainLabel");
-let guadagno = puntataIniziale;
-const moltiplicatoriLivello = moltiplicatori[currentLevel];
-for (let i = 0; i < corretti && i < moltiplicatoriLivello.length; i++) {
-guadagno *= moltiplicatoriLivello[i];
-}
-guadagno += moltiplicatoreBonusMinigioco * puntataIniziale;
-label.textContent = "+€" + guadagno.toFixed(2);
+    const label = document.getElementById("gainLabel");
+    if (!label) return;
+    if (corretti <= 0) {
+        label.textContent = "";
+        return;
+    }
+    const moltiplicatoriLivello = moltiplicatori[currentLevel];
+    let moltiplicatoreTappa = moltiplicatoriLivello[corretti - 1];
+    let guadagnoTotale = puntataIniziale * moltiplicatoreTappa * moltiplicatoreBonusMinigioco;
+    label.textContent = "+€" + guadagnoTotale.toFixed(2);
 }
 function updateLanguage() {
     document.querySelector("html").lang = currentLanguage;
