@@ -1008,36 +1008,32 @@ animation: confettiCadono 4s linear infinite;
 100% { transform: translateY(110vh) rotate(720deg); }
 }
 @media (max-width: 600px) {
-#soundTogle{
-        position: absolute !important;
-        top: 10px !important;
-        right: 145px !important;
-        width: 48px !important;
-        height: 48px !important;
-        font-size: 22px !important;
-        z-index: 1002 !important;
-        margin: 0 !important;
+#historyButton {
+        width: 25px !important;
+        height: 25px !important;
+        min-width: 25px !important;
+        margin-right: 0 !important; 
+        font-size: 12px !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    #soundToggle {
+        width: 25px !important; 
+        height: 25px !important;
+        min-width: 25px !important;
+        margin-right: 0 !important; 
+        font-size: 14px !important;
+        background-color: #333 !important; 
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
     #languageSelect {
-        position: absolute !important;
-        top: 10px !important;
-        right: 70px !important; 
-        z-index: 1002 !important;
-        width: auto !important;
-        font-size: 0.9rem !important;
-        padding: 5px 8px !important;
-        transform: scale(1) !important;
-    }
-    #historyButton.icon-button {
-        position: absolute !important;
-        top: 8px !important;
-        right: 10px !important;
-        z-index: 1002 !important;
-        width: 50px !important;
-        height: 50px !important;
-        font-size: 26px !important;
-        margin: 0 !important;
-        border: 2px solid gold !important; /* Aggiunto bordo oro per coerenza */
+        transform: scale(0.8) !important;
+        margin-right: 5px !important; 
+        font-size: 11px !important;
     }
 #gameTitle {
 margin-top: 40px !important;
