@@ -994,7 +994,7 @@ const moltiplicatoriLivello = moltiplicatori[currentLevel];
 for (let i = 0; i < corretti && i < moltiplicatoriLivello.length; i++) {
 guadagno *= moltiplicatoriLivello[i];
 }
-guadagno += moltiplicatoreBonus * puntataIniziale;
+guadagno += moltiplicatoreBonusMinigioco * puntataIniziale;
 label.textContent = "+€" + guadagno.toFixed(2);
 }
 function updateLanguage() {
