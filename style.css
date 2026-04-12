@@ -33,10 +33,10 @@ margin: 20px 0;
     border-radius: 40px;
     box-shadow: 0 0 40px gold;
     width: 94vw;         
-    height: 82vh;        
+    height: 93vh;        
     display: flex;
     flex-direction: column;
-    justify-content: center; 
+    justify-content: space-between; 
     overflow: hidden;    
 }
 select,
@@ -100,7 +100,7 @@ filter: brightness(1.2);
 }
 }
 img {
-    max-height: 35vh; 
+    max-height: 32vh; 
     width: auto;      
     margin-top: 5px;
 }
