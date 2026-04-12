@@ -1,7 +1,7 @@
 let tappe = 0;
 let minigiocoAttivo = false;
 let minigiocoCallback = null;
-let moltiplicatoreBonus = 0;
+let moltiplicatoreBonusMinigioco = 1;
 let currentCard = null;
 let nextCard = null;
 let correctCount = 0;
@@ -319,24 +319,22 @@ function showMinigiocoJolly(callback) {
             setTimeout(() => {
                 el.src = el.dataset.img;
                 el.classList.add("selected");
-
-                // --- MODIFICA QUI PER FAR APPARIRE LA SCRITTA ---
                 if (el.dataset.type === "jolly") {
                     playSound(soundJolly);
                     jollyCount++;
                     updateJollyDisplay();
                     updateScore();
-                    // Invece di chiamare funzioni esterne, scriviamo direttamente qui:
                    if (messaggioEl) messaggioEl.textContent = translate("miniJollyWin");
             } else if (el.dataset.type === "moltiplicatore") {
                 playSound(soundMultiplier);
                 const val = el.dataset.value;
-                updateScore();
-                // USA TRANSLATE E REPLACE QUI:
-                if (messaggioEl) {
-                    let msg = translate("miniMultWin");
-                    messaggioEl.textContent = msg.replace("{val}", val);
-                }
+               moltiplicatoreBonusMinigioco = val; 
+    updateScore();
+     aggiornaGuadagno(correctCount);
+    if (messaggioEl) {
+        let msg = translate("miniMultWin");
+        messaggioEl.textContent = msg.replace("{val}", val);
+    }
                 }           
             }, 300);
 
@@ -363,17 +361,21 @@ function showMinigiocoJolly(callback) {
     };
 }
 function aggiornaMoltiplicatori() {
-const livello = document.getElementById("risk").value;
-currentLevel = livello;
-creaProgressSteps();
-const multiplierLabels = document.querySelectorAll(".multiplier-label");
-multiplierLabels.forEach((label, index) => {
-if (moltiplicatori[index]) {
-label.textContent = "x" + moltiplicatori[index];
-label.classList.remove("jackpot");
-}
-});
-aggiornaGuadagno(correctCount);
+    const livello = document.getElementById("risk").value;
+    currentLevel = livello;
+    creaProgressSteps();
+    const moltiplicatoriLivello = moltiplicatori[currentLevel];
+    const multiplierLabels = document.querySelectorAll(".multiplier-label");
+    multiplierLabels.forEach((label, index) => {
+        if (moltiplicatoriLivello && moltiplicatoriLivello[index] !== undefined) {
+            label.textContent = "x" + moltiplicatoriLivello[index];
+            label.classList.remove("jackpot");
+            if (index === moltiplicatoriLivello.length - 1) {
+                label.classList.add("jackpot");
+            }
+        }
+    });
+    aggiornaGuadagno(correctCount);
 }
 document.getElementById("risk").addEventListener("change", () => {
 currentLevel = document.getElementById("risk").value;
@@ -544,7 +546,7 @@ function resetGame() {
     jollyCount = 0;
     tappe = 0;
     correctStreak = 0;
-    moltiplicatoreBonus = 0;
+   moltiplicatoreBonusMinigioco= 1; 
     jollyUsedInThisTurn = false;
     updateScore(); 
     updateProgress();
@@ -624,7 +626,7 @@ errorCount = 0;
 correctCount = 0;
 correctStreak = 0;
 jollyCount = 0;
-moltiplicatoreBonus = 0;
+moltiplicatoreBonusMinigioco = 1;
 jollyUsedInThisTurn = false;
 currentCard = drawCard();
 displayCurrentCard(currentCard);
@@ -1212,21 +1214,12 @@ withdraw: "WITHDRAW"
 return t[currentLanguage][key];
 }
 function calcolaGuadagno(corretti) {
-let guadagno = puntataIniziale;
-const moltiplicatoriLivello = moltiplicatori[currentLevel];
-for (let i = 0; i < corretti && i < moltiplicatoriLivello.length; i++) {
-guadagno *= moltiplicatoriLivello[i];
+    if (corretti <= 0) return 0;
+    const livelloKey = currentLevel; 
+    const arrayMoltiplicatori = moltiplicatori[livelloKey];
+    let moltiplicatoreTappa = arrayMoltiplicatori[corretti - 1];
+    return puntataIniziale * moltiplicatoreTappa * moltiplicatoreBonusMinigioco;
 }
-guadagno += moltiplicatoreBonus * puntataIniziale;
-return guadagno;
-}
-// 🔹 Salva stato musica prima di ricaricare
-function saveMusicState() {
-if (!backgroundMusic) return;
-localStorage.setItem("musicTime", backgroundMusic.currentTime);
-localStorage.setItem("musicPlaying", !backgroundMusic.paused);
-}
-// 🔹 Ripristina musica dopo reload
 function restoreMusicState() {
 const savedTime = parseFloat(localStorage.getItem("musicTime") || "0");
 const wasPlaying = localStorage.getItem("musicPlaying") === "true";
