@@ -1215,12 +1215,13 @@ withdraw: "WITHDRAW"
 };
 return t[currentLanguage][key];
 }
-function calcolaGuadagno(corretti) {
+unction calcolaGuadagno(corretti) {
     if (corretti <= 0) return 0;
-    const livello = currentLevel; 
+    const livello = currentLevel;
     const arrayLivello = moltiplicatori[livello];
-    let moltiplicatoreTappa = arrayLivello[corretti - 1];
-    let totale = puntataIniziale * moltiplicatoreTappa * moltiplicatoreBonusMinigioco;
+    let tappaMult = arrayLivello[corretti - 1];
+    let bonusExtra = moltiplicatoreBonusMinigioco - 1;
+    let totale = puntataIniziale * (tappaMult + bonusExtra);
     return totale;
 }
 function restoreMusicState() {
