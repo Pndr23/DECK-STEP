@@ -1215,7 +1215,7 @@ withdraw: "WITHDRAW"
 };
 return t[currentLanguage][key];
 }
-unction calcolaGuadagno(corretti) {
+function calcolaGuadagno(corretti) {
     if (corretti <= 0) return 0;
     const livello = currentLevel;
     const arrayLivello = moltiplicatori[livello];
