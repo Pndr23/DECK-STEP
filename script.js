@@ -839,7 +839,7 @@ const drawnCard = drawCard(currentCard.value);
 const cardName = `${drawnCard.value}${drawnCard.suit}`;
 logHistoryEvent(`Hai giocato la carta: ${cardName}`);
 const drawnImg = document.getElementById("drawnCardImg");
-const maxErrors = currentLevel === "hard" ? 3 : 2;
+const maxErrors = currentLevel === "hard" ? 3 : 4;
 playSound(soundFlip);
 drawnImg.classList.add("card-flip");
 setTimeout(() => {
