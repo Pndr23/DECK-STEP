@@ -860,7 +860,8 @@ playSound(soundCorrect);
 if (tappe === tappeMassime[currentLevel]) {
 gameEnded = true;
 const totale = calcolaGuadagno(correctCount);
-finalizeHistorySession("Vinto", totale);
+logHistoryEvent(`Vittoria finale: €${totaleVinto.toFixed(2)}`);
+finalizeHistorySession("Vinto", totaleVinto);
 showVictoryScreen(totale);
 } else {
 tappe++;
@@ -1217,12 +1218,13 @@ return t[currentLanguage][key];
 }
 function calcolaGuadagno(corretti) {
     if (corretti <= 0) return 0;
+    const p = parseFloat(document.getElementById("bet").value); 
+    const mB = moltiplicatoreBonusMinigioco; 
     const livello = currentLevel;
     const arrayLivello = moltiplicatori[livello];
-    let tappaMult = arrayLivello[corretti - 1];
-    let bonusExtra = moltiplicatoreBonusMinigioco - 1;
-    let totale = puntataIniziale * (tappaMult + bonusExtra);
-    return totale;
+    const mT = arrayLivello[corretti - 1];
+    let risultato = p * (mT + (mB - 1));
+    return risultato; 
 }
 function restoreMusicState() {
 const savedTime = parseFloat(localStorage.getItem("musicTime") || "0");
