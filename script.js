@@ -327,13 +327,13 @@ function showMinigiocoJolly(callback) {
                    if (messaggioEl) messaggioEl.textContent = translate("miniJollyWin");
             } else if (el.dataset.type === "moltiplicatore") {
                 playSound(soundMultiplier);
-                const val = el.dataset.value;
-               moltiplicatoreBonusMinigioco = val; 
+               const val = parseInt(el.dataset.value);
+               moltiplicatoreBonusMinigioco *= val; 
     updateScore();
      aggiornaGuadagno(correctCount);
     if (messaggioEl) {
         let msg = translate("miniMultWin");
-        messaggioEl.textContent = msg.replace("{val}", val);
+       messaggioEl.textContent = msg.replace("{val}", val);
     }
                 }           
             }, 300);
