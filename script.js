@@ -859,10 +859,10 @@ updateScore();
 playSound(soundCorrect);
 if (tappe === tappeMassime[currentLevel]) {
 gameEnded = true;
-const totale = calcolaGuadagno(correctCount);
-logHistoryEvent(`Vittoria finale: €${totaleVinto.toFixed(2)}`);
-finalizeHistorySession("Vinto", totaleVinto);
-showVictoryScreen(totale);
+const totale = calcolaGuadagno(correctCount); 
+                        logHistoryEvent(`Vittoria finale: €${totale.toFixed(2)}`);
+                        finalizeHistorySession("Vinto", totale);
+                        showVictoryScreen(totale);
 } else {
 tappe++;
 if (correctStreak === 3) {
@@ -938,16 +938,15 @@ function showVictoryScreen(vincitaTotale) {
     if (window.innerWidth <= 768) { title.style.fontSize = "3.5rem"; }
 
     // --- 💰 TESTO VINCITA ---
-    const prize = document.createElement("p");
-    const winText = translate("victoryWin") || "Hai vinto {amount} crediti!";
-    prize.textContent = winText.replace("{amount}", vincitaTotale);
+const prize = document.createElement("p");
+    const winText = translate("victoryWin") || "Hai vinto €{amount}!";
+    prize.textContent = winText.replace("{amount}", Number(vincitaTotale).toFixed(2));
     prize.style = "font-size: 2rem; color: white; font-weight: bold; margin-bottom: 25px; text-shadow: 2px 2px 5px black; position: relative; z-index: 10002;";
-    // Bottone Ricomincia
+    
     const restartBtn = document.createElement("button");
     restartBtn.textContent = translate("restart") || "🔁 Ricomincia";
     restartBtn.style = "font-size:1.5rem; padding:10px 20px; background:#28a745; color:white; border:none; border-radius:10px; cursor:pointer;z-index:10002;";
     restartBtn.onclick = () => { playSound(soundClick); location.reload(); };
-
     // Appendi in ordine: Corona -> Titolo -> Premio -> Bottone
     container.appendChild(corona);
     container.appendChild(title);
