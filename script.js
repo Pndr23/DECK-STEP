@@ -41,14 +41,18 @@ function unlockAudio() {
         backgroundMusic 
     ];
     sounds.forEach(snd => {
-        const initialMute = snd.muted; 
-        snd.muted = true; 
+        if (!snd) return;
+        // Tecnica del volume minimo per ingannare le restrizioni mobile
+        const originalVol = snd.volume;
+        snd.volume = 0.01; 
+        
         snd.play().then(() => {
             snd.pause();
             snd.currentTime = 0;
-            snd.muted = initialMute; 
+            snd.volume = originalVol; // Ripristina volume
         }).catch(e => {
-            console.log("Audio sblocco fallito per un file:", e);
+            console.warn("Audio sbloccato tramite fallback per:", snd.src);
+            snd.load(); 
         });
     });
     document.removeEventListener("click", unlockAudio);
@@ -56,31 +60,26 @@ function unlockAudio() {
 }
 document.addEventListener("click", unlockAudio);
 document.addEventListener("touchstart", unlockAudio);
+
 let moltiplicatori = {
     easy: moltiplicatoriFacile,
     medium: moltiplicatoriMedio,
     hard: moltiplicatoriDifficile
 };
-
 const tappeMassime = {
     easy: 10,
     medium: 15,
     hard: 20
 };
-// Riproduce un effetto sonoro se l'audio è attivo
 function playSound(sound) {
     if (audioOn && sound) {
-        // Forza il caricamento se il browser lo ha messo in "sleep"
-        if (sound.paused) {
-            sound.play().catch(() => {
-                // Se fallisce (tipico su mobile), lo carichiamo e riproviamo
-                sound.load();
-                sound.play().catch(e => console.log("Audio ancora bloccato:", e));
-            });
-        } else {
-            sound.currentTime = 0;
-            sound.play();
-        }
+        sound.pause();
+        sound.currentTime = 0;
+        sound.play().catch(e => {
+            console.error("Errore riproduzione mobile:", e);
+            sound.load();
+            sound.play().catch(() => {});
+        });
     }
 }
 //bottoni per cronologia  e mutare i suoni
@@ -95,14 +94,18 @@ window.addEventListener("DOMContentLoaded", () => {
         event.stopPropagation();
         audioOn = !audioOn;
         soundToggle.textContent = audioOn ? "🔊" : "🔇";
-        localStorage.setItem("audioOn", audioOn); // Salva la scelta
+        localStorage.setItem("audioOn", audioOn.toString());// Salva la scelta
         if (!audioOn) {
             backgroundMusic.pause();
         } else {
+           backgroundMusic.play().catch(e => {
+            console.log("Riproduzione bloccata, riprovo col caricamento...");
+            backgroundMusic.load();
             backgroundMusic.play().catch(() => {});
-        }
-    });
+        });
+    }
 });
+    });
 function preloadCardImages() {
 const suits = ["C", "P", "F", "Q"]; // semi
 for (let i = 1; i <= 10; i++) {     // valori 1-10
