@@ -903,7 +903,9 @@ return btn;
 }
 //Schermata vittoria
 function showVictoryScreen(vincitaTotale) {
-    playSound(soundWin);
+    // 1. GESTIONE AUDIO (Rispetta il tasto Mute)
+    playSound(soundWin); 
+
     document.body.style.overflow = "hidden";
     document.getElementById("gameArea").style.display = "none";
     gameSetup.classList.add("hidden");
@@ -917,14 +919,14 @@ function showVictoryScreen(vincitaTotale) {
     
     if (window.innerWidth <= 768) { container.style.backgroundSize = "contain"; }
 
-  // --- 👑 CREAZIONE CORONA MAESTOSA (EMOJI GIGANTE) ---
+    // --- 👑 CORONA ---
     const corona = document.createElement("div");
     corona.textContent = "👑";
-    corona.className = "corona-vittoria-grande"; // Usa la classe CSS con font-size 10rem e bagliore
+    corona.className = "corona-vittoria-grande"; 
     corona.style.position = "relative";
-    corona.style.zIndex = "10002"; // Il punto più alto dello schermo
+    corona.style.zIndex = "10002"; 
 
-    // --- 🏆 TITOLO VITTORIA PULITO (Color Crema) ---
+    // --- 🏆 TITOLO ---
     const title = document.createElement("h1");
     let titleText = (translate("victoryTitle") || "VITTORIA").replace(/🎆/g, '').trim();
     title.textContent = titleText.toUpperCase();
@@ -937,17 +939,23 @@ function showVictoryScreen(vincitaTotale) {
 
     if (window.innerWidth <= 768) { title.style.fontSize = "3.5rem"; }
 
-    // --- 💰 TESTO VINCITA ---
-const prize = document.createElement("p");
+    // --- 💰 TESTO VINCITA (SISTEMATO PER EVITARE NaN) ---
+    const prize = document.createElement("p");
     const winText = translate("victoryWin") || "Hai vinto €{amount}!";
-    prize.textContent = winText.replace("{amount}", Number(vincitaTotale).toFixed(2));
+    
+    // TRUCCO: Se Number(vincitaTotale) non è un numero valido, usa 0
+    const valoreSicuro = (Number(vincitaTotale) || 0).toFixed(2);
+    
+    prize.textContent = winText.replace("{amount}", valoreSicuro);
     prize.style = "font-size: 2rem; color: white; font-weight: bold; margin-bottom: 25px; text-shadow: 2px 2px 5px black; position: relative; z-index: 10002;";
     
+    // --- 🔁 BOTTONE RICOMINCIA ---
     const restartBtn = document.createElement("button");
     restartBtn.textContent = translate("restart") || "🔁 Ricomincia";
     restartBtn.style = "font-size:1.5rem; padding:10px 20px; background:#28a745; color:white; border:none; border-radius:10px; cursor:pointer;z-index:10002;";
     restartBtn.onclick = () => { playSound(soundClick); location.reload(); };
-    // Appendi in ordine: Corona -> Titolo -> Premio -> Bottone
+
+    // Appendi tutto
     container.appendChild(corona);
     container.appendChild(title);
     container.appendChild(prize);
@@ -955,19 +963,16 @@ const prize = document.createElement("p");
     overlay.appendChild(container);
     document.body.appendChild(overlay);
 
-   // --- 🎉 NUOVA PIOGGIA DI CORIANDOLI (Sostituisce i brillantini) ---
+    // --- 🎉 PIOGGIA DI CORIANDOLI ---
     const confettiColors = ["#FFD700", "#FFFDD0", "#FF4500", "#33CCFF"]; 
     for (let i = 0; i < 60; i++) { 
         const confetti = document.createElement("div");
-        confetti.className = "confetti"; // Usa la classe CSS che abbiamo scritto
-        // Posizione casuale
+        confetti.className = "confetti"; 
         confetti.style.left = Math.random() * 100 + "vw";
         confetti.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
-        // Dimensioni casuali per realismo
         const size = Math.random() * 12 + 6 + "px"; 
         confetti.style.width = size;
         confetti.style.height = size;
-        // Ritardo e velocità casuali per non farli cadere tutti insieme
         confetti.style.animationDelay = Math.random() * 4 + "s";
         confetti.style.animationDuration = Math.random() * 2 + 3 + "s"; 
         document.body.appendChild(confetti);
