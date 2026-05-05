@@ -872,6 +872,7 @@ const result = checkFn(drawnCard);
 if (result) {
 correctCount++;
 correctStreak++;
+tappe++;
 updateScore();
 playSound(soundCorrect);
 if (tappe === tappeMassime[currentLevel]) {
@@ -881,13 +882,11 @@ const totale = calcolaGuadagno(correctCount);
                         finalizeHistorySession("Vinto", totale);
                         showVictoryScreen(totale);
 } else {
-tappe++;
 if (correctStreak === 3) {
 correctStreak = 0;
 showMinigiocoJolly();
 }
 }
-
 } else {
 correctStreak = 0;
 errorCount++;
