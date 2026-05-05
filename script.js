@@ -903,7 +903,7 @@ return btn;
 }
 //Schermata vittoria
 function showVictoryScreen(vincitaTotale) {
-    soundWin.play();
+    playSound(soundWin);
     document.body.style.overflow = "hidden";
     document.getElementById("gameArea").style.display = "none";
     gameSetup.classList.add("hidden");
