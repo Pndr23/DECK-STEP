@@ -31,7 +31,7 @@ const soundMultiplier = new Audio('multiplier.mp3');
 const backgroundMusic = new Audio('background.mp3');
 backgroundMusic.loop = true;
 backgroundMusic.volume = 0.5;
-let audioOn = localStorage.getItem("audioOn") !== "false";
+let audioOn = localStorage.getItem("audioOn") === null || localStorage.getItem("audioOn") === "true";
 // Sblocca i suoni e la musica al primo click/tap (necessario per policy browser)
 function unlockAudio() {
 const sounds = [
