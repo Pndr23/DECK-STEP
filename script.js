@@ -1020,6 +1020,7 @@ function updateLanguage() {
     const historyTitle = document.getElementById("historyTitle");
     if (historyTitle) {
         historyTitle.textContent = translate("historyTitle");
+        }
 
     const riskSelect = document.getElementById("risk");
     if (riskSelect) {
