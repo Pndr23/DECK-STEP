@@ -1017,9 +1017,9 @@ function updateLanguage() {
     if (betLabel) betLabel.textContent = translate("bet");
     const riskLabel = document.getElementById("riskLabel");
     if (riskLabel) riskLabel.textContent = translate("risk");
-    const hTitle = document.getElementById("historyTitle");
-    if (hTitle) {
-        hTitle.textContent = translate("historyTitle");
+    const historyTitle = document.getElementById("historyTitle");
+    if (historyTitle) {
+        historyTitle.textContent = translate("historyTitle");
 
     const riskSelect = document.getElementById("risk");
     if (riskSelect) {
