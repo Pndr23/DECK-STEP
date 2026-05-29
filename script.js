@@ -938,14 +938,12 @@ function showVictoryScreen(vincitaTotale) {
 
     // --- 💰 TESTO VINCITA (SISTEMATO PER EVITARE NaN) ---
     const prize = document.createElement("p");
-    const winText = translate("victoryWin") || "Hai vinto €{amount}!";
-    
-    // TRUCCO: Se Number(vincitaTotale) non è un numero valido, usa 0
-    const valoreSicuro = (Number(vincitaTotale) || 0).toFixed(2);
-    
-    prize.textContent = winText.replace("{amount}", valoreSicuro);
-    prize.style = "font-size: 2rem; color: white; font-weight: bold; margin-bottom: 25px; text-shadow: 2px 2px 5px black; position: relative; z-index: 10002;";
-    
+    const winText = translate("victoryWin") || "Hai vinto {amount}";
+prize.textContent = winText.replace("{amount}", vincitaTotale);
+prize.style.fontSize = "1.5rem";
+prize.style.color = "white";
+prize.style.marginBottom = "25px";
+
     // --- 🔁 BOTTONE RICOMINCIA ---
     const restartBtn = document.createElement("button");
     restartBtn.textContent = translate("restart") || "🔁 Ricomincia";
