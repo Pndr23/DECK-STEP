@@ -34,78 +34,59 @@ backgroundMusic.volume = 0.5;
 let audioOn = localStorage.getItem("audioOn") === null || localStorage.getItem("audioOn") === "true";
 // Sblocca i suoni e la musica al primo click/tap (necessario per policy browser)
 function unlockAudio() {
-    const sounds = [
-        soundWithdraw, soundWin, soundLose,
-        soundCorrect, soundWrong, soundFlip,
-        soundMinigame, soundJolly, soundMultiplier,
-        backgroundMusic 
-    ];
-    sounds.forEach(snd => {
-        if (!snd) return;
-        // Tecnica del volume minimo per ingannare le restrizioni mobile
-        const originalVol = snd.volume;
-        snd.volume = 0.01; 
-        
-        snd.play().then(() => {
-            snd.pause();
-            snd.currentTime = 0;
-            snd.volume = originalVol; // Ripristina volume
-        }).catch(e => {
-            console.warn("Audio sbloccato tramite fallback per:", snd.src);
-            snd.load(); 
-        });
-    });
-    document.removeEventListener("click", unlockAudio);
-    document.removeEventListener("touchstart", unlockAudio);
+const sounds = [
+soundWithdraw, soundWin, soundLose,
+soundCorrect, soundWrong, soundFlip,
+soundMinigame, soundJolly, soundMultiplier
+];
+// Precarica i suoni normali
+sounds.forEach(snd => {
+snd.play().then(() => {
+snd.pause();
+snd.currentTime = 0;
+}).catch(() => {});
+});
+// Rimuove i listener dopo il primo sblocco
+document.removeEventListener("click", unlockAudio);
+document.removeEventListener("touchstart", unlockAudio);
 }
 document.addEventListener("click", unlockAudio);
 document.addEventListener("touchstart", unlockAudio);
-
 let moltiplicatori = {
-    easy: moltiplicatoriFacile,
-    medium: moltiplicatoriMedio,
-    hard: moltiplicatoriDifficile
+easy: moltiplicatoriFacile,
+medium: moltiplicatoriMedio,
+hard: moltiplicatoriDifficile
 };
 const tappeMassime = {
-    easy: 10,
-    medium: 15,
-    hard: 20
+easy: 10,
+medium: 15,
+hard: 20
 };
+// Riproduce un effetto sonoro se l'audio è attivo
 function playSound(sound) {
-    if (audioOn && sound) {
-        sound.pause();
-        sound.currentTime = 0;
-        sound.play().catch(e => {
-            console.error("Errore riproduzione mobile:", e);
-            sound.load();
-            sound.play().catch(() => {});
-        });
-    }
+if (audioOn) {
+sound.currentTime = 0;
+sound.play();
+}
 }
 //bottoni per cronologia  e mutare i suoni
 window.addEventListener("DOMContentLoaded", () => {
-    const soundToggle = document.getElementById("soundToggle");
-    if (!soundToggle) return;
-    soundToggle.textContent = audioOn ? "🔊" : "🔇";
-    if (!audioOn && backgroundMusic) {
-        backgroundMusic.pause();
-    }
-    soundToggle.addEventListener("click", (event) => {
-        event.stopPropagation();
-        audioOn = !audioOn;
-        soundToggle.textContent = audioOn ? "🔊" : "🔇";
-        localStorage.setItem("audioOn", audioOn.toString());// Salva la scelta
-        if (!audioOn) {
-            backgroundMusic.pause();
-        } else {
-           backgroundMusic.play().catch(e => {
-            console.log("Riproduzione bloccata, riprovo col caricamento...");
-            backgroundMusic.load();
-            backgroundMusic.play().catch(() => {});
-        });
-    }
+const soundToggle = document.getElementById("soundToggle");
+if (!soundToggle) return;
+soundToggle.textContent = audioOn ? "🔊" : "🔇";
+soundToggle.addEventListener("click", (event) => {
+event.stopPropagation();
+audioOn = !audioOn;
+soundToggle.textContent = audioOn ? "🔊" : "🔇";
+localStorage.setItem("audioOn", audioOn);
+if (!audioOn) {
+backgroundMusic.pause();
+} else {
+backgroundMusic.play().catch(() => {});
+}
 });
-    });
+});
+
 function preloadCardImages() {
 const suits = ["C", "P", "F", "Q"]; // semi
 for (let i = 1; i <= 10; i++) {     // valori 1-10
