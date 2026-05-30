@@ -858,10 +858,10 @@ updateScore();
 playSound(soundCorrect);
 if (tappe === tappeMassime[currentLevel]) {
 gameEnded = true;
-const totale = calcolaGuadagno(correctCount); 
-                        logHistoryEvent(`Vittoria finale: €${totale.toFixed(2)}`);
-                        finalizeHistorySession("Vinto", totale);
-                        showVictoryScreen(totale);
+    const totale = calcolaGuadagno(correctCount);
+    logHistoryEvent(`Vittoria finale: €${totale.toFixed(2)}`);
+    finalizeHistorySession("Vinto", totale);
+    showVictoryScreen(totale);
 } else {
 if (correctStreak === 3) {
 correctStreak = 0;
