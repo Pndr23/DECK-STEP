@@ -429,14 +429,6 @@ restartBtn.addEventListener("click", () => {
 gameSetup.classList.remove("hidden");
 gameArea.classList.add("hidden");
 });
-useJollyBtn.addEventListener("click", () => {
-if (jollyCount > 0 && errorCount > 0) {
-jollyCount--;
-errorCount--;
-updateScore();
-updateJollyDisplay();
-}
-});
 languageSelect.addEventListener("change", () => {
 currentLanguage = languageSelect.value;
 updateLanguage();
@@ -563,6 +555,30 @@ function updateJollyDisplay() {
         jollyBtn.style.display = "none";
     }
 }
+let isJollyProcessing = false;
+
+document.getElementById("useJollyBtn").addEventListener("click", () => {
+    if (isJollyProcessing) return;
+
+    if (jollyCount > 0 && errorCount > 0) {
+        isJollyProcessing = true;
+        
+        jollyCount--;
+        errorCount--;
+        updateScore();
+        updateJollyDisplay();
+        playSound(soundJolly);
+        
+        console.log("Jolly usato correttamente.");
+        
+        setTimeout(() => {
+            isJollyProcessing = false;
+        }, 500);
+    } else if (jollyCount > 0 && errorCount === 0) {
+        alert(currentLanguage === "it" ? "Non hai errori da correggere!" : "No errors to fix!");
+    }
+});
+
 function updateScore() {
     document.getElementById("correctCount").textContent = correctCount;
     document.getElementById("errorCount").textContent = errorCount;
@@ -974,18 +990,20 @@ prize.style.marginBottom = "25px";
     }
 }
 function tryAutoJolly(maxErrors) {
-if (jollyFromMinigioco) {
-jollyFromMinigioco = false;
-return;
-}
-if (jollyCount > 0 && errorCount >= maxErrors) {
-jollyCount--;
-errorCount--;
-updateJollyDisplay();
-alert("Jolly usato automaticamente!");
-updateScore();
-logHistoryEvent("Jolly usato automaticamente!");
-}
+    if (jollyFromMinigioco) {
+        jollyFromMinigioco = false;
+        return;
+    }
+    if (jollyCount > 0 && errorCount >= maxErrors) {
+        
+        jollyCount--;
+        errorCount--;
+        updateJollyDisplay(); 
+        updateScore();
+        logHistoryEvent("Jolly usato automaticamente!");
+        alert(currentLanguage === "it" ? "Jolly usato automaticamente!" : "Jolly used automatically!");
+        playSound(soundJolly);
+    }
 }
 function aggiornaGuadagno(corretti) {
     const label = document.getElementById("gainLabel");
@@ -1275,19 +1293,7 @@ document.addEventListener("DOMContentLoaded", () => {
             resetGame();
         };
     }
-document.getElementById("useJollyBtn").onclick = () => {
-    if (jollyCount > 0 && errorCount > 0) {
-        jollyCount--;     
-        errorCount--;     
-        updateScore();         
-        updateJollyDisplay();  
-        
-        console.log("Jolly usato: ne rimane", jollyCount, "e restano", errorCount, "errori.");
-    } 
-    else if (jollyCount > 0 && errorCount === 0) {
-        alert(currentLanguage === "it" ? "Non hai errori da correggere!" : "No errors to fix!");
-    }
-}
+
     const gameArea = document.getElementById("gameArea");
     gameArea.style.transform = "scale(0.90)";
     gameArea.style.transformOrigin = "top center";
