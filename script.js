@@ -1227,10 +1227,10 @@ function calcolaGuadagno(corretti) {
     const mB = moltiplicatoreBonusMinigioco; 
     const livello = currentLevel;
     const arrayLivello = moltiplicatori[livello];
-    const mT = arrayLivello[corretti - 1];
-    let risultato = p * (mT + (mB - 1));
-    return risultato; 
-}
+    const mT = arrayLivello[corretti - 1] || 1;
+    let risultato = p * mT * mB; 
+    return risultato;
+    }
 function restoreMusicState() {
 const savedTime = parseFloat(localStorage.getItem("musicTime") || "0");
 const wasPlaying = localStorage.getItem("musicPlaying") === "true";
