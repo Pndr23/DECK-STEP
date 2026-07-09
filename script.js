@@ -326,7 +326,7 @@ function showMinigiocoJolly(callback) {
             } else if (el.dataset.type === "moltiplicatore") {
                 playSound(soundMultiplier);
                const val = parseInt(el.dataset.value);
-               moltiplicatoreBonusMinigioco += val; 
+               moltiplicatoreBonusMinigioco *= val; 
     updateScore();
      aggiornaGuadagno(correctCount);
     if (messaggioEl) {
