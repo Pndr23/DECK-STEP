@@ -1014,7 +1014,7 @@ function aggiornaGuadagno(corretti) {
     }
     const moltiplicatoriLivello = moltiplicatori[currentLevel];
     let moltiplicatoreTappa = moltiplicatoriLivello[corretti - 1];
-    let guadagnoTotale = puntataIniziale * moltiplicatoreTappa * moltiplicatoreBonusMinigioco;
+   let guadagnoTotale = puntataIniziale * moltiplicatoreTappa * moltiplicatoreBonusMinigioco;
     label.textContent = "+€" + guadagnoTotale.toFixed(2);
 }
 function updateLanguage() {
