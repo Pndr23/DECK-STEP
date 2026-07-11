@@ -953,9 +953,9 @@ function showVictoryScreen(vincitaTotale) {
     if (window.innerWidth <= 768) { title.style.fontSize = "3.5rem"; }
 
     // --- 💰 TESTO VINCITA (SISTEMATO PER EVITARE NaN) ---
-    const prize = document.createElement("p");
-    const winText = translate("victoryWin") || "Hai vinto {amount}";
-prize.textContent = winText.replace("{amount}", vincitaTotale);
+ const prize = document.createElement("p");
+const winText = translate("victoryWin") || "Hai vinto: €{amount}"; 
+prize.textContent = winText.replace("{amount}", vincitaTotale.toFixed(2));
 prize.style.fontSize = "1.5rem";
 prize.style.color = "white";
 prize.style.marginBottom = "25px";
